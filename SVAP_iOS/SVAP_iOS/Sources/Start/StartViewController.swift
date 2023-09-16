@@ -11,6 +11,7 @@ class StartViewController: BaseVC {
     private let signupButton = CustomButton(type: .system, title: "회원가입", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white).then {
         $0.layer.borderColor = UIColor(named: "main-6")?.cgColor
         $0.layer.borderWidth = 1
+        $0.addTarget(self, action: #selector(moveUserSignupView), for: .touchUpInside)
     }
     private let signupStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -27,6 +28,7 @@ class StartViewController: BaseVC {
         $0.setTitle("관리자용 회원가입", for: .normal)
         $0.setTitleColor(UIColor(named: "main-1"), for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Regular", size: 12)
+        $0.addTarget(self, action: #selector(moveAdminSignupView), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
@@ -64,5 +66,11 @@ class StartViewController: BaseVC {
     
     @objc func moveLoginView() {
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
+    }
+    @objc func moveUserSignupView() {
+        self.navigationController?.pushViewController(UserIdViewController(), animated: true)
+    }
+    @objc func moveAdminSignupView() {
+        self.navigationController?.pushViewController(AdminIdViewController(), animated: true)
     }
 }
