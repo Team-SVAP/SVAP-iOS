@@ -15,6 +15,7 @@
 		882E632D2AB5FACF00BFE332 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 882E632C2AB5FACF00BFE332 /* Moya */; };
 		882E63302AB5FADE00BFE332 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 882E632F2AB5FADE00BFE332 /* SnapKit */; };
 		882E63332AB5FAF100BFE332 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 882E63322AB5FAF100BFE332 /* Then */; };
+		882E633A2AB5FBD300BFE332 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63392AB5FBD300BFE332 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		882E631D2AB5FA2800BFE332 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		882E63202AB5FA2800BFE332 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		882E63222AB5FA2800BFE332 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		882E63392AB5FBD300BFE332 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 		882E63372AB5FB5B00BFE332 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				882E63392AB5FBD300BFE332 /* LoginViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -191,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				882E633A2AB5FBD300BFE332 /* LoginViewController.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 			);
