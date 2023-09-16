@@ -27,8 +27,9 @@
 		882E63562AB606E000BFE332 /* IBMPlexSansKR-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E634E2AB606E000BFE332 /* IBMPlexSansKR-Light.ttf */; };
 		882E63572AB606E000BFE332 /* IBMPlexSansKR-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E634F2AB606E000BFE332 /* IBMPlexSansKR-Thin.ttf */; };
 		882E63582AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E63502AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf */; };
-		882E635A2AB6169A00BFE332 /* IdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63592AB6169A00BFE332 /* IdViewController.swift */; };
+		882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63592AB6169A00BFE332 /* UserIdViewController.swift */; };
 		882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E635B2AB6172800BFE332 /* CustomTextField.swift */; };
+		882E635F2AB61CF400BFE332 /* AdminIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E635E2AB61CF400BFE332 /* AdminIdViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,8 +51,9 @@
 		882E634E2AB606E000BFE332 /* IBMPlexSansKR-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Light.ttf"; sourceTree = "<group>"; };
 		882E634F2AB606E000BFE332 /* IBMPlexSansKR-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Thin.ttf"; sourceTree = "<group>"; };
 		882E63502AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Bold.ttf"; sourceTree = "<group>"; };
-		882E63592AB6169A00BFE332 /* IdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdViewController.swift; sourceTree = "<group>"; };
+		882E63592AB6169A00BFE332 /* UserIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdViewController.swift; sourceTree = "<group>"; };
 		882E635B2AB6172800BFE332 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		882E635E2AB61CF400BFE332 /* AdminIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminIdViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +124,8 @@
 			isa = PBXGroup;
 			children = (
 				882E63372AB5FB5B00BFE332 /* Login */,
-				882E63382AB5FB5F00BFE332 /* Signup */,
+				882E63382AB5FB5F00BFE332 /* UserSignup */,
+				882E635D2AB61CC600BFE332 /* AdminSignup */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -135,12 +138,12 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
-		882E63382AB5FB5F00BFE332 /* Signup */ = {
+		882E63382AB5FB5F00BFE332 /* UserSignup */ = {
 			isa = PBXGroup;
 			children = (
-				882E63592AB6169A00BFE332 /* IdViewController.swift */,
+				882E63592AB6169A00BFE332 /* UserIdViewController.swift */,
 			);
-			path = Signup;
+			path = UserSignup;
 			sourceTree = "<group>";
 		};
 		882E633B2AB5FC1400BFE332 /* Base */ = {
@@ -181,6 +184,14 @@
 				882E63502AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf */,
 			);
 			path = IBM_Plex_Sans_KR;
+			sourceTree = "<group>";
+		};
+		882E635D2AB61CC600BFE332 /* AdminSignup */ = {
+			isa = PBXGroup;
+			children = (
+				882E635E2AB61CF400BFE332 /* AdminIdViewController.swift */,
+			);
+			path = AdminSignup;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,7 +291,8 @@
 				882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */,
 				882E633E2AB5FC3B00BFE332 /* BaseVC.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
-				882E635A2AB6169A00BFE332 /* IdViewController.swift in Sources */,
+				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
+				882E635F2AB61CF400BFE332 /* AdminIdViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
