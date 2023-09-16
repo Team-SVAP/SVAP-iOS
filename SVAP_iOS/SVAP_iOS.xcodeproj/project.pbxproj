@@ -17,6 +17,18 @@
 		882E63332AB5FAF100BFE332 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 882E63322AB5FAF100BFE332 /* Then */; };
 		882E633E2AB5FC3B00BFE332 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E633D2AB5FC3B00BFE332 /* BaseVC.swift */; };
 		882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E633F2AB5FF7F00BFE332 /* LoginViewController.swift */; };
+		882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63432AB6048F00BFE332 /* StartViewController.swift */; };
+		882E63472AB6054700BFE332 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63462AB6054700BFE332 /* CustomButton.swift */; };
+		882E63512AB606E000BFE332 /* IBMPlexSansKR-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E63492AB606E000BFE332 /* IBMPlexSansKR-ExtraLight.ttf */; };
+		882E63522AB606E000BFE332 /* IBMPlexSansKR-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E634A2AB606E000BFE332 /* IBMPlexSansKR-Regular.ttf */; };
+		882E63532AB606E000BFE332 /* IBMPlexSansKR-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E634B2AB606E000BFE332 /* IBMPlexSansKR-SemiBold.ttf */; };
+		882E63542AB606E000BFE332 /* IBMPlexSansKR-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E634C2AB606E000BFE332 /* IBMPlexSansKR-Medium.ttf */; };
+		882E63552AB606E000BFE332 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 882E634D2AB606E000BFE332 /* OFL.txt */; };
+		882E63562AB606E000BFE332 /* IBMPlexSansKR-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E634E2AB606E000BFE332 /* IBMPlexSansKR-Light.ttf */; };
+		882E63572AB606E000BFE332 /* IBMPlexSansKR-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E634F2AB606E000BFE332 /* IBMPlexSansKR-Thin.ttf */; };
+		882E63582AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E63502AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf */; };
+		882E635A2AB6169A00BFE332 /* IdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63592AB6169A00BFE332 /* IdViewController.swift */; };
+		882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E635B2AB6172800BFE332 /* CustomTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +40,18 @@
 		882E63222AB5FA2800BFE332 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		882E633D2AB5FC3B00BFE332 /* BaseVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseVC.swift; sourceTree = "<group>"; };
 		882E633F2AB5FF7F00BFE332 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		882E63432AB6048F00BFE332 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		882E63462AB6054700BFE332 /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
+		882E63492AB606E000BFE332 /* IBMPlexSansKR-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-ExtraLight.ttf"; sourceTree = "<group>"; };
+		882E634A2AB606E000BFE332 /* IBMPlexSansKR-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Regular.ttf"; sourceTree = "<group>"; };
+		882E634B2AB606E000BFE332 /* IBMPlexSansKR-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-SemiBold.ttf"; sourceTree = "<group>"; };
+		882E634C2AB606E000BFE332 /* IBMPlexSansKR-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Medium.ttf"; sourceTree = "<group>"; };
+		882E634D2AB606E000BFE332 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		882E634E2AB606E000BFE332 /* IBMPlexSansKR-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Light.ttf"; sourceTree = "<group>"; };
+		882E634F2AB606E000BFE332 /* IBMPlexSansKR-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Thin.ttf"; sourceTree = "<group>"; };
+		882E63502AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Bold.ttf"; sourceTree = "<group>"; };
+		882E63592AB6169A00BFE332 /* IdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdViewController.swift; sourceTree = "<group>"; };
+		882E635B2AB6172800BFE332 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +98,7 @@
 		882E63342AB5FB0800BFE332 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				882E63482AB606E000BFE332 /* IBM_Plex_Sans_KR */,
 				882E63142AB5FA2700BFE332 /* AppDelegate.swift */,
 				882E63162AB5FA2700BFE332 /* SceneDelegate.swift */,
 				882E631D2AB5FA2800BFE332 /* Assets.xcassets */,
@@ -85,7 +110,9 @@
 		882E63352AB5FB4300BFE332 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				882E63452AB604DF00BFE332 /* Component */,
 				882E633B2AB5FC1400BFE332 /* Base */,
+				882E63422AB6048100BFE332 /* Start */,
 				882E63362AB5FB5600BFE332 /* Auth */,
 			);
 			path = Sources;
@@ -111,6 +138,7 @@
 		882E63382AB5FB5F00BFE332 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
+				882E63592AB6169A00BFE332 /* IdViewController.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -121,6 +149,38 @@
 				882E633D2AB5FC3B00BFE332 /* BaseVC.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		882E63422AB6048100BFE332 /* Start */ = {
+			isa = PBXGroup;
+			children = (
+				882E63432AB6048F00BFE332 /* StartViewController.swift */,
+			);
+			path = Start;
+			sourceTree = "<group>";
+		};
+		882E63452AB604DF00BFE332 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				882E63462AB6054700BFE332 /* CustomButton.swift */,
+				882E635B2AB6172800BFE332 /* CustomTextField.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		882E63482AB606E000BFE332 /* IBM_Plex_Sans_KR */ = {
+			isa = PBXGroup;
+			children = (
+				882E63492AB606E000BFE332 /* IBMPlexSansKR-ExtraLight.ttf */,
+				882E634A2AB606E000BFE332 /* IBMPlexSansKR-Regular.ttf */,
+				882E634B2AB606E000BFE332 /* IBMPlexSansKR-SemiBold.ttf */,
+				882E634C2AB606E000BFE332 /* IBMPlexSansKR-Medium.ttf */,
+				882E634D2AB606E000BFE332 /* OFL.txt */,
+				882E634E2AB606E000BFE332 /* IBMPlexSansKR-Light.ttf */,
+				882E634F2AB606E000BFE332 /* IBMPlexSansKR-Thin.ttf */,
+				882E63502AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf */,
+			);
+			path = IBM_Plex_Sans_KR;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,8 +253,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				882E63552AB606E000BFE332 /* OFL.txt in Resources */,
 				882E63212AB5FA2800BFE332 /* LaunchScreen.storyboard in Resources */,
+				882E63512AB606E000BFE332 /* IBMPlexSansKR-ExtraLight.ttf in Resources */,
+				882E63572AB606E000BFE332 /* IBMPlexSansKR-Thin.ttf in Resources */,
+				882E63562AB606E000BFE332 /* IBMPlexSansKR-Light.ttf in Resources */,
 				882E631E2AB5FA2800BFE332 /* Assets.xcassets in Resources */,
+				882E63542AB606E000BFE332 /* IBMPlexSansKR-Medium.ttf in Resources */,
+				882E63582AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf in Resources */,
+				882E63522AB606E000BFE332 /* IBMPlexSansKR-Regular.ttf in Resources */,
+				882E63532AB606E000BFE332 /* IBMPlexSansKR-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,10 +273,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */,
 				882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */,
+				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
+				882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */,
 				882E633E2AB5FC3B00BFE332 /* BaseVC.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
+				882E635A2AB6169A00BFE332 /* IdViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
