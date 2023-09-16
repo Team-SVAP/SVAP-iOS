@@ -7,9 +7,15 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+class LoginViewController: BaseVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    override func configureUI() {
+        super.configureUI()
+    }
+    override func setConstraints() {
+        super.setConstraints()
     }
 }
