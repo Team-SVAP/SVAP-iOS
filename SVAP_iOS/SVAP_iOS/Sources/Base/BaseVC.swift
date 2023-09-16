@@ -13,6 +13,9 @@ class BaseVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
     }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
     override func viewWillLayoutSubviews() {
         configureUI()
         setConstraints()
