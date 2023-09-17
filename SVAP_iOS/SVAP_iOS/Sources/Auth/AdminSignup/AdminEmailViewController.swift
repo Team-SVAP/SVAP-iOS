@@ -2,7 +2,7 @@ import UIKit
 import SnapKit
 import Then
 
-class AdminIdViewController: BaseVC {
+class AdminEmailViewController: BaseVC {
     
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
     private let signupLabel = UILabel().then {
@@ -11,19 +11,19 @@ class AdminIdViewController: BaseVC {
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
     private let progressLabel = UILabel().then {
-        $0.text = "2/5"
+        $0.text = "5/5"
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let idTextField = CustomTextField(placeholder: "아이디 (영문 8자 이하)", isSecure: false)
+    private let emailTextField = CustomTextField(placeholder: "이메일", isSecure: false)
     private let buttonStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .center
         $0.backgroundColor = .clear
         $0.spacing = 4
     }
-    private let nextButton = CustomButton(type: .system, title: "다음", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
-        $0.addTarget(self, action: #selector(moveNetxView), for: .touchUpInside)
+    private let signupButton = CustomButton(type: .system, title: "다음", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
+        $0.addTarget(self, action: #selector(clickSignup), for: .touchUpInside)
     }
     private let loginStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -49,12 +49,12 @@ class AdminIdViewController: BaseVC {
             logoImage,
             signupLabel,
             progressLabel,
-            idTextField,
+            emailTextField,
             loginStackView,
             buttonStackView
         ].forEach({ view.addSubview($0) })
         [loginLabel, loginButton].forEach({ loginStackView.addArrangedSubview($0) })
-        [nextButton, loginStackView].forEach({ buttonStackView.addArrangedSubview($0) })
+        [signupButton, loginStackView].forEach({ buttonStackView.addArrangedSubview($0) })
     }
     override func setConstraints() {
         logoImage.snp.makeConstraints {
@@ -71,11 +71,11 @@ class AdminIdViewController: BaseVC {
             $0.top.equalTo(logoImage.snp.bottom).offset(73)
             $0.right.equalToSuperview().inset(45)
         }
-        idTextField.snp.makeConstraints {
+        emailTextField.snp.makeConstraints {
             $0.top.equalTo(signupLabel.snp.bottom).offset(16)
             $0.left.right.equalToSuperview().inset(45)
         }
-        nextButton.snp.makeConstraints {
+        signupButton.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(50)
         }
@@ -107,10 +107,11 @@ class AdminIdViewController: BaseVC {
             self.buttonStackView.transform = .identity
         }
     }
-    @objc private func moveNetxView() {
-        self.navigationController?.pushViewController(AdminPasswordViewController(), animated: true)
+    @objc private func clickSignup() {
+        self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
     @objc func moveLoginView() {
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
+
 }
