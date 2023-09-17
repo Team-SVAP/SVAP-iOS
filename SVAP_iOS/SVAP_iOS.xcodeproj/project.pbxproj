@@ -30,6 +30,8 @@
 		882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63592AB6169A00BFE332 /* UserIdViewController.swift */; };
 		882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E635B2AB6172800BFE332 /* CustomTextField.swift */; };
 		882E635F2AB61CF400BFE332 /* AdminIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E635E2AB61CF400BFE332 /* AdminIdViewController.swift */; };
+		882E63622AB697A600BFE332 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 882E63612AB697A600BFE332 /* Kingfisher */; };
+		882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63632AB69D2300BFE332 /* LabelButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,7 @@
 		882E63592AB6169A00BFE332 /* UserIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdViewController.swift; sourceTree = "<group>"; };
 		882E635B2AB6172800BFE332 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		882E635E2AB61CF400BFE332 /* AdminIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminIdViewController.swift; sourceTree = "<group>"; };
+		882E63632AB69D2300BFE332 /* LabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +68,7 @@
 				882E632D2AB5FACF00BFE332 /* Moya in Frameworks */,
 				882E632A2AB5FABE00BFE332 /* SwiftKeychainWrapper in Frameworks */,
 				882E63332AB5FAF100BFE332 /* Then in Frameworks */,
+				882E63622AB697A600BFE332 /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +171,7 @@
 			children = (
 				882E63462AB6054700BFE332 /* CustomButton.swift */,
 				882E635B2AB6172800BFE332 /* CustomTextField.swift */,
+				882E63632AB69D2300BFE332 /* LabelButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 				882E632C2AB5FACF00BFE332 /* Moya */,
 				882E632F2AB5FADE00BFE332 /* SnapKit */,
 				882E63322AB5FAF100BFE332 /* Then */,
+				882E63612AB697A600BFE332 /* Kingfisher */,
 			);
 			productName = SVAP_iOS;
 			productReference = 882E63112AB5FA2700BFE332 /* SVAP_iOS.app */;
@@ -249,6 +255,7 @@
 				882E632B2AB5FACF00BFE332 /* XCRemoteSwiftPackageReference "Moya" */,
 				882E632E2AB5FADE00BFE332 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				882E63312AB5FAF100BFE332 /* XCRemoteSwiftPackageReference "Then" */,
+				882E63602AB697A600BFE332 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 882E63122AB5FA2700BFE332 /* Products */;
 			projectDirPath = "";
@@ -290,6 +297,7 @@
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
 				882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */,
 				882E633E2AB5FC3B00BFE332 /* BaseVC.swift in Sources */,
+				882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
 				882E635F2AB61CF400BFE332 /* AdminIdViewController.swift in Sources */,
@@ -534,6 +542,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		882E63602AB697A600BFE332 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -556,6 +572,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 882E63312AB5FAF100BFE332 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		882E63612AB697A600BFE332 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 882E63602AB697A600BFE332 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
