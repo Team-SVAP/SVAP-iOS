@@ -32,6 +32,7 @@
 		882E635F2AB61CF400BFE332 /* AdminIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E635E2AB61CF400BFE332 /* AdminIdViewController.swift */; };
 		882E63622AB697A600BFE332 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 882E63612AB697A600BFE332 /* Kingfisher */; };
 		882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63632AB69D2300BFE332 /* LabelButton.swift */; };
+		882E63662AB7081000BFE332 /* UserPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63652AB7081000BFE332 /* UserPasswordViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		882E635B2AB6172800BFE332 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		882E635E2AB61CF400BFE332 /* AdminIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminIdViewController.swift; sourceTree = "<group>"; };
 		882E63632AB69D2300BFE332 /* LabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelButton.swift; sourceTree = "<group>"; };
+		882E63652AB7081000BFE332 /* UserPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPasswordViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				882E63592AB6169A00BFE332 /* UserIdViewController.swift */,
+				882E63652AB7081000BFE332 /* UserPasswordViewController.swift */,
 			);
 			path = UserSignup;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
 				882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */,
 				882E633E2AB5FC3B00BFE332 /* BaseVC.swift in Sources */,
+				882E63662AB7081000BFE332 /* UserPasswordViewController.swift in Sources */,
 				882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
