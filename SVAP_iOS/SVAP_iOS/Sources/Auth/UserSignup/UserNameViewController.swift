@@ -2,7 +2,7 @@ import UIKit
 import SnapKit
 import Then
 
-class UserPasswordViewController: BaseVC {
+class UserNameViewController: BaseVC {
     
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
     private let signupLabel = UILabel().then {
@@ -11,12 +11,11 @@ class UserPasswordViewController: BaseVC {
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
     private let progressLabel = UILabel().then {
-        $0.text = "2/4"
+        $0.text = "3/4"
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let passwordTextField = CustomTextField(placeholder: "비밀번호 (영문 + 숫자 8자 이상)", isSecure: true)
-    private let passwordValidTextField = CustomTextField(placeholder: "비밀번호 확인", isSecure: true)
+    private let nameTextField = CustomTextField(placeholder: "이름", isSecure: false)
     private let buttonStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .center
@@ -50,8 +49,7 @@ class UserPasswordViewController: BaseVC {
             logoImage,
             signupLabel,
             progressLabel,
-            passwordTextField,
-            passwordValidTextField,
+            nameTextField,
             loginStackView,
             buttonStackView
         ].forEach({ view.addSubview($0) })
@@ -73,12 +71,8 @@ class UserPasswordViewController: BaseVC {
             $0.top.equalTo(logoImage.snp.bottom).offset(73)
             $0.right.equalToSuperview().inset(45)
         }
-        passwordTextField.snp.makeConstraints {
+        nameTextField.snp.makeConstraints {
             $0.top.equalTo(signupLabel.snp.bottom).offset(16)
-            $0.left.right.equalToSuperview().inset(45)
-        }
-        passwordValidTextField.snp.makeConstraints {
-            $0.top.equalTo(passwordTextField.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(45)
         }
         nextButton.snp.makeConstraints {
@@ -114,9 +108,10 @@ class UserPasswordViewController: BaseVC {
         }
     }
     @objc private func moveNetxView() {
-        self.navigationController?.pushViewController(UserNameViewController(), animated: true)
+        self.navigationController?.pushViewController(UserEmailViewController(), animated: true)
     }
     @objc func moveLoginView() {
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
+
 }
