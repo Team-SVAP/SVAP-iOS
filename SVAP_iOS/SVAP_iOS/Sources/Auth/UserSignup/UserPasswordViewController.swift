@@ -4,6 +4,8 @@ import Then
 
 class UserPasswordViewController: BaseVC {
     
+    private var eyeButton = UIButton(type: .custom)
+    private var checkEyeButton = UIButton(type: .custom)
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
     private let signupLabel = UILabel().then {
         $0.text = "회원가입"
@@ -44,6 +46,8 @@ class UserPasswordViewController: BaseVC {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
         setupKeyboardObservers()
+        showPasswordButton()
+        showPasswordCheckButton()
     }
     override func configureUI() {
         [
@@ -76,10 +80,12 @@ class UserPasswordViewController: BaseVC {
         passwordTextField.snp.makeConstraints {
             $0.top.equalTo(signupLabel.snp.bottom).offset(16)
             $0.left.right.equalToSuperview().inset(45)
+            $0.height.equalTo(50)
         }
         passwordValidTextField.snp.makeConstraints {
             $0.top.equalTo(passwordTextField.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(45)
+            $0.height.equalTo(50)
         }
         nextButton.snp.makeConstraints {
             $0.left.right.equalToSuperview()
@@ -90,6 +96,45 @@ class UserPasswordViewController: BaseVC {
             $0.left.right.equalToSuperview().inset(45)
         }
         
+    }
+    
+    @objc private func moveNetxView() {
+        self.navigationController?.pushViewController(UserNameViewController(), animated: true)
+    }
+    @objc func moveLoginView() {
+        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+    }
+}
+
+extension UserPasswordViewController {
+    
+    private func showPasswordButton() {
+        eyeButton = UIButton.init (primaryAction: UIAction (handler: { [self]_ in
+            passwordTextField.isSecureTextEntry.toggle()
+            self.eyeButton.isSelected.toggle()
+        }))
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.imagePadding = 10
+        buttonConfiguration.baseBackgroundColor = .clear
+        eyeButton.setImage (UIImage (named: "closeEye"), for: .normal)
+        self.eyeButton.setImage(UIImage (named: "openEye"), for: .selected)
+        self.eyeButton.configuration = buttonConfiguration
+        self.passwordTextField.rightView = eyeButton
+        self.passwordTextField.rightViewMode = .always
+    }
+    private func showPasswordCheckButton() {
+        checkEyeButton = UIButton.init (primaryAction: UIAction (handler: { [self]_ in
+            passwordValidTextField.isSecureTextEntry.toggle()
+            self.checkEyeButton.isSelected.toggle ()
+        }))
+        var buttonConfiguration2 = UIButton.Configuration.plain()
+        buttonConfiguration2.imagePadding = 10
+        buttonConfiguration2.baseBackgroundColor = .clear
+        checkEyeButton.setImage (UIImage (named: "closeEye"), for: .normal)
+        self.checkEyeButton.setImage(UIImage (named: "openEye"), for: .selected)
+        self.checkEyeButton.configuration = buttonConfiguration2
+        self.passwordValidTextField.rightView = checkEyeButton
+        self.passwordValidTextField.rightViewMode = .always
     }
     
     private func setupKeyboardObservers() {
@@ -112,11 +157,5 @@ class UserPasswordViewController: BaseVC {
         UIView.animate(withDuration: 0.3) {
             self.buttonStackView.transform = .identity
         }
-    }
-    @objc private func moveNetxView() {
-        self.navigationController?.pushViewController(UserNameViewController(), animated: true)
-    }
-    @objc func moveLoginView() {
-        self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
 }

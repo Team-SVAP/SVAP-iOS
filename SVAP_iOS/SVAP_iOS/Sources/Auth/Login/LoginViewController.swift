@@ -2,8 +2,9 @@ import UIKit
 import SnapKit
 import Then
 
-class LoginViewController: BaseVC {
+class LoginViewController: BaseVC, UITextFieldDelegate {
     
+    private var eyeButton = UIButton(type: .custom)
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
     private let loginLabel = UILabel().then {
         $0.text = "로그인"
@@ -52,6 +53,8 @@ class LoginViewController: BaseVC {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
         setupKeyboardObservers()
+        showPasswordButton()
+        idTextField.delegate = self
     }
     override func configureUI() {
         super.configureUI()
@@ -84,10 +87,12 @@ class LoginViewController: BaseVC {
         idTextField.snp.makeConstraints {
             $0.top.equalTo(loginLabel.snp.bottom).offset(16)
             $0.left.right.equalToSuperview().inset(45)
+            $0.height.equalTo(50)
         }
         passwordTextField.snp.makeConstraints {
             $0.top.equalTo(idTextField.snp.bottom).offset(16)
             $0.left.right.equalToSuperview().inset(45)
+            $0.height.equalTo(50)
         }
         loginButton.snp.makeConstraints {
             $0.left.right.equalToSuperview()
@@ -98,6 +103,35 @@ class LoginViewController: BaseVC {
             $0.left.right.equalToSuperview().inset(45)
         }
     }
+    
+    @objc func clickLoginButton() {
+        self.navigationController?.pushViewController(MainViewController(), animated: true)
+    }
+    @objc func moveUserSignupView() {
+        self.navigationController?.pushViewController(UserIdViewController(), animated: true)
+    }
+    @objc func moveAdminSignupView() {
+        self.navigationController?.pushViewController(AdminCodeViewController(), animated: true)
+    }
+}
+
+extension LoginViewController {
+    
+    private func showPasswordButton() {
+        eyeButton = UIButton.init (primaryAction: UIAction (handler: { [self]_ in
+            passwordTextField.isSecureTextEntry.toggle()
+            self.eyeButton.isSelected.toggle()
+        }))
+        var buttonConfiguration = UIButton.Configuration.plain()
+        buttonConfiguration.imagePadding = 10
+        buttonConfiguration.baseBackgroundColor = .clear
+        eyeButton.setImage (UIImage (named: "closeEye"), for: .normal)
+        self.eyeButton.setImage(UIImage (named: "openEye"), for: .selected)
+        self.eyeButton.configuration = buttonConfiguration
+        self.passwordTextField.rightView = eyeButton
+        self.passwordTextField.rightViewMode = .always
+    }
+    
     private func setupKeyboardObservers() {
           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -120,13 +154,4 @@ class LoginViewController: BaseVC {
         }
     }
     
-    @objc func clickLoginButton() {
-        self.navigationController?.pushViewController(MainViewController(), animated: true)
-    }
-    @objc func moveUserSignupView() {
-        self.navigationController?.pushViewController(UserIdViewController(), animated: true)
-    }
-    @objc func moveAdminSignupView() {
-        self.navigationController?.pushViewController(AdminCodeViewController(), animated: true)
-    }
 }
