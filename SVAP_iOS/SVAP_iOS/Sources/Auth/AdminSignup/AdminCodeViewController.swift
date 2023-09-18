@@ -74,6 +74,7 @@ class AdminCodeViewController: BaseVC {
         emailTextField.snp.makeConstraints {
             $0.top.equalTo(signupLabel.snp.bottom).offset(16)
             $0.left.right.equalToSuperview().inset(45)
+            $0.height.equalTo(50)
         }
         nextButton.snp.makeConstraints {
             $0.left.right.equalToSuperview()
