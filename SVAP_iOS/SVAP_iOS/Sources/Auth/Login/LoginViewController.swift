@@ -13,9 +13,11 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
     }
     private let idTextField = CustomTextField(placeholder: "아이디", isSecure: false).then {
         $0.keyboardType = .alphabet
+        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     private let passwordTextField = CustomTextField(placeholder: "비밀번호", isSecure: true).then {
         $0.keyboardType = .alphabet
+        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     private let loginStackView = UIStackView().then {
         $0.axis = .vertical
@@ -24,6 +26,7 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
         $0.backgroundColor = .clear
     }
     private let loginButton = CustomButton(type: .system, title: "로그인", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
+        $0.isEnabled = false
         $0.addTarget(self, action: #selector(clickLoginButton), for: .touchUpInside)
     }
     private let signupStackView = UIStackView().then {
@@ -55,6 +58,7 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
         setupKeyboardObservers()
         showPasswordButton()
         idTextField.delegate = self
+        passwordTextField.delegate = self
     }
     override func configureUI() {
         super.configureUI()
@@ -153,5 +157,24 @@ extension LoginViewController {
             self.loginStackView.transform = .identity
         }
     }
-    
+    @objc private func textFieldDidChange(_ textfield: UITextField) {
+        guard let id = idTextField.text,
+              let password = passwordTextField.text,
+                !(id.isEmpty || password.isEmpty)
+        else {
+            loginButton.backgroundColor = UIColor(named: "main-4")
+            loginButton.isEnabled = false
+            return
+        }
+        loginButton.backgroundColor = UIColor(named: "main-2")
+        loginButton.isEnabled = true
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == idTextField {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            passwordTextField.resignFirstResponder()
+        }
+        return true
+    }
 }

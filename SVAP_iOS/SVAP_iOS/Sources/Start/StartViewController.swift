@@ -23,7 +23,7 @@ class StartViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
-    private let adminSignupButton = LabelButton(type: .system, title: "관리자용 회원가입").then {
+    private let adminSignupButton = LabelButton(type: .system, title: "관리자용 회원가입", titleColor: UIColor(named: "main-1")!).then {
         $0.addTarget(self, action: #selector(moveAdminSignupView), for: .touchUpInside)
     }
     

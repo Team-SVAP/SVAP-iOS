@@ -17,8 +17,12 @@ class UserPasswordViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let passwordTextField = CustomTextField(placeholder: "비밀번호 (영문 + 숫자 8자 이상)", isSecure: true)
-    private let passwordValidTextField = CustomTextField(placeholder: "비밀번호 확인", isSecure: true)
+    private let passwordTextField = CustomTextField(placeholder: "비밀번호 (영문 + 숫자 8자 이상)", isSecure: true).then {
+        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
+    }
+    private let passwordValidTextField = CustomTextField(placeholder: "비밀번호 확인", isSecure: true).then {
+        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
+    }
     private let buttonStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .center
@@ -26,6 +30,7 @@ class UserPasswordViewController: BaseVC {
         $0.spacing = 4
     }
     private let nextButton = CustomButton(type: .system, title: "다음", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
+        $0.isEnabled = false
         $0.addTarget(self, action: #selector(moveNetxView), for: .touchUpInside)
     }
     private let loginStackView = UIStackView().then {
@@ -157,5 +162,17 @@ extension UserPasswordViewController {
         UIView.animate(withDuration: 0.3) {
             self.buttonStackView.transform = .identity
         }
+    }
+    @objc private func textFieldDidChange(_ textfield: UITextField) {
+        guard let password = passwordTextField.text,
+              let passwordValid = passwordValidTextField.text,
+                !(password.isEmpty || passwordValid.isEmpty)
+        else {
+            nextButton.backgroundColor = UIColor(named: "main-4")
+            nextButton.isEnabled = false
+            return
+        }
+        nextButton.backgroundColor = UIColor(named: "main-2")
+        nextButton.isEnabled = true
     }
 }

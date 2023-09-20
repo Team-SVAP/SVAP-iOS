@@ -15,7 +15,9 @@ class UserEmailViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let emailTextField = CustomTextField(placeholder: "이메일", isSecure: false)
+    private let emailTextField = CustomTextField(placeholder: "이메일", isSecure: false).then {
+        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
+    }
     private let buttonStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .center
@@ -23,6 +25,7 @@ class UserEmailViewController: BaseVC {
         $0.spacing = 4
     }
     private let signupButton = CustomButton(type: .system, title: "다음", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
+        $0.isEnabled = false
         $0.addTarget(self, action: #selector(clickSignup), for: .touchUpInside)
     }
     private let loginStackView = UIStackView().then {
@@ -102,6 +105,17 @@ class UserEmailViewController: BaseVC {
                 self.buttonStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 35)
             }
         }
+    }
+    @objc private func textFieldDidChange(_ textfield: UITextField) {
+        guard let email = emailTextField.text,
+              !email.isEmpty
+        else {
+            signupButton.backgroundColor = UIColor(named: "main-4")
+            signupButton.isEnabled = false
+            return
+        }
+        signupButton.backgroundColor = UIColor(named: "main-2")
+        signupButton.isEnabled = true
     }
     @objc private func keyboardWillHide(notification: NSNotification) {
         UIView.animate(withDuration: 0.3) {
