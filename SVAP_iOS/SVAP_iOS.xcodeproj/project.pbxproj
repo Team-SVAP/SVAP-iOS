@@ -44,6 +44,7 @@
 		882E63792AB7FBE900BFE332 /* FamousCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63782AB7FBE900BFE332 /* FamousCell.swift */; };
 		882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */; };
 		882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637C2AB8565600BFE332 /* PetitionButton.swift */; };
+		882E638F2ABA96C500BFE332 /* Pacifico-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E638D2ABA96C500BFE332 /* Pacifico-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		882E63782AB7FBE900BFE332 /* FamousCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamousCell.swift; sourceTree = "<group>"; };
 		882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovedCell.swift; sourceTree = "<group>"; };
 		882E637C2AB8565600BFE332 /* PetitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionButton.swift; sourceTree = "<group>"; };
+		882E638D2ABA96C500BFE332 /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pacifico-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 		882E63342AB5FB0800BFE332 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				882E638B2ABA96C500BFE332 /* Pacifico */,
 				882E63482AB606E000BFE332 /* IBM_Plex_Sans_KR */,
 				882E63142AB5FA2700BFE332 /* AppDelegate.swift */,
 				882E63162AB5FA2700BFE332 /* SceneDelegate.swift */,
@@ -243,6 +246,15 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		882E638B2ABA96C500BFE332 /* Pacifico */ = {
+			isa = PBXGroup;
+			children = (
+				882E638D2ABA96C500BFE332 /* Pacifico-Regular.ttf */,
+			);
+			name = Pacifico;
+			path = ../../../../../Downloads/Pacifico;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -323,6 +335,7 @@
 				882E631E2AB5FA2800BFE332 /* Assets.xcassets in Resources */,
 				882E63542AB606E000BFE332 /* IBMPlexSansKR-Medium.ttf in Resources */,
 				882E63582AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf in Resources */,
+				882E638F2ABA96C500BFE332 /* Pacifico-Regular.ttf in Resources */,
 				882E63522AB606E000BFE332 /* IBMPlexSansKR-Regular.ttf in Resources */,
 				882E63532AB606E000BFE332 /* IBMPlexSansKR-SemiBold.ttf in Resources */,
 			);
