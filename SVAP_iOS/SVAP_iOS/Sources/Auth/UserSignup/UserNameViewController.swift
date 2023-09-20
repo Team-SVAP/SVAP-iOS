@@ -36,7 +36,7 @@ class UserNameViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
-    private let loginButton = LabelButton(type: .system, title: "로그인").then {
+    private let loginButton = LabelButton(type: .system, title: "로그인", titleColor: UIColor(named: "main-1")!).then {
         $0.addTarget(self, action: #selector(moveLoginView), for: .touchUpInside)
     }
     override func viewDidLoad() {
