@@ -29,16 +29,11 @@
 		882E63582AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E63502AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf */; };
 		882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63592AB6169A00BFE332 /* UserIdViewController.swift */; };
 		882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E635B2AB6172800BFE332 /* CustomTextField.swift */; };
-		882E635F2AB61CF400BFE332 /* AdminIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E635E2AB61CF400BFE332 /* AdminIdViewController.swift */; };
 		882E63622AB697A600BFE332 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 882E63612AB697A600BFE332 /* Kingfisher */; };
 		882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63632AB69D2300BFE332 /* LabelButton.swift */; };
 		882E63662AB7081000BFE332 /* UserPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63652AB7081000BFE332 /* UserPasswordViewController.swift */; };
 		882E63682AB7098000BFE332 /* UserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63672AB7098000BFE332 /* UserNameViewController.swift */; };
 		882E636A2AB7098800BFE332 /* UserEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63692AB7098800BFE332 /* UserEmailViewController.swift */; };
-		882E636C2AB70D1600BFE332 /* AdminCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E636B2AB70D1600BFE332 /* AdminCodeViewController.swift */; };
-		882E636E2AB70D1B00BFE332 /* AdminPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E636D2AB70D1B00BFE332 /* AdminPasswordViewController.swift */; };
-		882E63702AB70D2500BFE332 /* AdminNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E636F2AB70D2500BFE332 /* AdminNameViewController.swift */; };
-		882E63722AB70D2E00BFE332 /* AdminEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63712AB70D2E00BFE332 /* AdminEmailViewController.swift */; };
 		882E63752AB7109000BFE332 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63742AB7109000BFE332 /* MainViewController.swift */; };
 		882E63772AB736F200BFE332 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63762AB736F200BFE332 /* MainCell.swift */; };
 		882E63792AB7FBE900BFE332 /* FamousCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63782AB7FBE900BFE332 /* FamousCell.swift */; };
@@ -68,15 +63,10 @@
 		882E63502AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Bold.ttf"; sourceTree = "<group>"; };
 		882E63592AB6169A00BFE332 /* UserIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdViewController.swift; sourceTree = "<group>"; };
 		882E635B2AB6172800BFE332 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
-		882E635E2AB61CF400BFE332 /* AdminIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminIdViewController.swift; sourceTree = "<group>"; };
 		882E63632AB69D2300BFE332 /* LabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelButton.swift; sourceTree = "<group>"; };
 		882E63652AB7081000BFE332 /* UserPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPasswordViewController.swift; sourceTree = "<group>"; };
 		882E63672AB7098000BFE332 /* UserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameViewController.swift; sourceTree = "<group>"; };
 		882E63692AB7098800BFE332 /* UserEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEmailViewController.swift; sourceTree = "<group>"; };
-		882E636B2AB70D1600BFE332 /* AdminCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminCodeViewController.swift; sourceTree = "<group>"; };
-		882E636D2AB70D1B00BFE332 /* AdminPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminPasswordViewController.swift; sourceTree = "<group>"; };
-		882E636F2AB70D2500BFE332 /* AdminNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminNameViewController.swift; sourceTree = "<group>"; };
-		882E63712AB70D2E00BFE332 /* AdminEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdminEmailViewController.swift; sourceTree = "<group>"; };
 		882E63742AB7109000BFE332 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		882E63762AB736F200BFE332 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
 		882E63782AB7FBE900BFE332 /* FamousCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamousCell.swift; sourceTree = "<group>"; };
@@ -157,7 +147,6 @@
 			children = (
 				882E63372AB5FB5B00BFE332 /* Login */,
 				882E63382AB5FB5F00BFE332 /* UserSignup */,
-				882E635D2AB61CC600BFE332 /* AdminSignup */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -221,18 +210,6 @@
 				882E63502AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf */,
 			);
 			path = IBM_Plex_Sans_KR;
-			sourceTree = "<group>";
-		};
-		882E635D2AB61CC600BFE332 /* AdminSignup */ = {
-			isa = PBXGroup;
-			children = (
-				882E636B2AB70D1600BFE332 /* AdminCodeViewController.swift */,
-				882E635E2AB61CF400BFE332 /* AdminIdViewController.swift */,
-				882E636D2AB70D1B00BFE332 /* AdminPasswordViewController.swift */,
-				882E636F2AB70D2500BFE332 /* AdminNameViewController.swift */,
-				882E63712AB70D2E00BFE332 /* AdminEmailViewController.swift */,
-			);
-			path = AdminSignup;
 			sourceTree = "<group>";
 		};
 		882E63732AB7107C00BFE332 /* Main */ = {
@@ -348,12 +325,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				882E63722AB70D2E00BFE332 /* AdminEmailViewController.swift in Sources */,
 				882E636A2AB7098800BFE332 /* UserEmailViewController.swift in Sources */,
-				882E63702AB70D2500BFE332 /* AdminNameViewController.swift in Sources */,
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
 				882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */,
-				882E636E2AB70D1B00BFE332 /* AdminPasswordViewController.swift in Sources */,
 				882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
@@ -363,13 +337,11 @@
 				882E63772AB736F200BFE332 /* MainCell.swift in Sources */,
 				882E63662AB7081000BFE332 /* UserPasswordViewController.swift in Sources */,
 				882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */,
-				882E636C2AB70D1600BFE332 /* AdminCodeViewController.swift in Sources */,
 				882E63792AB7FBE900BFE332 /* FamousCell.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
 				882E63752AB7109000BFE332 /* MainViewController.swift in Sources */,
 				882E63682AB7098000BFE332 /* UserNameViewController.swift in Sources */,
-				882E635F2AB61CF400BFE332 /* AdminIdViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

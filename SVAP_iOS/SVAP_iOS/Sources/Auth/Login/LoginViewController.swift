@@ -43,15 +43,6 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
     private let userSignupButton = LabelButton(type: .system, title: "회원가입", titleColor: UIColor(named: "main-1")!).then {
         $0.addTarget(self, action: #selector(moveUserSignupView), for: .touchUpInside)
     }
-    private let orLabel = UILabel().then {
-        $0.text = "또는"
-        $0.textColor = UIColor(named: "gray-700")
-        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
-    }
-    private let adminSignupButton = LabelButton(type: .system, title: "관리자용 회원가입", titleColor: UIColor(named: "main-1")!).then {
-        $0.addTarget(self, action: #selector(moveAdminSignupView), for: .touchUpInside)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = true
@@ -70,7 +61,7 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
             signupStackView,
             loginStackView
         ].forEach({ view.addSubview($0) })
-        [signupQuestionLabel, userSignupButton, orLabel, adminSignupButton].forEach({
+        [signupQuestionLabel, userSignupButton].forEach({
             signupStackView.addArrangedSubview($0)
         })
         [loginButton, signupStackView].forEach({ loginStackView.addArrangedSubview($0) })
@@ -113,9 +104,6 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
     }
     @objc func moveUserSignupView() {
         self.navigationController?.pushViewController(UserIdViewController(), animated: true)
-    }
-    @objc func moveAdminSignupView() {
-        self.navigationController?.pushViewController(AdminCodeViewController(), animated: true)
     }
 }
 
