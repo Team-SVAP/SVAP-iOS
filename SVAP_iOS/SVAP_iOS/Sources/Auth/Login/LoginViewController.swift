@@ -1,6 +1,4 @@
 import UIKit
-import SnapKit
-import Then
 
 class LoginViewController: BaseVC, UITextFieldDelegate {
     
@@ -66,8 +64,8 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
         })
         [loginButton, signupStackView].forEach({ loginStackView.addArrangedSubview($0) })
     }
-    override func setConstraints() {
-        super.setConstraints()
+    override func setupConstraints() {
+        super.setupConstraints()
         
         logoImage.snp.makeConstraints {
             $0.top.equalToSuperview().inset(139)

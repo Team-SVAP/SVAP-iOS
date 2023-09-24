@@ -1,6 +1,4 @@
 import UIKit
-import SnapKit
-import Then
 
 class StartViewController: BaseVC {
     
@@ -23,7 +21,7 @@ class StartViewController: BaseVC {
             signupButton,
         ].forEach({ view.addSubview($0) })
     }
-    override func setConstraints() {
+    override func setupConstraints() {
         logoImage.snp.makeConstraints {
             $0.top.equalToSuperview().inset(208)
             $0.left.right.equalToSuperview().inset(45)

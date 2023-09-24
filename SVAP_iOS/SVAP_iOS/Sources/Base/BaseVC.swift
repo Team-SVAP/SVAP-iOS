@@ -1,4 +1,6 @@
 import UIKit
+import SnapKit
+import Then
 
 class BaseVC: UIViewController {
 
@@ -11,13 +13,13 @@ class BaseVC: UIViewController {
     }
     override func viewWillLayoutSubviews() {
         configureUI()
-        setConstraints()
+        setupConstraints()
     }
     
     func configureUI() {
         
     }
-    func setConstraints() {
+    func setupConstraints() {
         
     }
 }

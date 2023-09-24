@@ -1,9 +1,7 @@
 import UIKit
-import SnapKit
-import Then
 
 class MainViewController: BaseVC {
-    
+    //사이드 메뉴 라이브러리 사용하기https://gonslab.tistory.com/10
     var isExpanded = false
     var data = [MainCell.self, ApprovedCell.self]
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
@@ -90,7 +88,7 @@ class MainViewController: BaseVC {
         ].forEach({ view.addSubview($0) })
         searchTextField.addSubview(searchButton)
     }
-    override func setConstraints() {
+    override func setupConstraints() {
         logoImage.snp.makeConstraints {
             $0.top.equalToSuperview().inset(69)
             $0.left.equalToSuperview().inset(20)

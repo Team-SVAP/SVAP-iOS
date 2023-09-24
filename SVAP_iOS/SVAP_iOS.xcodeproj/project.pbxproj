@@ -11,10 +11,6 @@
 		882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63162AB5FA2700BFE332 /* SceneDelegate.swift */; };
 		882E631E2AB5FA2800BFE332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 882E631D2AB5FA2800BFE332 /* Assets.xcassets */; };
 		882E63212AB5FA2800BFE332 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 882E631F2AB5FA2800BFE332 /* LaunchScreen.storyboard */; };
-		882E632A2AB5FABE00BFE332 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 882E63292AB5FABE00BFE332 /* SwiftKeychainWrapper */; };
-		882E632D2AB5FACF00BFE332 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 882E632C2AB5FACF00BFE332 /* Moya */; };
-		882E63302AB5FADE00BFE332 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 882E632F2AB5FADE00BFE332 /* SnapKit */; };
-		882E63332AB5FAF100BFE332 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 882E63322AB5FAF100BFE332 /* Then */; };
 		882E633E2AB5FC3B00BFE332 /* BaseVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E633D2AB5FC3B00BFE332 /* BaseVC.swift */; };
 		882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E633F2AB5FF7F00BFE332 /* LoginViewController.swift */; };
 		882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63432AB6048F00BFE332 /* StartViewController.swift */; };
@@ -29,7 +25,6 @@
 		882E63582AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E63502AB606E000BFE332 /* IBMPlexSansKR-Bold.ttf */; };
 		882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63592AB6169A00BFE332 /* UserIdViewController.swift */; };
 		882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E635B2AB6172800BFE332 /* CustomTextField.swift */; };
-		882E63622AB697A600BFE332 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 882E63612AB697A600BFE332 /* Kingfisher */; };
 		882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63632AB69D2300BFE332 /* LabelButton.swift */; };
 		882E63662AB7081000BFE332 /* UserPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63652AB7081000BFE332 /* UserPasswordViewController.swift */; };
 		882E63682AB7098000BFE332 /* UserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63672AB7098000BFE332 /* UserNameViewController.swift */; };
@@ -40,9 +35,13 @@
 		882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */; };
 		882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637C2AB8565600BFE332 /* PetitionButton.swift */; };
 		882E638F2ABA96C500BFE332 /* Pacifico-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E638D2ABA96C500BFE332 /* Pacifico-Regular.ttf */; };
+		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
+		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
+		FC139BFC1AB30305C108646B /* Pods_SVAP_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29C7BB8652CC57C0DE211A9 /* Pods_SVAP_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		256026E28E98491277D6EF9B /* Pods-SVAP_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVAP_iOS.debug.xcconfig"; path = "Target Support Files/Pods-SVAP_iOS/Pods-SVAP_iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		882E63112AB5FA2700BFE332 /* SVAP_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVAP_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882E63142AB5FA2700BFE332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		882E63162AB5FA2700BFE332 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +72,10 @@
 		882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovedCell.swift; sourceTree = "<group>"; };
 		882E637C2AB8565600BFE332 /* PetitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionButton.swift; sourceTree = "<group>"; };
 		882E638D2ABA96C500BFE332 /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pacifico-Regular.ttf"; sourceTree = "<group>"; };
+		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
+		888A18B02AC01A3800168377 /* CustomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenu.swift; sourceTree = "<group>"; };
+		EF43AA55750C7458BB7147E5 /* Pods-SVAP_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVAP_iOS.release.xcconfig"; path = "Target Support Files/Pods-SVAP_iOS/Pods-SVAP_iOS.release.xcconfig"; sourceTree = "<group>"; };
+		F29C7BB8652CC57C0DE211A9 /* Pods_SVAP_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SVAP_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,22 +83,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				882E63302AB5FADE00BFE332 /* SnapKit in Frameworks */,
-				882E632D2AB5FACF00BFE332 /* Moya in Frameworks */,
-				882E632A2AB5FABE00BFE332 /* SwiftKeychainWrapper in Frameworks */,
-				882E63332AB5FAF100BFE332 /* Then in Frameworks */,
-				882E63622AB697A600BFE332 /* Kingfisher in Frameworks */,
+				FC139BFC1AB30305C108646B /* Pods_SVAP_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3CD5ED7934DD5414582FC0A8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				256026E28E98491277D6EF9B /* Pods-SVAP_iOS.debug.xcconfig */,
+				EF43AA55750C7458BB7147E5 /* Pods-SVAP_iOS.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		81BA78F8950BEA2AB69D677A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F29C7BB8652CC57C0DE211A9 /* Pods_SVAP_iOS.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		882E63082AB5FA2700BFE332 = {
 			isa = PBXGroup;
 			children = (
 				882E63132AB5FA2700BFE332 /* SVAP_iOS */,
 				882E63122AB5FA2700BFE332 /* Products */,
+				3CD5ED7934DD5414582FC0A8 /* Pods */,
+				81BA78F8950BEA2AB69D677A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -193,6 +211,7 @@
 				882E635B2AB6172800BFE332 /* CustomTextField.swift */,
 				882E63632AB69D2300BFE332 /* LabelButton.swift */,
 				882E637C2AB8565600BFE332 /* PetitionButton.swift */,
+				888A18B02AC01A3800168377 /* CustomMenu.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -216,9 +235,8 @@
 			isa = PBXGroup;
 			children = (
 				882E63742AB7109000BFE332 /* MainViewController.swift */,
-				882E63762AB736F200BFE332 /* MainCell.swift */,
-				882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */,
-				882E63782AB7FBE900BFE332 /* FamousCell.swift */,
+				888A18832ABFE72D00168377 /* Petition */,
+				888A18822ABFE72500168377 /* Cell */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -232,6 +250,24 @@
 			path = ../../../../../Downloads/Pacifico;
 			sourceTree = "<group>";
 		};
+		888A18822ABFE72500168377 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				882E63762AB736F200BFE332 /* MainCell.swift */,
+				882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */,
+				882E63782AB7FBE900BFE332 /* FamousCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		888A18832ABFE72D00168377 /* Petition */ = {
+			isa = PBXGroup;
+			children = (
+				888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */,
+			);
+			path = Petition;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -239,22 +275,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 882E63252AB5FA2800BFE332 /* Build configuration list for PBXNativeTarget "SVAP_iOS" */;
 			buildPhases = (
+				3810E2CDD8E8753CFCA3BE41 /* [CP] Check Pods Manifest.lock */,
 				882E630D2AB5FA2700BFE332 /* Sources */,
 				882E630E2AB5FA2700BFE332 /* Frameworks */,
 				882E630F2AB5FA2700BFE332 /* Resources */,
+				A2B7F50E52C288FDD8376CAF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = SVAP_iOS;
-			packageProductDependencies = (
-				882E63292AB5FABE00BFE332 /* SwiftKeychainWrapper */,
-				882E632C2AB5FACF00BFE332 /* Moya */,
-				882E632F2AB5FADE00BFE332 /* SnapKit */,
-				882E63322AB5FAF100BFE332 /* Then */,
-				882E63612AB697A600BFE332 /* Kingfisher */,
-			);
 			productName = SVAP_iOS;
 			productReference = 882E63112AB5FA2700BFE332 /* SVAP_iOS.app */;
 			productType = "com.apple.product-type.application";
@@ -283,13 +314,6 @@
 				Base,
 			);
 			mainGroup = 882E63082AB5FA2700BFE332;
-			packageReferences = (
-				882E63282AB5FABE00BFE332 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
-				882E632B2AB5FACF00BFE332 /* XCRemoteSwiftPackageReference "Moya" */,
-				882E632E2AB5FADE00BFE332 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				882E63312AB5FAF100BFE332 /* XCRemoteSwiftPackageReference "Then" */,
-				882E63602AB697A600BFE332 /* XCRemoteSwiftPackageReference "Kingfisher" */,
-			);
 			productRefGroup = 882E63122AB5FA2700BFE332 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -320,11 +344,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3810E2CDD8E8753CFCA3BE41 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SVAP_iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2B7F50E52C288FDD8376CAF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SVAP_iOS/Pods-SVAP_iOS-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SVAP_iOS/Pods-SVAP_iOS-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SVAP_iOS/Pods-SVAP_iOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		882E630D2AB5FA2700BFE332 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */,
 				882E636A2AB7098800BFE332 /* UserEmailViewController.swift in Sources */,
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
 				882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */,
@@ -340,6 +407,7 @@
 				882E63792AB7FBE900BFE332 /* FamousCell.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
+				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,
 				882E63752AB7109000BFE332 /* MainViewController.swift in Sources */,
 				882E63682AB7098000BFE332 /* UserNameViewController.swift in Sources */,
 			);
@@ -475,6 +543,7 @@
 		};
 		882E63262AB5FA2800BFE332 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 256026E28E98491277D6EF9B /* Pods-SVAP_iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -502,6 +571,7 @@
 		};
 		882E63272AB5FA2800BFE332 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EF43AA55750C7458BB7147E5 /* Pods-SVAP_iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -549,77 +619,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		882E63282AB5FABE00BFE332 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
-			};
-		};
-		882E632B2AB5FACF00BFE332 /* XCRemoteSwiftPackageReference "Moya" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/Moya/Moya.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 15.0.0;
-			};
-		};
-		882E632E2AB5FADE00BFE332 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
-		882E63312AB5FAF100BFE332 /* XCRemoteSwiftPackageReference "Then" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/devxoul/Then";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
-		882E63602AB697A600BFE332 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onevcat/Kingfisher";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.0.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		882E63292AB5FABE00BFE332 /* SwiftKeychainWrapper */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 882E63282AB5FABE00BFE332 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
-			productName = SwiftKeychainWrapper;
-		};
-		882E632C2AB5FACF00BFE332 /* Moya */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 882E632B2AB5FACF00BFE332 /* XCRemoteSwiftPackageReference "Moya" */;
-			productName = Moya;
-		};
-		882E632F2AB5FADE00BFE332 /* SnapKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 882E632E2AB5FADE00BFE332 /* XCRemoteSwiftPackageReference "SnapKit" */;
-			productName = SnapKit;
-		};
-		882E63322AB5FAF100BFE332 /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 882E63312AB5FAF100BFE332 /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
-		};
-		882E63612AB697A600BFE332 /* Kingfisher */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 882E63602AB697A600BFE332 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = Kingfisher;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 882E63092AB5FA2700BFE332 /* Project object */;
 }

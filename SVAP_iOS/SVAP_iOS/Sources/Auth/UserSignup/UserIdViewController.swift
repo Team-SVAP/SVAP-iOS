@@ -1,6 +1,4 @@
 import UIKit
-import SnapKit
-import Then
 
 class UserIdViewController: BaseVC {
     
@@ -59,7 +57,7 @@ class UserIdViewController: BaseVC {
         [loginLabel, loginButton].forEach({ loginStackView.addArrangedSubview($0) })
         [nextButton, loginStackView].forEach({ buttonStackView.addArrangedSubview($0) })
     }
-    override func setConstraints() {
+    override func setupConstraints() {
         logoImage.snp.makeConstraints {
             $0.top.equalToSuperview().inset(139)
             $0.centerX.equalToSuperview()
