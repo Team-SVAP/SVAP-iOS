@@ -8,7 +8,6 @@ class MainViewController: BaseVC {
     private let menuButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "menu"), for: .normal)
         $0.tintColor = UIColor(named: "gray-500")
-        $0.addTarget(self, action: #selector(clickMenuButton), for: .touchUpInside)
     }
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -21,34 +20,25 @@ class MainViewController: BaseVC {
         collectionView.register(ApprovedCell.self, forCellWithReuseIdentifier: "Cell2")
         return collectionView
     }()
-    private let searchTextField = UITextField().then {
-        $0.layer.cornerRadius = 12
-        $0.layer.borderColor = UIColor(named: "main-3")?.cgColor
-        $0.layer.borderWidth = 1
-        $0.autocapitalizationType = .none
-        $0.autocorrectionType = .no
-        $0.backgroundColor = .white
-        $0.textColor = UIColor(named: "gray-800")
-        $0.font = UIFont(name: "IBMPlexSansKR-Regular", size: 16)
-        let leftSpacerView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-        let rightSpacerView = UIView(frame: CGRect(x: 0, y: 0, width: 45, height: 0))
-        $0.leftView = leftSpacerView
-        $0.rightView = rightSpacerView
-        $0.leftViewMode = .always
-        $0.rightViewMode = .always
-    }
+    private let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.")
     private let searchButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "searchIcon"), for: .normal)
         $0.tintColor = UIColor(named: "gray-600")
     }
-    private let viewPetitionButton = PetitionButton(type: .system, title: "청원보기", image: UIImage(named: "peopleIcon")!)
-    private let writePetitionButton = PetitionButton(type: .system, title: "청원하기", image: UIImage(named: "editIcon")!)
+    private let viewPetitionButton = PetitionButton(type: .system, title: "청원보기", image: UIImage(named: "peopleIcon")!).then {
+        $0.addTarget(self, action: #selector(clickViewPetitionButton), for: .touchUpInside)
+    }
+    private let createPetitionButton = PetitionButton(type: .system, title: "청원하기", image: UIImage(named: "editIcon")!).then {
+        $0.addTarget(self, action: #selector(clickCreatePetitionButton), for: .touchUpInside)
+    }
     private let famousPetitionLabel = UILabel().then {
         $0.text = "인기 청원"
         $0.textColor = UIColor(named: "gray-600")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
-    private let viewMoreButton = LabelButton(type: .system, title: "더보기", titleColor: UIColor(named: "gray-600")!)
+    private let viewMoreButton = LabelButton(type: .system, title: "더보기", titleColor: UIColor(named: "gray-600")!).then {
+        $0.addTarget(self, action: #selector(clickViewPetitionButton), for: .touchUpInside)
+    }
     private let famousPetitionTitleLabel = UILabel().then {
         $0.text = "촉법 소년법 폐지 & 개정"
         //서버통신하고 지우기
@@ -69,17 +59,15 @@ class MainViewController: BaseVC {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        textFieldSetting()
-        self.navigationItem.hidesBackButton = true
+        navigationBarSetting()
     }
     override func configureUI() {
         [
             logoImage,
-            menuButton,
             collectionView,
             searchTextField,
             viewPetitionButton,
-            writePetitionButton,
+            createPetitionButton,
             famousPetitionLabel,
             viewMoreButton,
             famousPetitionTitleLabel,
@@ -94,12 +82,6 @@ class MainViewController: BaseVC {
             $0.left.equalToSuperview().inset(20)
             $0.width.equalTo(62)
             $0.height.equalTo(25)
-        }
-        menuButton.snp.makeConstraints {
-//            $0.top.equalToSuperview().inset(100)
-            $0.top.equalToSuperview().inset(71)
-//            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.right.equalToSuperview().inset(20)
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(logoImage.snp.bottom).offset(25)
@@ -122,7 +104,7 @@ class MainViewController: BaseVC {
             $0.width.equalTo(170)
             $0.height.equalTo(100)
         }
-        writePetitionButton.snp.makeConstraints {
+        createPetitionButton.snp.makeConstraints {
             $0.top.equalTo(searchTextField.snp.bottom).offset(20)
             $0.right.equalToSuperview().inset(20)
             $0.width.equalTo(170)
@@ -149,17 +131,29 @@ class MainViewController: BaseVC {
             $0.left.equalToSuperview().inset(20)
         }
     }
-    func textFieldSetting() {
-                searchTextField.attributedPlaceholder = NSAttributedString(
-                    string: "청원을 검색해보세요.",
-                    attributes: [
-                        NSAttributedString.Key.foregroundColor: UIColor(named: "gray-300")!,
-                        NSAttributedString.Key.font: UIFont(name: "IBMPlexSansKR-Regular", size: 12)!
-                    ]
-                )
+    private func navigationBarSetting() {
+        navigationItem.hidesBackButton = true
+        menuButton.addTarget(self, action: #selector(clickMenuButton), for: .touchUpInside)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: menuButton)
+    }
+    let transition = CATransition()
+    func transitionSetting() {
+        transition.duration = 5
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
     }
     @objc func clickMenuButton() {
-        print("fdsjlk")
+        let navigation = UINavigationController(rootViewController: SideMenu())
+        navigation.modalPresentationStyle = .overFullScreen
+        self.present(navigation, animated: false)
+    }
+    @objc func clickViewPetitionButton() {
+        self.navigationController?.pushViewController(PetitionViewController(), animated: true)
+    }
+    @objc func clickCreatePetitionButton() {
+        self.navigationController?.pushViewController(CreatePetitionViewController(), animated: true)
     }
     @objc func clickViewContentButton() {
         isExpanded.toggle()

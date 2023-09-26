@@ -2,23 +2,11 @@ import UIKit
 
 class PetitionViewController: BaseVC {
     
-    let leftbutton = UIButton(type: .system)
-    private let searchTextField = UITextField().then {
-        $0.layer.cornerRadius = 12
-        $0.layer.borderColor = UIColor(named: "main-3")?.cgColor
-        $0.layer.borderWidth = 1
-        $0.autocapitalizationType = .none
-        $0.autocorrectionType = .no
-        $0.backgroundColor = .white
-        $0.textColor = UIColor(named: "gray-800")
-        $0.font = UIFont(name: "IBMPlexSansKR-Regular", size: 14)
-        let leftSpacerView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
-        let rightSpacerView = UIView(frame: CGRect(x: 0, y: 0, width: 45, height: 0))
-        $0.leftView = leftSpacerView
-        $0.rightView = rightSpacerView
-        $0.leftViewMode = .always
-        $0.rightViewMode = .always
+    private let leftbutton = UIButton(type: .system).then {
+        $0.setImage(UIImage(named: "leftArrow"), for: .normal)
+        $0.tintColor = UIColor(named: "gray-700")
     }
+    private let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.")
     private let searchButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "searchIcon"), for: .normal)
         $0.tintColor = UIColor(named: "gray-600")
@@ -34,7 +22,6 @@ class PetitionViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarSetting()
-        textFieldSetting()
     }
     private func navigationBarSetting() {
         let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
@@ -45,22 +32,10 @@ class PetitionViewController: BaseVC {
         navigationItem.titleView = title
         navigationItem.hidesBackButton = true
         
-
-        leftbutton.setImage(UIImage(named: "leftArrow"), for: .normal)
-        leftbutton.tintColor = UIColor(named: "gray-700")
         leftbutton.addTarget(self, action: #selector(clickLeftBarButton), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
     }
-    private func textFieldSetting() {
-        searchTextField.attributedPlaceholder = NSAttributedString(
-            string: "청원을 검색해보세요.",
-            attributes: [
-                NSAttributedString.Key.foregroundColor: UIColor(named: "gray-300")!,
-                NSAttributedString.Key.font: UIFont(name: "IBMPlexSansKR-Regular", size: 10)!
-            ]
-        )
-    }
-    @objc func clickLeftBarButton() {
+    @objc private func clickLeftBarButton() {
         self.navigationController?.popViewController(animated: true)
     }
     override func configureUI() {
