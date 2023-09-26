@@ -36,6 +36,7 @@
 		882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */; };
 		882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637C2AB8565600BFE332 /* PetitionButton.swift */; };
 		882E638F2ABA96C500BFE332 /* Pacifico-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E638D2ABA96C500BFE332 /* Pacifico-Regular.ttf */; };
+		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
 		888A18B32AC0F9C200168377 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B22AC0F9C200168377 /* SideMenu.swift */; };
@@ -76,6 +77,7 @@
 		882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovedCell.swift; sourceTree = "<group>"; };
 		882E637C2AB8565600BFE332 /* PetitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionButton.swift; sourceTree = "<group>"; };
 		882E638D2ABA96C500BFE332 /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pacifico-Regular.ttf"; sourceTree = "<group>"; };
+		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
 		888A18B02AC01A3800168377 /* CustomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenu.swift; sourceTree = "<group>"; };
 		888A18B22AC0F9C200168377 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				882E637C2AB8565600BFE332 /* PetitionButton.swift */,
 				888A18B02AC01A3800168377 /* CustomMenu.swift */,
 				888A18B22AC0F9C200168377 /* SideMenu.swift */,
+				885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
 				888A18B32AC0F9C200168377 /* SideMenu.swift in Sources */,
 				882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */,
+				885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */,
 				882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */,
 				882E633E2AB5FC3B00BFE332 /* BaseVC.swift in Sources */,
 				882E63772AB736F200BFE332 /* MainCell.swift in Sources */,
