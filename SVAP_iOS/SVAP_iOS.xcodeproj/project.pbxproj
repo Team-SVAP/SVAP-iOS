@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8803D3A52AC1CCF900B36C9E /* PetitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8803D3A42AC1CCF900B36C9E /* PetitionCell.swift */; };
 		882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63142AB5FA2700BFE332 /* AppDelegate.swift */; };
 		882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63162AB5FA2700BFE332 /* SceneDelegate.swift */; };
 		882E631E2AB5FA2800BFE332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 882E631D2AB5FA2800BFE332 /* Assets.xcassets */; };
@@ -37,11 +38,14 @@
 		882E638F2ABA96C500BFE332 /* Pacifico-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 882E638D2ABA96C500BFE332 /* Pacifico-Regular.ttf */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
+		888A18B32AC0F9C200168377 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B22AC0F9C200168377 /* SideMenu.swift */; };
+		88A6CC892AC18A3600BF36C3 /* PetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */; };
 		FC139BFC1AB30305C108646B /* Pods_SVAP_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F29C7BB8652CC57C0DE211A9 /* Pods_SVAP_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		256026E28E98491277D6EF9B /* Pods-SVAP_iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVAP_iOS.debug.xcconfig"; path = "Target Support Files/Pods-SVAP_iOS/Pods-SVAP_iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		8803D3A42AC1CCF900B36C9E /* PetitionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCell.swift; sourceTree = "<group>"; };
 		882E63112AB5FA2700BFE332 /* SVAP_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVAP_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882E63142AB5FA2700BFE332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		882E63162AB5FA2700BFE332 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 		882E638D2ABA96C500BFE332 /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pacifico-Regular.ttf"; sourceTree = "<group>"; };
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
 		888A18B02AC01A3800168377 /* CustomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenu.swift; sourceTree = "<group>"; };
+		888A18B22AC0F9C200168377 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionViewController.swift; sourceTree = "<group>"; };
 		EF43AA55750C7458BB7147E5 /* Pods-SVAP_iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SVAP_iOS.release.xcconfig"; path = "Target Support Files/Pods-SVAP_iOS/Pods-SVAP_iOS.release.xcconfig"; sourceTree = "<group>"; };
 		F29C7BB8652CC57C0DE211A9 /* Pods_SVAP_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SVAP_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -105,6 +111,24 @@
 				F29C7BB8652CC57C0DE211A9 /* Pods_SVAP_iOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8803D3A12AC1CCD400B36C9E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				882E63762AB736F200BFE332 /* MainCell.swift */,
+				882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */,
+				882E63782AB7FBE900BFE332 /* FamousCell.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		8803D3A32AC1CCE200B36C9E /* Petition */ = {
+			isa = PBXGroup;
+			children = (
+				8803D3A42AC1CCF900B36C9E /* PetitionCell.swift */,
+			);
+			path = Petition;
 			sourceTree = "<group>";
 		};
 		882E63082AB5FA2700BFE332 = {
@@ -212,6 +236,7 @@
 				882E63632AB69D2300BFE332 /* LabelButton.swift */,
 				882E637C2AB8565600BFE332 /* PetitionButton.swift */,
 				888A18B02AC01A3800168377 /* CustomMenu.swift */,
+				888A18B22AC0F9C200168377 /* SideMenu.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -253,9 +278,8 @@
 		888A18822ABFE72500168377 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				882E63762AB736F200BFE332 /* MainCell.swift */,
-				882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */,
-				882E63782AB7FBE900BFE332 /* FamousCell.swift */,
+				8803D3A32AC1CCE200B36C9E /* Petition */,
+				8803D3A12AC1CCD400B36C9E /* Main */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -264,6 +288,7 @@
 			isa = PBXGroup;
 			children = (
 				888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */,
+				88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */,
 			);
 			path = Petition;
 			sourceTree = "<group>";
@@ -398,6 +423,7 @@
 				882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
+				888A18B32AC0F9C200168377 /* SideMenu.swift in Sources */,
 				882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */,
 				882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */,
 				882E633E2AB5FC3B00BFE332 /* BaseVC.swift in Sources */,
@@ -409,6 +435,8 @@
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
 				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,
 				882E63752AB7109000BFE332 /* MainViewController.swift in Sources */,
+				8803D3A52AC1CCF900B36C9E /* PetitionCell.swift in Sources */,
+				88A6CC892AC18A3600BF36C3 /* PetitionViewController.swift in Sources */,
 				882E63682AB7098000BFE332 /* UserNameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
