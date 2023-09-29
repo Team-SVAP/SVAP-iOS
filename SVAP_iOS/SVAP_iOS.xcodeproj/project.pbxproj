@@ -79,6 +79,7 @@
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
 		888A18B02AC01A3800168377 /* CustomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenu.swift; sourceTree = "<group>"; };
 		888A18B22AC0F9C200168377 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
+		88A293722AC3A857007B4469 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,6 +119,7 @@
 			children = (
 				882E63132AB5FA2700BFE332 /* SVAP_iOS */,
 				882E63122AB5FA2700BFE332 /* Products */,
+				88A293712AC3A857007B4469 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,8 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				882E63482AB606E000BFE332 /* IBM_Plex_Sans_KR */,
-				882E63142AB5FA2700BFE332 /* AppDelegate.swift */,
-				882E63162AB5FA2700BFE332 /* SceneDelegate.swift */,
 				882E631D2AB5FA2800BFE332 /* Assets.xcassets */,
 				882E631F2AB5FA2800BFE332 /* LaunchScreen.storyboard */,
 			);
@@ -154,6 +154,7 @@
 		882E63352AB5FB4300BFE332 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				88A293732AC47B29007B4469 /* Application */,
 				882E63452AB604DF00BFE332 /* Component */,
 				882E633B2AB5FC1400BFE332 /* Base */,
 				882E63422AB6048100BFE332 /* Start */,
@@ -262,6 +263,23 @@
 				88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */,
 			);
 			path = Petition;
+			sourceTree = "<group>";
+		};
+		88A293712AC3A857007B4469 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				88A293722AC3A857007B4469 /* libz.tbd */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		88A293732AC47B29007B4469 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				882E63142AB5FA2700BFE332 /* AppDelegate.swift */,
+				882E63162AB5FA2700BFE332 /* SceneDelegate.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
