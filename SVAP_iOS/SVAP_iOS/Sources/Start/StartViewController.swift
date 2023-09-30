@@ -1,16 +1,30 @@
 import UIKit
 
 class StartViewController: BaseVC {
+    //userDefault를 이용해서 온보딩 페이지로 만들기 처음에만or 토큰?이 없을 때 보여주는
     
     private let logoImage = UIImageView(image: UIImage(named: "logo"))
     private let loginButton = CustomButton(type: .system, title: "로그인", titleColor: UIColor(named: "gray-700")!, backgroundColor: UIColor(named: "main-6")!).then {
-        $0.addTarget(self, action: #selector(moveLoginView), for: .touchUpInside)
-    }
-    private let signupButton = CustomButton(type: .system, title: "회원가입", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white).then {
+        $0.backgroundColor = .white
         $0.layer.borderColor = UIColor(named: "main-6")?.cgColor
         $0.layer.borderWidth = 1
+        $0.addTarget(self, action: #selector(moveLoginView), for: .touchUpInside)
+    }
+    private let signupStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.spacing = 4
+        $0.backgroundColor = .clear
+        $0.alignment = .center
+    }
+    private let signupLabel = UILabel().then {
+        $0.text = "아직 회원이 아니신가요?"
+        $0.textColor = UIColor(named: "gray-600")
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
+    }
+    private let signupButton = LabelButton(type: .system, title: "회원가입하기", titleColor: UIColor(named: "main-1")!).then {
         $0.addTarget(self, action: #selector(moveUserSignupView), for: .touchUpInside)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -18,8 +32,9 @@ class StartViewController: BaseVC {
         [
             logoImage,
             loginButton,
-            signupButton,
+            signupStackView
         ].forEach({ view.addSubview($0) })
+        [signupLabel, signupButton].forEach({ signupStackView.addArrangedSubview($0) })
     }
     override func setupConstraints() {
         logoImage.snp.makeConstraints {
@@ -27,14 +42,13 @@ class StartViewController: BaseVC {
             $0.left.right.equalToSuperview().inset(45)
         }
         loginButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(128)
+            $0.bottom.equalToSuperview().inset(56)
             $0.left.right.equalToSuperview().inset(35)
             $0.height.equalTo(60)
         }
-        signupButton.snp.makeConstraints {
-            $0.top.equalTo(loginButton.snp.bottom).offset(12)
-            $0.left.right.equalToSuperview().inset(35)
-            $0.height.equalTo(60)
+        signupStackView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(loginButton.snp.bottom).offset(8)
         }
     }
     
