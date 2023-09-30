@@ -9,7 +9,7 @@ class UserNameViewController: BaseVC {
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
     private let progressLabel = UILabel().then {
-        $0.text = "3/4"
+        $0.text = "3/3"
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
@@ -22,9 +22,9 @@ class UserNameViewController: BaseVC {
         $0.backgroundColor = .clear
         $0.spacing = 4
     }
-    private let nextButton = CustomButton(type: .system, title: "다음", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
+    private let signupButton = CustomButton(type: .system, title: "회원가입", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
         $0.isEnabled = false
-        $0.addTarget(self, action: #selector(moveNetxView), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(clickSignup), for: .touchUpInside)
     }
     private let loginStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -55,7 +55,7 @@ class UserNameViewController: BaseVC {
             buttonStackView
         ].forEach({ view.addSubview($0) })
         [loginLabel, loginButton].forEach({ loginStackView.addArrangedSubview($0) })
-        [nextButton, loginStackView].forEach({ buttonStackView.addArrangedSubview($0) })
+        [signupButton, loginStackView].forEach({ buttonStackView.addArrangedSubview($0) })
     }
     override func setupConstraints() {
         logoImage.snp.makeConstraints {
@@ -77,7 +77,7 @@ class UserNameViewController: BaseVC {
             $0.left.right.equalToSuperview().inset(45)
             $0.height.equalTo(50)
         }
-        nextButton.snp.makeConstraints {
+        signupButton.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(50)
         }
@@ -109,23 +109,23 @@ class UserNameViewController: BaseVC {
               !name.isEmpty
         else {
             nameTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
-            nextButton.backgroundColor = UIColor(named: "main-4")
-            nextButton.isEnabled = false
+            signupButton.backgroundColor = UIColor(named: "main-4")
+            signupButton.isEnabled = false
             return
         }
         nameTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
-        nextButton.backgroundColor = UIColor(named: "main-2")
-        nextButton.isEnabled = true
+        signupButton.backgroundColor = UIColor(named: "main-2")
+        signupButton.isEnabled = true
     }
     @objc private func keyboardWillHide(notification: NSNotification) {
         UIView.animate(withDuration: 0.3) {
             self.buttonStackView.transform = .identity
         }
     }
-    @objc private func moveNetxView() {
-        self.navigationController?.pushViewController(UserEmailViewController(), animated: true)
+    @objc private func moveLoginView() {
+        self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
-    @objc func moveLoginView() {
+    @objc func clickSignup() {
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
 
