@@ -22,6 +22,10 @@ class UserPasswordViewController: BaseVC {
     private let passwordValidTextField = CustomTextField(placeholder: "비밀번호 확인", isSecure: true).then {
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
+    private let passwordValidLabel = UILabel().then {
+        $0.textColor = .systemRed
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
+    }
     private let buttonStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .center
@@ -60,6 +64,7 @@ class UserPasswordViewController: BaseVC {
             progressLabel,
             passwordTextField,
             passwordValidTextField,
+            passwordValidLabel,
             loginStackView,
             buttonStackView
         ].forEach({ view.addSubview($0) })
@@ -90,6 +95,10 @@ class UserPasswordViewController: BaseVC {
             $0.top.equalTo(passwordTextField.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(45)
             $0.height.equalTo(50)
+        }
+        passwordValidLabel.snp.makeConstraints {
+            $0.top.equalTo(passwordValidTextField.snp.bottom).offset(5)
+            $0.left.equalToSuperview().inset(45)
         }
         nextButton.snp.makeConstraints {
             $0.left.right.equalToSuperview()
@@ -175,13 +184,14 @@ extension UserPasswordViewController {
         }
         guard let password = passwordTextField.text,
               let passwordValid = passwordValidTextField.text,
-              !(password.isEmpty || passwordValid.isEmpty)
+              !(password.isEmpty || passwordValid.isEmpty) && password == passwordValid
         else {
-
             nextButton.backgroundColor = UIColor(named: "main-4")
             nextButton.isEnabled = false
+            passwordValidLabel.text = "비밀번호를 다시 확인해주세요."
             return
         }
+        passwordValidLabel.text = ""
         nextButton.backgroundColor = UIColor(named: "main-2")
         nextButton.isEnabled = true
     }
