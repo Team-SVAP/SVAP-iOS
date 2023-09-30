@@ -112,7 +112,6 @@ class CreatePetitionViewController: BaseVC {
         enterContentTextField.snp.makeConstraints {
             $0.top.equalTo(contentLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(20)
-            $0.width.equalTo(350)
             $0.height.equalTo(220)
         }
     }
