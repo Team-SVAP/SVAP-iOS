@@ -108,10 +108,12 @@ class UserIdViewController: BaseVC {
         guard let id = idTextField.text,
                 !id.isEmpty
         else {
+            idTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
             nextButton.backgroundColor = UIColor(named: "main-4")
             nextButton.isEnabled = false
             return
         }
+        idTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
         nextButton.backgroundColor = UIColor(named: "main-2")
         nextButton.isEnabled = true
     }

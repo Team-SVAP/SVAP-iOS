@@ -16,6 +16,7 @@ class UserPasswordViewController: BaseVC {
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
     private let passwordTextField = CustomTextField(placeholder: "비밀번호 (영문 + 숫자 8자 이상)", isSecure: true).then {
+        $0.becomeFirstResponder()
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     private let passwordValidTextField = CustomTextField(placeholder: "비밀번호 확인", isSecure: true).then {
@@ -162,10 +163,21 @@ extension UserPasswordViewController {
         }
     }
     @objc private func textFieldDidChange(_ textfield: UITextField) {
+        if passwordTextField.hasText {
+            passwordTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
+        } else {
+            passwordTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+        }
+        if passwordValidTextField.hasText {
+            passwordValidTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
+        } else {
+            passwordValidTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+        }
         guard let password = passwordTextField.text,
               let passwordValid = passwordValidTextField.text,
-                !(password.isEmpty || passwordValid.isEmpty)
+              !(password.isEmpty || passwordValid.isEmpty)
         else {
+
             nextButton.backgroundColor = UIColor(named: "main-4")
             nextButton.isEnabled = false
             return

@@ -108,10 +108,12 @@ class UserEmailViewController: BaseVC {
         guard let email = emailTextField.text,
               !email.isEmpty
         else {
+            emailTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
             signupButton.backgroundColor = UIColor(named: "main-4")
             signupButton.isEnabled = false
             return
         }
+        emailTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
         signupButton.backgroundColor = UIColor(named: "main-2")
         signupButton.isEnabled = true
     }
@@ -122,6 +124,7 @@ class UserEmailViewController: BaseVC {
     }
     @objc private func clickSignup() {
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        //서버통신하면서 성공하면 알림 띄워주기?
     }
     @objc func moveLoginView() {
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
