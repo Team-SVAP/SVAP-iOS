@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8803D3A52AC1CCF900B36C9E /* PetitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8803D3A42AC1CCF900B36C9E /* PetitionCell.swift */; };
 		880D92282AC860F70053D5A6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 880D92272AC860F70053D5A6 /* Moya */; };
+		880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D922F2AC861DA0053D5A6 /* AuthAPI.swift */; };
 		882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63142AB5FA2700BFE332 /* AppDelegate.swift */; };
 		882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63162AB5FA2700BFE332 /* SceneDelegate.swift */; };
 		882E631E2AB5FA2800BFE332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 882E631D2AB5FA2800BFE332 /* Assets.xcassets */; };
@@ -30,7 +31,6 @@
 		882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63632AB69D2300BFE332 /* LabelButton.swift */; };
 		882E63662AB7081000BFE332 /* UserPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63652AB7081000BFE332 /* UserPasswordViewController.swift */; };
 		882E63682AB7098000BFE332 /* UserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63672AB7098000BFE332 /* UserNameViewController.swift */; };
-		882E636A2AB7098800BFE332 /* UserEmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63692AB7098800BFE332 /* UserEmailViewController.swift */; };
 		882E63752AB7109000BFE332 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63742AB7109000BFE332 /* MainViewController.swift */; };
 		882E63772AB736F200BFE332 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63762AB736F200BFE332 /* MainCell.swift */; };
 		882E63792AB7FBE900BFE332 /* FamousCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63782AB7FBE900BFE332 /* FamousCell.swift */; };
@@ -47,6 +47,7 @@
 
 /* Begin PBXFileReference section */
 		8803D3A42AC1CCF900B36C9E /* PetitionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCell.swift; sourceTree = "<group>"; };
+		880D922F2AC861DA0053D5A6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		882E63112AB5FA2700BFE332 /* SVAP_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVAP_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882E63142AB5FA2700BFE332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		882E63162AB5FA2700BFE332 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,7 +70,6 @@
 		882E63632AB69D2300BFE332 /* LabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelButton.swift; sourceTree = "<group>"; };
 		882E63652AB7081000BFE332 /* UserPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPasswordViewController.swift; sourceTree = "<group>"; };
 		882E63672AB7098000BFE332 /* UserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameViewController.swift; sourceTree = "<group>"; };
-		882E63692AB7098800BFE332 /* UserEmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEmailViewController.swift; sourceTree = "<group>"; };
 		882E63742AB7109000BFE332 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		882E63762AB736F200BFE332 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
 		882E63782AB7FBE900BFE332 /* FamousCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamousCell.swift; sourceTree = "<group>"; };
@@ -116,6 +116,22 @@
 			path = Petition;
 			sourceTree = "<group>";
 		};
+		880D92292AC861590053D5A6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				880D922A2AC8616B0053D5A6 /* Auth */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		880D922A2AC8616B0053D5A6 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				880D922F2AC861DA0053D5A6 /* AuthAPI.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		882E63082AB5FA2700BFE332 = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +172,7 @@
 		882E63352AB5FB4300BFE332 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				880D92292AC861590053D5A6 /* Service */,
 				88A293732AC47B29007B4469 /* Application */,
 				882E63452AB604DF00BFE332 /* Component */,
 				882E633B2AB5FC1400BFE332 /* Base */,
@@ -189,7 +206,6 @@
 				882E63592AB6169A00BFE332 /* UserIdViewController.swift */,
 				882E63652AB7081000BFE332 /* UserPasswordViewController.swift */,
 				882E63672AB7098000BFE332 /* UserNameViewController.swift */,
-				882E63692AB7098800BFE332 /* UserEmailViewController.swift */,
 			);
 			path = UserSignup;
 			sourceTree = "<group>";
@@ -372,9 +388,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */,
-				882E636A2AB7098800BFE332 /* UserEmailViewController.swift in Sources */,
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
 				882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */,
+				880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */,
 				882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
