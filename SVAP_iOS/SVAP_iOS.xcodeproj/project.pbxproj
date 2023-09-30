@@ -10,6 +10,8 @@
 		8803D3A52AC1CCF900B36C9E /* PetitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8803D3A42AC1CCF900B36C9E /* PetitionCell.swift */; };
 		880D92282AC860F70053D5A6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 880D92272AC860F70053D5A6 /* Moya */; };
 		880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D922F2AC861DA0053D5A6 /* AuthAPI.swift */; };
+		880D92342AC864530053D5A6 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 880D92332AC864530053D5A6 /* SwiftKeychainWrapper */; };
+		880D92382AC864A10053D5A6 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D92372AC864A10053D5A6 /* Header.swift */; };
 		882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63142AB5FA2700BFE332 /* AppDelegate.swift */; };
 		882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63162AB5FA2700BFE332 /* SceneDelegate.swift */; };
 		882E631E2AB5FA2800BFE332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 882E631D2AB5FA2800BFE332 /* Assets.xcassets */; };
@@ -48,6 +50,7 @@
 /* Begin PBXFileReference section */
 		8803D3A42AC1CCF900B36C9E /* PetitionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCell.swift; sourceTree = "<group>"; };
 		880D922F2AC861DA0053D5A6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
+		880D92372AC864A10053D5A6 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		882E63112AB5FA2700BFE332 /* SVAP_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVAP_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882E63142AB5FA2700BFE332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		882E63162AB5FA2700BFE332 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +94,7 @@
 			files = (
 				88A293692AC3A723007B4469 /* SnapKit in Frameworks */,
 				88A2936C2AC3A729007B4469 /* Then in Frameworks */,
+				880D92342AC864530053D5A6 /* SwiftKeychainWrapper in Frameworks */,
 				880D92282AC860F70053D5A6 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -119,6 +123,7 @@
 		880D92292AC861590053D5A6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				880D92312AC864460053D5A6 /* Header */,
 				880D922A2AC8616B0053D5A6 /* Auth */,
 			);
 			path = Service;
@@ -130,6 +135,14 @@
 				880D922F2AC861DA0053D5A6 /* AuthAPI.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		880D92312AC864460053D5A6 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				880D92372AC864A10053D5A6 /* Header.swift */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 		882E63082AB5FA2700BFE332 = {
@@ -320,6 +333,7 @@
 				88A293682AC3A723007B4469 /* SnapKit */,
 				88A2936B2AC3A729007B4469 /* Then */,
 				880D92272AC860F70053D5A6 /* Moya */,
+				880D92332AC864530053D5A6 /* SwiftKeychainWrapper */,
 			);
 			productName = SVAP_iOS;
 			productReference = 882E63112AB5FA2700BFE332 /* SVAP_iOS.app */;
@@ -352,6 +366,7 @@
 				88A293672AC3A723007B4469 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				88A2936A2AC3A729007B4469 /* XCRemoteSwiftPackageReference "Then" */,
 				880D92262AC860F70053D5A6 /* XCRemoteSwiftPackageReference "Moya" */,
+				880D92322AC864530053D5A6 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 			);
 			productRefGroup = 882E63122AB5FA2700BFE332 /* Products */;
 			projectDirPath = "";
@@ -403,6 +418,7 @@
 				882E63662AB7081000BFE332 /* UserPasswordViewController.swift in Sources */,
 				882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */,
 				882E63792AB7FBE900BFE332 /* FamousCell.swift in Sources */,
+				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
 				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,
@@ -478,7 +494,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -533,7 +549,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -629,6 +645,14 @@
 				minimumVersion = 15.0.3;
 			};
 		};
+		880D92322AC864530053D5A6 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jrendel/SwiftKeychainWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.1;
+			};
+		};
 		88A293672AC3A723007B4469 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -652,6 +676,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 880D92262AC860F70053D5A6 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
+		};
+		880D92332AC864530053D5A6 /* SwiftKeychainWrapper */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 880D92322AC864530053D5A6 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
+			productName = SwiftKeychainWrapper;
 		};
 		88A293682AC3A723007B4469 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
