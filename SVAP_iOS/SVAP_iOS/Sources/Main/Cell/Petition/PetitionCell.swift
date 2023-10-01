@@ -56,7 +56,6 @@ class PetitionCell: UITableViewCell {
             contentLabel
         ].forEach({ contentView.addSubview($0) })
     }
-    
     func setupConstraints() {
         
         petitionTitleLabel.snp.makeConstraints {

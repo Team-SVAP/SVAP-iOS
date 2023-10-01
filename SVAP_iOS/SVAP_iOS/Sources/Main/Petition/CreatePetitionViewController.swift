@@ -33,6 +33,16 @@ class CreatePetitionViewController: BaseVC {
         $0.layer.borderWidth = 0.5
         $0.layer.cornerRadius = 8
     }
+    private let slashButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(named: "leftMiniArrow"), for: .normal)
+        $0.tintColor = UIColor(named: "gray-700")
+        $0.addTarget(self, action: #selector(clickButton), for: .touchUpInside)
+    }
+    private let typeContentLabel = UILabel().then {
+        $0.text = "학교 청원"
+        $0.textColor = UIColor(named: "gray-700")
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
+    }
     private let placeLabel = UILabel().then {
         $0.text = "*위치태그"
         $0.textColor = UIColor(named: "gray-700")
@@ -72,6 +82,7 @@ class CreatePetitionViewController: BaseVC {
             contentLabel,
             enterContentTextField
         ].forEach({ view.addSubview($0) })
+        [typeContentLabel, slashButton].forEach({ typeView.addSubview($0) })
     }
     override func setupConstraints() {
         super.setupConstraints()
@@ -94,6 +105,14 @@ class CreatePetitionViewController: BaseVC {
             $0.left.equalToSuperview().inset(20)
             $0.width.equalTo(165)
             $0.height.equalTo(40)
+        }
+        slashButton.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.right.equalToSuperview().inset(13)
+        }
+        typeContentLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.left.equalToSuperview().inset(12)
         }
         placeLabel.snp.makeConstraints {
             $0.top.equalTo(enterTitleTextField.snp.bottom).offset(24)
@@ -138,10 +157,9 @@ class CreatePetitionViewController: BaseVC {
         //청원등록 서버통신
     }
     @objc private func clickButton() {
-        isClick.toggle()
-        if isClick {
-//            self.navigationController?.present(CustomMenu(), animated: true)
-        } else {
-        }
+        let navigationController = UINavigationController(rootViewController: CustomMenu())
+        navigationController.modalPresentationStyle = .overFullScreen
+        navigationController.modalTransitionStyle = .crossDissolve
+        self.present(navigationController, animated: true)
     }
 }
