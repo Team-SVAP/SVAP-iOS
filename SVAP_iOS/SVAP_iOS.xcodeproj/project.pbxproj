@@ -12,6 +12,8 @@
 		880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D922F2AC861DA0053D5A6 /* AuthAPI.swift */; };
 		880D92342AC864530053D5A6 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 880D92332AC864530053D5A6 /* SwiftKeychainWrapper */; };
 		880D92382AC864A10053D5A6 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D92372AC864A10053D5A6 /* Header.swift */; };
+		880D923C2AC9B2500053D5A6 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D923B2AC9B2500053D5A6 /* AuthResponse.swift */; };
+		880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D92402AC9B3B40053D5A6 /* PetitionAPI.swift */; };
 		882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63142AB5FA2700BFE332 /* AppDelegate.swift */; };
 		882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63162AB5FA2700BFE332 /* SceneDelegate.swift */; };
 		882E631E2AB5FA2800BFE332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 882E631D2AB5FA2800BFE332 /* Assets.xcassets */; };
@@ -51,6 +53,8 @@
 		8803D3A42AC1CCF900B36C9E /* PetitionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCell.swift; sourceTree = "<group>"; };
 		880D922F2AC861DA0053D5A6 /* AuthAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAPI.swift; sourceTree = "<group>"; };
 		880D92372AC864A10053D5A6 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
+		880D923B2AC9B2500053D5A6 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		880D92402AC9B3B40053D5A6 /* PetitionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionAPI.swift; sourceTree = "<group>"; };
 		882E63112AB5FA2700BFE332 /* SVAP_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVAP_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882E63142AB5FA2700BFE332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		882E63162AB5FA2700BFE332 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,7 +128,9 @@
 			isa = PBXGroup;
 			children = (
 				880D92312AC864460053D5A6 /* Header */,
+				880D92372AC864A10053D5A6 /* Header.swift */,
 				880D922A2AC8616B0053D5A6 /* Auth */,
+				880D923D2AC9B3380053D5A6 /* Petition */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -132,7 +138,8 @@
 		880D922A2AC8616B0053D5A6 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				880D922F2AC861DA0053D5A6 /* AuthAPI.swift */,
+				880D92392AC9B23F0053D5A6 /* API */,
+				880D923A2AC9B2410053D5A6 /* Response */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -140,9 +147,48 @@
 		880D92312AC864460053D5A6 /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				880D92372AC864A10053D5A6 /* Header.swift */,
 			);
 			path = Header;
+			sourceTree = "<group>";
+		};
+		880D92392AC9B23F0053D5A6 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				880D922F2AC861DA0053D5A6 /* AuthAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		880D923A2AC9B2410053D5A6 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				880D923B2AC9B2500053D5A6 /* AuthResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		880D923D2AC9B3380053D5A6 /* Petition */ = {
+			isa = PBXGroup;
+			children = (
+				880D923E2AC9B3A40053D5A6 /* API */,
+				880D923F2AC9B3A70053D5A6 /* Response */,
+			);
+			path = Petition;
+			sourceTree = "<group>";
+		};
+		880D923E2AC9B3A40053D5A6 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				880D92402AC9B3B40053D5A6 /* PetitionAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		880D923F2AC9B3A70053D5A6 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		882E63082AB5FA2700BFE332 = {
@@ -405,6 +451,7 @@
 				888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */,
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
 				882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */,
+				880D923C2AC9B2500053D5A6 /* AuthResponse.swift in Sources */,
 				880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */,
 				882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
@@ -421,6 +468,7 @@
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
+				880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */,
 				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,
 				882E63752AB7109000BFE332 /* MainViewController.swift in Sources */,
 				8803D3A52AC1CCF900B36C9E /* PetitionCell.swift in Sources */,
