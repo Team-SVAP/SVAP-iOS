@@ -231,8 +231,8 @@
 		882E63352AB5FB4300BFE332 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				880D92292AC861590053D5A6 /* Service */,
 				88A293732AC47B29007B4469 /* Application */,
+				880D92292AC861590053D5A6 /* Service */,
 				882E63452AB604DF00BFE332 /* Component */,
 				882E633B2AB5FC1400BFE332 /* Base */,
 				882E63422AB6048100BFE332 /* Start */,
