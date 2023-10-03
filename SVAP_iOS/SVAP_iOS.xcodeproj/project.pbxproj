@@ -128,7 +128,6 @@
 			isa = PBXGroup;
 			children = (
 				880D92312AC864460053D5A6 /* Header */,
-				880D92372AC864A10053D5A6 /* Header.swift */,
 				880D922A2AC8616B0053D5A6 /* Auth */,
 				880D923D2AC9B3380053D5A6 /* Petition */,
 			);
@@ -147,6 +146,7 @@
 		880D92312AC864460053D5A6 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				880D92372AC864A10053D5A6 /* Header.swift */,
 			);
 			path = Header;
 			sourceTree = "<group>";
