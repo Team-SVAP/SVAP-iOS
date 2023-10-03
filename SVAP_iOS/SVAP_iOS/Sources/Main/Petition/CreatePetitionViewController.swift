@@ -36,10 +36,9 @@ class CreatePetitionViewController: BaseVC {
     private let slashButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftMiniArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
-        $0.addTarget(self, action: #selector(clickButton), for: .touchUpInside)
+        $0.addTarget(self, action: #selector(clickMenuButton), for: .touchUpInside)
     }
     private let typeContentLabel = UILabel().then {
-        $0.text = "학교 청원"
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
@@ -68,10 +67,8 @@ class CreatePetitionViewController: BaseVC {
         super.viewDidLoad()
         navigationBarSetting()
     }
-
     override func configureUI() {
         super.configureUI()
-        
         [
             titleLabel,
             enterTitleTextField,
@@ -148,6 +145,7 @@ class CreatePetitionViewController: BaseVC {
     
         rightButton.addTarget(self, action: #selector(clickRightBarButton), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
+
     }
     @objc private func clickLeftBarButton() {
         self.navigationController?.popViewController(animated: true)
@@ -156,10 +154,13 @@ class CreatePetitionViewController: BaseVC {
         self.navigationController?.popViewController(animated: true)
         //청원등록 서버통신
     }
-    @objc private func clickButton() {
-        let navigationController = UINavigationController(rootViewController: CustomMenu())
-        navigationController.modalPresentationStyle = .overFullScreen
-        navigationController.modalTransitionStyle = .crossDissolve
-        self.present(navigationController, animated: true)
+      
+    @objc private func clickMenuButton() {
+        let petitionClosure = UINavigationController(rootViewController: CustomMenu(closure: {
+            self.typeContentLabel.text = $0
+        }))
+        petitionClosure.modalPresentationStyle = .overFullScreen
+        petitionClosure.modalTransitionStyle = .crossDissolve
+        self.present(petitionClosure, animated: true)
     }
 }

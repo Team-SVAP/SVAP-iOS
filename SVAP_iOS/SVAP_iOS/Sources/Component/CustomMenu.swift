@@ -4,6 +4,8 @@ import Then
 
 class CustomMenu: UIViewController {
     
+    var closure: (String) -> Void
+    
     let menuView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.borderColor = UIColor(named: "main-1")?.cgColor
@@ -20,13 +22,22 @@ class CustomMenu: UIViewController {
         $0.setTitle("학교 청원", for: .normal)
         $0.setTitleColor(UIColor(named: "gray-700"), for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
+        $0.addTarget(self, action: #selector(clickSchoolButton), for: .touchUpInside)
     }
     let dormitoryPetitionButton = UIButton(type: .system).then {
         $0.setTitle("기숙사 청원", for: .normal)
         $0.setTitleColor(UIColor(named: "gray-700"), for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
+        $0.addTarget(self, action: #selector(clickDormButton), for: .touchUpInside)
+    }
+    init(closure: @escaping (String) -> Void) {
+        self.closure = closure
+        super.init(nibName: nil, bundle: nil)
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
@@ -64,7 +75,15 @@ class CustomMenu: UIViewController {
             $0.left.equalToSuperview().inset(12)
         }
     }
-    
+    @objc func clickSchoolButton() {
+        closure("학교 청원")
+        self.dismiss(animated: true)
+    }
+    @objc func clickDormButton() {
+
+        self.dismiss(animated: true)
+        closure("기숙사 청원")
+    }
     @objc func clickSlashButton() {
         self.dismiss(animated: true)
     }
