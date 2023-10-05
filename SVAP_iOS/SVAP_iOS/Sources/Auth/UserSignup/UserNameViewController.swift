@@ -108,12 +108,12 @@ class UserNameViewController: BaseVC {
         guard let name = nameTextField.text,
               !name.isEmpty
         else {
-            nameTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+            textfield.layer.borderColor = UIColor(named: "gray-300")?.cgColor
             signupButton.backgroundColor = UIColor(named: "main-4")
             signupButton.isEnabled = false
             return
         }
-        nameTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
+        textfield.layer.borderColor = UIColor(named: "main-2")?.cgColor
         signupButton.backgroundColor = UIColor(named: "main-2")
         signupButton.isEnabled = true
     }

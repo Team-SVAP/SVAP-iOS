@@ -80,9 +80,8 @@ class CustomMenu: UIViewController {
         self.dismiss(animated: true)
     }
     @objc func clickDormButton() {
-
-        self.dismiss(animated: true)
         closure("기숙사 청원")
+        self.dismiss(animated: true)
     }
     @objc func clickSlashButton() {
         self.dismiss(animated: true)

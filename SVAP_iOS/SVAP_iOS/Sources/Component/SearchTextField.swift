@@ -13,8 +13,8 @@ class SearchTextField: UITextField {
         self.placeholderText = placeholder
         self.backgroundColor = .white
         self.layer.cornerRadius = 12
-        self.textColor = UIColor(named: "gray-800")
-        self.font = UIFont(name: "IBMPlexSansKR-Regular", size: 16)
+        self.textColor = UIColor(named: "gray-700")
+        self.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
         self.layer.borderColor = UIColor(named: "main-3")?.cgColor
         self.layer.borderWidth = 1
         let leftSpacerView = UIView(frame: CGRect(x: 0, y: 0, width: 16, height: 0))
