@@ -9,7 +9,7 @@ enum AuthAPI {
 
 extension AuthAPI: TargetType {
     var baseURL: URL {
-//        return URL(string: <#T##String#>)
+        return URL(string: "15.164.62.45:8080 ")!
     }
     
     var path: String {
