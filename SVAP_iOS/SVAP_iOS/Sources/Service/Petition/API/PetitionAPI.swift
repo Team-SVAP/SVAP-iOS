@@ -7,7 +7,7 @@
 //
 //extension PetitionAPI: TargetType {
 //    var baseURL: URL {
-//        return URL(string: "ㅇ러니ㅏㄹㄱ")!
+//        return URL(string: "15.164.62.45:8080 ")!
 //    }
 //    
 //    var path: String {

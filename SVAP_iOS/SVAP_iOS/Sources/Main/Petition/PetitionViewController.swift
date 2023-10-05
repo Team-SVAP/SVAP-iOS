@@ -6,7 +6,9 @@ class PetitionViewController: BaseVC {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
     }
-    private let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.")
+    private let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.").then {
+        $0.layer.cornerRadius = 8
+    }
     private let searchButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "searchIcon"), for: .normal)
         $0.tintColor = UIColor(named: "gray-600")
@@ -20,7 +22,14 @@ class PetitionViewController: BaseVC {
         $0.rowHeight = 80
         $0.separatorStyle = .none
     }
-
+    private let scrollButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(named: "upArrow"), for: .normal)
+        $0.backgroundColor = UIColor(named: "main-3")
+        $0.tintColor = .white
+        $0.layer.cornerRadius = 30
+        $0.addTarget(self, action: #selector(clickScrollButton), for: .touchUpInside)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarSetting()
@@ -39,15 +48,13 @@ class PetitionViewController: BaseVC {
         leftbutton.addTarget(self, action: #selector(clickLeftBarButton), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
     }
-    @objc private func clickLeftBarButton() {
-        self.navigationController?.popViewController(animated: true)
-    }
     override func configureUI() {
         super.configureUI()
         [
             searchTextField,
             line,
             tableView,
+            scrollButton
         ].forEach({ view.addSubview($0) })
         searchTextField.addSubview(searchButton)
     }
@@ -73,6 +80,17 @@ class PetitionViewController: BaseVC {
             $0.bottom.equalToSuperview()
             $0.left.right.equalToSuperview().inset(20)
         }
+        scrollButton.snp.makeConstraints {
+            $0.bottom.right.equalToSuperview().inset(30)
+            $0.width.height.equalTo(60)
+        }
+    }
+    
+    @objc private func clickLeftBarButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    @objc private func clickScrollButton() {
+        self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
 }
 
