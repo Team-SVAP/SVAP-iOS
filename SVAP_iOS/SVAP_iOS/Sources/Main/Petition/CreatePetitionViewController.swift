@@ -1,8 +1,8 @@
 import UIKit
 
-class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-
-    lazy var arr = [titleLabel, typeLabel, placeLabel, contentLabel, imageLabel]
+class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UITextViewDelegate {
+    
+    lazy var arr = [titleLabel, typeLabel, placeLabel, contentLabel]
     private let leftButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
@@ -12,7 +12,7 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         $0.setTitleColor(UIColor(named: "gray-600"), for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 16)
     }
-     let titleLabel = UILabel().then {
+    let titleLabel = UILabel().then {
         $0.text = "*제목"
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
@@ -21,12 +21,16 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         $0.layer.borderColor = UIColor(named: "gray-400")?.cgColor
         $0.layer.borderWidth = 0.5
         $0.layer.cornerRadius = 8
-        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     private let typeLabel = UILabel().then {
         $0.text = "*종류"
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
+    }
+    private let menuButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(named: "leftMiniArrow"), for: .normal)
+        $0.tintColor = UIColor(named: "gray-700")
+        $0.addTarget(self, action: #selector(clickMenuButton), for: .touchUpInside)
     }
     private let typeView = UIView().then {
         $0.backgroundColor = .white
@@ -34,12 +38,8 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         $0.layer.borderWidth = 0.5
         $0.layer.cornerRadius = 8
     }
-    private let menuButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "leftMiniArrow"), for: .normal)
-        $0.tintColor = UIColor(named: "gray-700")
-        $0.addTarget(self, action: #selector(clickMenuButton), for: .touchUpInside)
-    }
-    private let typeContentLabel = UILabel().then {
+    private let petitionTypeLabel = UILabel().then {
+        $0.text = nil
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
@@ -52,21 +52,20 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         $0.layer.borderColor = UIColor(named: "gray-400")?.cgColor
         $0.layer.borderWidth = 0.5
         $0.layer.cornerRadius = 8
-        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     private let contentLabel = UILabel().then {
         $0.text = "*내용"
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
     }
-    private let contentTextField = SearchTextField(placeholder: "내용을 입력하세요.").then {
-        $0.layer.borderColor = UIColor(named: "gray-400")?.cgColor
-        $0.layer.borderWidth = 0.5
-        $0.layer.cornerRadius = 8
-        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
+    private let contentTextView = CustomTextView().then {
+        $0.text = "내용을 입력하세요."
+        $0.textColor = UIColor(named: "gray-400")
+        $0.font = UIFont(name: "IBMPlexSansKR-Regular", size: 12)
     }
+    
     private let imageLabel = UILabel().then {
-        $0.text = "*사진"
+        $0.text = "사진"
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
     }
@@ -85,7 +84,8 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         arr.forEach({ labelSetting($0) })
         titleTextField.delegate = self
         placeTextField.delegate = self
-        contentTextField.delegate = self
+        contentTextView.delegate = self
+        updateButtonState()
     }
     override func configureUI() {
         super.configureUI()
@@ -97,11 +97,11 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
             placeLabel,
             placeTextField,
             contentLabel,
-            contentTextField,
+            contentTextView,
             imageLabel,
             imageView
         ].forEach({ view.addSubview($0) })
-        [typeContentLabel, menuButton].forEach({ typeView.addSubview($0) })
+        [petitionTypeLabel, menuButton].forEach({ typeView.addSubview($0) })
         imageView.addSubview(cameraIcon)
     }
     override func setupConstraints() {
@@ -130,7 +130,7 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
             $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().inset(13)
         }
-        typeContentLabel.snp.makeConstraints {
+        petitionTypeLabel.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.left.equalToSuperview().inset(12)
         }
@@ -148,13 +148,13 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
             $0.top.equalTo(typeView.snp.bottom).offset(24)
             $0.left.equalToSuperview().inset(20)
         }
-        contentTextField.snp.makeConstraints {
+        contentTextView.snp.makeConstraints {
             $0.top.equalTo(contentLabel.snp.bottom).offset(8)
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(220)
         }
         imageLabel.snp.makeConstraints {
-            $0.top.equalTo(contentTextField.snp.bottom).offset(24)
+            $0.top.equalTo(contentTextView.snp.bottom).offset(24)
             $0.left.equalToSuperview().inset(20)
         }
         imageView.snp.makeConstraints {
@@ -166,6 +166,42 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
             $0.center.equalToSuperview()
         }
     }
+    
+    @objc private func clickLeftBarButton() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    @objc private func clickRightBarButton() {
+        self.navigationController?.popViewController(animated: true)
+        //청원등록 서버통신
+    }
+    
+}
+
+extension CreatePetitionViewController {
+    
+    @objc func clickImageView() {
+        let picker = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        picker.delegate = self
+        self.present(picker, animated: true)
+    }
+    private func imageSetting() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(clickImageView))
+        imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
+    }
+    
+    @objc private func clickMenuButton() {
+        let petitionClosure = UINavigationController(rootViewController: CustomMenu(closure: { [weak self] petition in
+            self?.petitionTypeLabel.text = petition
+            self?.updateButtonState()
+        }))
+        petitionClosure.modalPresentationStyle = .overFullScreen
+        petitionClosure.modalTransitionStyle = .crossDissolve
+        self.present(petitionClosure, animated: true)
+    }
+    
     private func navigationBarSetting() {
         navigationItem.hidesBackButton = true
         let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
@@ -177,11 +213,12 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         
         leftButton.addTarget(self, action: #selector(clickLeftBarButton), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
-    
+        
         rightButton.addTarget(self, action: #selector(clickRightBarButton), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
-
+        navigationItem.rightBarButtonItem?.isEnabled = false
     }
+    
     private func labelSetting(_ label: UILabel) {
         let attributedString = NSMutableAttributedString(string: label.text!)
         
@@ -189,44 +226,7 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         attributedString.addAttribute(.foregroundColor, value: UIColor.red, range: (label.text! as NSString).range(of:"*"))
         label.attributedText = attributedString
     }
-    private func imageSetting() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(clickImageView))
-        imageView.addGestureRecognizer(tapGesture)
-        imageView.isUserInteractionEnabled = true
-    }
-    @objc func clickImageView() {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.allowsEditing = true
-        picker.delegate = self
-        self.present(picker, animated: true)
-    }
-    @objc private func textFieldDidChange(_ textField: UITextField) {
-        if textField.isEditing == true {
-            textField.layer.borderColor = UIColor(named: "main-1")?.cgColor
-        } else {
-            textField.layer.borderColor = UIColor(named: "gray-400")?.cgColor
-        }
-    }
-    @objc private func clickLeftBarButton() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    @objc private func clickRightBarButton() {
-        self.navigationController?.popViewController(animated: true)
-        //청원등록 서버통신
-    }
-      
-    @objc private func clickMenuButton() {
-        let petitionClosure = UINavigationController(rootViewController: CustomMenu(closure: { [weak self] in
-            self?.typeContentLabel.text = $0
-        }))
-        petitionClosure.modalPresentationStyle = .overFullScreen
-        petitionClosure.modalTransitionStyle = .crossDissolve
-        self.present(petitionClosure, animated: true)
-    }
-}
-
-extension CreatePetitionViewController {
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true) {}
     }
@@ -239,13 +239,45 @@ extension CreatePetitionViewController {
             self.cameraIcon.isHidden = true
         }
     }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if titleTextField.hasText && !typeLabel.text!.isEmpty && placeTextField.hasText && contentTextField.hasText {
-            //조건식에 image추가하기
+    
+    func updateButtonState() {
+        let title = !(titleTextField.text!.isEmpty)
+        let type = ((petitionTypeLabel.text?.isEmpty) != nil)
+        let place = !(placeTextField.text!.isEmpty)
+        let content = !(contentTextView.text.isEmpty)
+        
+        if title && type && place && content {
+            navigationItem.rightBarButtonItem?.isEnabled = true
             rightButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
         } else {
+            navigationItem.rightBarButtonItem?.isEnabled = false
             rightButton.setTitleColor(UIColor(named: "gray-600"), for: .normal)
         }
     }
-
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.layer.borderColor = UIColor(named: "main-1")?.cgColor
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateButtonState()
+        textField.layer.borderColor = UIColor(named: "gray-400")?.cgColor
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if contentTextView.textColor == UIColor(named: "gray-400") {
+            contentTextView.text = nil
+            contentTextView.textColor = UIColor(named: "gray-800")
+            contentTextView.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
+        }
+        contentTextView.layer.borderColor = UIColor(named: "main-1")?.cgColor
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {
+        updateButtonState()
+        if contentTextView.text.isEmpty {
+            contentTextView.text = "내용을 입력하세요."
+            contentTextView.textColor = UIColor(named: "gray-400")
+            contentTextView.font = UIFont(name: "IBMPlexSansKR-Regular", size: 12)
+        }
+        contentTextView.layer.borderColor = UIColor(named: "gray-400")?.cgColor
+    }
+    
 }
