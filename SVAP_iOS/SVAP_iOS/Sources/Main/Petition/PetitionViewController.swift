@@ -117,4 +117,7 @@ extension PetitionViewController: UITableViewDelegate, UITableViewDataSource {
         footerView.backgroundColor = .clear // 섹션 사이의 간격 부분을 투명하게 만듭니다.
         return footerView
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.navigationController?.pushViewController(DetailPetitionViewController(), animated: true)
+    }
 }

@@ -40,6 +40,7 @@
 		882E63792AB7FBE900BFE332 /* FamousCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63782AB7FBE900BFE332 /* FamousCell.swift */; };
 		882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */; };
 		882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637C2AB8565600BFE332 /* PetitionButton.swift */; };
+		884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */; };
 		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
@@ -82,6 +83,7 @@
 		882E63782AB7FBE900BFE332 /* FamousCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamousCell.swift; sourceTree = "<group>"; };
 		882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovedCell.swift; sourceTree = "<group>"; };
 		882E637C2AB8565600BFE332 /* PetitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionButton.swift; sourceTree = "<group>"; };
+		884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewController.swift; sourceTree = "<group>"; };
 		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		885A74952AC2F6A200EC3F1A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
@@ -338,6 +340,7 @@
 			children = (
 				888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */,
 				88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */,
+				884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */,
 			);
 			path = Petition;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 			files = (
 				888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */,
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
+				884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */,
 				882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */,
 				880D923C2AC9B2500053D5A6 /* AuthResponse.swift in Sources */,
 				880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */,
