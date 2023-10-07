@@ -42,8 +42,8 @@
 		882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637C2AB8565600BFE332 /* PetitionButton.swift */; };
 		884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */; };
 		884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91372ACFE5B300AE1E14 /* CustomTextView.swift */; };
-		884A913D2AD150B500AE1E14 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 884A913C2AD150B500AE1E14 /* SideMenu */; };
 		884A913F2AD1548300AE1E14 /* SideMenuContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */; };
+		884A91422AD19FF000AE1E14 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 884A91412AD19FF000AE1E14 /* SideMenu */; };
 		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
@@ -104,7 +104,7 @@
 				88A293692AC3A723007B4469 /* SnapKit in Frameworks */,
 				88A2936C2AC3A729007B4469 /* Then in Frameworks */,
 				880D92342AC864530053D5A6 /* SwiftKeychainWrapper in Frameworks */,
-				884A913D2AD150B500AE1E14 /* SideMenu in Frameworks */,
+				884A91422AD19FF000AE1E14 /* SideMenu in Frameworks */,
 				880D92282AC860F70053D5A6 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,7 +388,7 @@
 				88A2936B2AC3A729007B4469 /* Then */,
 				880D92272AC860F70053D5A6 /* Moya */,
 				880D92332AC864530053D5A6 /* SwiftKeychainWrapper */,
-				884A913C2AD150B500AE1E14 /* SideMenu */,
+				884A91412AD19FF000AE1E14 /* SideMenu */,
 			);
 			productName = SVAP_iOS;
 			productReference = 882E63112AB5FA2700BFE332 /* SVAP_iOS.app */;
@@ -422,7 +422,7 @@
 				88A2936A2AC3A729007B4469 /* XCRemoteSwiftPackageReference "Then" */,
 				880D92262AC860F70053D5A6 /* XCRemoteSwiftPackageReference "Moya" */,
 				880D92322AC864530053D5A6 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
-				884A913B2AD150B500AE1E14 /* XCRemoteSwiftPackageReference "SideMenu" */,
+				884A91402AD19FF000AE1E14 /* XCRemoteSwiftPackageReference "SideMenu" */,
 			);
 			productRefGroup = 882E63122AB5FA2700BFE332 /* Products */;
 			projectDirPath = "";
@@ -713,12 +713,12 @@
 				minimumVersion = 4.0.1;
 			};
 		};
-		884A913B2AD150B500AE1E14 /* XCRemoteSwiftPackageReference "SideMenu" */ = {
+		884A91402AD19FF000AE1E14 /* XCRemoteSwiftPackageReference "SideMenu" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kukushi/SideMenu.git";
+			repositoryURL = "https://github.com/jonkykong/SideMenu.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.0.10;
+				minimumVersion = 6.5.0;
 			};
 		};
 		88A293672AC3A723007B4469 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
@@ -750,9 +750,9 @@
 			package = 880D92322AC864530053D5A6 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
 		};
-		884A913C2AD150B500AE1E14 /* SideMenu */ = {
+		884A91412AD19FF000AE1E14 /* SideMenu */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 884A913B2AD150B500AE1E14 /* XCRemoteSwiftPackageReference "SideMenu" */;
+			package = 884A91402AD19FF000AE1E14 /* XCRemoteSwiftPackageReference "SideMenu" */;
 			productName = SideMenu;
 		};
 		88A293682AC3A723007B4469 /* SnapKit */ = {
