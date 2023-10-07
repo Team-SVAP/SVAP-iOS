@@ -1,7 +1,7 @@
 import UIKit
+import SideMenu
 
 class MainViewController: BaseVC {
-    //사이드 메뉴 라이브러리 사용하기https://gonslab.tistory.com/10
     var isExpanded = false
     var data = [MainCell.self, ApprovedCell.self]
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
@@ -55,11 +55,15 @@ class MainViewController: BaseVC {
     private let viewContentButton = LabelButton(type: .system, title: "더보기", titleColor: UIColor(named: "gray-700")!).then {
         $0.addTarget(self, action: #selector(clickViewContentButton), for: .touchUpInside)
     }
+    let sideMenu = SideMenuNavigationController(rootViewController: SideMenuContentViewController())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        pageControlSetting()
         collectionView.delegate = self
         collectionView.dataSource = self
         navigationBarSetting()
+        sideMenuSetting()
     }
     override func configureUI() {
         [
@@ -145,9 +149,7 @@ class MainViewController: BaseVC {
         view.window!.layer.add(transition, forKey: kCATransition)
     }
     @objc func clickMenuButton() {
-        let navigation = UINavigationController(rootViewController: SideMenu())
-        navigation.modalPresentationStyle = .overFullScreen
-        self.present(navigation, animated: false)
+        self.present(sideMenu, animated: true)
     }
     @objc func clickViewPetitionButton() {
         self.navigationController?.pushViewController(PetitionViewController(), animated: true)
@@ -163,6 +165,27 @@ class MainViewController: BaseVC {
             famousPetitionContentLabel.numberOfLines = 7
         }
     }
+    
+//    private let pageControl = UIPageControl()
+//    func pageControlSetting() {
+//        view.addSubview(pageControl)
+//        pageControl.hidesForSinglePage = true
+//        pageControl.numberOfPages = 5
+//        pageControl.pageIndicatorTintColor = .darkGray
+//        
+//        
+//        pageControl.snp.makeConstraints {
+//            $0.centerX.equalToSuperview()
+//            $0.top.equalToSuperview().inset(270)
+//        }
+//    }
+    private func sideMenuSetting() {
+        sideMenu.leftSide = true
+        SideMenuManager.default.rightMenuNavigationController = sideMenu
+        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+        sideMenu.presentationStyle = .menuSlideIn
+    }
+    
 }
 
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
