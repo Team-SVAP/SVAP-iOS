@@ -1,4 +1,5 @@
 import UIKit
+import Moya
 
 class LoginViewController: BaseVC, UITextFieldDelegate {
     
@@ -98,7 +99,29 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
     }
     
     @objc func clickLoginButton() {
-        self.navigationController?.pushViewController(MainViewController(), animated: true)
+        
+        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.login(id: idTextField.text!, password: passwordTextField.text!)) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 201:
+                            if let data = try? JSONDecoder().decode(AuthResponse.self, from: result.data) {
+                                DispatchQueue.main.async {
+                                    Token.accessToken = data.accessToken
+//                                    Token.refreshToken = data.refreshToken
+                                    print("success")
+                                    self.navigationController?.pushViewController(MainViewController(), animated: true)
+                                }
+                            }
+                        default:
+                        print("fail")
+                    }
+                case .failure(let err):
+                    print("\(err.localizedDescription)")
+            }
+        }
     }
     @objc func moveUserSignupView() {
         self.navigationController?.pushViewController(UserIdViewController(), animated: true)
