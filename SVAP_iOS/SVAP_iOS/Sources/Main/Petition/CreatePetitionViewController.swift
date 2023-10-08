@@ -1,8 +1,10 @@
 import UIKit
+import SnapKit
 
 class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UITextViewDelegate {
     
-    lazy var arr = [titleLabel, typeLabel, placeLabel, contentLabel]
+    lazy var labelArray = [titleLabel, typeLabel, placeLabel, contentLabel]
+    lazy var imageViewArray = [firstImageView, secondImageView, thirdImageView]
     private let leftButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
@@ -69,23 +71,41 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
     }
-    private let imageView = UIImageView().then {
+    private let firstImageView = UIImageView().then {
         $0.backgroundColor = .white
         $0.layer.borderColor = UIColor(named: "gray-400")?.cgColor
         $0.layer.borderWidth = 0.5
         $0.layer.cornerRadius = 8
+        $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
+    }
+    private let secondImageView = UIImageView().then {
+        $0.backgroundColor = .white
+        $0.layer.borderColor = UIColor(named: "gray-400")?.cgColor
+        $0.layer.borderWidth = 0.5
+        $0.layer.cornerRadius = 8
+        $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
+        $0.isHidden = true
+    }
+    private let thirdImageView = UIImageView().then {
+        $0.backgroundColor = .white
+        $0.layer.borderColor = UIColor(named: "gray-400")?.cgColor
+        $0.layer.borderWidth = 0.5
+        $0.layer.cornerRadius = 8
+        $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
     }
     private let cameraIcon = UIImageView(image: UIImage(named: "camera"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarSetting()
-        imageSetting()
-        arr.forEach({ labelSetting($0) })
+        labelArray.forEach({ labelSetting($0) })
+        imageViewArray.forEach({ imageSetting($0)})
         titleTextField.delegate = self
         placeTextField.delegate = self
         contentTextView.delegate = self
-        updateButtonState()
     }
     override func configureUI() {
         super.configureUI()
@@ -99,10 +119,11 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
             contentLabel,
             contentTextView,
             imageLabel,
-            imageView
+            firstImageView,
+            secondImageView
         ].forEach({ view.addSubview($0) })
         [petitionTypeLabel, menuButton].forEach({ typeView.addSubview($0) })
-        imageView.addSubview(cameraIcon)
+        firstImageView.addSubview(cameraIcon)
     }
     override func setupConstraints() {
         super.setupConstraints()
@@ -157,9 +178,14 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
             $0.top.equalTo(contentTextView.snp.bottom).offset(24)
             $0.left.equalToSuperview().inset(20)
         }
-        imageView.snp.makeConstraints {
+        firstImageView.snp.makeConstraints {
             $0.top.equalTo(imageLabel.snp.bottom).offset(8)
             $0.left.equalToSuperview().inset(20)
+            $0.width.height.equalTo(70)
+        }
+        secondImageView.snp.makeConstraints {
+            $0.top.equalTo(imageLabel.snp.bottom).offset(8)
+            $0.left.equalTo(firstImageView.snp.right).offset(20)
             $0.width.height.equalTo(70)
         }
         cameraIcon.snp.makeConstraints {
@@ -174,19 +200,49 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         self.navigationController?.popViewController(animated: true)
         //청원등록 서버통신
     }
-    
+
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        picker.dismiss(animated: true) {
+//            let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+//            let seimage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+////            self.cameraIcon.isHidden = true
+////            self.cameraIcon.removeFromSuperview()
+////            self.secondImageView.isHidden = false
+////            self.secondImageView.addSubview(self.cameraIcon)
+//                self.firstImageView.image = img
+//                self.secondImageView.isHidden = false
+//                self.secondImageView.image = seimage
+//        }
+//    }
 }
 
 extension CreatePetitionViewController {
     
     @objc func clickImageView() {
         let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
         picker.allowsEditing = true
         picker.delegate = self
-        self.present(picker, animated: true)
+        
+        let sheet = UIAlertController(title: "'SVAP'이(가) 사용자의 카메라 및 앨범에 접근하려고 합니다", message: "여기 뭐라고 할까", preferredStyle: .alert)
+        
+        let camera = UIAlertAction(title: "카메라", style: .default, handler: {_ in
+            picker.sourceType = .camera
+            self.present(picker, animated: true)
+        })
+        sheet.addAction(camera)
+        
+        let album = UIAlertAction(title: "앨범", style: .default, handler: {_ in
+            picker.sourceType = .photoLibrary
+            self.present(picker, animated: true)
+        })
+        sheet.addAction(album)
+        
+        let cancel = UIAlertAction(title: "허용 안 함", style: .cancel)
+        sheet.addAction(cancel)
+        
+        self.present(sheet, animated: true)
     }
-    private func imageSetting() {
+    private func imageSetting(_ imageView: UIImageView) {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(clickImageView))
         imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
@@ -230,15 +286,16 @@ extension CreatePetitionViewController {
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true) {}
     }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true) {
-            let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
-            self.imageView.image = img
-            self.imageView.contentMode = .scaleAspectFill
-            self.imageView.clipsToBounds = true
-            self.cameraIcon.isHidden = true
-        }
-    }
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        picker.dismiss(animated: true) {
+//            let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+//            self.imageView.image = img
+//            self.imageView.contentMode = .scaleAspectFill
+//            self.imageView.clipsToBounds = true
+//            self.cameraIcon.isHidden = true
+//            self.imageView.
+//        }
+//    }
     
     func updateButtonState() {
         let title = !(titleTextField.text!.isEmpty)
