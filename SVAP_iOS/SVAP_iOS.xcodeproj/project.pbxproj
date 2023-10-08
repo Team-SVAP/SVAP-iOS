@@ -45,6 +45,8 @@
 		884A913F2AD1548300AE1E14 /* SideMenuContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */; };
 		884A91422AD19FF000AE1E14 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 884A91412AD19FF000AE1E14 /* SideMenu */; };
 		884A91452AD2745900AE1E14 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91442AD2745900AE1E14 /* UserInfo.swift */; };
+		884A914D2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A914C2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift */; };
+		884A91512AD30CD700AE1E14 /* UserPetitionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91502AD30CD700AE1E14 /* UserPetitionResponse.swift */; };
 		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
@@ -90,6 +92,8 @@
 		884A91372ACFE5B300AE1E14 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuContentViewController.swift; sourceTree = "<group>"; };
 		884A91442AD2745900AE1E14 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		884A914C2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
+		884A91502AD30CD700AE1E14 /* UserPetitionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPetitionResponse.swift; sourceTree = "<group>"; };
 		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		885A74952AC2F6A200EC3F1A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +139,7 @@
 		880D92292AC861590053D5A6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				884A914B2AD2FE2400AE1E14 /* Plugin */,
 				880D92312AC864460053D5A6 /* Header */,
 				880D922A2AC8616B0053D5A6 /* Auth */,
 				880D923D2AC9B3380053D5A6 /* Petition */,
@@ -171,7 +176,8 @@
 		880D923A2AC9B2410053D5A6 /* Response */ = {
 			isa = PBXGroup;
 			children = (
-				880D923B2AC9B2500053D5A6 /* AuthResponse.swift */,
+				884A914E2AD30CBC00AE1E14 /* Auth */,
+				884A914F2AD30CC000AE1E14 /* UserPetition */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -350,6 +356,30 @@
 			path = Scene;
 			sourceTree = "<group>";
 		};
+		884A914B2AD2FE2400AE1E14 /* Plugin */ = {
+			isa = PBXGroup;
+			children = (
+				884A914C2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift */,
+			);
+			path = Plugin;
+			sourceTree = "<group>";
+		};
+		884A914E2AD30CBC00AE1E14 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				880D923B2AC9B2500053D5A6 /* AuthResponse.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		884A914F2AD30CC000AE1E14 /* UserPetition */ = {
+			isa = PBXGroup;
+			children = (
+				884A91502AD30CD700AE1E14 /* UserPetitionResponse.swift */,
+			);
+			path = UserPetition;
+			sourceTree = "<group>";
+		};
 		888A18822ABFE72500168377 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,11 +529,13 @@
 				884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */,
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
+				884A914D2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
 				880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */,
 				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,
 				882E63752AB7109000BFE332 /* MainViewController.swift in Sources */,
 				8803D3A52AC1CCF900B36C9E /* PetitionCell.swift in Sources */,
+				884A91512AD30CD700AE1E14 /* UserPetitionResponse.swift in Sources */,
 				88A6CC892AC18A3600BF36C3 /* PetitionViewController.swift in Sources */,
 				882E63682AB7098000BFE332 /* UserNameViewController.swift in Sources */,
 			);
