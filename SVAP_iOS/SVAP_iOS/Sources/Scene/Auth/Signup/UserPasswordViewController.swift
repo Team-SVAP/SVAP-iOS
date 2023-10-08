@@ -15,7 +15,7 @@ class UserPasswordViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let passwordTextField = CustomTextField(placeholder: "비밀번호 (영문 + 숫자 8자 이상)", isSecure: true).then {
+    private let passwordTextField = CustomTextField(placeholder: "비밀번호 (특수문자 포함 8~32자 )", isSecure: true).then {
         $0.becomeFirstResponder()
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
@@ -76,14 +76,14 @@ class UserPasswordViewController: BaseVC {
             $0.top.equalToSuperview().inset(139)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(126)
-            $0.height.equalTo(45)
+            $0.height.equalTo(55)
         }
         signupLabel.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(73)
+            $0.top.equalTo(logoImage.snp.bottom).offset(63)
             $0.left.equalToSuperview().inset(45)
         }
         progressLabel.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(73)
+            $0.top.equalTo(logoImage.snp.bottom).offset(63)
             $0.right.equalToSuperview().inset(45)
         }
         passwordTextField.snp.makeConstraints {
@@ -112,6 +112,7 @@ class UserPasswordViewController: BaseVC {
     }
     
     @objc private func moveNetxView() {
+        UserInfo.shared.password = passwordTextField.text
         self.navigationController?.pushViewController(UserNameViewController(), animated: true)
     }
     @objc func moveLoginView() {
@@ -162,7 +163,7 @@ extension UserPasswordViewController {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardHeight = keyboardFrame.cgRectValue.height
             UIView.animate(withDuration: 0.3) {
-                self.buttonStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 35)
+                self.buttonStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 39)
             }
         }
     }
@@ -172,16 +173,13 @@ extension UserPasswordViewController {
         }
     }
     @objc private func textFieldDidChange(_ textfield: UITextField) {
-        if passwordTextField.hasText {
-            passwordTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
+        
+        if textfield.hasText {
+            textfield.layer.borderColor = UIColor(named: "main-2")?.cgColor
         } else {
-            passwordTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+            textfield.layer.borderColor = UIColor(named: "gray-300")?.cgColor
         }
-        if passwordValidTextField.hasText {
-            passwordValidTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
-        } else {
-            passwordValidTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
-        }
+        
         guard let password = passwordTextField.text,
               let passwordValid = passwordValidTextField.text,
               !(password.isEmpty || passwordValid.isEmpty) && password == passwordValid

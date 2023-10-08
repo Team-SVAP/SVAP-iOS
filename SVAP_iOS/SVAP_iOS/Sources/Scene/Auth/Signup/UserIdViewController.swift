@@ -1,4 +1,5 @@
 import UIKit
+import Moya
 
 class UserIdViewController: BaseVC {
     
@@ -13,7 +14,7 @@ class UserIdViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let idTextField = CustomTextField(placeholder: "아이디 (영문 8자 이하)", isSecure: false).then {
+    private let idTextField = CustomTextField(placeholder: "아이디 (5~16자)", isSecure: false).then {
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     private let buttonStackView = UIStackView().then {
@@ -62,14 +63,14 @@ class UserIdViewController: BaseVC {
             $0.top.equalToSuperview().inset(139)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(126)
-            $0.height.equalTo(45)
+            $0.height.equalTo(55)
         }
         signupLabel.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(73)
+            $0.top.equalTo(logoImage.snp.bottom).offset(63)
             $0.left.equalToSuperview().inset(45)
         }
         progressLabel.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(73)
+            $0.top.equalTo(logoImage.snp.bottom).offset(63)
             $0.right.equalToSuperview().inset(45)
         }
         idTextField.snp.makeConstraints {
@@ -87,6 +88,17 @@ class UserIdViewController: BaseVC {
         }
         
     }
+    @objc private func moveNetxView() {
+        UserInfo.shared.accountId = idTextField.text
+        self.navigationController?.pushViewController(UserPasswordViewController(), animated: true)
+    }
+    @objc func moveLoginView() {
+        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+    }
+    
+}
+
+extension UserIdViewController {
     
     private func setupKeyboardObservers() {
           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -104,28 +116,20 @@ class UserIdViewController: BaseVC {
             }
         }
     }
-    @objc private func textFieldDidChange(_ textfield: UITextField) {
-        guard let id = idTextField.text,
-                !id.isEmpty
-        else {
-            idTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
-            nextButton.backgroundColor = UIColor(named: "main-4")
-            nextButton.isEnabled = false
-            return
-        }
-        idTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
-        nextButton.backgroundColor = UIColor(named: "main-2")
-        nextButton.isEnabled = true
-    }
     @objc private func keyboardWillHide(notification: NSNotification) {
         UIView.animate(withDuration: 0.3) {
             self.buttonStackView.transform = .identity
         }
     }
-    @objc private func moveNetxView() {
-        self.navigationController?.pushViewController(UserPasswordViewController(), animated: true)
-    }
-    @objc func moveLoginView() {
-        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+    @objc private func textFieldDidChange(_ textfield: UITextField) {
+        if textfield.text?.isEmpty == true {
+            textfield.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+            nextButton.backgroundColor = UIColor(named: "main-4")
+            nextButton.isEnabled = false
+        } else {
+            textfield.layer.borderColor = UIColor(named: "main-2")?.cgColor
+            nextButton.backgroundColor = UIColor(named: "main-2")
+            nextButton.isEnabled = true
+        }
     }
 }

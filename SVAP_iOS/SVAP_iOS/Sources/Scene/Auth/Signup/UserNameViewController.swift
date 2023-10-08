@@ -1,4 +1,5 @@
 import UIKit
+import Moya
 
 class UserNameViewController: BaseVC {
     
@@ -13,7 +14,8 @@ class UserNameViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let nameTextField = CustomTextField(placeholder: "이름", isSecure: false).then {
+    private let nameTextField = CustomTextField(placeholder: "이름 (2~5자)", isSecure: false).then {
+        $0.text = "아아아"
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
     private let buttonStackView = UIStackView().then {
@@ -62,14 +64,14 @@ class UserNameViewController: BaseVC {
             $0.top.equalToSuperview().inset(139)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(126)
-            $0.height.equalTo(45)
+            $0.height.equalTo(55)
         }
         signupLabel.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(73)
+            $0.top.equalTo(logoImage.snp.bottom).offset(63)
             $0.left.equalToSuperview().inset(45)
         }
         progressLabel.snp.makeConstraints {
-            $0.top.equalTo(logoImage.snp.bottom).offset(73)
+            $0.top.equalTo(logoImage.snp.bottom).offset(63)
             $0.right.equalToSuperview().inset(45)
         }
         nameTextField.snp.makeConstraints {
@@ -115,6 +117,7 @@ class UserNameViewController: BaseVC {
         }
         textfield.layer.borderColor = UIColor(named: "main-2")?.cgColor
         signupButton.backgroundColor = UIColor(named: "main-2")
+        UserInfo.shared.userName = nameTextField.text
         signupButton.isEnabled = true
     }
     @objc private func keyboardWillHide(notification: NSNotification) {
@@ -126,7 +129,25 @@ class UserNameViewController: BaseVC {
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
     @objc func clickSignup() {
-        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        
+        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.signup(UserInfo.shared)) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 201:
+                            print("success")
+                            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                        case 409:
+                            print("이미 존재하는 Id입니다.")
+                        default:
+                            print("fail\n\(result.statusCode)")
+                    }
+                case .failure(let err):
+                    print("\(err.localizedDescription)")
+            }
+        }
     }
 
 }
