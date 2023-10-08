@@ -9,7 +9,7 @@ enum AuthAPI {
 
 extension AuthAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "15.164.62.45:8080")!
+        return URL(string: "http://15.164.62.45:8080")!
     }
     
     var path: String {
@@ -39,9 +39,9 @@ extension AuthAPI: TargetType {
             case .signup:
                 return .requestParameters(
                     parameters: [
-                        "userName": UserInfo.shared.userName,
-                        "accountId": UserInfo.shared.accountId,
-                        "password": UserInfo.shared.password
+                        "userName": UserInfo.shared.userName!,
+                        "accountId": UserInfo.shared.accountId!,
+                        "password": UserInfo.shared.password!
                     ],
                     encoding: JSONEncoding.default)
             case .login(let id, let password):
