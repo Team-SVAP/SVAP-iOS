@@ -87,7 +87,6 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.isHidden = false
-
     }
     private let thirdImageView = UIImageView().then {
         $0.backgroundColor = .white
