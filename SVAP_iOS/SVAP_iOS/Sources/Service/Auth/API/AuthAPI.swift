@@ -2,14 +2,14 @@ import Foundation
 import Moya
 
 enum AuthAPI {
-    case signup(name: String, id: String, password: String)
+    case signup(UserInfo)
     case login(id: String, password: String)
     case loadUserPetition
 }
 
 extension AuthAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "15.164.62.45:8080 ")!
+        return URL(string: "15.164.62.45:8080")!
     }
     
     var path: String {
@@ -36,12 +36,12 @@ extension AuthAPI: TargetType {
     
     var task: Moya.Task {
         switch self {
-            case .signup(let name, let id, let password):
+            case .signup:
                 return .requestParameters(
                     parameters: [
-                        "userName": name,
-                        "accountId": id,
-                        "password": password
+                        "userName": UserInfo.shared.userName,
+                        "accountId": UserInfo.shared.accountId,
+                        "password": UserInfo.shared.password
                     ],
                     encoding: JSONEncoding.default)
             case .login(let id, let password):
