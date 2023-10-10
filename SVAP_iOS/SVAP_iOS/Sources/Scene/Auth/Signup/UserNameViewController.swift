@@ -117,7 +117,7 @@ class UserNameViewController: BaseVC {
         }
         textfield.layer.borderColor = UIColor(named: "main-2")?.cgColor
         signupButton.backgroundColor = UIColor(named: "main-2")
-        UserInfo.shared.userName = nameTextField.text
+        SignupInfo.shared.userName = nameTextField.text
         signupButton.isEnabled = true
     }
     @objc private func keyboardWillHide(notification: NSNotification) {
@@ -132,7 +132,7 @@ class UserNameViewController: BaseVC {
         
         let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
         
-        provider.request(.signup(UserInfo.shared)) { res in
+        provider.request(.signup(SignupInfo.shared)) { res in
             switch res {
                 case .success(let result):
                     switch result.statusCode {

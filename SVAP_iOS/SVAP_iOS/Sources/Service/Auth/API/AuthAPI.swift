@@ -2,9 +2,11 @@ import Foundation
 import Moya
 
 enum AuthAPI {
-    case signup(UserInfo)
+    case signup(SignupInfo)
     case login(id: String, password: String)
+    case loadUserInfo
     case loadUserPetition
+    case idDuplication(accountId: String)
 }
 
 extension AuthAPI: TargetType {
@@ -18,8 +20,12 @@ extension AuthAPI: TargetType {
                 return "/user/signup"
             case .login:
                 return "/user/login"
+            case .loadUserInfo:
+                return "/user/my-info"
             case .loadUserPetition:
                 return "/user"
+            case .idDuplication:
+                return "/user/duplication"
         }
     }
     
@@ -29,7 +35,7 @@ extension AuthAPI: TargetType {
                 return .post
             case .login:
                 return .post
-            case .loadUserPetition:
+            case .loadUserPetition, .idDuplication, .loadUserInfo:
                 return .get
         }
     }
@@ -39,9 +45,9 @@ extension AuthAPI: TargetType {
             case .signup:
                 return .requestParameters(
                     parameters: [
-                        "userName": UserInfo.shared.userName!,
-                        "accountId": UserInfo.shared.accountId!,
-                        "password": UserInfo.shared.password!
+                        "userName": SignupInfo.shared.userName!,
+                        "accountId": SignupInfo.shared.accountId!,
+                        "password": SignupInfo.shared.password!
                     ],
                     encoding: JSONEncoding.default)
             case .login(let id, let password):
@@ -51,14 +57,19 @@ extension AuthAPI: TargetType {
                         "password": password
                     ],
                     encoding: JSONEncoding.default)
-            case .loadUserPetition:
+            case .idDuplication(let accountId):
+                return .requestParameters(
+                    parameters: [
+                        "accountId": accountId
+                    ], encoding: JSONEncoding.default)
+            case .loadUserInfo, .loadUserPetition:
                 return .requestPlain
         }
     }
     
     var headers: [String : String]? {
         switch self {
-            case .loadUserPetition:
+            case .loadUserPetition, .loadUserInfo:
                 return Header.accessToken.header()
             default:
                 return Header.tokenIsEmpty.header()

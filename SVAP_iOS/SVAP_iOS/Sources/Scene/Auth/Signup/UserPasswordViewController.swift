@@ -112,7 +112,7 @@ class UserPasswordViewController: BaseVC {
     }
     
     @objc private func moveNetxView() {
-        UserInfo.shared.password = passwordTextField.text
+        SignupInfo.shared.password = passwordTextField.text
         self.navigationController?.pushViewController(UserNameViewController(), animated: true)
     }
     @objc func moveLoginView() {
