@@ -11,6 +11,10 @@ enum PetitionAPI {
     case loadPopularPetition
     case loadRecentPetition(type: String)
     case loadAllRecentPetitoin
+    case loadPetitionVote(type: Int)
+    case loadAllPetitionVote
+    case loadAccessPetition(type: Int)
+    case loadAllAccessPetition
 }
 
 extension PetitionAPI: TargetType {
@@ -34,7 +38,14 @@ extension PetitionAPI: TargetType {
                 return "/petition/recent/\(type)"
             case .loadAllRecentPetitoin:
                 return "/recent/all"
-                
+            case .loadPetitionVote(let type):
+                return "/vote/\(type)"
+            case .loadAllPetitionVote:
+                return "/vote-all"
+            case .loadAccessPetition(let type):
+                return "/access/\(type)"
+            case .loadAllAccessPetition:
+                return "/access-all"
         }
     }
     
@@ -46,7 +57,7 @@ extension PetitionAPI: TargetType {
                 return .patch
             case .deletePetition:
                 return .delete
-            case .loadDetailPetition, .loadPopularPetition, .loadRecentPetition, .loadAllRecentPetitoin:
+            case .loadDetailPetition, .loadPopularPetition, .loadRecentPetition, .loadAllRecentPetitoin, .loadPetitionVote, .loadAllPetitionVote, .loadAccessPetition, .loadAllAccessPetition:
                 return .get
         }
     }
@@ -63,7 +74,7 @@ extension PetitionAPI: TargetType {
                         "location": location,
                         "types": types
                     ], encoding: JSONEncoding.default)
-            case .deletePetition, .loadDetailPetition, .loadPopularPetition, .loadRecentPetition, .loadAllRecentPetitoin:
+            case .deletePetition, .loadDetailPetition, .loadPopularPetition, .loadRecentPetition, .loadAllRecentPetitoin, .loadPetitionVote, .loadAllPetitionVote, .loadAccessPetition, .loadAllAccessPetition:
                 return .requestPlain
         }
     }
