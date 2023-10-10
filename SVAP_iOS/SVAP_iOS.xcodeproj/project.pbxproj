@@ -37,7 +37,7 @@
 		882E63682AB7098000BFE332 /* UserNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63672AB7098000BFE332 /* UserNameViewController.swift */; };
 		882E63752AB7109000BFE332 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63742AB7109000BFE332 /* MainViewController.swift */; };
 		882E63772AB736F200BFE332 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63762AB736F200BFE332 /* MainCell.swift */; };
-		882E63792AB7FBE900BFE332 /* FamousCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63782AB7FBE900BFE332 /* FamousCell.swift */; };
+		882E63792AB7FBE900BFE332 /* PopularCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63782AB7FBE900BFE332 /* PopularCell.swift */; };
 		882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */; };
 		882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637C2AB8565600BFE332 /* PetitionButton.swift */; };
 		884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */; };
@@ -85,7 +85,7 @@
 		882E63672AB7098000BFE332 /* UserNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameViewController.swift; sourceTree = "<group>"; };
 		882E63742AB7109000BFE332 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		882E63762AB736F200BFE332 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
-		882E63782AB7FBE900BFE332 /* FamousCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamousCell.swift; sourceTree = "<group>"; };
+		882E63782AB7FBE900BFE332 /* PopularCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularCell.swift; sourceTree = "<group>"; };
 		882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovedCell.swift; sourceTree = "<group>"; };
 		882E637C2AB8565600BFE332 /* PetitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionButton.swift; sourceTree = "<group>"; };
 		884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewController.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 			children = (
 				882E63762AB736F200BFE332 /* MainCell.swift */,
 				882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */,
-				882E63782AB7FBE900BFE332 /* FamousCell.swift */,
+				882E63782AB7FBE900BFE332 /* PopularCell.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -525,7 +525,7 @@
 				882E63772AB736F200BFE332 /* MainCell.swift in Sources */,
 				882E63662AB7081000BFE332 /* UserPasswordViewController.swift in Sources */,
 				882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */,
-				882E63792AB7FBE900BFE332 /* FamousCell.swift in Sources */,
+				882E63792AB7FBE900BFE332 /* PopularCell.swift in Sources */,
 				884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */,
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
