@@ -44,9 +44,11 @@
 		884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91372ACFE5B300AE1E14 /* CustomTextView.swift */; };
 		884A913F2AD1548300AE1E14 /* SideMenuContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */; };
 		884A91422AD19FF000AE1E14 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 884A91412AD19FF000AE1E14 /* SideMenu */; };
-		884A91452AD2745900AE1E14 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91442AD2745900AE1E14 /* UserInfo.swift */; };
+		884A91452AD2745900AE1E14 /* SignupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91442AD2745900AE1E14 /* SignupInfo.swift */; };
 		884A914D2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A914C2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift */; };
 		884A91512AD30CD700AE1E14 /* UserPetitionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91502AD30CD700AE1E14 /* UserPetitionResponse.swift */; };
+		884A91532AD58F3800AE1E14 /* PetitonResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91522AD58F3800AE1E14 /* PetitonResponse.swift */; };
+		884A91562AD5900100AE1E14 /* UserInfoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91552AD5900100AE1E14 /* UserInfoResponse.swift */; };
 		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
@@ -91,9 +93,11 @@
 		884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewController.swift; sourceTree = "<group>"; };
 		884A91372ACFE5B300AE1E14 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuContentViewController.swift; sourceTree = "<group>"; };
-		884A91442AD2745900AE1E14 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		884A91442AD2745900AE1E14 /* SignupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInfo.swift; sourceTree = "<group>"; };
 		884A914C2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		884A91502AD30CD700AE1E14 /* UserPetitionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPetitionResponse.swift; sourceTree = "<group>"; };
+		884A91522AD58F3800AE1E14 /* PetitonResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitonResponse.swift; sourceTree = "<group>"; };
+		884A91552AD5900100AE1E14 /* UserInfoResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoResponse.swift; sourceTree = "<group>"; };
 		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		885A74952AC2F6A200EC3F1A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				884A914E2AD30CBC00AE1E14 /* Auth */,
+				884A91542AD58F7000AE1E14 /* UserInfo */,
 				884A914F2AD30CC000AE1E14 /* UserPetition */,
 			);
 			path = Response;
@@ -202,6 +207,7 @@
 		880D923F2AC9B3A70053D5A6 /* Response */ = {
 			isa = PBXGroup;
 			children = (
+				884A91522AD58F3800AE1E14 /* PetitonResponse.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -341,7 +347,7 @@
 		884A91432AD2744600AE1E14 /* User */ = {
 			isa = PBXGroup;
 			children = (
-				884A91442AD2745900AE1E14 /* UserInfo.swift */,
+				884A91442AD2745900AE1E14 /* SignupInfo.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -378,6 +384,14 @@
 				884A91502AD30CD700AE1E14 /* UserPetitionResponse.swift */,
 			);
 			path = UserPetition;
+			sourceTree = "<group>";
+		};
+		884A91542AD58F7000AE1E14 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				884A91552AD5900100AE1E14 /* UserInfoResponse.swift */,
+			);
+			path = UserInfo;
 			sourceTree = "<group>";
 		};
 		888A18822ABFE72500168377 /* Cell */ = {
@@ -509,12 +523,13 @@
 			files = (
 				888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */,
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
+				884A91532AD58F3800AE1E14 /* PetitonResponse.swift in Sources */,
 				884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */,
 				882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */,
 				880D923C2AC9B2500053D5A6 /* AuthResponse.swift in Sources */,
 				880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */,
 				882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */,
-				884A91452AD2745900AE1E14 /* UserInfo.swift in Sources */,
+				884A91452AD2745900AE1E14 /* SignupInfo.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
 				882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */,
@@ -530,6 +545,7 @@
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				884A914D2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift in Sources */,
+				884A91562AD5900100AE1E14 /* UserInfoResponse.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
 				880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */,
 				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,

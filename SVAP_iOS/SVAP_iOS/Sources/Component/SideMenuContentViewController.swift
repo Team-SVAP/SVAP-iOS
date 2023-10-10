@@ -1,6 +1,7 @@
 import UIKit
 import SnapKit
 import Then
+import Moya
 
 class SideMenuContentViewController: UIViewController {
     
@@ -20,7 +21,6 @@ class SideMenuContentViewController: UIViewController {
         $0.addTarget(self, action: #selector(clickCloseButton), for: .touchUpInside)
     }
     private let userNameLabel = UILabel().then {
-        $0.text = "조영준"
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 16)
     }
@@ -37,6 +37,7 @@ class SideMenuContentViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .clear
         navigationController?.navigationBar.isHidden = true
+        loadUserInfo()
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -83,6 +84,29 @@ class SideMenuContentViewController: UIViewController {
         myPetitionButton.snp.makeConstraints {
             $0.top.equalTo(lineView.snp.bottom).offset(24)
             $0.left.equalToSuperview().inset(22)
+        }
+    }
+    private func loadUserInfo() {
+        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.loadUserInfo) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 200:
+                            if let data = try? JSONDecoder().decode(UserInfoResponse.self, from: result.data) {
+                                DispatchQueue.main.async {
+                                    print("success")
+                                    self.userNameLabel.text = data.userName
+                                }
+                            }
+                        default:
+                            print("fail")
+                            print(result.statusCode)
+                    }
+                case .failure(let err):
+                    print("\(err.localizedDescription)")
+            }
         }
     }
     
