@@ -89,8 +89,24 @@ class UserIdViewController: BaseVC {
         
     }
     @objc private func moveNetxView() {
-        UserInfo.shared.accountId = idTextField.text
-        self.navigationController?.pushViewController(UserPasswordViewController(), animated: true)
+        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.idDuplication(accountId: idTextField.text!)) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 200:
+                            print("success")
+                            SignupInfo.shared.accountId = self.idTextField.text
+                            self.navigationController?.pushViewController(UserPasswordViewController(), animated: true)
+                        default:
+                            print("fali")
+                            print(result.statusCode)
+                    }
+                case .failure(let err):
+                    print("\(err.localizedDescription)")
+            }
+        }
     }
     @objc func moveLoginView() {
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
