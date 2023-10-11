@@ -35,8 +35,10 @@ extension AuthAPI: TargetType {
                 return .post
             case .login:
                 return .post
-            case .loadUserPetition, .idDuplication, .loadUserInfo:
+            case .loadUserPetition, .loadUserInfo:
                 return .get
+            case .idDuplication:
+                return .post
         }
     }
     

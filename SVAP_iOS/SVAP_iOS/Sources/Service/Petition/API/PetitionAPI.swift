@@ -7,7 +7,7 @@ enum PetitionAPI {
                         petitionId: Int)
     case deletePetition(petitionId: Int)
     case loadDetailPetition(petitionId: Int)
-//    case searchPetition()
+    case searchPetition(dd: Int)
     case loadPopularPetition
     case loadRecentPetition(type: String)
     case loadAllRecentPetitoin
@@ -32,6 +32,8 @@ extension PetitionAPI: TargetType {
                 return "petition/\(petitionId)"
             case .loadDetailPetition(let petitionId):
                 return "/user/\(petitionId)"
+            case .searchPetition:
+                return "/petition"
             case .loadPopularPetition:
                 return "/petition/popular"
             case .loadRecentPetition(let type):
@@ -53,6 +55,8 @@ extension PetitionAPI: TargetType {
         switch self {
 //            case .createPetition:
 //                return .post
+            case .searchPetition:
+                return .post
             case .modifyPetition:
                 return .patch
             case .deletePetition:
@@ -66,6 +70,11 @@ extension PetitionAPI: TargetType {
         switch self {
 //            case .createPetition(title: let title, content: let content, types: let types, location: let location, image: let image):
 //                <#code#>
+            case .searchPetition:
+                return .requestParameters(
+                    parameters: [:
+                        
+                                ], encoding: JSONEncoding.default)
             case .modifyPetition(let title, let content, let location, let types, _):
                 return .requestParameters(
                     parameters: [

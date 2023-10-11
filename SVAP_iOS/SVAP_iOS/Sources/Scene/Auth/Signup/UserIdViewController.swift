@@ -17,6 +17,10 @@ class UserIdViewController: BaseVC {
     private let idTextField = CustomTextField(placeholder: "아이디 (5~16자)", isSecure: false).then {
         $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
     }
+    private let idDuplicationLabel = UILabel().then {
+        $0.textColor = .systemRed
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
+    }
     private let buttonStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .center
@@ -52,6 +56,7 @@ class UserIdViewController: BaseVC {
             signupLabel,
             progressLabel,
             idTextField,
+            idDuplicationLabel,
             loginStackView,
             buttonStackView
         ].forEach({ view.addSubview($0) })
@@ -78,6 +83,10 @@ class UserIdViewController: BaseVC {
             $0.left.right.equalToSuperview().inset(45)
             $0.height.equalTo(50)
         }
+        idDuplicationLabel.snp.makeConstraints {
+            $0.top.equalTo(idTextField.snp.bottom).offset(5)
+            $0.left.equalToSuperview().inset(45)
+        }
         nextButton.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(50)
@@ -96,9 +105,10 @@ class UserIdViewController: BaseVC {
                 case .success(let result):
                     switch result.statusCode {
                         case 200:
-                            print("success")
                             SignupInfo.shared.accountId = self.idTextField.text
                             self.navigationController?.pushViewController(UserPasswordViewController(), animated: true)
+                        case 409:
+                            self.idDuplicationLabel.text = "이미 존재하는 아이디입니다."
                         default:
                             print("fali")
                             print(result.statusCode)
@@ -143,6 +153,7 @@ extension UserIdViewController {
             nextButton.backgroundColor = UIColor(named: "main-4")
             nextButton.isEnabled = false
         } else {
+            idDuplicationLabel.text = nil
             textfield.layer.borderColor = UIColor(named: "main-2")?.cgColor
             nextButton.backgroundColor = UIColor(named: "main-2")
             nextButton.isEnabled = true

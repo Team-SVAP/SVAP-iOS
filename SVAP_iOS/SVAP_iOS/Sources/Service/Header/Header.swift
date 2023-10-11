@@ -41,7 +41,7 @@ enum Header {
         }
         switch self {
             case .refreshToken:
-                return ["Authorization": "Bearer " + token, "Content-Type": "application/json"]
+                return ["Authorization": token, "Content-Type": "application/json"]
             case .accessToken:
                 return ["Authorization": token, "Content-Type": "application/json"]
             case .tokenIsEmpty:
