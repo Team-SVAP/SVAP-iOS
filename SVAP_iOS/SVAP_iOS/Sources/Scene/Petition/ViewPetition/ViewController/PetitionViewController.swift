@@ -1,7 +1,16 @@
 import UIKit
+import Moya
 
 class PetitionViewController: BaseVC {
     
+    private var petitionList: [PetitionModel] = [] {
+        didSet {
+            tableView.reloadData()
+            refreshControl.endRefreshing()
+        }
+    }
+    private let refreshControl = UIRefreshControl()
+    //계속 로딩이 됨
     private let leftbutton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
@@ -19,7 +28,7 @@ class PetitionViewController: BaseVC {
     private let tableView = UITableView().then {
         $0.backgroundColor = .white
         $0.register(PetitionCell.self, forCellReuseIdentifier: "CellID")
-        $0.rowHeight = 80
+        $0.rowHeight = 92
         $0.separatorStyle = .none
     }
     private let scrollButton = UIButton(type: .system).then {
@@ -35,6 +44,11 @@ class PetitionViewController: BaseVC {
         navigationBarSetting()
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        loadPetition()
     }
     private func navigationBarSetting() {
         let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
@@ -85,9 +99,45 @@ class PetitionViewController: BaseVC {
             $0.width.height.equalTo(60)
         }
     }
+    private func loadPetition() {
+        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.loadAllRecentPetitoin) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 200:
+                            if let data = try? JSONDecoder().decode(PetitonResponse.self, from: result.data) {
+                                DispatchQueue.main.async {
+                                    self.petitionList = data.map {
+                                        .init(
+                                            id: $0.id,
+                                            title: $0.title,
+                                            content: $0.content,
+                                            date: $0.dateTime,
+                                            location: $0.location
+                                        )
+                                    }
+                                    self.petitionList.sort(by: { $0.id > $1.id })
+                                }
+                            } else {
+                                print("fail")
+                            }
+                        default:
+                            print("fail")
+                            print(result.statusCode)
+                    }
+                case .failure(let err):
+                    print("\(err.localizedDescription)")
+            }
+        }
+    }
     
     @objc private func clickLeftBarButton() {
         self.navigationController?.popViewController(animated: true)
+    }
+    @objc private func pullToRefresh() {
+        loadPetition()
     }
     @objc private func clickScrollButton() {
         self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
@@ -96,26 +146,20 @@ class PetitionViewController: BaseVC {
 
 extension PetitionViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 30
+        return petitionList.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! PetitionCell
+        cell.cellSetter(
+            id: petitionList[indexPath.row].id,
+            title: petitionList[indexPath.row].title,
+            content: petitionList[indexPath.row].content,
+            dateTime: petitionList[indexPath.row].date,
+            location: petitionList[indexPath.row].location
+        )
+        cell.selectionStyle = .none
+        //MARK: -클릭 이벤트 추후에 수정하기
         return cell
-    }
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 12.0 // 각 섹션 사이의 간격을 조절합니다.
-    }
-    func tableView(_ tableView: UITableView, estimatedHeightForFooterInSection section: Int) -> CGFloat {
-        return 100
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        let footerView = UIView()
-        footerView.backgroundColor = .clear // 섹션 사이의 간격 부분을 투명하게 만듭니다.
-        return footerView
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.navigationController?.pushViewController(DetailPetitionViewController(), animated: true)

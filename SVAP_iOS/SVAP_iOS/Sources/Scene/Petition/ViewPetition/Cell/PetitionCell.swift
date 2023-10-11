@@ -5,24 +5,21 @@ import Then
 class PetitionCell: UITableViewCell {
     
     static let cellId = "CellID"
+    var id: Int = 0
     let petitionTitleLabel = UILabel().then {
-        $0.text = "새롬홀 의자 너무 딱딱해요ㅜㅜㅜ"
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
         
     }
     let dateLabel = UILabel().then {
-        $0.text = "2023-09-17"
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 10)
     }
     let placeLabel = UILabel().then {
-        $0.text = "#학교_새롬홀"
         $0.textColor = UIColor(named: "main-4")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
     let contentLabel = UILabel().then {
-        $0.text = "현재 우리나라는 김대중 전 대통령 때부터 사형 집행이 중지되었습니다.. 그러다 보니 사형이라고 재판에서 판결을 내려도 피해자 및 뉴스를 보는 국민들 입장.."
         $0.textColor = UIColor(named: "gray-600")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 8)
         $0.numberOfLines = 2
@@ -40,14 +37,18 @@ class PetitionCell: UITableViewCell {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.backgroundColor = .white
-        self.layer.borderColor = UIColor(named: "main-4")?.cgColor
-        self.layer.borderWidth = 1
-        self.layer.cornerRadius = 8
+        contentViewSetting()
         configureUI()
         setupConstraints()
     }
     
+    func contentViewSetting() {
+        contentView.backgroundColor = .white
+        contentView.layer.borderColor = UIColor(named: "main-4")?.cgColor
+        contentView.layer.borderWidth = 1
+        contentView.layer.cornerRadius = 8
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0))
+    }
     func configureUI() {
         [
             petitionTitleLabel,
@@ -75,4 +76,18 @@ class PetitionCell: UITableViewCell {
             $0.left.right.equalToSuperview().inset(13)
         }
     }
+    public func cellSetter(
+        id: Int,
+        title: String,
+        content: String,
+        dateTime: String,
+        location: String
+    ) {
+        self.id = id
+        self.petitionTitleLabel.text = title
+        self.contentLabel.text = content
+        self.dateLabel.text = dateTime
+        self.placeLabel.text = location
+    }
+
 }
