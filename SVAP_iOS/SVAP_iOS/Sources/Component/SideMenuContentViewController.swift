@@ -96,16 +96,15 @@ class SideMenuContentViewController: UIViewController {
                         case 200:
                             if let data = try? JSONDecoder().decode(UserInfoResponse.self, from: result.data) {
                                 DispatchQueue.main.async {
-                                    print("success")
+                                    print("Success")
                                     self.userNameLabel.text = data.userName
                                 }
                             }
                         default:
-                            print("fail")
-                            print(result.statusCode)
+                            print("Fail: \(result.statusCode)")
                     }
                 case .failure(let err):
-                    print("\(err.localizedDescription)")
+                    print("Request Error: \(err.localizedDescription)")
             }
         }
     }

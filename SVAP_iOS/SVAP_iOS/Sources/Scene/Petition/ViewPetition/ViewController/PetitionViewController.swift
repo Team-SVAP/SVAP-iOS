@@ -121,14 +121,13 @@ class PetitionViewController: BaseVC {
                                     self.petitionList.sort(by: { $0.id > $1.id })
                                 }
                             } else {
-                                print("fail")
+                                print("Response load fail")
                             }
                         default:
-                            print("fail")
-                            print(result.statusCode)
+                            print("Fail: \(result.statusCode)")
                     }
                 case .failure(let err):
-                    print("\(err.localizedDescription)")
+                    print("Request Error: \(err.localizedDescription)")
             }
         }
     }

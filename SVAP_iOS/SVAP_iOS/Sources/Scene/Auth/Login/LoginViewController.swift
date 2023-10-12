@@ -111,15 +111,15 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
                                 DispatchQueue.main.async {
                                     Token.accessToken = data.accessToken
 //                                    Token.refreshToken = data.refreshToken
-                                    print("success")
+                                    print("Success")
                                     self.navigationController?.pushViewController(MainViewController(), animated: true)
                                 }
                             }
                         default:
-                        print("fail")
+                            print("Fail: \(result.statusCode)")
                     }
                 case .failure(let err):
-                    print("\(err.localizedDescription)")
+                    print("Request Error: \(err.localizedDescription)")
             }
         }
     }

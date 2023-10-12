@@ -90,6 +90,35 @@ class UserNameViewController: BaseVC {
         
     }
     
+    @objc private func moveLoginView() {
+        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+    }
+    @objc func clickSignup() {
+        
+        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.signup(SignupInfo.shared)) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 201:
+                            print("success")
+                            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+                        case 409:
+                            print("이미 존재하는 Id입니다.")
+                        default:
+                            print("Fail: \(result.statusCode)")
+                    }
+                case .failure(let err):
+                    print("Request Error: \(err.localizedDescription)")
+            }
+        }
+    }
+
+}
+
+extension UserNameViewController {
+    
     private func setupKeyboardObservers() {
           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
           NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -125,29 +154,4 @@ class UserNameViewController: BaseVC {
             self.buttonStackView.transform = .identity
         }
     }
-    @objc private func moveLoginView() {
-        self.navigationController?.pushViewController(LoginViewController(), animated: true)
-    }
-    @objc func clickSignup() {
-        
-        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
-        
-        provider.request(.signup(SignupInfo.shared)) { res in
-            switch res {
-                case .success(let result):
-                    switch result.statusCode {
-                        case 201:
-                            print("success")
-                            self.navigationController?.pushViewController(LoginViewController(), animated: true)
-                        case 409:
-                            print("이미 존재하는 Id입니다.")
-                        default:
-                            print("fail\n\(result.statusCode)")
-                    }
-                case .failure(let err):
-                    print("\(err.localizedDescription)")
-            }
-        }
-    }
-
 }
