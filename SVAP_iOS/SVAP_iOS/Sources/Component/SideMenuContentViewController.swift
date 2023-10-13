@@ -31,6 +31,7 @@ class SideMenuContentViewController: UIViewController {
         $0.setTitle("내가 쓴 청원보기", for: .normal)
         $0.setTitleColor(.black, for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Regular", size: 16)
+        $0.addTarget(self, action: #selector(clickMyPetitionButton), for: .touchUpInside)
     }
 
     override func viewDidLoad() {
@@ -112,5 +113,10 @@ class SideMenuContentViewController: UIViewController {
     @objc private func clickCloseButton() {
         self.dismiss(animated: true)
     }
+    
+    @objc func clickMyPetitionButton() {
+        self.navigationController?.pushViewController(UserPetitionViewController(), animated: true)
+    }
+
     
 }

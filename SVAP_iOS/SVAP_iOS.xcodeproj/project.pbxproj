@@ -52,6 +52,16 @@
 		884A915C2AD64CA800AE1E14 /* PetitionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A915B2AD64CA800AE1E14 /* PetitionModel.swift */; };
 		884A91632AD6652D00AE1E14 /* PetitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91622AD6652D00AE1E14 /* PetitionCell.swift */; };
 		884A91672AD6658700AE1E14 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 884A91662AD6658700AE1E14 /* Kingfisher */; };
+		884A916E2AD8294800AE1E14 /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 884A916D2AD8294800AE1E14 /* RxBlocking */; };
+		884A91702AD8294800AE1E14 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 884A916F2AD8294800AE1E14 /* RxCocoa */; };
+		884A91722AD82B7400AE1E14 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91712AD82B7400AE1E14 /* ViewModelType.swift */; };
+		884A91742AD82C7200AE1E14 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91732AD82C7200AE1E14 /* LoginViewModel.swift */; };
+		884A917E2AD8330900AE1E14 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A917D2AD8330900AE1E14 /* AuthService.swift */; };
+		884A91812AD8332500AE1E14 /* PetitionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91802AD8332500AE1E14 /* PetitionService.swift */; };
+		884A91832AD8349100AE1E14 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 884A91822AD8349100AE1E14 /* Moya */; };
+		884A91852AD8349100AE1E14 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 884A91842AD8349100AE1E14 /* RxMoya */; };
+		884A91872AD8387B00AE1E14 /* UserPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */; };
+		884A918A2AD8B86300AE1E14 /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91892AD8B86300AE1E14 /* ServiceType.swift */; };
 		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
@@ -103,6 +113,12 @@
 		884A91572AD6462400AE1E14 /* DetailPetitionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionResponse.swift; sourceTree = "<group>"; };
 		884A915B2AD64CA800AE1E14 /* PetitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionModel.swift; sourceTree = "<group>"; };
 		884A91622AD6652D00AE1E14 /* PetitionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCell.swift; sourceTree = "<group>"; };
+		884A91712AD82B7400AE1E14 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		884A91732AD82C7200AE1E14 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		884A917D2AD8330900AE1E14 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		884A91802AD8332500AE1E14 /* PetitionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionService.swift; sourceTree = "<group>"; };
+		884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPetitionViewController.swift; sourceTree = "<group>"; };
+		884A91892AD8B86300AE1E14 /* ServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
 		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		885A74952AC2F6A200EC3F1A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
@@ -116,12 +132,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				884A91852AD8349100AE1E14 /* RxMoya in Frameworks */,
 				884A91672AD6658700AE1E14 /* Kingfisher in Frameworks */,
 				88A293692AC3A723007B4469 /* SnapKit in Frameworks */,
+				884A91832AD8349100AE1E14 /* Moya in Frameworks */,
 				88A2936C2AC3A729007B4469 /* Then in Frameworks */,
 				880D92342AC864530053D5A6 /* SwiftKeychainWrapper in Frameworks */,
 				884A91422AD19FF000AE1E14 /* SideMenu in Frameworks */,
 				880D92282AC860F70053D5A6 /* Moya in Frameworks */,
+				884A91702AD8294800AE1E14 /* RxCocoa in Frameworks */,
+				884A916E2AD8294800AE1E14 /* RxBlocking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +161,7 @@
 		880D92292AC861590053D5A6 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				884A91882AD8B83A00AE1E14 /* ServiceModel */,
 				884A914B2AD2FE2400AE1E14 /* Plugin */,
 				880D92312AC864460053D5A6 /* Header */,
 				880D922A2AC8616B0053D5A6 /* Auth */,
@@ -153,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				884A91432AD2744600AE1E14 /* User */,
+				884A917C2AD832FC00AE1E14 /* Service */,
 				880D92392AC9B23F0053D5A6 /* API */,
 				880D923A2AC9B2410053D5A6 /* Response */,
 			);
@@ -188,6 +210,7 @@
 		880D923D2AC9B3380053D5A6 /* Petition */ = {
 			isa = PBXGroup;
 			children = (
+				884A917F2AD8331700AE1E14 /* Service */,
 				880D923E2AC9B3A40053D5A6 /* API */,
 				880D923F2AC9B3A70053D5A6 /* Response */,
 			);
@@ -273,6 +296,7 @@
 			isa = PBXGroup;
 			children = (
 				882E633F2AB5FF7F00BFE332 /* LoginViewController.swift */,
+				884A91732AD82C7200AE1E14 /* LoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -291,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				882E633D2AB5FC3B00BFE332 /* BaseVC.swift */,
+				884A91712AD82B7400AE1E14 /* ViewModelType.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -431,8 +456,33 @@
 			children = (
 				88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */,
 				884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */,
+				884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		884A917C2AD832FC00AE1E14 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				884A917D2AD8330900AE1E14 /* AuthService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		884A917F2AD8331700AE1E14 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				884A91802AD8332500AE1E14 /* PetitionService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		884A91882AD8B83A00AE1E14 /* ServiceModel */ = {
+			isa = PBXGroup;
+			children = (
+				884A91892AD8B86300AE1E14 /* ServiceType.swift */,
+			);
+			path = ServiceModel;
 			sourceTree = "<group>";
 		};
 		888A18822ABFE72500168377 /* Cell */ = {
@@ -493,6 +543,10 @@
 				880D92332AC864530053D5A6 /* SwiftKeychainWrapper */,
 				884A91412AD19FF000AE1E14 /* SideMenu */,
 				884A91662AD6658700AE1E14 /* Kingfisher */,
+				884A916D2AD8294800AE1E14 /* RxBlocking */,
+				884A916F2AD8294800AE1E14 /* RxCocoa */,
+				884A91822AD8349100AE1E14 /* Moya */,
+				884A91842AD8349100AE1E14 /* RxMoya */,
 			);
 			productName = SVAP_iOS;
 			productReference = 882E63112AB5FA2700BFE332 /* SVAP_iOS.app */;
@@ -528,6 +582,7 @@
 				880D92322AC864530053D5A6 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */,
 				884A91402AD19FF000AE1E14 /* XCRemoteSwiftPackageReference "SideMenu" */,
 				884A91652AD6658700AE1E14 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				884A916C2AD8294800AE1E14 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 882E63122AB5FA2700BFE332 /* Products */;
 			projectDirPath = "";
@@ -568,6 +623,7 @@
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
 				884A91532AD58F3800AE1E14 /* PetitonResponse.swift in Sources */,
 				884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */,
+				884A918A2AD8B86300AE1E14 /* ServiceType.swift in Sources */,
 				882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */,
 				880D923C2AC9B2500053D5A6 /* AuthResponse.swift in Sources */,
 				880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */,
@@ -577,6 +633,7 @@
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
 				884A915C2AD64CA800AE1E14 /* PetitionModel.swift in Sources */,
 				882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */,
+				884A91722AD82B7400AE1E14 /* ViewModelType.swift in Sources */,
 				884A91582AD6462400AE1E14 /* DetailPetitionResponse.swift in Sources */,
 				884A913F2AD1548300AE1E14 /* SideMenuContentViewController.swift in Sources */,
 				885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */,
@@ -587,10 +644,14 @@
 				882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */,
 				882E63792AB7FBE900BFE332 /* PopularCell.swift in Sources */,
 				884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */,
+				884A917E2AD8330900AE1E14 /* AuthService.swift in Sources */,
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				884A914D2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift in Sources */,
+				884A91812AD8332500AE1E14 /* PetitionService.swift in Sources */,
 				884A91562AD5900100AE1E14 /* UserInfoResponse.swift in Sources */,
+				884A91742AD82C7200AE1E14 /* LoginViewModel.swift in Sources */,
+				884A91872AD8387B00AE1E14 /* UserPetitionViewController.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
 				880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */,
 				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,
@@ -841,6 +902,14 @@
 				minimumVersion = 7.9.1;
 			};
 		};
+		884A916C2AD8294800AE1E14 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
+			};
+		};
 		88A293672AC3A723007B4469 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -879,6 +948,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 884A91652AD6658700AE1E14 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		884A916D2AD8294800AE1E14 /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 884A916C2AD8294800AE1E14 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		884A916F2AD8294800AE1E14 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 884A916C2AD8294800AE1E14 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		884A91822AD8349100AE1E14 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 880D92262AC860F70053D5A6 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		884A91842AD8349100AE1E14 /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 880D92262AC860F70053D5A6 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = RxMoya;
 		};
 		88A293682AC3A723007B4469 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
