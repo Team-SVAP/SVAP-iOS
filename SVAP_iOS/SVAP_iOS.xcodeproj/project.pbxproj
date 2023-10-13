@@ -63,6 +63,7 @@
 		884A91872AD8387B00AE1E14 /* UserPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */; };
 		884A918A2AD8B86300AE1E14 /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91892AD8B86300AE1E14 /* ServiceType.swift */; };
 		884A918D2AD9917000AE1E14 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A918C2AD9917000AE1E14 /* UIViewControllerExtension.swift */; };
+		884A918F2AD9A1D500AE1E14 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A918E2AD9A1D500AE1E14 /* UITextFieldExtension.swift */; };
 		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
@@ -121,6 +122,7 @@
 		884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPetitionViewController.swift; sourceTree = "<group>"; };
 		884A91892AD8B86300AE1E14 /* ServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
 		884A918C2AD9917000AE1E14 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		884A918E2AD9A1D500AE1E14 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		885A74952AC2F6A200EC3F1A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
@@ -492,6 +494,7 @@
 			isa = PBXGroup;
 			children = (
 				884A918C2AD9917000AE1E14 /* UIViewControllerExtension.swift */,
+				884A918E2AD9A1D500AE1E14 /* UITextFieldExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -656,6 +659,7 @@
 				882E63792AB7FBE900BFE332 /* PopularCell.swift in Sources */,
 				884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */,
 				884A918D2AD9917000AE1E14 /* UIViewControllerExtension.swift in Sources */,
+				884A918F2AD9A1D500AE1E14 /* UITextFieldExtension.swift in Sources */,
 				884A917E2AD8330900AE1E14 /* AuthService.swift in Sources */,
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
