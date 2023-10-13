@@ -9,6 +9,7 @@ class CustomButton: UIButton {
         self.backgroundColor = backgroundColor
         self.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 20)
         self.layer.cornerRadius = 12
+        self.isEnabled = false
     }
     
     convenience init(type: UIButton.ButtonType, title: String, titleColor: UIColor, backgroundColor: UIColor) {
