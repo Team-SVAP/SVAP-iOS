@@ -14,6 +14,7 @@ class CustomTextField: UITextField {
         self.isSecureTextEntry = isSecure
         self.autocapitalizationType = .none
         self.autocorrectionType = .no
+        self.keyboardType = .alphabet
         self.placeholderText = placeholder
         self.backgroundColor = .white
         self.layer.cornerRadius = 8
