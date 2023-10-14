@@ -66,6 +66,7 @@
 		884A918F2AD9A1D500AE1E14 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A918E2AD9A1D500AE1E14 /* UITextFieldExtension.swift */; };
 		884A91932AD9A7A300AE1E14 /* UserIdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */; };
 		884A91982AD9B84400AE1E14 /* UserSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */; };
+		884A919A2ADAE1E700AE1E14 /* PetitionTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */; };
 		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
@@ -127,6 +128,7 @@
 		884A918E2AD9A1D500AE1E14 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
 		884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdViewModel.swift; sourceTree = "<group>"; };
 		884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignupViewModel.swift; sourceTree = "<group>"; };
+		884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionTypeButton.swift; sourceTree = "<group>"; };
 		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		885A74952AC2F6A200EC3F1A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
@@ -347,6 +349,7 @@
 				885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */,
 				884A91372ACFE5B300AE1E14 /* CustomTextView.swift */,
 				884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */,
+				884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -705,6 +708,7 @@
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				884A914D2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift in Sources */,
 				884A91812AD8332500AE1E14 /* PetitionService.swift in Sources */,
+				884A919A2ADAE1E700AE1E14 /* PetitionTypeButton.swift in Sources */,
 				884A91562AD5900100AE1E14 /* UserInfoResponse.swift in Sources */,
 				884A91742AD82C7200AE1E14 /* LoginViewModel.swift in Sources */,
 				884A91872AD8387B00AE1E14 /* UserPetitionViewController.swift in Sources */,
