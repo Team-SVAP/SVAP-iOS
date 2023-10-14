@@ -42,6 +42,7 @@ class PetitionViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarSetting()
+        self.navigationItem.hidesBackButton = false
         tableView.delegate = self
         tableView.dataSource = self
         tableView.refreshControl = refreshControl
