@@ -2,7 +2,7 @@ import Foundation
 import Moya
 
 enum PetitionAPI {
-    case createPetition(title: String, content: String, types: String, location: String, image: [Data])
+    case createPetition(content: [String?], image: Data)
     case modifyPetition(title: String, content: String, location: String, types: String, petitionId: Int)
     case deletePetition(petitionId: Int)
     case loadDetailPetition(petitionId: Int)
@@ -10,10 +10,12 @@ enum PetitionAPI {
     case loadPopularPetition
     case loadRecentPetition(type: String)
     case loadAllRecentPetitoin
-    case loadPetitionVote(type: Int)
+    case loadPetitionVote(type: String)
     case loadAllPetitionVote
-    case loadAccessPetition(type: Int)
+    case loadAccessPetition(type: String)
     case loadAllAccessPetition
+    case loadWaitPetition(type: String)
+    case loadAllWaitPetiton
 }
 
 extension PetitionAPI: TargetType {
@@ -32,7 +34,7 @@ extension PetitionAPI: TargetType {
             case .loadDetailPetition(let petitionId):
                 return "/user/\(petitionId)"
             case .searchPetition:
-                return "/petition"
+                return "/petition/search"
             case .loadPopularPetition:
                 return "/petition/popular"
             case .loadRecentPetition(let type):
@@ -47,6 +49,10 @@ extension PetitionAPI: TargetType {
                 return "/access/\(type)"
             case .loadAllAccessPetition:
                 return "/access-all"
+            case .loadWaitPetition(let type):
+                return "/wait\(type)"
+            case .loadAllWaitPetiton:
+                return "/wait-all"
         }
     }
     
@@ -60,25 +66,26 @@ extension PetitionAPI: TargetType {
                 return .patch
             case .deletePetition:
                 return .delete
-            case .loadDetailPetition, .loadPopularPetition, .loadRecentPetition, .loadAllRecentPetitoin, .loadPetitionVote, .loadAllPetitionVote, .loadAccessPetition, .loadAllAccessPetition:
+            default:
                 return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-            case .createPetition(let title, let content, let types, let location, let image):
+            case .createPetition(let content, let image):
                 var multipart: [MultipartFormData] = []
                 
-                multipart.append(MultipartFormData(provider: .data(title.data(using: .utf8)!), name: "title"))
-                multipart.append(MultipartFormData(provider: .data(content.data(using: .utf8)!), name: "content"))
-                multipart.append(MultipartFormData(provider: .data(types.data(using: .utf8)!), name: "types"))
-                multipart.append(MultipartFormData(provider: .data(location.data(using: .utf8)!), name: "location"))
-                image.forEach({
+//                multipart.append(MultipartFormData(provider: .data(content.data(using: .utf8)!), name: "{title, content, types, location"))
+                multipart.append(.init(provider: .data(content.description.data(using: .utf8)!), name: "{title, content, types, location}"))
+//                multipart.append(MultipartFormData(provider: .data(content.data(using: .utf8)!), name: "content"))
+//                multipart.append(MultipartFormData(provider: .data(types.data(using: .utf8)!), name: "types"))
+//                multipart.append(MultipartFormData(provider: .data(location.data(using: .utf8)!), name: "location"))
+                image.forEach({_ in 
                     multipart.append(
                         .init(
-                            provider: .data($0),
-                            name: "image[]",
+                            provider: .data(image),
+                            name: "image",
                             fileName: "image.jpg",
                             mimeType: "image/jpg"
                         ))
@@ -97,7 +104,7 @@ extension PetitionAPI: TargetType {
                         "location": location,
                         "types": types
                     ], encoding: JSONEncoding.default)
-            case .deletePetition, .loadDetailPetition, .loadPopularPetition, .loadRecentPetition, .loadAllRecentPetitoin, .loadPetitionVote, .loadAllPetitionVote, .loadAccessPetition, .loadAllAccessPetition:
+            default:
                 return .requestPlain
         }
     }
