@@ -1,14 +1,16 @@
 import UIKit
 import SnapKit
 import Then
-import Moya
 
 class BaseVC: UIViewController, UIGestureRecognizerDelegate {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        self.view.backgroundColor = .white
+        self.navigationItem.hidesBackButton = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        bind()
+        subscribe()
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -22,6 +24,12 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate {
         
     }
     func setupConstraints() {
+        
+    }
+    func bind() {
+        
+    }
+    func subscribe() {
         
     }
 }
