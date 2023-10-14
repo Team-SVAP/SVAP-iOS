@@ -64,6 +64,8 @@
 		884A918A2AD8B86300AE1E14 /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91892AD8B86300AE1E14 /* ServiceType.swift */; };
 		884A918D2AD9917000AE1E14 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A918C2AD9917000AE1E14 /* UIViewControllerExtension.swift */; };
 		884A918F2AD9A1D500AE1E14 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A918E2AD9A1D500AE1E14 /* UITextFieldExtension.swift */; };
+		884A91932AD9A7A300AE1E14 /* UserIdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */; };
+		884A91982AD9B84400AE1E14 /* UserSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */; };
 		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
@@ -123,6 +125,8 @@
 		884A91892AD8B86300AE1E14 /* ServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
 		884A918C2AD9917000AE1E14 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		884A918E2AD9A1D500AE1E14 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
+		884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdViewModel.swift; sourceTree = "<group>"; };
+		884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignupViewModel.swift; sourceTree = "<group>"; };
 		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		885A74952AC2F6A200EC3F1A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
@@ -300,8 +304,8 @@
 		882E63372AB5FB5B00BFE332 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				882E633F2AB5FF7F00BFE332 /* LoginViewController.swift */,
-				884A91732AD82C7200AE1E14 /* LoginViewModel.swift */,
+				884A91942AD9B05300AE1E14 /* View */,
+				884A91962AD9B05F00AE1E14 /* ViewModel */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -309,9 +313,8 @@
 		882E63382AB5FB5F00BFE332 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
-				882E63592AB6169A00BFE332 /* UserIdViewController.swift */,
-				882E63652AB7081000BFE332 /* UserPasswordViewController.swift */,
-				882E63672AB7098000BFE332 /* UserNameViewController.swift */,
+				884A91902AD9A72500AE1E14 /* View */,
+				884A91912AD9A73B00AE1E14 /* ViewModel */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -499,6 +502,41 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		884A91902AD9A72500AE1E14 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				882E63592AB6169A00BFE332 /* UserIdViewController.swift */,
+				882E63652AB7081000BFE332 /* UserPasswordViewController.swift */,
+				882E63672AB7098000BFE332 /* UserNameViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		884A91912AD9A73B00AE1E14 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */,
+				884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		884A91942AD9B05300AE1E14 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				882E633F2AB5FF7F00BFE332 /* LoginViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		884A91962AD9B05F00AE1E14 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				884A91732AD82C7200AE1E14 /* LoginViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		888A18822ABFE72500168377 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,7 +697,9 @@
 				882E63792AB7FBE900BFE332 /* PopularCell.swift in Sources */,
 				884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */,
 				884A918D2AD9917000AE1E14 /* UIViewControllerExtension.swift in Sources */,
+				884A91982AD9B84400AE1E14 /* UserSignupViewModel.swift in Sources */,
 				884A918F2AD9A1D500AE1E14 /* UITextFieldExtension.swift in Sources */,
+				884A91932AD9A7A300AE1E14 /* UserIdViewModel.swift in Sources */,
 				884A917E2AD8330900AE1E14 /* AuthService.swift in Sources */,
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
