@@ -1,5 +1,6 @@
 import UIKit
 import SideMenu
+import Moya
 
 class MainViewController: BaseVC {
     var isExpanded = false
@@ -64,6 +65,10 @@ class MainViewController: BaseVC {
         collectionView.dataSource = self
         navigationBarSetting()
         sideMenuSetting()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadPopularPetition()
     }
     override func configureUI() {
         [
@@ -140,14 +145,6 @@ class MainViewController: BaseVC {
         menuButton.addTarget(self, action: #selector(clickMenuButton), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: menuButton)
     }
-    let transition = CATransition()
-    func transitionSetting() {
-        transition.duration = 5
-        transition.type = CATransitionType.push
-        transition.subtype = CATransitionSubtype.fromRight
-        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-        view.window!.layer.add(transition, forKey: kCATransition)
-    }
     @objc func clickMenuButton() {
         self.present(sideMenu, animated: true)
     }
@@ -166,6 +163,31 @@ class MainViewController: BaseVC {
         }
     }
     
+    private func loadPopularPetition() {
+        
+        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.loadPopularPetition) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 200:
+                            if let data = try? JSONDecoder().decode(PetitonResponseElement.self, from: result.data) {
+                                DispatchQueue.main.async {
+                                    self.famousPetitionTitleLabel.text = data.title
+                                    self.famousPetitionContentLabel.text = data.content
+                                }
+                            } else {
+                                print("Response load fail")
+                            }
+                        default:
+                            print("Fail: \(result.statusCode)")
+                    }
+                case .failure(let err):
+                    print("Request Error: \(err.localizedDescription)")
+            }
+        }
+    }
 //    private let pageControl = UIPageControl()
 //    func pageControlSetting() {
 //        view.addSubview(pageControl)
@@ -178,6 +200,14 @@ class MainViewController: BaseVC {
 //            $0.centerX.equalToSuperview()
 //            $0.top.equalToSuperview().inset(270)
 //        }
+//    }
+//    let transition = CATransition()
+//    func transitionSetting() {
+//        transition.duration = 5
+//        transition.type = CATransitionType.push
+//        transition.subtype = CATransitionSubtype.fromRight
+//        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
+//        view.window!.layer.add(transition, forKey: kCATransition)
 //    }
     private func sideMenuSetting() {
         sideMenu.leftSide = true
