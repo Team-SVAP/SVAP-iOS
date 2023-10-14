@@ -10,7 +10,6 @@ class PetitionViewController: BaseVC {
         }
     }
     private let refreshControl = UIRefreshControl()
-    //계속 로딩이 됨
     private let leftbutton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
@@ -20,7 +19,32 @@ class PetitionViewController: BaseVC {
     }
     private let searchButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "searchIcon"), for: .normal)
-        $0.tintColor = UIColor(named: "gray-600")
+        $0.tintColor = UIColor(named: "gray-700")
+        $0.addTarget(self, action: #selector(searchPetition), for: .touchUpInside)
+    }
+    private let menuButton = UIButton(type: .system).then {
+        $0.setTitle("최신순으로 보기", for: .normal)
+        $0.setTitleColor(UIColor(named: "gray-800"), for: .normal)
+        $0.setImage(UIImage(named: "miniLeftArrow"), for: .normal)
+        $0.semanticContentAttribute = .forceRightToLeft
+        $0.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 0)
+        $0.tintColor = UIColor(named: "gray-800")
+        $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
+        $0.addTarget(self, action: #selector(clickMenuButton), for: .touchUpInside)
+    }
+    private let petitionButtonStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.spacing = 8
+        $0.backgroundColor = .clear
+    }
+    private let allPetitionButton = PetitionTypeButton(type: .system, title: "전체 청원").then {
+        $0.addTarget(self, action: #selector(loadAllPetition), for: .touchUpInside)
+    }
+    private let schoolPetitionButton = PetitionTypeButton(type: .system, title: "학교 청원").then {
+        $0.addTarget(self, action: #selector(loadSchoolPetiton), for: .touchUpInside)
+    }
+    private let dormitoryPetitionButton = PetitionTypeButton(type: .system, title: "기숙사 청원").then {
+        $0.addTarget(self, action: #selector(loadDormitoryPetition), for: .touchUpInside)
     }
     private let line = UIView().then {
         $0.backgroundColor = UIColor(named: "gray-200")
@@ -67,11 +91,16 @@ class PetitionViewController: BaseVC {
         super.configureUI()
         [
             searchTextField,
+            menuButton,
+            petitionButtonStackView,
             line,
             tableView,
             scrollButton
         ].forEach({ view.addSubview($0) })
         searchTextField.addSubview(searchButton)
+        [ allPetitionButton, schoolPetitionButton, dormitoryPetitionButton].forEach({
+            petitionButtonStackView.addArrangedSubview($0)
+        })
     }
     override func setupConstraints() {
         super.setupConstraints()
@@ -80,13 +109,22 @@ class PetitionViewController: BaseVC {
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(40)
         }
+        menuButton.snp.makeConstraints {
+            $0.top.equalTo(searchTextField.snp.bottom).offset(6)
+            $0.left.equalToSuperview().inset(20)
+        }
         searchButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(12)
+            $0.centerY.equalToSuperview()
             $0.right.equalToSuperview().inset(20)
             $0.width.height.equalTo(20)
         }
+        petitionButtonStackView.snp.makeConstraints {
+            $0.top.equalTo(searchTextField.snp.bottom).offset(12)
+            $0.right.equalToSuperview().inset(20)
+            $0.height.equalTo(14)
+        }
         line.snp.makeConstraints {
-            $0.top.equalTo(searchTextField.snp.bottom).offset(37.75)
+            $0.top.equalTo(petitionButtonStackView.snp.bottom).offset(12)
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(0.5)
         }
@@ -100,6 +138,9 @@ class PetitionViewController: BaseVC {
             $0.width.height.equalTo(60)
         }
     }
+//    override func subscribe() {
+//        <#code#>
+//    }
     private func loadPetition() {
         let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
         
@@ -132,9 +173,116 @@ class PetitionViewController: BaseVC {
             }
         }
     }
-    
+    @objc private func searchPetition() {
+        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.searchPetition(title: searchTextField.text!)) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 200:
+                            if let data = try? JSONDecoder().decode(PetitonResponse.self, from: result.data) {
+                                DispatchQueue.main.async {
+                                    self.petitionList = data.map {
+                                        .init(
+                                            id: $0.id,
+                                            title: $0.title,
+                                            content: $0.content,
+                                            date: $0.dateTime,
+                                            location: $0.location
+                                        )
+                                    }
+                                    self.petitionList.sort(by: { $0.id > $1.id })
+                                }
+                            } else {
+                                print("Response load fail")
+                            }
+                        default:
+                            print("Fail: \(result.statusCode)")
+                    }
+                case .failure(let err):
+                    print("Request Error: \(err.localizedDescription)")
+            }
+        }
+    }
     @objc private func clickLeftBarButton() {
         self.navigationController?.popViewController(animated: true)
+    }
+    @objc private func clickMenuButton() {
+        let petitionClosure = UINavigationController(rootViewController: PetitionMenu(closure: {
+            self.menuButton.setTitle($0, for: .normal)
+        }))
+        petitionClosure.modalPresentationStyle = .overFullScreen
+        petitionClosure.modalTransitionStyle = .crossDissolve
+        self.present(petitionClosure, animated: true)
+    }
+    @objc private func loadAllPetition() {
+        loadPetition()
+    }
+    @objc private func loadSchoolPetiton() {
+        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.loadRecentPetition(type: "SCHOOL")) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 200:
+                            if let data = try? JSONDecoder().decode(PetitonResponse.self, from: result.data) {
+                                DispatchQueue.main.async {
+                                    self.petitionList = data.map {
+                                        .init(
+                                            id: $0.id,
+                                            title: $0.title,
+                                            content: $0.content,
+                                            date: $0.dateTime,
+                                            location: $0.location
+                                        )
+                                    }
+                                    self.petitionList.sort(by: { $0.id > $1.id })
+                                }
+                            } else {
+                                print("Response load fail")
+                            }
+                        default:
+                            print("Fail: \(result.statusCode)")
+                    }
+                case .failure(let err):
+                    print("Request Error: \(err.localizedDescription)")
+            }
+        }
+    }
+    @objc private func loadDormitoryPetition() {
+        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.loadRecentPetition(type: "DORMITORY")) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 200:
+                            if let data = try? JSONDecoder().decode(PetitonResponse.self, from: result.data) {
+                                DispatchQueue.main.async {
+                                    self.petitionList = data.map {
+                                        .init(
+                                            id: $0.id,
+                                            title: $0.title,
+                                            content: $0.content,
+                                            date: $0.dateTime,
+                                            location: $0.location
+                                        )
+                                    }
+                                    self.petitionList.sort(by: { $0.id > $1.id })
+                                }
+                            } else {
+                                print("Response load fail")
+                            }
+                        default:
+                            print("Fail: \(result.statusCode)")
+                    }
+                case .failure(let err):
+                    print("Request Error: \(err.localizedDescription)")
+            }
+        }
+        
     }
     @objc private func pullToRefresh() {
         loadPetition()
