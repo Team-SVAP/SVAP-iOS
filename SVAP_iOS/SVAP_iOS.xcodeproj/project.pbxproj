@@ -73,6 +73,7 @@
 		88A293692AC3A723007B4469 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 88A293682AC3A723007B4469 /* SnapKit */; };
 		88A2936C2AC3A729007B4469 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 88A2936B2AC3A729007B4469 /* Then */; };
 		88A6CC892AC18A3600BF36C3 /* PetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */; };
+		88B7C64B2ADAECCC0082EA43 /* PetitionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -135,6 +136,7 @@
 		888A18B02AC01A3800168377 /* CustomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenu.swift; sourceTree = "<group>"; };
 		88A293722AC3A857007B4469 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionViewController.swift; sourceTree = "<group>"; };
+		88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionMenu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,6 +352,7 @@
 				884A91372ACFE5B300AE1E14 /* CustomTextView.swift */,
 				884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */,
 				884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */,
+				88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 				884A91742AD82C7200AE1E14 /* LoginViewModel.swift in Sources */,
 				884A91872AD8387B00AE1E14 /* UserPetitionViewController.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
+				88B7C64B2ADAECCC0082EA43 /* PetitionMenu.swift in Sources */,
 				880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */,
 				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,
 				882E63752AB7109000BFE332 /* MainViewController.swift in Sources */,
