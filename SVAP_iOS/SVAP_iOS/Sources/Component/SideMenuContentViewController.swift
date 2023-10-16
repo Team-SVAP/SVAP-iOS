@@ -36,7 +36,7 @@ class SideMenuContentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .clear
+        view.backgroundColor = .placeholderText
         navigationController?.navigationBar.isHidden = true
         loadUserInfo()
     }
