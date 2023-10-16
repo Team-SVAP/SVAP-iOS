@@ -75,8 +75,7 @@ class DetailPetitionViewController: BaseVC {
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(topLineView.snp.bottom)
-            $0.left.right.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(20)
+            $0.left.right.bottom.equalToSuperview()
         }
     }
     private func navigationBarSetting() {
@@ -116,6 +115,11 @@ class DetailPetitionViewController: BaseVC {
     @objc private func clickLeftBarButton() {
         self.navigationController?.popViewController(animated: true)
     }
+    @objc func clickReportButton() {
+        let modal = UINavigationController(rootViewController: ReportPetitionAlert())
+        modal.modalPresentationStyle = .overFullScreen
+        self.present(modal, animated: true)
+    }
 }
 
 extension DetailPetitionViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -127,6 +131,7 @@ extension DetailPetitionViewController: UICollectionViewDataSource, UICollection
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! DetailPetitionCell
+        cell.reportPetitionButton.addTarget(self, action: #selector(clickReportButton), for: .touchUpInside)
         return cell
     }
     
