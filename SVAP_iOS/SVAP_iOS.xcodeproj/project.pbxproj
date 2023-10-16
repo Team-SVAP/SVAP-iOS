@@ -74,6 +74,7 @@
 		88A2936C2AC3A729007B4469 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 88A2936B2AC3A729007B4469 /* Then */; };
 		88A6CC892AC18A3600BF36C3 /* PetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */; };
 		88B7C64B2ADAECCC0082EA43 /* PetitionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */; };
+		88B7C64E2ADC23520082EA43 /* DetailPetitionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B7C64D2ADC23520082EA43 /* DetailPetitionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +138,7 @@
 		88A293722AC3A857007B4469 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionViewController.swift; sourceTree = "<group>"; };
 		88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionMenu.swift; sourceTree = "<group>"; };
+		88B7C64D2ADC23520082EA43 /* DetailPetitionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -470,6 +472,7 @@
 			children = (
 				88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */,
 				884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */,
+				88B7C64C2ADC23390082EA43 /* Cell */,
 				884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */,
 			);
 			path = ViewController;
@@ -578,6 +581,14 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
+		88B7C64C2ADC23390082EA43 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				88B7C64D2ADC23520082EA43 /* DetailPetitionCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -678,6 +689,7 @@
 			files = (
 				888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */,
 				884A91632AD6652D00AE1E14 /* PetitionCell.swift in Sources */,
+				88B7C64E2ADC23520082EA43 /* DetailPetitionCell.swift in Sources */,
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
 				884A91532AD58F3800AE1E14 /* PetitonResponse.swift in Sources */,
 				884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */,
