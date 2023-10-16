@@ -46,6 +46,7 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
         setupKeyboardObservers()
         showPasswordButton()
         textFieldDidChange()
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     override func configureUI() {
         super.configureUI()
