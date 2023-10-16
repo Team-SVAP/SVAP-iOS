@@ -217,9 +217,15 @@ class PetitionViewController: BaseVC {
         self.present(petitionClosure, animated: true)
     }
     @objc private func loadAllPetition() {
+        allPetitionButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
+        schoolPetitionButton.setTitleColor(UIColor(named: "gray-400"), for: .normal)
+        dormitoryPetitionButton.setTitleColor(UIColor(named: "gray-400"), for: .normal)
         loadPetition()
     }
     @objc private func loadSchoolPetiton() {
+        allPetitionButton.setTitleColor(UIColor(named: "gray-400"), for: .normal)
+        schoolPetitionButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
+        dormitoryPetitionButton.setTitleColor(UIColor(named: "gray-400"), for: .normal)
         let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
         
         provider.request(.loadRecentPetition(type: "SCHOOL")) { res in
@@ -252,6 +258,9 @@ class PetitionViewController: BaseVC {
         }
     }
     @objc private func loadDormitoryPetition() {
+        allPetitionButton.setTitleColor(UIColor(named: "gray-400"), for: .normal)
+        schoolPetitionButton.setTitleColor(UIColor(named: "gray-400"), for: .normal)
+        dormitoryPetitionButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
         let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
         
         provider.request(.loadRecentPetition(type: "DORMITORY")) { res in
@@ -290,6 +299,18 @@ class PetitionViewController: BaseVC {
     @objc private func clickScrollButton() {
         self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
+    private var userDetailPetition: () -> Void = {}
+    
+    init(
+            userDetailPetition: @escaping () -> Void
+        ) {
+            super.init(nibName: nil, bundle: nil)
+            self.userDetailPetition = userDetailPetition
+        }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 extension PetitionViewController: UITableViewDelegate, UITableViewDataSource {
@@ -310,6 +331,12 @@ extension PetitionViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        clickCell()
         self.navigationController?.pushViewController(DetailPetitionViewController(), animated: true)
+        
+    }
+    
+    func clickCell() {
+        self.dismiss(animated: true, completion: { self.userDetailPetition() })
     }
 }
