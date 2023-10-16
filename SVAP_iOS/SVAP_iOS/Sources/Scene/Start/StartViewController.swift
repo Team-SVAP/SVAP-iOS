@@ -5,6 +5,7 @@ class StartViewController: BaseVC {
     
     private let logoImage = UIImageView(image: UIImage(named: "logo"))
     private let loginButton = CustomButton(type: .system, title: "로그인", titleColor: UIColor(named: "gray-700")!, backgroundColor: UIColor(named: "main-6")!).then {
+        $0.isEnabled = true
         $0.backgroundColor = .white
         $0.layer.borderColor = UIColor(named: "main-6")?.cgColor
         $0.layer.borderWidth = 1

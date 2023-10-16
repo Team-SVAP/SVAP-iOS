@@ -41,13 +41,10 @@ class MainViewController: BaseVC {
         $0.addTarget(self, action: #selector(clickViewPetitionButton), for: .touchUpInside)
     }
     private let famousPetitionTitleLabel = UILabel().then {
-        $0.text = "촉법 소년법 폐지 & 개정"
-        //서버통신하고 지우기
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 18)
     }
     private let famousPetitionContentLabel = UILabel().then {
-        $0.text = "요즘들어 나이 믿고 까불고 사고치고 사건 사고가 많은 나이 만 14이하 촉법소년들 이거 문제 심각합니다. 빨리 법개정안하면 진짜 누구하나 죽을꺼임 이미 학폭으로 14세 미만 어린 피해자들이 많이 나오고도 있는 상황인대 무슨 근거와 깡으로 촉법소년 유지를 하고 있는건지 이유를 모르겠네요. 14세 미만 아이들이 모여서 또래 친구들 폭행. 폭언. 성희롱. 성추행등으로 사망하는 피해자가 있고, 온갖 중범죄란 죄는 다저질르는대 촉법이란 이유로 형사처벌 면하고. 촉법이 아니더라도 어리다.교화가 먼저고 교육이 먼저라는 이유로 형을 너무 낮게 한다던가.뭐 이딴 개같은 법이 어딨고 뭐 이딴 개같은 경우가 다있습니까? 마냑 피해자가 당신들 아들.딸이"
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
         $0.numberOfLines = 7
@@ -149,7 +146,7 @@ class MainViewController: BaseVC {
         self.present(sideMenu, animated: true)
     }
     @objc func clickViewPetitionButton() {
-        self.navigationController?.pushViewController(PetitionViewController(), animated: true)
+//        self.navigationController?.pushViewController(PetitionViewController(), animated: true)
     }
     @objc func clickCreatePetitionButton() {
         self.navigationController?.pushViewController(CreatePetitionViewController(), animated: true)
