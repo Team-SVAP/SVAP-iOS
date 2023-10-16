@@ -23,6 +23,13 @@ class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSo
         $0.rowHeight = 92
         $0.separatorStyle = .none
     }
+    private let scrollButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(named: "upArrow"), for: .normal)
+        $0.backgroundColor = UIColor(named: "main-3")
+        $0.tintColor = .white
+        $0.layer.cornerRadius = 30
+        $0.addTarget(self, action: #selector(clickScrollButton), for: .touchUpInside)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +48,8 @@ class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSo
         super.configureUI()
         
         [
-            tableView
+            tableView,
+            scrollButton
         ].forEach({ view.addSubview($0) })
     }
     override func setupConstraints() {
@@ -51,6 +59,10 @@ class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSo
             $0.top.equalTo(view.safeAreaInsets.bottom)
             $0.bottom.equalToSuperview()
             $0.left.right.equalToSuperview().inset(20)
+        }
+        scrollButton.snp.makeConstraints {
+            $0.bottom.right.equalToSuperview().inset(30)
+            $0.width.height.equalTo(60)
         }
     }
     
@@ -106,6 +118,10 @@ class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSo
     @objc private func pullToRefresh() {
         loadPetition()
     }
+    @objc private func clickScrollButton() {
+        self.tableView.setContentOffset(CGPoint(x: 0, y: -65), animated: true)
+    }
+    
 }
 
 extension UserPetitionViewController {
