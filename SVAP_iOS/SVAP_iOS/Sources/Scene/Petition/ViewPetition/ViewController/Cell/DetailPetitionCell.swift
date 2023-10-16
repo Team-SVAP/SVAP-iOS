@@ -35,8 +35,21 @@ class DetailPetitionCell: UICollectionViewCell {
         $0.textColor = UIColor(named: "gray-600")
         $0.font = UIFont(name: "IBMPlexSansKR-Regular", size: 8)
     }
-    private let voteButton = CustomButton(type: .system, title: "찬성", titleColor: UIColor(named: "gray-000")!, backgroundColor: UIColor(named: "main-2")!).then {
+    let voteButton = CustomButton(type: .system, title: "찬성", titleColor: UIColor(named: "gray-000")!, backgroundColor: UIColor(named: "main-2")!).then {
         $0.isEnabled = true
+    }
+    private let buttonBottomLineView = UIView().then {
+        $0.backgroundColor = UIColor(named: "gray-200")
+    }
+    private let viewCountLabel = UILabel().then {
+        $0.text = "조회수 123"
+        $0.textColor = UIColor(named: "gray-700")
+        $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 12)
+    }
+    let reportPetitionButton = UIButton(type: .system).then {
+        $0.setTitle("이 청원 신고하기", for: .normal)
+        $0.setTitleColor(UIColor(named: "main-1"), for: .normal)
+        $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 12)
     }
 
     override init(frame: CGRect) {
@@ -60,7 +73,10 @@ class DetailPetitionCell: UICollectionViewCell {
             voteLabel,
             petitionPeriodLabel,
             petitionQuestionLabel,
-            voteButton
+            voteButton,
+            buttonBottomLineView,
+            viewCountLabel,
+            reportPetitionButton
         ].forEach({ contentView.addSubview($0) })
     }
     func setupConstraints() {
@@ -95,6 +111,18 @@ class DetailPetitionCell: UICollectionViewCell {
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(50)
         }
+        buttonBottomLineView.snp.makeConstraints {
+            $0.top.equalTo(voteButton.snp.bottom).offset(20)
+            $0.left.right.equalToSuperview().inset(20)
+            $0.height.equalTo(1)
+        }
+        viewCountLabel.snp.makeConstraints {
+            $0.top.equalTo(buttonBottomLineView.snp.bottom).offset(12)
+            $0.left.equalToSuperview().inset(20)
+        }
+        reportPetitionButton.snp.makeConstraints {
+            $0.top.equalTo(buttonBottomLineView.snp.bottom).offset(12)
+            $0.right.equalToSuperview().inset(20)
+        }
     }
-    
 }
