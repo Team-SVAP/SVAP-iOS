@@ -1,9 +1,10 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxGesture
 import Moya
 
-class ReportPetitionAlert: BaseVC {
+class ReportPetitionAlert: UIViewController {
     
     private let disposeBag = DisposeBag()
     
@@ -41,14 +42,14 @@ class ReportPetitionAlert: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .placeholderText
+        subscribe()
     }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-        self.dismiss(animated: true)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        configureUI()
+        setupConstraints()
     }
-    override func configureUI() {
-        super.configureUI()
-        
+    func configureUI() {
         view.addSubview(backgroundView)
         [
             reportPetitionLabel,
@@ -58,8 +59,7 @@ class ReportPetitionAlert: BaseVC {
             reportButton
         ].forEach({ backgroundView.addSubview($0) })
     }
-    override func setupConstraints() {
-        super.setupConstraints()
+    func setupConstraints() {
         
         backgroundView.snp.makeConstraints {
             $0.center.equalToSuperview()
@@ -92,8 +92,17 @@ class ReportPetitionAlert: BaseVC {
         }
         
     }
-    override func subscribe() {
-        super.subscribe()
+    func subscribe() {
+    
+        backgroundView.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+            }).disposed(by: disposeBag)
+        reportButton.rx.tap
+            .subscribe(onNext: {
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
         
         textView.rx.didBeginEditing
             .subscribe(onNext: {
