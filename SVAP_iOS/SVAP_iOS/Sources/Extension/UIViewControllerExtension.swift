@@ -7,4 +7,8 @@ extension UIViewController {
         let vc = viewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func popViewController() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }
