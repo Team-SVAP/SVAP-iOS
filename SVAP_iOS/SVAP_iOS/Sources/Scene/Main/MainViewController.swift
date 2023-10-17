@@ -1,8 +1,13 @@
 import UIKit
+import RxSwift
+import RxCocoa
 import SideMenu
 import Moya
 
 class MainViewController: BaseVC {
+    
+    private let disposeBag = DisposeBag()
+    
     var isExpanded = false
     var data = [MainCell.self, ApprovedCell.self]
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
@@ -26,20 +31,14 @@ class MainViewController: BaseVC {
         $0.setImage(UIImage(named: "searchIcon"), for: .normal)
         $0.tintColor = UIColor(named: "gray-600")
     }
-    private let viewPetitionButton = PetitionButton(type: .system, title: "청원보기", image: UIImage(named: "peopleIcon")!).then {
-        $0.addTarget(self, action: #selector(clickViewPetitionButton), for: .touchUpInside)
-    }
-    private let createPetitionButton = PetitionButton(type: .system, title: "청원하기", image: UIImage(named: "editIcon")!).then {
-        $0.addTarget(self, action: #selector(clickCreatePetitionButton), for: .touchUpInside)
-    }
+    private let viewPetitionButton = PetitionButton(type: .system, title: "청원보기", image: UIImage(named: "peopleIcon")!)
+    private let createPetitionButton = PetitionButton(type: .system, title: "청원하기", image: UIImage(named: "editIcon")!)
     private let famousPetitionLabel = UILabel().then {
         $0.text = "인기 청원"
         $0.textColor = UIColor(named: "gray-600")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
-    private let viewMoreButton = LabelButton(type: .system, title: "더보기", titleColor: UIColor(named: "gray-600")!).then {
-        $0.addTarget(self, action: #selector(clickViewPetitionButton), for: .touchUpInside)
-    }
+    private let viewMoreButton = LabelButton(type: .system, title: "더보기", titleColor: UIColor(named: "gray-600")!)
     private let famousPetitionTitleLabel = UILabel().then {
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 18)
@@ -50,9 +49,7 @@ class MainViewController: BaseVC {
         $0.numberOfLines = 7
         $0.textAlignment = .justified
     }
-    private let viewContentButton = LabelButton(type: .system, title: "더보기", titleColor: UIColor(named: "gray-700")!).then {
-        $0.addTarget(self, action: #selector(clickViewContentButton), for: .touchUpInside)
-    }
+    private let viewContentButton = LabelButton(type: .system, title: "더보기", titleColor: UIColor(named: "gray-700")!)
     let sideMenu = SideMenuNavigationController(rootViewController: SideMenuContentViewController())
     
     override func viewDidLoad() {
@@ -139,25 +136,39 @@ class MainViewController: BaseVC {
     }
     private func navigationBarSetting() {
         navigationItem.hidesBackButton = true
-        menuButton.addTarget(self, action: #selector(clickMenuButton), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: menuButton)
     }
-    @objc func clickMenuButton() {
-        self.present(sideMenu, animated: true)
-    }
-    @objc func clickViewPetitionButton() {
-//        self.navigationController?.pushViewController(PetitionViewController(), animated: true)
-    }
-    @objc func clickCreatePetitionButton() {
-        self.navigationController?.pushViewController(CreatePetitionViewController(), animated: true)
-    }
-    @objc func clickViewContentButton() {
-        isExpanded.toggle()
-        if isExpanded {
-            famousPetitionContentLabel.numberOfLines = 0
-        } else {
-            famousPetitionContentLabel.numberOfLines = 7
-        }
+    override func subscribe() {
+        super.subscribe()
+        
+        menuButton.rx.tap
+            .subscribe(onNext: {
+                self.pushViewController(self.sideMenu)
+            }).disposed(by: disposeBag)
+        
+        viewPetitionButton.rx.tap
+            .subscribe(onNext: {
+                self.pushViewController(PetitionViewController())
+            }).disposed(by: disposeBag)
+        
+        viewMoreButton.rx.tap
+            .subscribe(onNext: {
+                self.pushViewController(PetitionViewController())
+            }).disposed(by: disposeBag)
+        viewContentButton.rx.tap
+            .subscribe(onNext: {
+                self.isExpanded.toggle()
+                if self.isExpanded {
+                    self.famousPetitionContentLabel.numberOfLines = 0
+                } else {
+                    self.famousPetitionContentLabel.numberOfLines = 7
+                }
+            }).disposed(by: disposeBag)
+        
+        createPetitionButton.rx.tap
+            .subscribe(onNext: {
+                self.pushViewController(CreatePetitionViewController())
+            }).disposed(by: disposeBag)
     }
     
     private func loadPopularPetition() {
