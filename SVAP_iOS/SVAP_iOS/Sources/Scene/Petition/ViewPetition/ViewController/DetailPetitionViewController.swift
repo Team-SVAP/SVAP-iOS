@@ -1,7 +1,11 @@
 import UIKit
+import RxSwift
+import RxCocoa
 import Moya
 
 class DetailPetitionViewController: BaseVC {
+    
+    private let disposeBag = DisposeBag()
     
     private let leftbutton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
@@ -87,7 +91,6 @@ class DetailPetitionViewController: BaseVC {
         navigationItem.titleView = title
         navigationItem.hidesBackButton = true
         
-        leftbutton.addTarget(self, action: #selector(clickLeftBarButton), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
     }
     
@@ -112,13 +115,14 @@ class DetailPetitionViewController: BaseVC {
 //        })
     }
     
-    @objc private func clickLeftBarButton() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    @objc func clickReportButton() {
-        let modal = UINavigationController(rootViewController: ReportPetitionAlert())
-        modal.modalPresentationStyle = .overFullScreen
-        self.present(modal, animated: true)
+    override func subscribe() {
+        super.subscribe()
+        
+        leftbutton.rx.tap
+            .subscribe(onNext: {
+                self.popViewController()
+            }).disposed(by: disposeBag)
+        
     }
 }
 
@@ -131,7 +135,12 @@ extension DetailPetitionViewController: UICollectionViewDataSource, UICollection
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! DetailPetitionCell
-        cell.reportPetitionButton.addTarget(self, action: #selector(clickReportButton), for: .touchUpInside)
+        cell.reportPetitionButton.rx.tap
+            .subscribe(onNext: {
+                let modal = UINavigationController(rootViewController: ReportPetitionAlert())
+                modal.modalPresentationStyle = .overFullScreen
+                self.present(modal, animated: true)
+            }).disposed(by: disposeBag)
         return cell
     }
     
