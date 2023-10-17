@@ -23,11 +23,7 @@ class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSo
         $0.rowHeight = 92
         $0.separatorStyle = .none
     }
-    private let scrollButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "upArrow"), for: .normal)
-        $0.backgroundColor = UIColor(named: "main-3")
-        $0.tintColor = .white
-        $0.layer.cornerRadius = 30
+    private let scrollButton = ScrollButton(type: .system).then {
         $0.addTarget(self, action: #selector(clickScrollButton), for: .touchUpInside)
     }
     
