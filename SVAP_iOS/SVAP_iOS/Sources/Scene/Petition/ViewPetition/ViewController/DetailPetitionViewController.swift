@@ -20,6 +20,10 @@ class DetailPetitionViewController: BaseVC {
         $0.textColor = UIColor(named: "main-1")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
     }
+    private let menuButton = UIButton(type: .system).then {
+        $0.setImage(UIImage(named: "detailPetitionMenu"), for: .normal)
+        $0.tintColor = UIColor(named: "gray-700")
+    }
     private let titleLabel = UILabel().then {
         $0.text = "사형 제도 부활을 건의합니다."
         $0.textColor = UIColor(named: "gray-800")
@@ -84,6 +88,7 @@ class DetailPetitionViewController: BaseVC {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = false
         navigationBarSetting()
+        loadDetailPetition()
     }
     override func configureUI() {
         super.configureUI()
@@ -93,6 +98,7 @@ class DetailPetitionViewController: BaseVC {
       
         [
             tagLabel,
+            menuButton,
             titleLabel,
             dateLabel,
             topLineView,
@@ -120,18 +126,23 @@ class DetailPetitionViewController: BaseVC {
         }
         mainView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(view.snp.height)
+            $0.height.equalTo(view.frame.height + 30)
         }
         tagLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().inset(14)
             $0.left.equalToSuperview().inset(20)
         }
+        menuButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(18)
+            $0.right.equalToSuperview().inset(20)
+            $0.width.height.equalTo(24)
+        }
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(tagLabel.snp.bottom).offset(12)
+            $0.top.equalTo(tagLabel.snp.bottom).offset(16)
             $0.left.equalToSuperview().inset(20)
         }
         dateLabel.snp.makeConstraints {
-            $0.top.equalTo(tagLabel.snp.bottom).offset(20)
+            $0.top.equalTo(tagLabel.snp.bottom).offset(24)
             $0.right.equalToSuperview().inset(20)
         }
         topLineView.snp.makeConstraints {
@@ -158,7 +169,7 @@ class DetailPetitionViewController: BaseVC {
             $0.left.equalToSuperview().inset(20)
         }
         petitionPeriodLabel.snp.makeConstraints {
-            $0.bottom.equalTo(voteLabel.snp.bottom)//.offset(36)
+            $0.bottom.equalTo(voteLabel.snp.bottom)
             $0.left.equalTo(voteLabel.snp.right).offset(4)
         }
         petitionQuestionLabel.snp.makeConstraints {
@@ -199,12 +210,19 @@ class DetailPetitionViewController: BaseVC {
     func loadDetailPetition() {
         let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
         
-        provider.request(.loadDetailPetition(petitionId: 1)) { res in
+        provider.request(.loadDetailPetition(petitionId: 30)) { res in
             switch res {
                 case .success(let result):
                     switch result.statusCode {
                         case 200:
-                            break
+                            if let data = try? JSONDecoder().decode(DetailPetitionResponse.self, from: result.data) {
+                                DispatchQueue.main.async {
+                                    self.tagLabel.text = data.location
+                                    self.titleLabel.text = data.title
+                                    self.contentLabel.text = data.content
+                                    self.viewCountLabel.text = String(data.viewCounts)
+                                }
+                            }
                         default:
                             print("Fail: \(result.statusCode)")
                     }
@@ -223,6 +241,13 @@ class DetailPetitionViewController: BaseVC {
         leftbutton.rx.tap
             .subscribe(onNext: {
                 self.popViewController()
+            }).disposed(by: disposeBag)
+        
+        menuButton.rx.tap
+            .subscribe(onNext: {
+                let modal = UINavigationController(rootViewController: PetitionDetailAlert())
+                modal.modalPresentationStyle = .overFullScreen
+                self.present(modal, animated: true)
             }).disposed(by: disposeBag)
         
         reportPetitionButton.rx.tap
