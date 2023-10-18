@@ -12,7 +12,7 @@ class MainViewController: BaseVC {
     var data = [MainCell.self, ApprovedCell.self]
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
     private let menuButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "menu"), for: .normal)
+        $0.setImage(UIImage(named: "mainMenu"), for: .normal)
         $0.tintColor = UIColor(named: "gray-500")
     }
     private let collectionView: UICollectionView = {

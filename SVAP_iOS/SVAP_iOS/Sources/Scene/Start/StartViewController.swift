@@ -4,9 +4,8 @@ class StartViewController: BaseVC {
     //userDefault를 이용해서 온보딩 페이지로 만들기 처음에만or 토큰?이 없을 때 보여주는
     
     private let logoImage = UIImageView(image: UIImage(named: "logo"))
-    private let loginButton = CustomButton(type: .system, title: "로그인", titleColor: UIColor(named: "gray-700")!, backgroundColor: UIColor(named: "main-6")!).then {
+    private let loginButton = CustomButton(type: .system, title: "로그인", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white).then {
         $0.isEnabled = true
-        $0.backgroundColor = .white
         $0.layer.borderColor = UIColor(named: "main-6")?.cgColor
         $0.layer.borderWidth = 1
         $0.addTarget(self, action: #selector(moveLoginView), for: .touchUpInside)
