@@ -8,6 +8,7 @@ class MainViewController: BaseVC {
     
     private let disposeBag = DisposeBag()
     
+    let sideMenu = SideMenuNavigationController(rootViewController: SideMenuContentViewController())
     var isExpanded = false
     var data = [MainCell.self, ApprovedCell.self]
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
@@ -50,7 +51,6 @@ class MainViewController: BaseVC {
         $0.textAlignment = .justified
     }
     private let viewContentButton = LabelButton(type: .system, title: "더보기", titleColor: UIColor(named: "gray-700")!)
-    let sideMenu = SideMenuNavigationController(rootViewController: SideMenuContentViewController())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -170,7 +170,11 @@ class MainViewController: BaseVC {
                 self.pushViewController(CreatePetitionViewController())
             }).disposed(by: disposeBag)
     }
-    
+    override func bind() {
+        super.bind()
+        
+        
+    }
     private func loadPopularPetition() {
         
         let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])

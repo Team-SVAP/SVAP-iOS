@@ -102,6 +102,7 @@ class UserIdViewController: BaseVC {
         
         output.result.subscribe(onNext: { bool in
             if bool {
+                //signupinfo에 textfield값 보내주기
                 self.pushViewController(UserPasswordViewController())
             } else {
                 self.idDuplicationLabel.text = "이미 존재하는 아이디입니다."
@@ -112,7 +113,6 @@ class UserIdViewController: BaseVC {
     override func subscribe() {
         loginButton.rx.tap
             .subscribe(onNext: {
-                
                 self.pushViewController(LoginViewController())
             }).disposed(by: disposeBag)
     }
@@ -144,18 +144,18 @@ extension UserIdViewController {
     }
     func textFieldDidChange() {
         idTextField.rx.text
-                .subscribe(onNext: {
-                    if $0!.isEmpty {
-                        self.idTextField.borderColor(UIColor(named: "gray-300")!)
-                        self.nextButton.backgroundColor = UIColor(named: "main-4")
-                        self.nextButton.isEnabled = false
-                    } else {
-                        self.idTextField.borderColor(UIColor(named: "main-2")!)
-                        self.nextButton.backgroundColor = UIColor(named: "main-2")
-                        self.nextButton.isEnabled = true
-                        self.idDuplicationLabel.text = nil
-                    }
-                }).disposed(by: disposeBag)
+            .subscribe(onNext: { text in
+                if text!.isEmpty {
+                    self.idTextField.borderColor(UIColor(named: "gray-300")!)
+                    self.nextButton.backgroundColor = UIColor(named: "main-4")
+                    self.nextButton.isEnabled = false
+                } else {
+                    self.idTextField.borderColor(UIColor(named: "main-2")!)
+                    self.nextButton.backgroundColor = UIColor(named: "main-2")
+                    self.nextButton.isEnabled = true
+                    self.idDuplicationLabel.text = nil
+                }
+            }).disposed(by: disposeBag)
     }
     
 }

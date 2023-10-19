@@ -1,6 +1,10 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 class UserPasswordViewController: BaseVC {
+    
+    private let disposeBag = DisposeBag()
     
     private var eyeButton = UIButton(type: .custom)
     private var checkEyeButton = UIButton(type: .custom)
@@ -32,10 +36,7 @@ class UserPasswordViewController: BaseVC {
         $0.backgroundColor = .clear
         $0.spacing = 4
     }
-    private let nextButton = CustomButton(type: .system, title: "다음", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
-        $0.isEnabled = false
-        $0.addTarget(self, action: #selector(moveNetxView), for: .touchUpInside)
-    }
+    private let nextButton = CustomButton(type: .system, title: "다음", titleColor: .white, backgroundColor: UIColor(named: "main-4")!)
     private let loginStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
@@ -47,12 +48,9 @@ class UserPasswordViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
-    private let loginButton = LabelButton(type: .system, title: "로그인", titleColor: UIColor(named: "main-1")!).then {
-        $0.addTarget(self, action: #selector(moveLoginView), for: .touchUpInside)
-    }
+    private let loginButton = LabelButton(type: .system, title: "로그인", titleColor: UIColor(named: "main-1")!)
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.hidesBackButton = true
         setupKeyboardObservers()
         showPasswordButton()
         showPasswordCheckButton()
@@ -111,12 +109,18 @@ class UserPasswordViewController: BaseVC {
         
     }
     
-    @objc private func moveNetxView() {
-        SignupInfo.shared.password = passwordTextField.text
-        self.navigationController?.pushViewController(UserNameViewController(), animated: true)
-    }
-    @objc func moveLoginView() {
-        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+    override func subscribe() {
+        super.subscribe()
+        
+        nextButton.rx.tap
+            .subscribe(onNext: {
+                self.pushViewController(UserNameViewController())
+            }).disposed(by: disposeBag)
+        
+        loginButton.rx.tap
+            .subscribe(onNext: {
+                self.pushViewController(LoginViewController())
+            }).disposed(by: disposeBag)
     }
 }
 

@@ -1,7 +1,12 @@
 import UIKit
+import RxSwift
+import RxCocoa
 import Moya
 
 class UserNameViewController: BaseVC {
+    
+    private let disposeBag = DisposeBag()
+    private let viewModel = UserSignupViewModel()
     
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
     private let signupLabel = UILabel().then {
@@ -14,20 +19,17 @@ class UserNameViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let nameTextField = CustomTextField(placeholder: "이름 (2~5자)", isSecure: false).then {
-        $0.text = "아아아"
-        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
-    }
+    private let nameTextField = CustomTextField(placeholder: "이름 (2~5자)", isSecure: false)
     private let buttonStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .center
         $0.backgroundColor = .clear
         $0.spacing = 4
     }
-    private let signupButton = CustomButton(type: .system, title: "회원가입", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
-        $0.isEnabled = false
-        $0.addTarget(self, action: #selector(clickSignup), for: .touchUpInside)
-    }
+    private let signupButton = CustomButton(type: .system, title: "회원가입", titleColor: .white, backgroundColor: UIColor(named: "main-4")!)
+//   private let signupButton = CustomButton(type: .system, title: "회원가입", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
+//        $0.addTarget(self, action: #selector(clickSignup), for: .touchUpInside)
+//    }
     private let loginStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
@@ -39,13 +41,12 @@ class UserNameViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
-    private let loginButton = LabelButton(type: .system, title: "로그인", titleColor: UIColor(named: "main-1")!).then {
-        $0.addTarget(self, action: #selector(moveLoginView), for: .touchUpInside)
-    }
+    private let loginButton = LabelButton(type: .system, title: "로그인", titleColor: UIColor(named: "main-1")!)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.hidesBackButton = true
         setupKeyboardObservers()
+//        textFieldDidChange()
     }
     override func configureUI() {
         [
@@ -90,31 +91,68 @@ class UserNameViewController: BaseVC {
         
     }
     
-    @objc private func moveLoginView() {
-        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+//    override func bind() {
+//        let signup = SignupInfo.shared
+//        let input = UserSignupViewModel.Input(id: signup.accountId,
+//                                              password: signup.password,
+//                                              name: signup.userName,
+//                                              doneTap: signupButton.rx.tap.asSignal())
+//        let output = viewModel.transform(input)
+//        
+//        output.result.subscribe(onNext: { bool in
+//            if bool {
+//                self.pushViewController(LoginViewController())
+//            } else {
+//                print("Fail")
+//            }
+//        }).disposed(by: disposeBag)
+//    }
+    
+    override func subscribe() {
+        loginButton.rx.tap
+            .subscribe(onNext: {
+                self.pushViewController(LoginViewController())
+            }).disposed(by: disposeBag)
     }
-    @objc func clickSignup() {
-        
-        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
-        
-        provider.request(.signup(SignupInfo.shared)) { res in
-            switch res {
-                case .success(let result):
-                    switch result.statusCode {
-                        case 201:
-                            print("success")
-                            self.navigationController?.pushViewController(LoginViewController(), animated: true)
-                        case 409:
-                            print("이미 존재하는 Id입니다.")
-                        default:
-                            print("Fail: \(result.statusCode)")
-                    }
-                case .failure(let err):
-                    print("Request Error: \(err.localizedDescription)")
-            }
-        }
-    }
+    
+//    @objc func clickSignup() {
+//        
+//        let signup = SignupInfo.shared
+//        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
+//        
+//        provider.request(.signup(id: signup.accountId!, password: signup.password!, name: signup.userName!)) { res in
+//            switch res {
+//                case .success(let result):
+//                    switch result.statusCode {
+//                        case 201:
+//                            print("success")
+//                            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+//                        default:
+//                            print("Fail: \(result.statusCode)")
+//                    }
+//                case .failure(let err):
+//                    print("Request Error: \(err.localizedDescription)")
+//            }
+//        }
+//    }
 
+    
+//    func textFieldDidChange() {
+//        lazy var signup = SignupInfo.shared.userName
+//        nameTextField.rx.text
+//            .subscribe(onNext: { text in
+//                if text!.isEmpty {
+//                    self.nameTextField.borderColor(UIColor(named: "gray-300")!)
+//                    self.signupButton.backgroundColor = UIColor(named: "main-4")
+//                    self.signupButton.isEnabled = false
+//                } else{
+//                    self.nameTextField.borderColor(UIColor(named: "main-2")!)
+//                    self.signupButton.backgroundColor = UIColor(named: "main-2")
+//                    signup.accept(self.nameTextField.text)
+//                    self.signupButton.isEnabled = true
+//                }
+//            }).disposed(by: disposeBag)
+//    }
 }
 
 extension UserNameViewController {
@@ -134,20 +172,6 @@ extension UserNameViewController {
                 self.buttonStackView.transform = CGAffineTransform(translationX: 0, y: -keyboardHeight + 35)
             }
         }
-    }
-    @objc private func textFieldDidChange(_ textfield: UITextField) {
-        guard let name = nameTextField.text,
-              !name.isEmpty
-        else {
-            textfield.layer.borderColor = UIColor(named: "gray-300")?.cgColor
-            signupButton.backgroundColor = UIColor(named: "main-4")
-            signupButton.isEnabled = false
-            return
-        }
-        textfield.layer.borderColor = UIColor(named: "main-2")?.cgColor
-        signupButton.backgroundColor = UIColor(named: "main-2")
-        SignupInfo.shared.userName = nameTextField.text
-        signupButton.isEnabled = true
     }
     @objc private func keyboardWillHide(notification: NSNotification) {
         UIView.animate(withDuration: 0.3) {

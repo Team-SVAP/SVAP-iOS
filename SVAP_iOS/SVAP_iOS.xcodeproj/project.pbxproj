@@ -74,6 +74,9 @@
 		8867D3E92ADE7A510048B205 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 8867D3E82ADE7A510048B205 /* RxGesture */; };
 		8867D3EB2ADF7E090048B205 /* PetitionDetailAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EA2ADF7E090048B205 /* PetitionDetailAlert.swift */; };
 		8867D3ED2ADF80830048B205 /* PetitionDetailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EC2ADF80830048B205 /* PetitionDetailButton.swift */; };
+		8867D3F02ADF9D400048B205 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EF2ADF9D400048B205 /* SideMenuViewModel.swift */; };
+		8867D3F42ADFAA640048B205 /* ModifyPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3F32ADFAA640048B205 /* ModifyPetitionViewController.swift */; };
+		8867D3F72AE0BACA0048B205 /* UserPetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */; };
 		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
 		88A293692AC3A723007B4469 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 88A293682AC3A723007B4469 /* SnapKit */; };
@@ -143,6 +146,9 @@
 		8867D3E52ADE4D550048B205 /* ScrollButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollButton.swift; sourceTree = "<group>"; };
 		8867D3EA2ADF7E090048B205 /* PetitionDetailAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionDetailAlert.swift; sourceTree = "<group>"; };
 		8867D3EC2ADF80830048B205 /* PetitionDetailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionDetailButton.swift; sourceTree = "<group>"; };
+		8867D3EF2ADF9D400048B205 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
+		8867D3F32ADFAA640048B205 /* ModifyPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyPetitionViewController.swift; sourceTree = "<group>"; };
+		8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPetitionViewModel.swift; sourceTree = "<group>"; };
 		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
 		888A18B02AC01A3800168377 /* CustomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenu.swift; sourceTree = "<group>"; };
 		88A293722AC3A857007B4469 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
@@ -362,7 +368,6 @@
 				888A18B02AC01A3800168377 /* CustomMenu.swift */,
 				885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */,
 				884A91372ACFE5B300AE1E14 /* CustomTextView.swift */,
-				884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */,
 				884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */,
 				88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */,
 				8867D3E12ADD438F0048B205 /* ReportPetitionAlert.swift */,
@@ -393,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				882E63742AB7109000BFE332 /* MainViewController.swift */,
+				8867D3F12ADFA5870048B205 /* SideMenu */,
 				888A18822ABFE72500168377 /* Cell */,
 			);
 			path = Main;
@@ -469,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				884A915D2AD661EF00AE1E14 /* CreatePetition */,
+				8867D3F52ADFAAAE0048B205 /* ModifyPetition */,
 				888A18832ABFE72D00168377 /* ViewPetition */,
 			);
 			path = Petition;
@@ -488,6 +495,7 @@
 				88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */,
 				884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */,
 				884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */,
+				8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -558,6 +566,23 @@
 				884A91732AD82C7200AE1E14 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		8867D3F12ADFA5870048B205 /* SideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */,
+				8867D3EF2ADF9D400048B205 /* SideMenuViewModel.swift */,
+			);
+			path = SideMenu;
+			sourceTree = "<group>";
+		};
+		8867D3F52ADFAAAE0048B205 /* ModifyPetition */ = {
+			isa = PBXGroup;
+			children = (
+				8867D3F32ADFAA640048B205 /* ModifyPetitionViewController.swift */,
+			);
+			path = ModifyPetition;
 			sourceTree = "<group>";
 		};
 		888A18822ABFE72500168377 /* Cell */ = {
@@ -696,6 +721,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */,
+				8867D3F72AE0BACA0048B205 /* UserPetitionViewModel.swift in Sources */,
 				884A91632AD6652D00AE1E14 /* PetitionCell.swift in Sources */,
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
 				884A91532AD58F3800AE1E14 /* PetitonResponse.swift in Sources */,
@@ -732,12 +758,14 @@
 				884A917E2AD8330900AE1E14 /* AuthService.swift in Sources */,
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
+				8867D3F02ADF9D400048B205 /* SideMenuViewModel.swift in Sources */,
 				884A914D2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift in Sources */,
 				884A91812AD8332500AE1E14 /* PetitionService.swift in Sources */,
 				884A919A2ADAE1E700AE1E14 /* PetitionTypeButton.swift in Sources */,
 				884A91562AD5900100AE1E14 /* UserInfoResponse.swift in Sources */,
 				884A91742AD82C7200AE1E14 /* LoginViewModel.swift in Sources */,
 				884A91872AD8387B00AE1E14 /* UserPetitionViewController.swift in Sources */,
+				8867D3F42ADFAA640048B205 /* ModifyPetitionViewController.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
 				88B7C64B2ADAECCC0082EA43 /* PetitionMenu.swift in Sources */,
 				8867D3E42ADD4E3C0048B205 /* ReportPetitionTextView.swift in Sources */,

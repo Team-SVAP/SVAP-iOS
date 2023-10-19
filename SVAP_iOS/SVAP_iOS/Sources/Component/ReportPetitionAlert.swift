@@ -93,7 +93,7 @@ class ReportPetitionAlert: UIViewController {
         
     }
     func subscribe() {
-    
+        
         backgroundView.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { [weak self] _ in
@@ -104,7 +104,7 @@ class ReportPetitionAlert: UIViewController {
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
-        textView.rx.didBeginEditing
+        textView.rx.didChange
             .subscribe(onNext: {
                 if self.textView.textColor == UIColor(named: "gray-500") {
                     self.textView.text = nil

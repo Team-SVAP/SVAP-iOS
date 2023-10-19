@@ -25,4 +25,5 @@ final class PetitionService {
     func modifyPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ petitionId: Int) {
         
     }
+    
 }

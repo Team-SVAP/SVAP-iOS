@@ -1,14 +1,17 @@
 import UIKit
+import RxSwift
+import RxCocoa
 
 class StartViewController: BaseVC {
     //userDefault를 이용해서 온보딩 페이지로 만들기 처음에만or 토큰?이 없을 때 보여주는
+    
+    private let disposeBag = DisposeBag()
     
     private let logoImage = UIImageView(image: UIImage(named: "logo"))
     private let loginButton = CustomButton(type: .system, title: "로그인", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white).then {
         $0.isEnabled = true
         $0.layer.borderColor = UIColor(named: "main-6")?.cgColor
         $0.layer.borderWidth = 1
-        $0.addTarget(self, action: #selector(moveLoginView), for: .touchUpInside)
     }
     private let signupStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -21,9 +24,7 @@ class StartViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-600")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
-    private let signupButton = LabelButton(type: .system, title: "회원가입하기", titleColor: UIColor(named: "main-1")!).then {
-        $0.addTarget(self, action: #selector(moveUserSignupView), for: .touchUpInside)
-    }
+    private let signupButton = LabelButton(type: .system, title: "회원가입하기", titleColor: UIColor(named: "main-1")!)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,10 +53,18 @@ class StartViewController: BaseVC {
         }
     }
     
-    @objc func moveLoginView() {
-        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+    override func subscribe() {
+        super.subscribe()
+        
+        loginButton.rx.tap
+            .subscribe(onNext: {
+                self.pushViewController(LoginViewController())
+            }).disposed(by: disposeBag)
+        
+        signupButton.rx.tap
+            .subscribe(onNext: {
+                self.pushViewController(UserIdViewController())
+            }).disposed(by: disposeBag)
     }
-    @objc func moveUserSignupView() {
-        self.navigationController?.pushViewController(UserIdViewController(), animated: true)
-    }
+    
 }

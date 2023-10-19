@@ -4,7 +4,7 @@ import RxCocoa
 import RxGesture
 import Moya
 
-class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UITextViewDelegate {
+class ModifyPetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UITextViewDelegate {
     
     private let disposeBag = DisposeBag()
     
@@ -112,6 +112,9 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         placeTextField.delegate = self
         contentTextView.delegate = self
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     override func configureUI() {
         super.configureUI()
         [
@@ -206,7 +209,7 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
         
         firstImageView.rx.tapGesture()
             .when(.recognized)
-            .subscribe(onNext: {_ in 
+            .subscribe(onNext: {_ in
                 self.clickImageView()
             }).disposed(by: disposeBag)
         
@@ -280,7 +283,7 @@ class CreatePetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCo
     }
 }
 
-extension CreatePetitionViewController {
+extension ModifyPetitionViewController {
     
     private func clickMenuButton() {
         let petitionClosure = UINavigationController(rootViewController: CustomMenu(closure: { [weak self] petition in
@@ -320,7 +323,7 @@ extension CreatePetitionViewController {
     func navigationBarSetting() {
         navigationItem.hidesBackButton = true
         let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
-        title.text = "청원하기"
+        title.text = "수정하기"
         title.textColor = UIColor(named: "gray-800")
         title.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
         title.textAlignment = .center

@@ -8,10 +8,10 @@ class UserSignupViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
     
     struct Input {
-        let id: Driver<String>
-        let password: Driver<String>
-        let name: Driver<String>
-        let doneTap: Signal<Void>
+        let id: BehaviorRelay<String>
+        let password: BehaviorRelay<String>
+        let name: BehaviorRelay<String>
+        let doneTap: BehaviorRelay<Void>
     }
     
     struct Output {
@@ -20,7 +20,7 @@ class UserSignupViewModel: ViewModelType {
     
     func transform(_ input: Input) -> Output {
         let api = AuthService()
-        let info = Driver.combineLatest(input.id, input.password, input.name)
+        let info = BehaviorRelay.combineLatest(input.id, input.password, input.name)
         let result = PublishRelay<Bool>()
         
         input.doneTap

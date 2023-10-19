@@ -1,12 +1,14 @@
 import Foundation
+import RxSwift
+import RxCocoa
 
 class SignupInfo {
     
     static let shared = SignupInfo()
     
-    var userName: String?
-    var accountId: String?
-    var password: String?
+    var userName: Driver<String>?
+    var accountId: Driver<String>?
+    var password: Driver<String>?
     
     private init() { }
 }

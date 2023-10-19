@@ -1,9 +1,14 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 import Moya
 
 class SideMenuContentViewController: UIViewController {
+    
+    private let disposeBag = DisposeBag()
+    private let viewModel = SideMenuViewModel()
     
     private let backgroundView = UIView().then {
         $0.backgroundColor = .white
@@ -18,7 +23,6 @@ class SideMenuContentViewController: UIViewController {
     private let closeButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "closeIcon"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
-        $0.addTarget(self, action: #selector(clickCloseButton), for: .touchUpInside)
     }
     private let userNameLabel = UILabel().then {
         $0.textColor = UIColor(named: "gray-800")
@@ -31,14 +35,14 @@ class SideMenuContentViewController: UIViewController {
         $0.setTitle("내가 쓴 청원보기", for: .normal)
         $0.setTitleColor(.black, for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Regular", size: 16)
-        $0.addTarget(self, action: #selector(clickMyPetitionButton), for: .touchUpInside)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .placeholderText
         navigationController?.navigationBar.isHidden = true
-        loadUserInfo()
+        bind()
+        subscribe()
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -47,6 +51,7 @@ class SideMenuContentViewController: UIViewController {
     }
     
     private func configureUI() {
+        
         view.addSubview(backgroundView)
         [
             settingButton,
@@ -87,36 +92,49 @@ class SideMenuContentViewController: UIViewController {
             $0.left.equalToSuperview().inset(22)
         }
     }
-    private func loadUserInfo() {
-        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
+    private let viewAppear = PublishRelay<Void>()
+    func bind() {
+        let input = SideMenuViewModel.Input(viewAppear: viewAppear.asSignal())
+        let output = viewModel.transform(input)
         
-        provider.request(.loadUserInfo) { res in
-            switch res {
-                case .success(let result):
-                    switch result.statusCode {
-                        case 200:
-                            if let data = try? JSONDecoder().decode(UserInfoResponse.self, from: result.data) {
-                                DispatchQueue.main.async {
-                                    print("Success")
-                                    self.userNameLabel.text = data.userName
-                                }
-                            }
-                        default:
-                            print("Fail: \(result.statusCode)")
-                    }
-                case .failure(let err):
-                    print("Request Error: \(err.localizedDescription)")
-            }
-        }
+        output.userName.subscribe(onNext: { data in
+            self.userNameLabel.text = data.userName
+        }).disposed(by: disposeBag)
     }
+//    private func loadUserInfo() {
+//        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
+//        
+//        provider.request(.loadUserInfo) { res in
+//            switch res {
+//                case .success(let result):
+//                    switch result.statusCode {
+//                        case 200:
+//                            if let data = try? JSONDecoder().decode(UserInfoResponse.self, from: result.data) {
+//                                DispatchQueue.main.async {
+//                                    print("Success")
+//                                    self.userNameLabel.text = data.userName
+//                                }
+//                            }
+//                        default:
+//                            print("Fail: \(result.statusCode)")
+//                    }
+//                case .failure(let err):
+//                    print("Request Error: \(err.localizedDescription)")
+//            }
+//        }
+//    }
     
-    @objc private func clickCloseButton() {
-        self.dismiss(animated: true)
+    func subscribe() {
+        
+        closeButton.rx.tap
+            .subscribe(onNext: {
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        myPetitionButton.rx.tap
+            .subscribe(onNext: {
+                self.pushViewController(UserPetitionViewController())
+            }).disposed(by: disposeBag)
     }
-    
-    @objc func clickMyPetitionButton() {
-        self.navigationController?.pushViewController(UserPetitionViewController(), animated: true)
-    }
-
     
 }

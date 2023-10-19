@@ -1,8 +1,10 @@
 import Foundation
+import RxSwift
+import RxCocoa
 import Moya
 
 enum AuthAPI {
-    case signup(SignupInfo)
+    case signup(id: String, password: String, name: String)
     case login(id: String, password: String)
     case loadUserInfo
     case loadUserPetition
@@ -47,9 +49,9 @@ extension AuthAPI: TargetType {
             case .signup:
                 return .requestParameters(
                     parameters: [
-                        "userName": SignupInfo.shared.userName!,
-                        "accountId": SignupInfo.shared.accountId!,
-                        "password": SignupInfo.shared.password!
+                        "userName": SignupInfo.shared.userName,
+                        "accountId": SignupInfo.shared.accountId,
+                        "password": SignupInfo.shared.password
                     ],
                     encoding: JSONEncoding.default)
             case .login(let id, let password):
@@ -64,7 +66,7 @@ extension AuthAPI: TargetType {
                     parameters: [
                         "accountId": accountId
                     ], encoding: JSONEncoding.default)
-            case .loadUserInfo, .loadUserPetition:
+            default:
                 return .requestPlain
         }
     }

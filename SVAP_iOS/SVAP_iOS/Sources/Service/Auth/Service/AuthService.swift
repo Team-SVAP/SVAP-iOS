@@ -27,7 +27,10 @@ final class AuthService {
     func idDuplication(_ id: String) -> Single<networkingResult> {
         return provider.rx.request(.idDuplication(accountId: id))
             .filterSuccessfulStatusCodes()
-            .map{ _ -> networkingResult in return .createOk}
+            .map{ _ -> networkingResult in
+                print("Success")
+                return .ok
+            }
             .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
@@ -38,57 +41,28 @@ final class AuthService {
             .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
-    func idDuplication(_ id: String) -> Any {
-        return provider.request(.idDuplication(accountId: id)) { res in
-            switch res {
-                case .success(let result):
-                    switch result.statusCode {
-                        case 200:
-                            print("Success")
-                        default:
-                            print("Fail: \(result.statusCode)")
-                    }
-                case .failure(let err):
-                    print("Request Fail: \(err.localizedDescription)")
+    func loadUserInfo() -> Single<(UserInfoResponse?, networkingResult)> {
+        return provider.rx.request(.loadUserInfo)
+            .filterSuccessfulStatusCodes()
+            .map(UserInfoResponse.self)
+            .map{return ($0, .ok)}
+            .catch { error in
+                print(error)
+                return .just((nil, .fault))
             }
-        }
     }
     
-    func loadUserInfo(_ label: UILabel) {
-        provider.request(.loadUserInfo) { res in
-            switch res {
-                case .success(let result):
-                    switch result.statusCode {
-                        case 200:
-                            if let data = try? JSONDecoder().decode(UserInfoResponse.self, from: result.data) {
-                                DispatchQueue.main.async {
-                                    print("Success")
-                                    label.text = data.userName
-                                }
-                            }
-                        default:
-                            print("Fail: \(result.statusCode)")
-                    }
-                case .failure(let err):
-                    print("Request Error: \(err.localizedDescription)")
+    func loadUserPetition() -> Single<(UserPetitionModel?, networkingResult)> {
+        return provider.rx.request(.loadUserPetition)
+            .filterSuccessfulStatusCodes()
+            .map(UserPetitionModel.self)
+            .map{
+                return ($0, .ok)
             }
-        }
-    }
-    
-    func loadUserPetition() {
-        provider.request(.loadUserPetition) { res in
-            switch res {
-                case .success(let result):
-                    switch result.statusCode {
-                        case 200:
-                            print("Success")
-                        default:
-                            print("Fail: \(result.statusCode)")
-                    }
-                case .failure(let err):
-                    print("Request Fail: \(err.localizedDescription)")
+            .catch{ error in
+                print(error)
+                return .just((nil, .fault))
             }
-        }
     }
     
     func setNetworkError(_ error: Error) -> networkingResult {

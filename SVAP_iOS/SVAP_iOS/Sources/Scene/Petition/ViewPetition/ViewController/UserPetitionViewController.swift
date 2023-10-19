@@ -1,9 +1,15 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 import Moya
 
-class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSource {
+class UserPetitionViewController: BaseVC, UITableViewDelegate {
+    
+    private let disposeBag = DisposeBag()
+    private let viewModel = UserPetitionViewModel()
+    private let viewAppear = PublishRelay<Void>()
     
     private var petitionList: [PetitionModel] = [] {
         didSet {
@@ -23,23 +29,19 @@ class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSo
         $0.rowHeight = 92
         $0.separatorStyle = .none
     }
-    private let scrollButton = ScrollButton(type: .system).then {
-        $0.addTarget(self, action: #selector(clickScrollButton), for: .touchUpInside)
-    }
+    private let scrollButton = ScrollButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = false
         navigationBarSetting()
         tableView.delegate = self
-        tableView.dataSource = self
         tableView.refreshControl = refreshControl
-        refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
     }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadPetition()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+////        loadPetition()
+//    }
     override func configureUI() {
         super.configureUI()
         
@@ -70,52 +72,72 @@ class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSo
         title.textAlignment = .center
         navigationItem.titleView = title
         navigationItem.hidesBackButton = true
-        
-        leftbutton.addTarget(self, action: #selector(clickLeftBarButton), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
     }
     
-    @objc private func clickLeftBarButton() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    @objc private func loadPetition() {
-        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
+//    private func loadPetition() {
+//        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
+//        
+//        provider.request(.loadUserPetition) { res in
+//            switch res {
+//                case .success(let result):
+//                    switch result.statusCode {
+//                        case 200:
+//                            if let data = try? JSONDecoder().decode(PetitonResponse.self, from: result.data) {
+//                                DispatchQueue.main.async {
+//                                    self.petitionList = data.map {
+//                                        .init(
+//                                            id: $0.id,
+//                                            title: $0.title,
+//                                            content: $0.content,
+//                                            date: $0.dateTime,
+//                                            location: $0.location
+//                                        )
+//                                    }
+//                                    self.petitionList.sort(by: { $0.id > $1.id })
+//                                }
+//                            } else {
+//                                print("Response load fail")
+//                            }
+//                        default:
+//                            print("Fail: \(result.statusCode)")
+//                    }
+//                case .failure(let err):
+//                    print("Request Error: \(err.localizedDescription)")
+//            }
+//        }
+//        
+//    }
+    override func bind() {
+        super.bind()
         
-        provider.request(.loadUserPetition) { res in
-            switch res {
-                case .success(let result):
-                    switch result.statusCode {
-                        case 200:
-                            if let data = try? JSONDecoder().decode(PetitonResponse.self, from: result.data) {
-                                DispatchQueue.main.async {
-                                    self.petitionList = data.map {
-                                        .init(
-                                            id: $0.id,
-                                            title: $0.title,
-                                            content: $0.content,
-                                            date: $0.dateTime,
-                                            location: $0.location
-                                        )
-                                    }
-                                    self.petitionList.sort(by: { $0.id > $1.id })
-                                }
-                            } else {
-                                print("Response load fail")
-                            }
-                        default:
-                            print("Fail: \(result.statusCode)")
-                    }
-                case .failure(let err):
-                    print("Request Error: \(err.localizedDescription)")
-            }
-        }
+        let input = UserPetitionViewModel.Input(viewAppear: viewAppear.asSignal())
+        let output = viewModel.transform(input)
         
+        output.userPetition.bind(to: tableView.rx.items(cellIdentifier: "CellID", cellType: PetitionCell.self)) { row, data, cell in
+            cell.id = data.id!
+            cell.petitionTitleLabel.text = data.title
+            cell.dateLabel.text = data.dateTime
+            cell.placeLabel.text = data.location
+//            cell.contentLabel.text = data.
+        }.disposed(by: disposeBag)
     }
-    @objc private func pullToRefresh() {
-        loadPetition()
-    }
-    @objc private func clickScrollButton() {
-        self.tableView.setContentOffset(CGPoint(x: 0, y: -65), animated: true)
+    override func subscribe() {
+        super.subscribe()
+        
+        leftbutton.rx.tap
+            .subscribe(onNext: {
+                self.popViewController()
+            }).disposed(by: disposeBag)
+        refreshControl.rx.controlEvent(.valueChanged)
+            .subscribe(onNext: {
+                self.bind()
+            }).disposed(by: disposeBag)
+        
+        scrollButton.rx.tap
+            .subscribe(onNext: {
+                self.tableView.setContentOffset(CGPoint(x: 0, y: -65), animated: true)
+            }).disposed(by: disposeBag)
     }
     
 }
@@ -125,17 +147,17 @@ extension UserPetitionViewController {
         return petitionList.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! PetitionCell
-        cell.cellSetter(
-            id: petitionList[indexPath.row].id,
-            title: petitionList[indexPath.row].title,
-            content: petitionList[indexPath.row].content,
-            dateTime: petitionList[indexPath.row].date,
-            location: petitionList[indexPath.row].location
-        )
-        cell.selectionStyle = .none
-        return cell
-    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+////        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! PetitionCell
+////        cell.cellSetter(
+////            id: petitionList[indexPath.row].id,
+////            title: petitionList[indexPath.row].title,
+////            content: petitionList[indexPath.row].content,
+////            dateTime: petitionList[indexPath.row].date,
+////            location: petitionList[indexPath.row].location
+////        )
+//        cell.selectionStyle = .none
+//        return cell
+//    }
     
 }
