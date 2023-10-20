@@ -4,7 +4,7 @@ import Then
 
 class ApprovedCell: UICollectionViewCell {
     
-    static let id = "Cell2"
+    static let id = "ApprovedCell"
     let cellImage = UIImageView(image: UIImage(named: "approvedCell"))
     let moveButton = UIButton(type: .system).then {
         $0.setTitle("바로가기", for: .normal)

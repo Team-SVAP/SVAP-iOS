@@ -47,7 +47,7 @@ class PetitionViewController: BaseVC {
     }
     private let tableView = UITableView().then {
         $0.backgroundColor = .white
-        $0.register(PetitionCell.self, forCellReuseIdentifier: "CellID")
+        $0.register(PetitionCell.self, forCellReuseIdentifier: "PetitionCell")
         $0.rowHeight = 92
         $0.separatorStyle = .none
     }
@@ -330,7 +330,7 @@ extension PetitionViewController: UITableViewDelegate, UITableViewDataSource {
         return petitionList.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! PetitionCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PetitionCell", for: indexPath) as! PetitionCell
         cell.cellSetter(
             id: petitionList[indexPath.row].id,
             title: petitionList[indexPath.row].title,

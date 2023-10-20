@@ -23,8 +23,8 @@ class MainViewController: BaseVC {
         collectionView.backgroundColor = UIColor(named: "main-8")
         collectionView.layer.cornerRadius = 12
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(MainCell.self, forCellWithReuseIdentifier: "Cell1")
-        collectionView.register(ApprovedCell.self, forCellWithReuseIdentifier: "Cell2")
+        collectionView.register(MainCell.self, forCellWithReuseIdentifier: "MainCell")
+        collectionView.register(ApprovedCell.self, forCellWithReuseIdentifier: "ApprovedCell")
         return collectionView
     }()
     private let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.")
@@ -143,7 +143,8 @@ class MainViewController: BaseVC {
         
         menuButton.rx.tap
             .subscribe(onNext: {
-                self.pushViewController(self.sideMenu)
+                self.sideMenuSetting()
+                self.present(self.sideMenu, animated: true)
             }).disposed(by: disposeBag)
         
         viewPetitionButton.rx.tap
@@ -233,11 +234,11 @@ class MainViewController: BaseVC {
 extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row % 2 == 0 {
-                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell1", for: indexPath) as! MainCell
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: indexPath) as! MainCell
                   // "cell1"에 대한 데이터 설정
                   return cell
               } else {
-                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell2", for: indexPath) as! ApprovedCell
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ApprovedCell", for: indexPath) as! ApprovedCell
                   // "cell2"에 대한 데이터 설정
                   return cell
               }

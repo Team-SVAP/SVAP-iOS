@@ -4,7 +4,7 @@ import Then
 
 class PetitionCell: UITableViewCell {
     
-    static let cellId = "CellID"
+    static let cellId = "PetitionCell"
     var id: Int = 0
     let petitionTitleLabel = UILabel().then {
         $0.textColor = UIColor(named: "gray-800")

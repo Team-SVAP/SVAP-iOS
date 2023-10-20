@@ -5,11 +5,6 @@ import RxMoya
 import Moya
 
 final class AuthService {
-//case signup(SignupInfo)
-//case login(id: String, password: String)
-//case loadUserInfo
-//case loadUserPetition
-//case idDuplication(accountId: String)
     
     let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
     
@@ -56,9 +51,7 @@ final class AuthService {
         return provider.rx.request(.loadUserPetition)
             .filterSuccessfulStatusCodes()
             .map(UserPetitionModel.self)
-            .map{
-                return ($0, .ok)
-            }
+            .map{return ($0, .ok)}
             .catch{ error in
                 print(error)
                 return .just((nil, .fault))

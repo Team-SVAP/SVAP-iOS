@@ -18,9 +18,7 @@ struct SideMenuViewModel {
         let userInfo = PublishRelay<UserInfoResponse>()
         
         input.viewAppear.asObservable()
-            .flatMap { _ in 
-                api.loadUserInfo()
-            }
+            .flatMap { api.loadUserInfo() }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
