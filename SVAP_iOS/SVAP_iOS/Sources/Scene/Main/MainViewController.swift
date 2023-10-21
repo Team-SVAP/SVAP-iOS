@@ -8,7 +8,7 @@ class MainViewController: BaseVC {
     
     private let disposeBag = DisposeBag()
     
-    let sideMenu = SideMenuNavigationController(rootViewController: SideMenuContentViewController())
+    let sideMenu = SideMenuNavigationController(rootViewController: SideMenuViewController())
     var isExpanded = false
     var data = [MainCell.self, ApprovedCell.self]
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))

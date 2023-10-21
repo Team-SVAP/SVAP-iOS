@@ -5,10 +5,11 @@ import RxSwift
 import RxCocoa
 import Moya
 
-class SideMenuContentViewController: UIViewController {
+class SideMenuViewController: UIViewController {
     
     private let disposeBag = DisposeBag()
     private let viewModel = SideMenuViewModel()
+    private let viewAppear = PublishRelay<Void>()
     
     private let backgroundView = UIView().then {
         $0.backgroundColor = .white
@@ -39,10 +40,12 @@ class SideMenuContentViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .placeholderText
         navigationController?.navigationBar.isHidden = true
         bind()
         subscribe()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        viewAppear.accept(())
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -71,7 +74,7 @@ class SideMenuContentViewController: UIViewController {
         settingButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(24)
             $0.left.equalToSuperview().inset(20)
-            $0.width.height.equalTo(20)
+            $0.width.height.equalTo(24)
         }
         closeButton.snp.makeConstraints {
             $0.top.right.equalToSuperview().inset(20)
@@ -92,7 +95,7 @@ class SideMenuContentViewController: UIViewController {
             $0.left.equalToSuperview().inset(22)
         }
     }
-    private let viewAppear = PublishRelay<Void>()
+
     func bind() {
         let input = SideMenuViewModel.Input(viewAppear: viewAppear.asSignal())
         let output = viewModel.transform(input)
@@ -101,28 +104,6 @@ class SideMenuContentViewController: UIViewController {
             self.userNameLabel.text = data.userName
         }).disposed(by: disposeBag)
     }
-//    private func loadUserInfo() {
-//        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
-//        
-//        provider.request(.loadUserInfo) { res in
-//            switch res {
-//                case .success(let result):
-//                    switch result.statusCode {
-//                        case 200:
-//                            if let data = try? JSONDecoder().decode(UserInfoResponse.self, from: result.data) {
-//                                DispatchQueue.main.async {
-//                                    print("Success")
-//                                    self.userNameLabel.text = data.userName
-//                                }
-//                            }
-//                        default:
-//                            print("Fail: \(result.statusCode)")
-//                    }
-//                case .failure(let err):
-//                    print("Request Error: \(err.localizedDescription)")
-//            }
-//        }
-//    }
     
     func subscribe() {
         
