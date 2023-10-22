@@ -6,9 +6,9 @@ class SignupInfo {
     
     static let shared = SignupInfo()
     
-    var userName: Driver<String>?
-    var accountId: Driver<String>?
-    var password: Driver<String>?
+    var userName: PublishRelay<String>?
+    var accountId: PublishRelay<String>?
+    var password: PublishRelay<String>?
     
     private init() { }
 }

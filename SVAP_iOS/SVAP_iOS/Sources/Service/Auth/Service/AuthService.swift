@@ -29,8 +29,8 @@ final class AuthService {
             .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
-    func signup(_ id: String, _ password: String, _ name: String) -> Single<networkingResult> {
-        return provider.rx.request(.signup(id: id, password: password, name: name))
+    func signup(_ signup: SignupInfo) -> Single<networkingResult> {
+        return provider.rx.request(.signup(signup))
             .filterSuccessfulStatusCodes()
             .map{ _ -> networkingResult in return .createOk }
             .catch{[unowned self] in return .just(setNetworkError($0))}
