@@ -2,7 +2,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-struct SideMenuViewModel {
+class SideMenuViewModel {
     
     private let disposeBag = DisposeBag()
     

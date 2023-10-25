@@ -13,6 +13,7 @@
 		880D92382AC864A10053D5A6 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D92372AC864A10053D5A6 /* Header.swift */; };
 		880D923C2AC9B2500053D5A6 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D923B2AC9B2500053D5A6 /* AuthResponse.swift */; };
 		880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D92402AC9B3B40053D5A6 /* PetitionAPI.swift */; };
+		88152F682AE8EA85002CB48D /* PetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F672AE8EA85002CB48D /* PetitionViewModel.swift */; };
 		882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63142AB5FA2700BFE332 /* AppDelegate.swift */; };
 		882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63162AB5FA2700BFE332 /* SceneDelegate.swift */; };
 		882E631E2AB5FA2800BFE332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 882E631D2AB5FA2800BFE332 /* Assets.xcassets */; };
@@ -90,6 +91,7 @@
 		880D92372AC864A10053D5A6 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		880D923B2AC9B2500053D5A6 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
 		880D92402AC9B3B40053D5A6 /* PetitionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionAPI.swift; sourceTree = "<group>"; };
+		88152F672AE8EA85002CB48D /* PetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionViewModel.swift; sourceTree = "<group>"; };
 		882E63112AB5FA2700BFE332 /* SVAP_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVAP_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882E63142AB5FA2700BFE332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		882E63162AB5FA2700BFE332 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -262,6 +264,15 @@
 				884A91572AD6462400AE1E14 /* DetailPetitionResponse.swift */,
 			);
 			path = Response;
+			sourceTree = "<group>";
+		};
+		88152F662AE8EA3E002CB48D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */,
+				88152F672AE8EA85002CB48D /* PetitionViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		882E63082AB5FA2700BFE332 = {
@@ -455,12 +466,12 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
-		884A91592AD64C8A00AE1E14 /* PetitonModel */ = {
+		884A91592AD64C8A00AE1E14 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				884A915B2AD64CA800AE1E14 /* PetitionModel.swift */,
 			);
-			path = PetitonModel;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		884A915D2AD661EF00AE1E14 /* CreatePetition */ = {
@@ -474,6 +485,7 @@
 		884A915E2AD6625700AE1E14 /* Petition */ = {
 			isa = PBXGroup;
 			children = (
+				884A915F2AD664A500AE1E14 /* Cell */,
 				884A915D2AD661EF00AE1E14 /* CreatePetition */,
 				8867D3F52ADFAAAE0048B205 /* ModifyPetition */,
 				888A18832ABFE72D00168377 /* ViewPetition */,
@@ -481,23 +493,22 @@
 			path = Petition;
 			sourceTree = "<group>";
 		};
-		884A915F2AD664A500AE1E14 /* PetitionCell */ = {
+		884A915F2AD664A500AE1E14 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				884A91622AD6652D00AE1E14 /* PetitionCell.swift */,
 			);
-			path = PetitionCell;
+			path = Cell;
 			sourceTree = "<group>";
 		};
-		884A91642AD6654E00AE1E14 /* ViewController */ = {
+		884A91642AD6654E00AE1E14 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */,
 				884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */,
 				884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */,
-				8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */,
 			);
-			path = ViewController;
+			path = View;
 			sourceTree = "<group>";
 		};
 		884A917C2AD832FC00AE1E14 /* Service */ = {
@@ -596,9 +607,9 @@
 		888A18832ABFE72D00168377 /* ViewPetition */ = {
 			isa = PBXGroup;
 			children = (
-				884A91592AD64C8A00AE1E14 /* PetitonModel */,
-				884A91642AD6654E00AE1E14 /* ViewController */,
-				884A915F2AD664A500AE1E14 /* PetitionCell */,
+				884A91592AD64C8A00AE1E14 /* Model */,
+				884A91642AD6654E00AE1E14 /* View */,
+				88152F662AE8EA3E002CB48D /* ViewModel */,
 			);
 			path = ViewPetition;
 			sourceTree = "<group>";
@@ -730,6 +741,7 @@
 				882E63442AB6048F00BFE332 /* StartViewController.swift in Sources */,
 				880D923C2AC9B2500053D5A6 /* AuthResponse.swift in Sources */,
 				8867D3ED2ADF80830048B205 /* PetitionDetailButton.swift in Sources */,
+				88152F682AE8EA85002CB48D /* PetitionViewModel.swift in Sources */,
 				880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */,
 				882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */,
 				884A91452AD2745900AE1E14 /* SignupInfo.swift in Sources */,
