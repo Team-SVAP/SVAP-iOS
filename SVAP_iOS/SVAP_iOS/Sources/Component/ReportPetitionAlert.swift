@@ -104,13 +104,21 @@ class ReportPetitionAlert: UIViewController {
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
-        textView.rx.didChange
+        textView.rx.text.orEmpty
+            .subscribe(onNext: {
+                if (self.textView.textColor == UIColor(named: "gray-500") || $0.count < 1) {
+                    self.reportButton.isEnabled = false
+                } else {
+                    self.reportButton.isEnabled = true
+                }
+            }).disposed(by: disposeBag)
+        
+        textView.rx.didBeginEditing
             .subscribe(onNext: {
                 if self.textView.textColor == UIColor(named: "gray-500") {
                     self.textView.text = nil
                     self.textView.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
                     self.textView.textColor = UIColor(named: "gray-700")
-                    self.reportButton.isEnabled = true
                 }
             }).disposed(by: disposeBag)
         
