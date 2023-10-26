@@ -45,9 +45,9 @@ extension AuthAPI: TargetType {
             case .signup:
                 return .requestParameters(
                     parameters: [
-                        "userName": SignupInfo.shared.userName,
-                        "accountId": SignupInfo.shared.accountId,
-                        "password": SignupInfo.shared.password
+                        "userName": SignupInfo.shared.userName.value!,
+                        "accountId": SignupInfo.shared.accountId.value!,
+                        "password": SignupInfo.shared.password.value!
                     ], encoding: JSONEncoding.default)
             case .login(let id, let password):
                 return .requestParameters(

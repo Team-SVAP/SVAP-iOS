@@ -19,13 +19,8 @@ class UserPasswordViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let passwordTextField = CustomTextField(placeholder: "비밀번호 (특수문자 포함 8~32자 )", isSecure: true).then {
-        $0.becomeFirstResponder()
-        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
-    }
-    private let passwordValidTextField = CustomTextField(placeholder: "비밀번호 확인", isSecure: true).then {
-        $0.addTarget(self, action: #selector(textFieldDidChange), for: .allEditingEvents)
-    }
+    private let passwordTextField = CustomTextField(placeholder: "비밀번호 (특수문자 포함 8~32자 )", isSecure: true)
+    private let passwordValidTextField = CustomTextField(placeholder: "비밀번호 확인", isSecure: true)
     private let passwordValidLabel = UILabel().then {
         $0.textColor = .systemRed
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
@@ -112,6 +107,42 @@ class UserPasswordViewController: BaseVC {
     override func subscribe() {
         super.subscribe()
         
+        let textfield = Observable.combineLatest(passwordTextField.rx.text.orEmpty, passwordValidTextField.rx.text.orEmpty)
+        textfield
+            .map{ $0.count != 0 && $1.count != 0 && $0 == $1 }
+            .subscribe(onNext: { change in
+                self.nextButton.isEnabled = change
+                switch change {
+                    case true:
+                        SignupInfo.shared.password.accept(self.passwordTextField.text)
+                        self.passwordValidLabel.text = ""
+                        self.nextButton.backgroundColor = UIColor(named: "main-2")
+                        self.nextButton.isEnabled = true
+                    case false:
+                        self.nextButton.backgroundColor = UIColor(named: "main-4")
+                        self.nextButton.isEnabled = false
+                        self.passwordValidLabel.text = "비밀번호를 다시 확인해주세요."
+                }
+            }).disposed(by: disposeBag)
+        
+        passwordTextField.rx.text.orEmpty
+            .subscribe(onNext: {
+                if $0.isEmpty == true {
+                    self.passwordTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+                } else {
+                    self.passwordTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
+                }
+            }).disposed(by: disposeBag)
+        
+        passwordValidTextField.rx.text.orEmpty
+            .subscribe(onNext: {
+                if $0.isEmpty == true {
+                    self.passwordValidTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+                } else {
+                    self.passwordValidTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
+                }
+            }).disposed(by: disposeBag)
+        
         nextButton.rx.tap
             .subscribe(onNext: {
                 self.pushViewController(UserNameViewController())
@@ -156,13 +187,13 @@ extension UserPasswordViewController {
     }
     
     private func setupKeyboardObservers() {
-          NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-          NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-      }
-      private func removeKeyboardObservers() {
-          NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-          NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-      }
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    private func removeKeyboardObservers() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     @objc private func keyboardWillShow(notification: NSNotification) {
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardHeight = keyboardFrame.cgRectValue.height
@@ -176,25 +207,5 @@ extension UserPasswordViewController {
             self.buttonStackView.transform = .identity
         }
     }
-    @objc private func textFieldDidChange(_ textfield: UITextField) {
-        
-        if textfield.hasText {
-            textfield.layer.borderColor = UIColor(named: "main-2")?.cgColor
-        } else {
-            textfield.layer.borderColor = UIColor(named: "gray-300")?.cgColor
-        }
-        
-        guard let password = passwordTextField.text,
-              let passwordValid = passwordValidTextField.text,
-              !(password.isEmpty || passwordValid.isEmpty) && password == passwordValid
-        else {
-            nextButton.backgroundColor = UIColor(named: "main-4")
-            nextButton.isEnabled = false
-            passwordValidLabel.text = "비밀번호를 다시 확인해주세요."
-            return
-        }
-        passwordValidLabel.text = ""
-        nextButton.backgroundColor = UIColor(named: "main-2")
-        nextButton.isEnabled = true
-    }
+    
 }

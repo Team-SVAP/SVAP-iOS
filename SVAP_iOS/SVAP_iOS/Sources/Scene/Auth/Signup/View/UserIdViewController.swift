@@ -102,7 +102,7 @@ class UserIdViewController: BaseVC {
         
         output.result.subscribe(onNext: { bool in
             if bool {
-                //signupinfo에 textfield값 보내주기
+                SignupInfo.shared.accountId.accept(self.idTextField.text)
                 self.pushViewController(UserPasswordViewController())
             } else {
                 self.idDuplicationLabel.text = "이미 존재하는 아이디입니다."

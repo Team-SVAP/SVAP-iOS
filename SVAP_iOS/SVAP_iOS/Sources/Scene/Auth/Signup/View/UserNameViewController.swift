@@ -19,7 +19,9 @@ class UserNameViewController: BaseVC {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let nameTextField = CustomTextField(placeholder: "이름 (2~5자)", isSecure: false)
+    private let nameTextField = CustomTextField(placeholder: "이름 (2~5자)", isSecure: false).then {
+        $0.keyboardType = .default
+    }
     private let buttonStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .center
@@ -46,7 +48,7 @@ class UserNameViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupKeyboardObservers()
-//        textFieldDidChange()
+        textFieldDidChange()
     }
     override func configureUI() {
         [
@@ -91,22 +93,21 @@ class UserNameViewController: BaseVC {
         
     }
     
-//    override func bind() {
-//        let signup = SignupInfo.shared
-//        let input = UserSignupViewModel.Input(id: signup.accountId,
-//                                              password: signup.password,
-//                                              name: signup.userName,
-//                                              doneTap: signupButton.rx.tap.asSignal())
-//        let output = viewModel.transform(input)
-//        
-//        output.result.subscribe(onNext: { bool in
-//            if bool {
-//                self.pushViewController(LoginViewController())
-//            } else {
-//                print("Fail")
-//            }
-//        }).disposed(by: disposeBag)
-//    }
+    override func bind() {
+        super.bind()
+        
+        let signup = SignupInfo.shared
+        let input = UserSignupViewModel.Input(signup: signup, doneTap: signupButton.rx.tap.asSignal())
+        let output = viewModel.transform(input)
+        
+        output.result.subscribe(onNext: { bool in
+            if bool {
+                self.pushViewController(LoginViewController())
+            } else {
+                print("Fail")
+            }
+        }).disposed(by: disposeBag)
+    }
     
     override func subscribe() {
         loginButton.rx.tap
@@ -135,24 +136,22 @@ class UserNameViewController: BaseVC {
 //            }
 //        }
 //    }
-
     
-//    func textFieldDidChange() {
-//        lazy var signup = SignupInfo.shared.userName
-//        nameTextField.rx.text
-//            .subscribe(onNext: { text in
-//                if text!.isEmpty {
-//                    self.nameTextField.borderColor(UIColor(named: "gray-300")!)
-//                    self.signupButton.backgroundColor = UIColor(named: "main-4")
-//                    self.signupButton.isEnabled = false
-//                } else{
-//                    self.nameTextField.borderColor(UIColor(named: "main-2")!)
-//                    self.signupButton.backgroundColor = UIColor(named: "main-2")
-//                    signup.accept(self.nameTextField.text)
-//                    self.signupButton.isEnabled = true
-//                }
-//            }).disposed(by: disposeBag)
-//    }
+    func textFieldDidChange() {
+        nameTextField.rx.text
+            .subscribe(onNext: { text in
+                if text!.isEmpty {
+                    self.nameTextField.borderColor(UIColor(named: "gray-300")!)
+                    self.signupButton.backgroundColor = UIColor(named: "main-4")
+                    self.signupButton.isEnabled = false
+                } else{
+                    SignupInfo.shared.userName.accept(self.nameTextField.text) // PublishRelay의 accept 메서드로 값을 설정
+                    self.nameTextField.borderColor(UIColor(named: "main-2")!)
+                    self.signupButton.backgroundColor = UIColor(named: "main-2")
+                    self.signupButton.isEnabled = true
+                }
+            }).disposed(by: disposeBag)
+    }
 }
 
 extension UserNameViewController {
