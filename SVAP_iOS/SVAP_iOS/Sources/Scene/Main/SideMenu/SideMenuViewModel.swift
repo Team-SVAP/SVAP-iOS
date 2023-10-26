@@ -10,12 +10,12 @@ class SideMenuViewModel {
         let viewAppear: Signal<Void>
     }
     struct Output {
-        let userName: PublishRelay<UserInfoResponse>
+        let userName: PublishRelay<UserInfoModel>
     }
     func transform(_ input: Input) -> Output {
         
         let api = AuthService()
-        let userInfo = PublishRelay<UserInfoResponse>()
+        let userInfo = PublishRelay<UserInfoModel>()
         
         input.viewAppear.asObservable()
             .flatMap { api.loadUserInfo() }

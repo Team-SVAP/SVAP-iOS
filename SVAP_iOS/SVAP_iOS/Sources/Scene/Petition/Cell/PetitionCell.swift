@@ -6,7 +6,7 @@ class PetitionCell: UITableViewCell {
     
     static let cellId = "PetitionCell"
     var id: Int = 0
-    let petitionTitleLabel = UILabel().then {
+    let titleLabel = UILabel().then {
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
         
@@ -51,7 +51,7 @@ class PetitionCell: UITableViewCell {
     }
     func configureUI() {
         [
-            petitionTitleLabel,
+            titleLabel,
             dateLabel,
             placeLabel,
             contentLabel
@@ -59,7 +59,7 @@ class PetitionCell: UITableViewCell {
     }
     func setupConstraints() {
         
-        petitionTitleLabel.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(8)
             $0.left.equalToSuperview().inset(13)
         }
@@ -68,7 +68,7 @@ class PetitionCell: UITableViewCell {
             $0.right.equalToSuperview().inset(12)
         }
         placeLabel.snp.makeConstraints {
-            $0.top.equalTo(petitionTitleLabel.snp.bottom).offset(2)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(2)
             $0.left.equalToSuperview().inset(13)
         }
         contentLabel.snp.makeConstraints {
@@ -84,7 +84,7 @@ class PetitionCell: UITableViewCell {
         location: String
     ) {
         self.id = id
-        self.petitionTitleLabel.text = title
+        self.titleLabel.text = title
         self.contentLabel.text = content
         self.dateLabel.text = dateTime
         self.placeLabel.text = location

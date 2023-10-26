@@ -215,7 +215,7 @@ class DetailPetitionViewController: BaseVC {
                 case .success(let result):
                     switch result.statusCode {
                         case 200:
-                            if let data = try? JSONDecoder().decode(DetailPetitionResponse.self, from: result.data) {
+                            if let data = try? JSONDecoder().decode(DetailPetitionModel.self, from: result.data) {
                                 DispatchQueue.main.async {
                                     self.tagLabel.text = data.location
                                     self.titleLabel.text = data.title

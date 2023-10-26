@@ -5,7 +5,7 @@ import RxSwift
 import RxCocoa
 import Moya
 
-class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSource {
+class UserPetitionViewController: BaseVC {
     
     private let disposeBag = DisposeBag()
     private let viewModel = UserPetitionViewModel()
@@ -35,8 +35,7 @@ class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSo
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = false
         navigationBarSetting()
-        tableView.delegate = self
-        tableView.dataSource = self
+
         tableView.refreshControl = refreshControl
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -116,7 +115,7 @@ class UserPetitionViewController: BaseVC, UITableViewDelegate, UITableViewDataSo
         
         output.userPetition.bind(to: tableView.rx.items(cellIdentifier: "PetitionCell", cellType: PetitionCell.self)) { row, data, cell in
             cell.id = data.id!
-            cell.petitionTitleLabel.text = data.title
+            cell.titleLabel.text = data.title
             cell.dateLabel.text = data.dateTime
             cell.placeLabel.text = data.location
             cell.contentLabel.text = data.content
@@ -148,17 +147,21 @@ extension UserPetitionViewController {
         return petitionList.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! PetitionCell
-        cell.cellSetter(
-            id: petitionList[indexPath.row].id,
-            title: petitionList[indexPath.row].title,
-            content: petitionList[indexPath.row].content,
-            dateTime: petitionList[indexPath.row].date,
-            location: petitionList[indexPath.row].location
-        )
-        cell.selectionStyle = .none
-        return cell
-    }
+//    func test() {
+//        tableView.rx.cell
+//    }
+    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! PetitionCell
+//        cell.cellSetter(
+//            id: petitionList[indexPath.row].id,
+//            title: petitionList[indexPath.row].title,
+//            content: petitionList[indexPath.row].content,
+//            dateTime: petitionList[indexPath.row].date,
+//            location: petitionList[indexPath.row].location
+//        )
+//        cell.selectionStyle = .none
+//        return cell
+//    }
     
 }

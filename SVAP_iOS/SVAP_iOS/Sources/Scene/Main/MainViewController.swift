@@ -62,7 +62,7 @@ class MainViewController: BaseVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadPopularPetition()
+//        loadPopularPetition()
     }
     override func configureUI() {
         [
@@ -176,31 +176,31 @@ class MainViewController: BaseVC {
         
         
     }
-    private func loadPopularPetition() {
-        
-        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
-        
-        provider.request(.loadPopularPetition) { res in
-            switch res {
-                case .success(let result):
-                    switch result.statusCode {
-                        case 200:
-                            if let data = try? JSONDecoder().decode(PetitonResponseElement.self, from: result.data) {
-                                DispatchQueue.main.async {
-                                    self.famousPetitionTitleLabel.text = data.title
-                                    self.famousPetitionContentLabel.text = data.content
-                                }
-                            } else {
-                                print("Response load fail")
-                            }
-                        default:
-                            print("Fail: \(result.statusCode)")
-                    }
-                case .failure(let err):
-                    print("Request Error: \(err.localizedDescription)")
-            }
-        }
-    }
+//    private func loadPopularPetition() {
+//        
+//        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
+//        
+//        provider.request(.loadPopularPetition) { res in
+//            switch res {
+//                case .success(let result):
+//                    switch result.statusCode {
+//                        case 200:
+////                            if let data = try? JSONDecoder().decode(PetitionModel.self, from: result.data) {
+////                                DispatchQueue.main.async {
+////                                    self.famousPetitionTitleLabel.text = data.title
+////                                    self.famousPetitionContentLabel.text = data.content
+////                                }
+//                            break
+//                            } else {
+//                                print("Response load fail")
+//                            }
+//                        default:
+//                            print("Fail: \(result.statusCode)")
+//                    }
+//                case .failure(let err):
+//                    print("Request Error: \(err.localizedDescription)")
+//            }
+//        }
 //    private let pageControl = UIPageControl()
 //    func pageControlSetting() {
 //        view.addSubview(pageControl)
