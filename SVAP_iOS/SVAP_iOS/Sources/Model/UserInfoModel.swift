@@ -1,6 +1,7 @@
 import Foundation
 
-struct UserInfoModel: Decodable {
+struct UserInfoModel: Codable {
     let userName: String?
     let role: String?
+    let accountId: String?
 }

@@ -2,17 +2,17 @@ import Foundation
 import SwiftKeychainWrapper
 
 struct Token {
+    static var localRefreshToken: String?
     static var localAccessToken: String?
-    static var serverAccessToken: String?
     
     static var refreshToken: String? {
         get {
-            serverAccessToken = KeychainWrapper.standard.string(forKey: "refreshToken")
-            return serverAccessToken
+            localRefreshToken = KeychainWrapper.standard.string(forKey: "refreshToken")
+            return localRefreshToken
         }
-        set(newtoken) {
-            KeychainWrapper.standard.set(newtoken ?? "nil", forKey: "refreshToken")
-            serverAccessToken = newtoken
+        set(newToken) {
+            KeychainWrapper.standard.set(newToken ?? "nil", forKey: "refreshToken")
+            localRefreshToken = newToken
         }
     }
     static var accessToken: String? {
@@ -35,15 +35,19 @@ struct Token {
 enum Header {
     case refreshToken, accessToken, tokenIsEmpty
     func header() -> [String: String]? {
-        guard let token = Token.accessToken,
-              token != "nil" else {
+        guard let refreshToken = Token.refreshToken,
+              refreshToken != "nil" else {
+            return ["Content-Type": "application/json"]
+        }
+        guard let accessToken = Token.accessToken,
+              accessToken != "nil" else {
             return ["Content-Type": "application/json"]
         }
         switch self {
             case .refreshToken:
-                return ["Authorization": token, "Content-Type": "application/json"]
+                return ["Authorization": refreshToken, "Content-Type": "application/json"]
             case .accessToken:
-                return ["Authorization": token, "Content-Type": "application/json"]
+                return ["Authorization": accessToken, "Content-Type": "application/json"]
             case .tokenIsEmpty:
                 return ["Content-Type": "application/json"]
         }

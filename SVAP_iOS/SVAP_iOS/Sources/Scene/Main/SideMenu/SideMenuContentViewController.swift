@@ -95,14 +95,20 @@ class SideMenuViewController: UIViewController {
             $0.left.equalToSuperview().inset(22)
         }
     }
-
+    
     func bind() {
-        let input = SideMenuViewModel.Input(viewAppear: viewAppear.asSignal())
+        let input = SideMenuViewModel.Input(viewAppear: viewAppear.asSignal(onErrorJustReturn: ()))
         let output = viewModel.transform(input)
         
-        output.userName.subscribe(onNext: { data in
-            self.userNameLabel.text = data.userName
-        }).disposed(by: disposeBag)
+        output.userName.asObservable()
+            .subscribe(onNext: { data in
+                if data.userName != nil {
+                    self.userNameLabel.text = data.userName
+                } else {
+                    self.userNameLabel.text = "User not found"
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     func subscribe() {
