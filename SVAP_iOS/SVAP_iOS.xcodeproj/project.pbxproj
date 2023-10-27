@@ -224,10 +224,10 @@
 			isa = PBXGroup;
 			children = (
 				880D923B2AC9B2500053D5A6 /* AuthModel.swift */,
+				884A91552AD5900100AE1E14 /* UserInfoModel.swift */,
 				884A91522AD58F3800AE1E14 /* PetitionModel.swift */,
 				884A91572AD6462400AE1E14 /* DetailPetitionModel.swift */,
 				884A91502AD30CD700AE1E14 /* UserPetitionModel.swift */,
-				884A91552AD5900100AE1E14 /* UserInfoModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";

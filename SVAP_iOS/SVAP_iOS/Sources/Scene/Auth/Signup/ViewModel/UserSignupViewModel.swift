@@ -8,9 +8,6 @@ class UserSignupViewModel: ViewModelType {
     private let disposeBag = DisposeBag()
     
     struct Input {
-//        let id: PublishRelay<String>
-//        let password: PublishRelay<String>
-//        let name: PublishRelay<String>
         let signup: SignupInfo
         let doneTap: Signal<Void>
     }
