@@ -16,6 +16,7 @@
 		88152F682AE8EA85002CB48D /* PetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F672AE8EA85002CB48D /* PetitionViewModel.swift */; };
 		88152F6C2AEA98B8002CB48D /* ModifyPetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F6B2AEA98B8002CB48D /* ModifyPetitionViewModel.swift */; };
 		88152F6E2AEA98C1002CB48D /* CreatePetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F6D2AEA98C1002CB48D /* CreatePetitionViewModel.swift */; };
+		88152F842AED3903002CB48D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F832AED3903002CB48D /* MainViewModel.swift */; };
 		882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63142AB5FA2700BFE332 /* AppDelegate.swift */; };
 		882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63162AB5FA2700BFE332 /* SceneDelegate.swift */; };
 		882E631E2AB5FA2800BFE332 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 882E631D2AB5FA2800BFE332 /* Assets.xcassets */; };
@@ -95,6 +96,7 @@
 		88152F672AE8EA85002CB48D /* PetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionViewModel.swift; sourceTree = "<group>"; };
 		88152F6B2AEA98B8002CB48D /* ModifyPetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyPetitionViewModel.swift; sourceTree = "<group>"; };
 		88152F6D2AEA98C1002CB48D /* CreatePetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewModel.swift; sourceTree = "<group>"; };
+		88152F832AED3903002CB48D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		882E63112AB5FA2700BFE332 /* SVAP_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVAP_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882E63142AB5FA2700BFE332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		882E63162AB5FA2700BFE332 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 			isa = PBXGroup;
 			children = (
 				882E63742AB7109000BFE332 /* MainViewController.swift */,
+				88152F832AED3903002CB48D /* MainViewModel.swift */,
 				8867D3F12ADFA5870048B205 /* SideMenu */,
 				888A18822ABFE72500168377 /* Cell */,
 			);
@@ -675,6 +678,7 @@
 				884A91982AD9B84400AE1E14 /* UserSignupViewModel.swift in Sources */,
 				884A918F2AD9A1D500AE1E14 /* UITextFieldExtension.swift in Sources */,
 				884A91932AD9A7A300AE1E14 /* UserIdViewModel.swift in Sources */,
+				88152F842AED3903002CB48D /* MainViewModel.swift in Sources */,
 				884A917E2AD8330900AE1E14 /* AuthService.swift in Sources */,
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
