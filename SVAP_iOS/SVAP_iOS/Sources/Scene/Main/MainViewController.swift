@@ -7,6 +7,8 @@ import Moya
 class MainViewController: BaseVC {
     
     private let disposeBag = DisposeBag()
+    private let viewModel = MainViewModel()
+    private let viewAppear = PublishRelay<Void>()
     
     let sideMenu = SideMenuNavigationController(rootViewController: SideMenuViewController())
     var isExpanded = false
@@ -62,7 +64,7 @@ class MainViewController: BaseVC {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        loadPopularPetition()
+        viewAppear.accept(())
     }
     override func configureUI() {
         [
@@ -134,9 +136,22 @@ class MainViewController: BaseVC {
             $0.left.equalToSuperview().inset(20)
         }
     }
-    private func navigationBarSetting() {
-        navigationItem.hidesBackButton = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: menuButton)
+    
+    override func bind() {
+        super.bind()
+        
+        let input = MainViewModel.Input(viewAppear: viewAppear.asSignal(onErrorJustReturn: ()))
+        let output = viewModel.transform(input)
+        
+        output.popularPetition.asObservable()
+            .subscribe(onNext: { data in
+                if data.title != "" && data.content != ""  {
+                    self.famousPetitionTitleLabel.text = data.title
+                    self.famousPetitionContentLabel.text = data.content
+                } else {
+                    self.famousPetitionTitleLabel.text = "Petition not found"
+                }
+            }).disposed(by: disposeBag)
     }
     override func subscribe() {
         super.subscribe()
@@ -171,36 +186,6 @@ class MainViewController: BaseVC {
                 self.pushViewController(CreatePetitionViewController())
             }).disposed(by: disposeBag)
     }
-    override func bind() {
-        super.bind()
-        
-        
-    }
-//    private func loadPopularPetition() {
-//        
-//        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
-//        
-//        provider.request(.loadPopularPetition) { res in
-//            switch res {
-//                case .success(let result):
-//                    switch result.statusCode {
-//                        case 200:
-////                            if let data = try? JSONDecoder().decode(PetitionModel.self, from: result.data) {
-////                                DispatchQueue.main.async {
-////                                    self.famousPetitionTitleLabel.text = data.title
-////                                    self.famousPetitionContentLabel.text = data.content
-////                                }
-//                            break
-//                            } else {
-//                                print("Response load fail")
-//                            }
-//                        default:
-//                            print("Fail: \(result.statusCode)")
-//                    }
-//                case .failure(let err):
-//                    print("Request Error: \(err.localizedDescription)")
-//            }
-//        }
 //    private let pageControl = UIPageControl()
 //    func pageControlSetting() {
 //        view.addSubview(pageControl)
@@ -222,6 +207,11 @@ class MainViewController: BaseVC {
 //        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
 //        view.window!.layer.add(transition, forKey: kCATransition)
 //    }
+    
+    private func navigationBarSetting() {
+        navigationItem.hidesBackButton = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: menuButton)
+    }
     private func sideMenuSetting() {
         sideMenu.leftSide = true
         SideMenuManager.default.rightMenuNavigationController = sideMenu
