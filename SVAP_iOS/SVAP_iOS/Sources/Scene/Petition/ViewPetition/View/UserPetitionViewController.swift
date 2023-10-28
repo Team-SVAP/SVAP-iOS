@@ -147,10 +147,6 @@ extension UserPetitionViewController {
         return petitionList.count
     }
     
-//    func test() {
-//        tableView.rx.cell
-//    }
-    
 //    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "CellID", for: indexPath) as! PetitionCell
 //        cell.cellSetter(

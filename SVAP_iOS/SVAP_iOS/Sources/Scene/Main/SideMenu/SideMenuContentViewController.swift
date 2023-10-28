@@ -102,7 +102,7 @@ class SideMenuViewController: UIViewController {
         
         output.userName.asObservable()
             .subscribe(onNext: { data in
-                if data.userName != nil {
+                if data.userName != "" {
                     self.userNameLabel.text = data.userName
                 } else {
                     self.userNameLabel.text = "User not found"

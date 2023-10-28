@@ -9,7 +9,6 @@ class PetitionCell: UITableViewCell {
     let titleLabel = UILabel().then {
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
-        
     }
     let dateLabel = UILabel().then {
         $0.textColor = UIColor(named: "gray-800")
