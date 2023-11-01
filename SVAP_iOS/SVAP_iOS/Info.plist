@@ -17,8 +17,8 @@
 		<string>IBMPlexSansKR-Regular.ttf</string>
 		<string>IBMPlexSansKR-SemiBold.ttf</string>
 		<string>IBMPlexSansKR-Medium.ttf</string>
-		<string>IBMPlexSansKR-Light.ttf</string>
 		<string>IBMPlexSansKR-Thin.ttf</string>
+		<string>IBMPlexSansKR-Light.ttf</string>
 		<string>IBMPlexSansKR-Bold.ttf</string>
 	</array>
 	<key>UIApplicationSceneManifest</key>
