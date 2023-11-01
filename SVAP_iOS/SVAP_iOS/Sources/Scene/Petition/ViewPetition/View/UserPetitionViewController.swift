@@ -114,7 +114,7 @@ class UserPetitionViewController: BaseVC {
         let output = viewModel.transform(input)
         
         output.userPetition.bind(to: tableView.rx.items(cellIdentifier: "PetitionCell", cellType: PetitionCell.self)) { row, data, cell in
-            cell.id = data.id!
+            cell.id = data.id
             cell.titleLabel.text = data.title
             cell.dateLabel.text = data.dateTime
             cell.placeLabel.text = data.location

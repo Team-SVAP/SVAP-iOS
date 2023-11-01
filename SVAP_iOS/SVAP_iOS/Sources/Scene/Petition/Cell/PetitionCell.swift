@@ -75,18 +75,4 @@ class PetitionCell: UITableViewCell {
             $0.left.right.equalToSuperview().inset(13)
         }
     }
-    public func cellSetter(
-        id: Int,
-        title: String,
-        content: String,
-        dateTime: String,
-        location: String
-    ) {
-        self.id = id
-        self.titleLabel.text = title
-        self.contentLabel.text = content
-        self.dateLabel.text = dateTime
-        self.placeLabel.text = location
-    }
-
 }
