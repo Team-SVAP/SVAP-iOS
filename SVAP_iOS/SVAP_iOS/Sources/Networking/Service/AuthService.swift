@@ -48,10 +48,10 @@ final class AuthService {
             }
     }
     
-    func loadUserPetition() -> Single<(UserPetitionModel?, networkingResult)> {
+    func loadUserPetition() -> Single<([PetitionModel]?, networkingResult)> {
         return provider.rx.request(.loadUserPetition)
             .filterSuccessfulStatusCodes()
-            .map(UserPetitionModel.self)
+            .map([PetitionModel].self)
             .map{return ($0, .ok)}
             .catch{ error in
                 print(error)
