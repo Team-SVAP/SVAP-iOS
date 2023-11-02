@@ -20,8 +20,7 @@ class UserIdViewModel: ViewModelType {
         let api = AuthService()
         let result = PublishRelay<Bool>()
         
-        input.doneTap
-            .asObservable()
+        input.doneTap.asObservable()
             .withLatestFrom(input.id)
             .flatMap{ id in
                 api.idDuplication(id)

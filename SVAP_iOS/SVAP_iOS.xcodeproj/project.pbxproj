@@ -69,6 +69,7 @@
 		884A91932AD9A7A300AE1E14 /* UserIdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */; };
 		884A91982AD9B84400AE1E14 /* UserSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */; };
 		884A919A2ADAE1E700AE1E14 /* PetitionTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */; };
+		8855542F2AF38D0B0025747E /* DetailPetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8855542E2AF38D0B0025747E /* DetailPetitionViewModel.swift */; };
 		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
 		8867D3E22ADD438F0048B205 /* ReportPetitionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3E12ADD438F0048B205 /* ReportPetitionAlert.swift */; };
 		8867D3E42ADD4E3C0048B205 /* ReportPetitionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3E32ADD4E3C0048B205 /* ReportPetitionTextView.swift */; };
@@ -143,6 +144,7 @@
 		884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdViewModel.swift; sourceTree = "<group>"; };
 		884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignupViewModel.swift; sourceTree = "<group>"; };
 		884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionTypeButton.swift; sourceTree = "<group>"; };
+		8855542E2AF38D0B0025747E /* DetailPetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewModel.swift; sourceTree = "<group>"; };
 		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		885A74952AC2F6A200EC3F1A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8867D3E12ADD438F0048B205 /* ReportPetitionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPetitionAlert.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				88152F672AE8EA85002CB48D /* PetitionViewModel.swift */,
+				8855542E2AF38D0B0025747E /* DetailPetitionViewModel.swift */,
 				8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */,
 			);
 			path = ViewModel;
@@ -653,6 +656,7 @@
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
 				884A91532AD58F3800AE1E14 /* PetitionModel.swift in Sources */,
 				884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */,
+				8855542F2AF38D0B0025747E /* DetailPetitionViewModel.swift in Sources */,
 				884A918A2AD8B86300AE1E14 /* ServiceType.swift in Sources */,
 				882E63442AB6048F00BFE332 /* OnboardingViewController.swift in Sources */,
 				88152F6C2AEA98B8002CB48D /* ModifyPetitionViewModel.swift in Sources */,

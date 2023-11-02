@@ -15,7 +15,9 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
     }
-    private let idTextField = CustomTextField(placeholder: "아이디", isSecure: false)
+    private let idTextField = CustomTextField(placeholder: "아이디", isSecure: false).then {
+        $0.textContentType = .password
+    }
     private let passwordTextField = CustomTextField(placeholder: "비밀번호", isSecure: false)//서버통신 성공하고 true로 바꾸기
     private let loginFailLabel = UILabel().then {
         $0.textColor = .systemRed
@@ -69,7 +71,7 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
             $0.top.equalToSuperview().inset(139)
             $0.centerX.equalToSuperview()
             $0.width.equalTo(126)
-            $0.height.equalTo(45)
+            $0.height.equalTo(55)
         }
         loginLabel.snp.makeConstraints {
             $0.top.equalTo(logoImage.snp.bottom).offset(73)
