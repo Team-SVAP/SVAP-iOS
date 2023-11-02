@@ -10,6 +10,7 @@ struct DetailPetitionModel: Codable {
     let types: String
     let location: String
     let viewCounts: Int
-    let userId: Int
-    let imgUrl: [String]
+    let accountId: String
+    let dateTime: String
+    let imgUrl: [String]?
 }
