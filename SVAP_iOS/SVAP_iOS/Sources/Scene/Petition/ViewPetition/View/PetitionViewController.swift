@@ -5,18 +5,23 @@ import Moya
 
 class PetitionViewController: BaseVC {
     
-//    let viewModel = PetitionViewModel()
+    let viewModel = PetitionViewModel()
     private let disposeBag = DisposeBag()
-    private let viewAppear = PublishRelay<Void>()
+    private let allRecentPetition = PublishRelay<Void>()
+    private let schoolRecentPetiton = PublishRelay<Void>()
+    private let dormRecentPetition = PublishRelay<Void>()
+    private let allVotePetition = PublishRelay<Void>()
+    private let schoolVotePetition = PublishRelay<Void>()
+    private let dormVotePetition = PublishRelay<Void>()
+    private let allAccessPetition = PublishRelay<Void>()
+    private let schoolAccessPetition = PublishRelay<Void>()
+    private let dormAccessPetition = PublishRelay<Void>()
+    private let allWaitPetition = PublishRelay<Void>()
+    private let schoolWaitPetition = PublishRelay<Void>()
+    private let dormWaitPetition = PublishRelay<Void>()
     
-    
-    private var petitionList: [PetitionModel] = [] {
-        didSet {
-            tableView.reloadData()
-            refreshControl.endRefreshing()
-        }
-    }
     private let refreshControl = UIRefreshControl()
+    
     private let leftbutton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
@@ -42,13 +47,15 @@ class PetitionViewController: BaseVC {
         $0.spacing = 8
         $0.backgroundColor = .clear
     }
-    private let allPetitionButton = PetitionTypeButton(type: .system, title: "전체 청원")
+    private let allPetitionButton = PetitionTypeButton(type: .system, title: "전체 청원").then {
+        $0.setTitleColor(UIColor(named: "main-1"), for: .normal)
+    }
     private let schoolPetitionButton = PetitionTypeButton(type: .system, title: "학교 청원")
     private let dormitoryPetitionButton = PetitionTypeButton(type: .system, title: "기숙사 청원")
     private let line = UIView().then {
         $0.backgroundColor = UIColor(named: "gray-200")
     }
-    private let tableView = UITableView().then {
+    private var tableView = UITableView().then {
         $0.backgroundColor = .white
         $0.register(PetitionCell.self, forCellReuseIdentifier: "PetitionCell")
         $0.rowHeight = 92
@@ -59,25 +66,11 @@ class PetitionViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarSetting()
+        tableView.delegate = self
         self.navigationItem.hidesBackButton = false
-//        tableView.delegate = self
-//        tableView.dataSource = self
-        tableView.refreshControl = refreshControl
     }
     override func viewWillAppear(_ animated: Bool) {
-//        loadPetition()
-        viewAppear.accept(())
-        tableView.reloadData()
-    }
-    private func navigationBarSetting() {
-        let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
-        title.text = "청원 보기"
-        title.textColor = UIColor(named: "gray-800")
-        title.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
-        title.textAlignment = .center
-        navigationItem.titleView = title
-        navigationItem.hidesBackButton = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
+        allRecentPetition.accept(())
     }
     override func configureUI() {
         super.configureUI()
@@ -130,26 +123,40 @@ class PetitionViewController: BaseVC {
             $0.width.height.equalTo(60)
         }
     }
-//    override func bind() {
-//        super.bind()
-//        
-//        let input = PetitionViewModel.Input(viewAppear: viewAppear.asSignal(onErrorJustReturn: ()))
-//        let output = viewModel.transform(input)
-//        
-//        output.petition.bind(to: tableView.rx.items(cellIdentifier: "PetitionCell", cellType: PetitionCell.self)) { row, item, cell in
-//            cell.id = item.id
-//            cell.titleLabel.text = item.title
-//            cell.dateLabel.text = item.dateTime
-//            cell.placeLabel.text = item.location
-//            cell.contentLabel.text = item.content
-//        }.disposed(by: disposeBag)
-//            
-//    }
+    override func bind() {
+        super.bind()
+        //        self.tableView.rx.setDelegate(self).disposed(by: disposeBag)
+        //        self.tableView.refreshControl = self.refreshControl
+        let input = PetitionViewModel.Input(
+            petitonTitle: searchTextField.rx.text.orEmpty.asDriver(),
+            doneTap: searchButton.rx.tap.asSignal(),
+            allRecentPetition: allRecentPetition.asSignal(),
+            schoolRecentPetiton: schoolRecentPetiton.asSignal(),
+            dormRecentPetition: dormRecentPetition.asSignal(),
+            allVotePetition: allVotePetition.asSignal(),
+            schoolVotePetition: schoolVotePetition.asSignal(),
+            dormVotePetition: dormVotePetition.asSignal(),
+            allAccessPetition: allAccessPetition.asSignal(),
+            schoolAccessPetition: schoolAccessPetition.asSignal(),
+            dormAccessPetition: dormAccessPetition.asSignal(),
+            allWaitPetition: allWaitPetition.asSignal(),
+            schoolWaitPetition: schoolWaitPetition.asSignal(),
+            dormWaitPetition: dormWaitPetition.asSignal()
+        )
+        
+        let output = viewModel.transform(input)
 
+        output.petition.bind(to: tableView.rx.items(cellIdentifier: "PetitionCell", cellType: PetitionCell.self)) { _, item, cell in
+            cell.id = item.id
+            cell.titleLabel.text = item.title
+            cell.dateLabel.text = item.dateTime
+            cell.placeLabel.text = item.location
+            cell.contentLabel.text = item.content
+        }.disposed(by: disposeBag)
+    }
     override func subscribe() {
         searchButton.rx.tap
             .subscribe(onNext: {
-//                self.searchPetition()
             }).disposed(by: disposeBag)
         
         menuButton.rx.tap
@@ -164,19 +171,43 @@ class PetitionViewController: BaseVC {
         
         allPetitionButton.rx.tap
             .subscribe(onNext: {
-//                self.loadPetition()
-                self.bind()
+                if self.menuButton.titleLabel?.text == "투표순으로 보기" {
+                    self.allVotePetition.accept(())
+                } else if self.menuButton.titleLabel?.text == "승원된 청원 보기" {
+                    self.allAccessPetition.accept(())
+                } else if self.menuButton.titleLabel?.text == "검토중인 청원 보기" {
+                    self.allWaitPetition.accept(())
+                } else {
+                    self.allRecentPetition.accept(())
+                }
+                self.buttonColor(all: UIColor(named: "main-1"), school: UIColor(named: "gray-400"), dormitory: UIColor(named: "gray-400"))
             }).disposed(by: disposeBag)
         
         schoolPetitionButton.rx.tap
             .subscribe(onNext: {
-//                self.loadTypePetition("SCHOOL")
+                if self.menuButton.titleLabel?.text == "투표순으로 보기" {
+                    self.schoolVotePetition.accept(())
+                } else if self.menuButton.titleLabel?.text == "승원된 청원 보기" {
+                    self.schoolAccessPetition.accept(())
+                } else if self.menuButton.titleLabel?.text == "검토중인 청원 보기" {
+                    self.schoolWaitPetition.accept(())
+                } else {
+                    self.schoolRecentPetiton.accept(())
+                }
                 self.buttonColor(all: UIColor(named: "gray-400"), school: UIColor(named: "main-1"), dormitory: UIColor(named: "gray-400"))
             }).disposed(by: disposeBag)
         
         dormitoryPetitionButton.rx.tap
             .subscribe(onNext: {
-//                self.loadTypePetition("DORMITORY")
+                if self.menuButton.titleLabel?.text == "투표순으로 보기" {
+                    self.dormVotePetition.accept(())
+                } else if self.menuButton.titleLabel?.text == "승원된 청원 보기" {
+                    self.dormAccessPetition.accept(())
+                } else if self.menuButton.titleLabel?.text == "검토중인 청원 보기" {
+                    self.dormWaitPetition.accept(())
+                } else {
+                    self.dormRecentPetition.accept(())
+                }
                 self.buttonColor(all: UIColor(named: "gray-400"), school: UIColor(named: "gray-400"), dormitory: UIColor(named: "main-1"))
             }).disposed(by: disposeBag)
         
@@ -187,8 +218,7 @@ class PetitionViewController: BaseVC {
         
         refreshControl.rx.controlEvent(.valueChanged)
             .subscribe(onNext: {
-//                self.loadPetition()
-                self.bind()
+                self.allRecentPetition.accept(())
             }).disposed(by: disposeBag)
         
         scrollButton.rx.tap
@@ -201,133 +231,28 @@ class PetitionViewController: BaseVC {
         schoolPetitionButton.setTitleColor(school, for: .normal)
         dormitoryPetitionButton.setTitleColor(dormitory, for: .normal)
     }
-//    private func loadPetition() {
-//        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
-//        self.buttonColor(all: UIColor(named: "main-1"), school: UIColor(named: "gray-400"), dormitory: UIColor(named: "gray-400"))
-//        provider.request(.loadAllRecentPetitoin) { res in
-//            switch res {
-//                case .success(let result):
-//                    switch result.statusCode {
-//                        case 200:
-//                            if let data = try? JSONDecoder().decode(PetitonResponse.self, from: result.data) {
-//                                DispatchQueue.main.async {
-//                                    self.petitionList = data.map {
-//                                        .init(
-//                                            id: $0.id,
-//                                            title: $0.title,
-//                                            content: $0.content,
-//                                            date: $0.dateTime,
-//                                            location: $0.location
-//                                        )
-//                                    }
-//                                    self.petitionList.sort(by: { $0.id > $1.id })
-//                                }
-//                            } else {
-//                                print("Response load fail")
-//                            }
-//                        default:
-//                            print("Fail: \(result.statusCode)")
-//                    }
-//                case .failure(let err):
-//                    print("Request Error: \(err.localizedDescription)")
-//            }
-//        }
-//    }
-//    private func searchPetition() {
-//        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
-//        
-//        provider.request(.searchPetition(title: searchTextField.text!)) { res in
-//            switch res {
-//                case .success(let result):
-//                    switch result.statusCode {
-//                        case 200:
-//                            if let data = try? JSONDecoder().decode(PetitonResponse.self, from: result.data) {
-//                                DispatchQueue.main.async {
-//                                    self.petitionList = data.map {
-//                                        .init(
-//                                            id: $0.id,
-//                                            title: $0.title,
-//                                            content: $0.content,
-//                                            date: $0.dateTime,
-//                                            location: $0.location
-//                                        )
-//                                    }
-//                                    self.petitionList.sort(by: { $0.id > $1.id })
-//                                }
-//                            } else {
-//                                print("Response load fail")
-//                            }
-//                        default:
-//                            print("Fail: \(result.statusCode)")
-//                    }
-//                case .failure(let err):
-//                    print("Request Error: \(err.localizedDescription)")
-//            }
-//        }
-//    }
-//    private func loadTypePetition(_ type: String) {
-//        
-//        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
-//        
-//        provider.request(.loadRecentPetition(type: type)) { res in
-//            switch res {
-//                case .success(let result):
-//                    switch result.statusCode {
-//                        case 200:
-//                            if let data = try? JSONDecoder().decode(PetitonResponse.self, from: result.data) {
-//                                DispatchQueue.main.async {
-//                                    self.petitionList = data.map {
-//                                        .init(
-//                                            id: $0.id,
-//                                            title: $0.title,
-//                                            content: $0.content,
-//                                            date: $0.dateTime,
-//                                            location: $0.location
-//                                        )
-//                                    }
-//                                    self.petitionList.sort(by: { $0.id > $1.id })
-//                                }
-//                            } else {
-//                                print("Response load fail")
-//                            }
-//                        default:
-//                            print("Fail: \(result.statusCode)")
-//                    }
-//                case .failure(let err):
-//                    print("Request Error: \(err.localizedDescription)")
-//            }
-//        }
-//    }
+    
+    private func navigationBarSetting() {
+        let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
+        title.text = "청원 보기"
+        title.textColor = UIColor(named: "gray-800")
+        title.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
+        title.textAlignment = .center
+        navigationItem.titleView = title
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
+    }
     
 }
-//
-//extension PetitionViewController: UITableViewDelegate, UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return petitionList.count
-//    }
-////    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-////        let cell = tableView.dequeueReusableCell(withIdentifier: "PetitionCell", for: indexPath) as! PetitionCell
-////        cell.cellSetter(
-////            id: petitionList[indexPath.row].id,
-////            title: petitionList[indexPath.row].title,
-////            content: petitionList[indexPath.row].content,
-////            dateTime: petitionList[indexPath.row].date,
-////            location: petitionList[indexPath.row].location
-////        )
-////        cell.selectionStyle = .none
-////        //MARK: -클릭 이벤트 추후에 수정하기
-////        return cell
-////    }
-//    func test() {
-//        
-//    }
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        clickCell()
-//        self.navigationController?.pushViewController(DetailPetitionViewController(), animated: true)
-//        
-//    }
-//    
-//    func clickCell() {
-//        //        self.dismiss(animated: true, completion: { self.userDetailPetition() })
-//    }
-//}
+
+extension PetitionViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! PetitionCell
+        let vc = DetailPetitionViewController()
+        
+        cell.selectionStyle = .none
+        vc.petitionId = cell.id
+        self.pushViewController(vc)
+    }
+
+}
