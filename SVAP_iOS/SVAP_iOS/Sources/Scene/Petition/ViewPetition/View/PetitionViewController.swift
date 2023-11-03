@@ -20,8 +20,6 @@ class PetitionViewController: BaseVC {
     private let schoolWaitPetition = PublishRelay<Void>()
     private let dormWaitPetition = PublishRelay<Void>()
     
-    private let refreshControl = UIRefreshControl()
-    
     private let leftbutton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
@@ -125,8 +123,7 @@ class PetitionViewController: BaseVC {
     }
     override func bind() {
         super.bind()
-        //        self.tableView.rx.setDelegate(self).disposed(by: disposeBag)
-        //        self.tableView.refreshControl = self.refreshControl
+        
         let input = PetitionViewModel.Input(
             petitonTitle: searchTextField.rx.text.orEmpty.asDriver(),
             doneTap: searchButton.rx.tap.asSignal(),
@@ -150,7 +147,7 @@ class PetitionViewController: BaseVC {
             cell.id = item.id
             cell.titleLabel.text = item.title
             cell.dateLabel.text = item.dateTime
-            cell.placeLabel.text = item.location
+            cell.placeLabel.text = "#\(item.types)_\(item.location)"
             cell.contentLabel.text = item.content
         }.disposed(by: disposeBag)
     }
@@ -214,11 +211,6 @@ class PetitionViewController: BaseVC {
         leftbutton.rx.tap
             .subscribe(onNext: {
                 self.popViewController()
-            }).disposed(by: disposeBag)
-        
-        refreshControl.rx.controlEvent(.valueChanged)
-            .subscribe(onNext: {
-                self.allRecentPetition.accept(())
             }).disposed(by: disposeBag)
         
         scrollButton.rx.tap

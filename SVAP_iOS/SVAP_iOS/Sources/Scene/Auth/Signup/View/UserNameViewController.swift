@@ -116,27 +116,6 @@ class UserNameViewController: BaseVC {
             }).disposed(by: disposeBag)
     }
     
-//    @objc func clickSignup() {
-//        
-//        let signup = SignupInfo.shared
-//        let provider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
-//        
-//        provider.request(.signup(id: signup.accountId!, password: signup.password!, name: signup.userName!)) { res in
-//            switch res {
-//                case .success(let result):
-//                    switch result.statusCode {
-//                        case 201:
-//                            print("success")
-//                            self.navigationController?.pushViewController(LoginViewController(), animated: true)
-//                        default:
-//                            print("Fail: \(result.statusCode)")
-//                    }
-//                case .failure(let err):
-//                    print("Request Error: \(err.localizedDescription)")
-//            }
-//        }
-//    }
-    
     func textFieldDidChange() {
         nameTextField.rx.text
             .subscribe(onNext: { text in

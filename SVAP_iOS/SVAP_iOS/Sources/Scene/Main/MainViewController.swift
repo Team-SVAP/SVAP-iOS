@@ -56,7 +56,6 @@ class MainViewController: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        pageControlSetting()
         collectionView.delegate = self
         collectionView.dataSource = self
         navigationBarSetting()
@@ -186,27 +185,6 @@ class MainViewController: BaseVC {
                 self.pushViewController(CreatePetitionViewController())
             }).disposed(by: disposeBag)
     }
-//    private let pageControl = UIPageControl()
-//    func pageControlSetting() {
-//        view.addSubview(pageControl)
-//        pageControl.hidesForSinglePage = true
-//        pageControl.numberOfPages = 5
-//        pageControl.pageIndicatorTintColor = .darkGray
-//        
-//        
-//        pageControl.snp.makeConstraints {
-//            $0.centerX.equalToSuperview()
-//            $0.top.equalToSuperview().inset(270)
-//        }
-//    }
-//    let transition = CATransition()
-//    func transitionSetting() {
-//        transition.duration = 5
-//        transition.type = CATransitionType.push
-//        transition.subtype = CATransitionSubtype.fromRight
-//        transition.timingFunction = CAMediaTimingFunction(name:CAMediaTimingFunctionName.easeInEaseOut)
-//        view.window!.layer.add(transition, forKey: kCATransition)
-//    }
     
     private func navigationBarSetting() {
         navigationItem.hidesBackButton = true
