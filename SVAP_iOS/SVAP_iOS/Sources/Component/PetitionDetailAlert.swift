@@ -1,11 +1,13 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Moya
 
 class PetitionDetailAlert: BaseVC {
     
     private let disposeBag = DisposeBag()
     
+    var petitionId = 0
     private let backgroundView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 8
@@ -74,5 +76,30 @@ class PetitionDetailAlert: BaseVC {
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
+        deleteButton.rx.tap
+            .subscribe(onNext: {
+                self.dd()
+            }).disposed(by: disposeBag)
+        
+    }
+    
+    func dd() {
+        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.deletePetition(petitionId: petitionId)) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 200:
+                            print("Success")
+                            self.dismiss(animated: true)
+                            self.popViewController()
+                        default:
+                            print(result.statusCode)
+                    }
+                case .failure(let err):
+                    print("\(err.localizedDescription)")
+            }
+        }
     }
 }
