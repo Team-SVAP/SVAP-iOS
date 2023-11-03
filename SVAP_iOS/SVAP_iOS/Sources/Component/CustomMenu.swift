@@ -1,9 +1,12 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 class CustomMenu: UIViewController {
     
+    private let disposeBag = DisposeBag()
     var closure: (String) -> Void
     
     let menuView = UIView().then {
@@ -16,19 +19,16 @@ class CustomMenu: UIViewController {
     let slashButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "downArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
-        $0.addTarget(self, action: #selector(clickSlashButton), for: .touchUpInside)
     }
     let schoolPetitionButton = UIButton(type: .system).then {
         $0.setTitle("학교 청원", for: .normal)
         $0.setTitleColor(UIColor(named: "gray-700"), for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
-        $0.addTarget(self, action: #selector(clickSchoolButton), for: .touchUpInside)
     }
     let dormitoryPetitionButton = UIButton(type: .system).then {
         $0.setTitle("기숙사 청원", for: .normal)
         $0.setTitleColor(UIColor(named: "gray-700"), for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
-        $0.addTarget(self, action: #selector(clickDormButton), for: .touchUpInside)
     }
     init(closure: @escaping (String) -> Void) {
         self.closure = closure
@@ -41,6 +41,7 @@ class CustomMenu: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .clear
+        subscribe()
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -75,15 +76,23 @@ class CustomMenu: UIViewController {
             $0.left.equalToSuperview().inset(12)
         }
     }
-    @objc func clickSchoolButton() {
-        closure("학교 청원")
-        self.dismiss(animated: true)
+    func subscribe() {
+        schoolPetitionButton.rx.tap
+            .subscribe(onNext: {
+                self.closure("학교 청원")
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        dormitoryPetitionButton.rx.tap
+            .subscribe(onNext: {
+                self.closure("기숙사 청원")
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
+        slashButton.rx.tap
+            .subscribe(onNext: {
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
     }
-    @objc func clickDormButton() {
-        closure("기숙사 청원")
-        self.dismiss(animated: true)
-    }
-    @objc func clickSlashButton() {
-        self.dismiss(animated: true)
-    }
+    
 }
