@@ -6,6 +6,7 @@ import Moya
 enum AuthAPI {
     case signup(SignupInfo)
     case login(id: String, password: String)
+    case refreshToken
     case loadUserInfo
     case loadUserPetition
     case idDuplication(accountId: String)
@@ -22,6 +23,8 @@ extension AuthAPI: TargetType {
                 return "/user/signup"
             case .login:
                 return "/user/login"
+            case .refreshToken:
+                return "/user/reissue"
             case .loadUserInfo:
                 return "/user/my-info"
             case .loadUserPetition:
@@ -33,7 +36,7 @@ extension AuthAPI: TargetType {
     
     var method: Moya.Method {
         switch self {
-            case .signup, .login, .idDuplication:
+            case .signup, .login, .refreshToken, .idDuplication:
                 return .post
             case .loadUserPetition, .loadUserInfo:
                 return .get
