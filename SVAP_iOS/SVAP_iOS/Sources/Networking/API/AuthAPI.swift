@@ -9,7 +9,9 @@ enum AuthAPI {
     case refreshToken
     case loadUserInfo
     case loadUserPetition
-    case idDuplication(accountId: String)
+    case idCheck(accountId: String)
+    case nameCheck(userName: String)
+    case passwordCheck(password: String)
 }
 
 extension AuthAPI: TargetType {
@@ -29,17 +31,21 @@ extension AuthAPI: TargetType {
                 return "/user/my-info"
             case .loadUserPetition:
                 return "/user"
-            case .idDuplication:
-                return "/user/duplication"
+            case .idCheck:
+                return "/user/ck-account-id"
+            case .nameCheck:
+                return "/user/ck-username"
+            case .passwordCheck:
+                return "/user/ck-password"
         }
     }
     
     var method: Moya.Method {
         switch self {
-            case .signup, .login, .refreshToken, .idDuplication:
-                return .post
             case .loadUserPetition, .loadUserInfo:
                 return .get
+            default:
+                return .post
         }
     }
     
@@ -58,10 +64,20 @@ extension AuthAPI: TargetType {
                         "accountId": id,
                         "password": password
                     ], encoding: JSONEncoding.default)
-            case .idDuplication(let accountId):
+            case .idCheck(let accountId):
                 return .requestParameters(
                     parameters: [
                         "accountId": accountId
+                    ], encoding: JSONEncoding.default)
+            case .nameCheck(let userName):
+                return .requestParameters(
+                    parameters: [
+                        "username": userName
+                    ], encoding: JSONEncoding.default)
+            case .passwordCheck(let password):
+                return .requestParameters(
+                    parameters: [
+                        "password": password
                     ], encoding: JSONEncoding.default)
             default:
                 return .requestPlain
