@@ -8,7 +8,11 @@ final class PetitionService {
     
     let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
     
-    func createPetition(_ content: [String?], _ image: Data) {
+    func sendImage(_ image1: Data?, _ image2: Data?, _ image3: Data?) {
+        
+    }
+    
+    func createPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ image: [Data?]) {
         
     }
     
@@ -16,8 +20,14 @@ final class PetitionService {
         
     }
     
-    func deletePetition(_ petitionId: Int) {
-        
+    func deletePetition(_ petitionId: Int) -> Single<networkingResult> {
+        return provider.rx.request(.deletePetition(petitionId: petitionId))
+            .filterSuccessfulStatusCodes()
+            .map{ _ -> networkingResult in
+                print("Success")
+                return .deleteOk
+            }
+            .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
     func loadDetailPetition(_ petitionId: Int) -> Single<(DetailPetitionModel?, networkingResult)> {
@@ -53,19 +63,8 @@ final class PetitionService {
             }
     }
     
-    func loadRecentPetition(_ type: String) -> Single<([PetitionModel]?, networkingResult)> {
-        return provider.rx.request(.loadRecentPetition(type: type))
-            .filterSuccessfulStatusCodes()
-            .map([PetitionModel].self)
-            .map{ return ($0, .ok)}
-            .catch{ error in
-                print(error)
-                return .just((nil, .fault))
-            }
-    }
-    
-    func loadAllRecentPetitoin()  -> Single<([PetitionModel]?, networkingResult)> {
-        return provider.rx.request(.loadAllRecentPetitoin)
+    func sortPetition(_ type: String, accessTypes: String) -> Single<([PetitionModel]?, networkingResult)> {
+        return provider.rx.request(.sortPetition(type: type, accessTypes: accessTypes))
             .filterSuccessfulStatusCodes()
             .map([PetitionModel].self)
             .map{ return ($0, .ok) }
@@ -88,50 +87,6 @@ final class PetitionService {
     
     func loadAllPetitionVote() -> Single<([PetitionModel]?, networkingResult)> {
         return provider.rx.request(.loadAllPetitionVote)
-        .filterSuccessfulStatusCodes()
-        .map([PetitionModel].self)
-        .map{ return ($0, .ok) }
-        .catch{ error in
-            print(error)
-            return .just((nil, .fault))
-        }
-    }
-    
-    func loadAccessPetition(_ type: String) -> Single<([PetitionModel]?, networkingResult)> {
-        return provider.rx.request(.loadAccessPetition(type: type))
-        .filterSuccessfulStatusCodes()
-        .map([PetitionModel].self)
-        .map{ return ($0, .ok) }
-        .catch{ error in
-            print(error)
-            return .just((nil, .fault))
-        }
-    }
-    
-    func loadAllAccessPetition() -> Single<([PetitionModel]?, networkingResult)> {
-        return provider.rx.request(.loadAllAccessPetition)
-        .filterSuccessfulStatusCodes()
-        .map([PetitionModel].self)
-        .map{ return ($0, .ok) }
-        .catch{ error in
-            print(error)
-            return .just((nil, .fault))
-        }
-    }
-    
-    func loadWaitPetition(_ type: String) -> Single<([PetitionModel]?, networkingResult)> {
-        return provider.rx.request(.loadWaitPetition(type: type))
-        .filterSuccessfulStatusCodes()
-        .map([PetitionModel].self)
-        .map{ return ($0, .ok) }
-        .catch{ error in
-            print(error)
-            return .just((nil, .fault))
-        }
-    }
-    
-    func loadAllWaitPetition() -> Single<([PetitionModel]?, networkingResult)> {
-        return provider.rx.request(.loadAllWaitPetiton)
         .filterSuccessfulStatusCodes()
         .map([PetitionModel].self)
         .map{ return ($0, .ok) }

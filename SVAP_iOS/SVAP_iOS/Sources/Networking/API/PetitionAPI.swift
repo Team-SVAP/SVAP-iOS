@@ -2,20 +2,23 @@ import Foundation
 import Moya
 
 enum PetitionAPI {
-    case createPetition(content: [String?], image: Data)
+    case sendImage(image1: Data?, image2: Data?, image3: Data?)
+    case createPetition(title: String, content: String, types: String, location: String, image: [String]?)
     case modifyPetition(title: String, content: String, location: String, types: String, petitionId: Int)
     case deletePetition(petitionId: Int)
     case loadDetailPetition(petitionId: Int)
     case searchPetition(title: String)
     case loadPopularPetition
-    case loadRecentPetition(type: String)
-    case loadAllRecentPetitoin
+    case sortPetition(type: String, accessTypes: String)
+//    case loadRecentPetition(type: String)
+//    case loadAllRecentPetitoin
     case loadPetitionVote(type: String)
     case loadAllPetitionVote
-    case loadAccessPetition(type: String)
-    case loadAllAccessPetition
-    case loadWaitPetition(type: String)
-    case loadAllWaitPetiton
+//    case loadAccessPetition(type: String)
+//    case loadAllAccessPetition
+//    case loadWaitPetition(type: String)
+//    case loadAllWaitPetiton
+    case votePetition(petitionId: Int)
 }
 
 extension PetitionAPI: TargetType {
@@ -25,6 +28,8 @@ extension PetitionAPI: TargetType {
     
     var path: String {
         switch self {
+            case .sendImage:
+                return "/petition/image"
             case .createPetition:
                 return "/petition"
             case .modifyPetition(let petitionId):
@@ -32,40 +37,44 @@ extension PetitionAPI: TargetType {
             case .deletePetition(let petitionId):
                 return "petition/\(petitionId)"
             case .loadDetailPetition(let petitionId):
-                return "/user/\(petitionId)"
+                return "/petition/\(petitionId)"
             case .searchPetition:
                 return "/petition/search"
             case .loadPopularPetition:
                 return "/petition/popular"
-            case .loadRecentPetition(let type):
-                return "/petition/recent/\(type)"
-            case .loadAllRecentPetitoin:
-                return "/petition/recent-all"
+            case .sortPetition(type: let type, accessTypes: let accessTypes):
+                return "/petition/sort/\(type)/\(accessTypes)"
+//            case .loadRecentPetition(let type):
+//                return "/petition/recent/\(type)"
+//            case .loadAllRecentPetitoin:
+//                return "/petition/recent-all"
             case .loadPetitionVote(let type):
-                return "/vote/\(type)"
+                return "/petition/vote/\(type)"
             case .loadAllPetitionVote:
-                return "/vote-all"
-            case .loadAccessPetition(let type):
-                return "/access/\(type)"
-            case .loadAllAccessPetition:
-                return "/access-all"
-            case .loadWaitPetition(let type):
-                return "/wait\(type)"
-            case .loadAllWaitPetiton:
-                return "/wait-all"
+                return "/petition/vote-all"
+//            case .loadAccessPetition(let type):
+//                return "/petition/access/\(type)"
+//            case .loadAllAccessPetition:
+//                return "/petition/access-all"
+//            case .loadWaitPetition(let type):
+//                return "/petition/wait/\(type)"
+//            case .loadAllWaitPetiton:
+//                return "/petition/wait-all"
+            case .votePetition(let petitionId):
+                return"/vote/\(petitionId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-            case .createPetition:
-                return .post
-            case .searchPetition:
+            case .sendImage, .createPetition, .searchPetition:
                 return .post
             case .modifyPetition:
                 return .patch
             case .deletePetition:
                 return .delete
+            case .votePetition:
+                return .patch
             default:
                 return .get
         }
@@ -73,24 +82,21 @@ extension PetitionAPI: TargetType {
     
     var task: Moya.Task {
         switch self {
-            case .createPetition(let content, let image):
+            case .sendImage(let image1, let image2, let image3):
                 var multipart: [MultipartFormData] = []
-                
-//                multipart.append(MultipartFormData(provider: .data(content.data(using: .utf8)!), name: "{title, content, types, location"))
-                multipart.append(.init(provider: .data(content.description.data(using: .utf8)!), name: "{title, content, types, location}"))
-//                multipart.append(MultipartFormData(provider: .data(content.data(using: .utf8)!), name: "content"))
-//                multipart.append(MultipartFormData(provider: .data(types.data(using: .utf8)!), name: "types"))
-//                multipart.append(MultipartFormData(provider: .data(location.data(using: .utf8)!), name: "location"))
-                image.forEach({_ in 
-                    multipart.append(
-                        .init(
-                            provider: .data(image),
-                            name: "image",
-                            fileName: "image.jpg",
-                            mimeType: "image/jpg"
-                        ))
-                })
+                multipart.append(.init(provider: .data(image1!), name: "imageUrl"))
+                multipart.append(.init(provider: .data(image2!), name: "imageUrl"))
+                multipart.append(.init(provider: .data(image3!), name: "imageUrl"))
                 return .uploadMultipart(multipart)
+            case .createPetition(let title, let content, let types, let location, let image):
+                return .requestParameters(
+                    parameters: [
+                        "title" : title,
+                        "content" : content,
+                        "types" : types,
+                        "location" : location,
+                        "imageUrlList": [image]
+                    ], encoding: JSONEncoding.default)
             case .searchPetition(let title):
                 return .requestParameters(
                     parameters: [
@@ -111,7 +117,7 @@ extension PetitionAPI: TargetType {
     
     var headers: [String : String]? {
         switch self {
-            case .createPetition, .modifyPetition, .deletePetition:
+            case .sendImage, .createPetition, .modifyPetition, .deletePetition, .votePetition:
                 return Header.accessToken.header()
             default:
                 return Header.tokenIsEmpty.header()
