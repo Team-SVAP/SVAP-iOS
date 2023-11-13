@@ -10,7 +10,6 @@ enum AuthAPI {
     case loadUserInfo
     case loadUserPetition
     case idCheck(accountId: String)
-    case nameCheck(userName: String)
     case passwordCheck(password: String)
 }
 
@@ -33,8 +32,6 @@ extension AuthAPI: TargetType {
                 return "/user"
             case .idCheck:
                 return "/user/ck-account-id"
-            case .nameCheck:
-                return "/user/ck-username"
             case .passwordCheck:
                 return "/user/ck-password"
         }
@@ -68,11 +65,6 @@ extension AuthAPI: TargetType {
                 return .requestParameters(
                     parameters: [
                         "accountId": accountId
-                    ], encoding: JSONEncoding.default)
-            case .nameCheck(let userName):
-                return .requestParameters(
-                    parameters: [
-                        "username": userName
                     ], encoding: JSONEncoding.default)
             case .passwordCheck(let password):
                 return .requestParameters(
