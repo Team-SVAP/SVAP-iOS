@@ -11,19 +11,19 @@ class UserPetitionViewModel: ViewModelType {
     }
     
     struct Output {
-        let userPetition: BehaviorRelay<[UserPetitionResponse]>
+        let userPetition: BehaviorRelay<[PetitionModel]>
     }
     
     func transform(_ input: Input) -> Output {
         let api = AuthService()
-        let userPetition = BehaviorRelay<[UserPetitionResponse]>(value: [])
+        let userPetition = BehaviorRelay<[PetitionModel]>(value: [])
         
         input.viewAppear.asObservable()
             .flatMap{ api.loadUserPetition() }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
-                        userPetition.accept(data!.userPetitionList)
+                        userPetition.accept(data!)
                     default:
                         return
                 }
