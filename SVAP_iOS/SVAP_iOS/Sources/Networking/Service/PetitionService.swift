@@ -74,6 +74,17 @@ final class PetitionService {
             }
     }
     
+    func sortAllPetition(_ accessType: String) -> Single<([PetitionModel]?, networkingResult)>  {
+        return provider.rx.request(.sortAllPetition(accessType: accessType))
+            .filterSuccessfulStatusCodes()
+            .map([PetitionModel].self)
+            .map{ return ($0, .ok) }
+            .catch{ error in
+                print(error)
+                return .just((nil, .fault))
+            }
+    }
+ 
     func loadPetitionVote(_ type: String) -> Single<([PetitionModel]?, networkingResult)> {
         return provider.rx.request(.loadPetitionVote(type: type))
             .filterSuccessfulStatusCodes()
@@ -94,6 +105,16 @@ final class PetitionService {
             print(error)
             return .just((nil, .fault))
         }
+    }
+    
+    func votePetition(_ petitionId: Int) -> Single<networkingResult> {
+        return provider.rx.request(.votePetition(petitionId: petitionId))
+            .filterSuccessfulStatusCodes()
+            .map{ _ -> networkingResult in
+                print("Success")
+                return .ok
+            }
+            .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
     func setNetworkError(_ error: Error) -> networkingResult {
