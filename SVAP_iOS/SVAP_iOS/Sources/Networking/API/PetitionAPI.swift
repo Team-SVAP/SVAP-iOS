@@ -10,14 +10,9 @@ enum PetitionAPI {
     case searchPetition(title: String)
     case loadPopularPetition
     case sortPetition(type: String, accessTypes: String)
-//    case loadRecentPetition(type: String)
-//    case loadAllRecentPetitoin
+    case sortAllPetition(accessType: String)
     case loadPetitionVote(type: String)
     case loadAllPetitionVote
-//    case loadAccessPetition(type: String)
-//    case loadAllAccessPetition
-//    case loadWaitPetition(type: String)
-//    case loadAllWaitPetiton
     case votePetition(petitionId: Int)
 }
 
@@ -44,22 +39,12 @@ extension PetitionAPI: TargetType {
                 return "/petition/popular"
             case .sortPetition(type: let type, accessTypes: let accessTypes):
                 return "/petition/sort/\(type)/\(accessTypes)"
-//            case .loadRecentPetition(let type):
-//                return "/petition/recent/\(type)"
-//            case .loadAllRecentPetitoin:
-//                return "/petition/recent-all"
+            case .sortAllPetition(accessType: let accessType):
+                return "/petition/sort-all/\(accessType)"
             case .loadPetitionVote(let type):
                 return "/petition/vote/\(type)"
             case .loadAllPetitionVote:
                 return "/petition/vote-all"
-//            case .loadAccessPetition(let type):
-//                return "/petition/access/\(type)"
-//            case .loadAllAccessPetition:
-//                return "/petition/access-all"
-//            case .loadWaitPetition(let type):
-//                return "/petition/wait/\(type)"
-//            case .loadAllWaitPetiton:
-//                return "/petition/wait-all"
             case .votePetition(let petitionId):
                 return"/vote/\(petitionId)"
         }
