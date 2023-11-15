@@ -59,7 +59,7 @@ class PetitionViewModel: ViewModelType {
         
         //MARK: 최신순으로 보기
         input.allRecentPetition.asObservable()
-            .flatMap { api.loadAllRecentPetitoin() }
+            .flatMap{ api.sortAllPetition("NORMAL") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -70,7 +70,7 @@ class PetitionViewModel: ViewModelType {
             }).disposed(by: disposeBag)
         
         input.schoolRecentPetiton.asObservable()
-            .flatMap { api.loadRecentPetition("SCHOOL") }
+            .flatMap{ api.sortPetition("SCHOOL", accessTypes: "NORMAL") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -81,7 +81,7 @@ class PetitionViewModel: ViewModelType {
             }).disposed(by: disposeBag)
         
         input.dormRecentPetition.asObservable()
-            .flatMap { api.loadRecentPetition("DORMITORY") }
+            .flatMap{ api.sortPetition("DORMITORY", accessTypes: "NORMAL") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -93,7 +93,7 @@ class PetitionViewModel: ViewModelType {
         
         //MARK: 승인된 청원 보기
         input.allAccessPetition.asObservable()
-            .flatMap { api.loadAllAccessPetition() }
+            .flatMap{ api.sortAllPetition("APPROVAL") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -104,7 +104,7 @@ class PetitionViewModel: ViewModelType {
             }).disposed(by: disposeBag)
         
         input.schoolAccessPetition.asObservable()
-            .flatMap{ api.loadAccessPetition("SCHOOL")}
+            .flatMap{ api.sortPetition("SCHOOL", accessTypes: "APPROVAL") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -115,7 +115,7 @@ class PetitionViewModel: ViewModelType {
             }).disposed(by: disposeBag)
         
         input.dormAccessPetition.asObservable()
-            .flatMap{ api.loadAccessPetition("DORMITORY") }
+            .flatMap{ api.sortPetition("DORMITORY", accessTypes: "APPROVAL") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -159,7 +159,7 @@ class PetitionViewModel: ViewModelType {
         
         //MARK: 검토중인 청원 보기
         input.allWaitPetition.asObservable()
-            .flatMap{ api.loadAllWaitPetition() }
+            .flatMap{ api.sortAllPetition("WAITING") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -169,7 +169,7 @@ class PetitionViewModel: ViewModelType {
                 }
             }).disposed(by: disposeBag)
         input.schoolWaitPetition.asObservable()
-            .flatMap{ api.loadWaitPetition("SCHOOL") }
+            .flatMap{ api.sortPetition("SCHOOL", accessTypes: "WAITING") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -179,7 +179,7 @@ class PetitionViewModel: ViewModelType {
                 }
             }).disposed(by: disposeBag)
         input.dormWaitPetition.asObservable()
-            .flatMap{ api.loadWaitPetition("DORMITORY") }
+            .flatMap{ api.sortPetition("DORMITORY", accessTypes: "WAITING") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
