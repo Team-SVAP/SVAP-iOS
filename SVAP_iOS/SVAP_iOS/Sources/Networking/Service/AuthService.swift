@@ -20,10 +20,20 @@ final class AuthService {
             .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
-    func idDuplication(_ id: String) -> Single<networkingResult> {
-        return provider.rx.request(.idDuplication(accountId: id))
+    func idCheck(_ id: String) -> Single<networkingResult> {
+        return provider.rx.request(.idCheck(accountId: id))
             .filterSuccessfulStatusCodes()
             .map{ _ -> networkingResult in
+                print("Success")
+                return .ok
+            }
+            .catch{[unowned self] in return .just(setNetworkError($0))}
+    }
+    
+    func passwordCheck(_ password: String) -> Single<networkingResult> {
+        return provider.rx.request(.passwordCheck(password: password))
+            .filterSuccessfulStatusCodes()
+            .map { _ -> networkingResult in
                 print("Success")
                 return .ok
             }
