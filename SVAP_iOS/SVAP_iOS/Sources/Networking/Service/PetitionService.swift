@@ -117,6 +117,16 @@ final class PetitionService {
             .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
+    func reportPetition(_ petitionId: Int) -> Single<networkingResult> {
+        return provider.rx.request(.reportPetition(petitionId: petitionId))
+            .filterSuccessfulStatusCodes()
+            .map{ _ -> networkingResult in
+                print("Success")
+                return .ok
+            }
+            .catch{[unowned self] in return .just(setNetworkError($0))}
+    }
+    
     func setNetworkError(_ error: Error) -> networkingResult {
            print(error)
            print(error.localizedDescription)

@@ -14,6 +14,7 @@ enum PetitionAPI {
     case loadPetitionVote(type: String)
     case loadAllPetitionVote
     case votePetition(petitionId: Int)
+    case reportPetition(petitionId: Int)
 }
 
 extension PetitionAPI: TargetType {
@@ -37,7 +38,7 @@ extension PetitionAPI: TargetType {
                 return "/petition/search"
             case .loadPopularPetition:
                 return "/petition/popular"
-            case .sortPetition(type: let type, accessTypes: let accessTypes):
+            case .sortPetition(let type, let accessTypes):
                 return "/petition/sort/\(type)/\(accessTypes)"
             case .sortAllPetition(accessType: let accessType):
                 return "/petition/sort-all/\(accessType)"
@@ -46,13 +47,15 @@ extension PetitionAPI: TargetType {
             case .loadAllPetitionVote:
                 return "/petition/vote-all"
             case .votePetition(let petitionId):
-                return"/vote/\(petitionId)"
+                return "/vote/\(petitionId)"
+            case .reportPetition(let petitionId):
+                return "/report/\(petitionId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-            case .sendImage, .createPetition, .searchPetition:
+            case .sendImage, .createPetition, .searchPetition, .reportPetition:
                 return .post
             case .modifyPetition:
                 return .patch
@@ -102,7 +105,7 @@ extension PetitionAPI: TargetType {
     
     var headers: [String : String]? {
         switch self {
-            case .sendImage, .createPetition, .modifyPetition, .deletePetition, .votePetition:
+            case .sendImage, .createPetition, .modifyPetition, .deletePetition, .votePetition, .reportPetition:
                 return Header.accessToken.header()
             default:
                 return Header.tokenIsEmpty.header()
