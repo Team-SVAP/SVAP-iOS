@@ -4,9 +4,7 @@ import Then
 
 class CustomTextView: UITextView {
     
-    init(
-        
-    ) {
+    init() {
         super.init(frame: .zero, textContainer: .none)
         self.textContainer.maximumNumberOfLines = 1
         self.textColor = UIColor(named: "gray-800")

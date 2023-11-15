@@ -9,7 +9,6 @@ class DetailPetitionAlertViewModel: ViewModelType {
     struct Input {
         let petitionId: Int
         let deleteTap: Signal<Void>
-        let modifyTap: Signal<Void>
     }
     
     struct Output {

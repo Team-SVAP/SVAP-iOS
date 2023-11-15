@@ -1,7 +1,6 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Moya
 
 class UserIdViewController: BaseVC {
     
@@ -105,7 +104,7 @@ class UserIdViewController: BaseVC {
                 SignupInfo.shared.accountId.accept(self.idTextField.text)
                 self.pushViewController(UserPasswordViewController())
             } else {
-                self.idDuplicationLabel.text = "이미 존재하는 아이디입니다."
+                self.idDuplicationLabel.text = "아이디를 확인해주세요"//멘트 바꿀까
             }
         }).disposed(by: disposeBag)
     }

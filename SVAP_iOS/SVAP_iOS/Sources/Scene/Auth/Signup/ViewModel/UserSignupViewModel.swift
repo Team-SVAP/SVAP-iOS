@@ -3,7 +3,7 @@ import RxSwift
 import RxCocoa
 import Moya
 
-class UserSignupViewModel: ViewModelType {
+class UserNameViewModel: ViewModelType {
     
     private let disposeBag = DisposeBag()
     
@@ -13,7 +13,7 @@ class UserSignupViewModel: ViewModelType {
     }
     
     struct Output {
-        let result: PublishRelay<Bool>
+        let signupResult: PublishRelay<Bool>
     }
     
     func transform(_ input: Input) -> Output {
@@ -22,7 +22,7 @@ class UserSignupViewModel: ViewModelType {
         
         input.doneTap
             .asObservable()
-            .flatMap{
+            .flatMap {
                 api.signup(input.signup)
             }.subscribe(onNext: { res in
                 switch res {
@@ -32,7 +32,8 @@ class UserSignupViewModel: ViewModelType {
                         result .accept(false)
                 }
             }).disposed(by: disposeBag)
-        return Output(result: result)
+    
+        return Output(signupResult: result)
     }
     
 }

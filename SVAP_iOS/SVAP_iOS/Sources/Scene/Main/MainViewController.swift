@@ -11,7 +11,7 @@ class MainViewController: BaseVC {
     private let viewAppear = PublishRelay<Void>()
     
     let sideMenu = SideMenuNavigationController(rootViewController: SideMenuViewController())
-    var isExpanded = false
+    var isClick = false
     var data = [MainCell.self, ApprovedCell.self]
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
     private let menuButton = UIButton(type: .system).then {
@@ -172,8 +172,8 @@ class MainViewController: BaseVC {
             }).disposed(by: disposeBag)
         viewContentButton.rx.tap
             .subscribe(onNext: {
-                self.isExpanded.toggle()
-                if self.isExpanded {
+                self.isClick.toggle()
+                if self.isClick {
                     self.famousPetitionContentLabel.numberOfLines = 0
                 } else {
                     self.famousPetitionContentLabel.numberOfLines = 7

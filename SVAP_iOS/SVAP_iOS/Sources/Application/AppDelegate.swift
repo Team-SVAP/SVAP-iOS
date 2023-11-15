@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  SVAP_iOS
-//
-//  Created by 조영준 on 2023/09/16.
-//
-
 import UIKit
 
 @main

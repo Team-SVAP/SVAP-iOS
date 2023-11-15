@@ -6,7 +6,7 @@ import Moya
 class UserNameViewController: BaseVC {
     
     private let disposeBag = DisposeBag()
-    private let viewModel = UserSignupViewModel()
+    private let viewModel = UserNameViewModel()
     
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
     private let signupLabel = UILabel().then {
@@ -22,6 +22,9 @@ class UserNameViewController: BaseVC {
     private let nameTextField = CustomTextField(placeholder: "이름 (2~5자)", isSecure: false).then {
         $0.keyboardType = .default
     }
+    private let nameDuplicationLabel = UILabel().then {
+        $0.textColor = .red
+    }
     private let buttonStackView = UIStackView().then {
         $0.axis = .vertical
         $0.alignment = .center
@@ -29,9 +32,6 @@ class UserNameViewController: BaseVC {
         $0.spacing = 4
     }
     private let signupButton = CustomButton(type: .system, title: "회원가입", titleColor: .white, backgroundColor: UIColor(named: "main-4")!)
-//   private let signupButton = CustomButton(type: .system, title: "회원가입", titleColor: .white, backgroundColor: UIColor(named: "main-4")!).then {
-//        $0.addTarget(self, action: #selector(clickSignup), for: .touchUpInside)
-//    }
     private let loginStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 8
@@ -48,7 +48,6 @@ class UserNameViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupKeyboardObservers()
-        textFieldDidChange()
     }
     override func configureUI() {
         [
@@ -56,6 +55,7 @@ class UserNameViewController: BaseVC {
             signupLabel,
             progressLabel,
             nameTextField,
+            nameDuplicationLabel,
             loginStackView,
             buttonStackView
         ].forEach({ view.addSubview($0) })
@@ -82,6 +82,10 @@ class UserNameViewController: BaseVC {
             $0.left.right.equalToSuperview().inset(45)
             $0.height.equalTo(50)
         }
+        nameDuplicationLabel.snp.makeConstraints {
+            $0.top.equalTo(nameTextField.snp.bottom).offset(8)
+            $0.left.equalToSuperview().inset(45)
+        }
         signupButton.snp.makeConstraints {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(50)
@@ -97,16 +101,20 @@ class UserNameViewController: BaseVC {
         super.bind()
         
         let signup = SignupInfo.shared
-        let input = UserSignupViewModel.Input(signup: signup, doneTap: signupButton.rx.tap.asSignal())
+        let input = UserNameViewModel.Input(
+            signup: signup,
+            doneTap: signupButton.rx.tap.asSignal()
+        )
         let output = viewModel.transform(input)
         
-        output.result.subscribe(onNext: { bool in
+        output.signupResult.subscribe(onNext: { bool in
             if bool {
                 self.pushViewController(LoginViewController())
             } else {
                 print("Fail")
             }
         }).disposed(by: disposeBag)
+        
     }
     
     override func subscribe() {
@@ -114,9 +122,7 @@ class UserNameViewController: BaseVC {
             .subscribe(onNext: {
                 self.pushViewController(LoginViewController())
             }).disposed(by: disposeBag)
-    }
-    
-    func textFieldDidChange() {
+        
         nameTextField.rx.text
             .subscribe(onNext: { text in
                 if text!.isEmpty {
@@ -130,7 +136,9 @@ class UserNameViewController: BaseVC {
                     self.signupButton.isEnabled = true
                 }
             }).disposed(by: disposeBag)
+        
     }
+    
 }
 
 extension UserNameViewController {
