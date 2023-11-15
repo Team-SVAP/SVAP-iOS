@@ -1,14 +1,17 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
 
 class ApprovedCell: UICollectionViewCell {
+    
+    private let disposeBag = DisposeBag()
     
     static let id = "ApprovedCell"
     let cellImage = UIImageView(image: UIImage(named: "approvedCell"))
     let moveButton = UIButton(type: .system).then {
         $0.setTitle("바로가기", for: .normal)
-        $0.setImage(UIImage(named: "slash"), for: .normal)
+        $0.setImage(UIImage(named: "rightArrow"), for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
         $0.setTitleColor(UIColor(named: "gray-700"), for: .normal)
         $0.semanticContentAttribute = .forceRightToLeft
@@ -37,4 +40,12 @@ class ApprovedCell: UICollectionViewCell {
             $0.left.equalToSuperview().inset(52)
         }
     }
+    
+//    func subscribe() {
+//        
+//        moveButton.rx.tap
+//            .subscribe(onNext: {
+//                self
+//            })
+//    }
 }
