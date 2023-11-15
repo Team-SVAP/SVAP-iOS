@@ -5,6 +5,7 @@ import RxCocoa
 class UserPasswordViewController: BaseVC {
     
     private let disposeBag = DisposeBag()
+    private let viewModel = UserPasswordViewModel()
     
     private var eyeButton = UIButton(type: .custom)
     private var checkEyeButton = UIButton(type: .custom)
@@ -103,11 +104,25 @@ class UserPasswordViewController: BaseVC {
         }
         
     }
+    override func bind() {
+        super.bind()
+        
+        let input = UserPasswordViewModel.Input(password: passwordTextField.rx.text.orEmpty.asDriver(), doneTap: nextButton.rx.tap.asSignal())
+        let output = viewModel.transform(input)
+        
+        output.result.subscribe(onNext: { bool in
+            if bool {
+                self.pushViewController(UserNameViewController())
+            } else {
+                self.passwordValidLabel.text = "비밀번호를 다시 확인해주세요"
+            }
+        }).disposed(by: disposeBag)
+    }
     
     override func subscribe() {
         super.subscribe()
         
-        let textfield = Observable.combineLatest(passwordTextField.rx.text.orEmpty, passwordValidTextField.rx.text.orEmpty)
+        let textfield = Observable.combineLatest(passwordTextField.rx.text.orEmpty.changed, passwordValidTextField.rx.text.orEmpty.changed)
         textfield
             .map{ $0.count != 0 && $1.count != 0 && $0 == $1 }
             .subscribe(onNext: { change in
@@ -141,11 +156,6 @@ class UserPasswordViewController: BaseVC {
                 } else {
                     self.passwordValidTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
                 }
-            }).disposed(by: disposeBag)
-        
-        nextButton.rx.tap
-            .subscribe(onNext: {
-                self.pushViewController(UserNameViewController())
             }).disposed(by: disposeBag)
         
         loginButton.rx.tap
