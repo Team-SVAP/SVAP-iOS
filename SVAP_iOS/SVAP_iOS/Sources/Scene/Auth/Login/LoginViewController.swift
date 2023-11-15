@@ -47,7 +47,6 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
         super.viewDidLoad()
         setupKeyboardObservers()
         showPasswordButton()
-        textFieldDidChange()
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     override func configureUI() {
@@ -117,6 +116,40 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
     }
     
     override func subscribe() {
+        super.subscribe()
+        
+        let textField = Observable.combineLatest(idTextField.rx.text.orEmpty, passwordTextField.rx.text.orEmpty)
+        textField
+            .map{ $0.count != 0 && $1.count != 0 }
+            .subscribe(onNext: { change in
+                self.loginButton.isEnabled = change
+                switch change {
+                    case true:
+                        self.loginButton.backgroundColor = UIColor(named: "main-2")
+                    case false:
+                        self.loginButton.backgroundColor = UIColor(named: "main-4")
+                        
+                }
+            }).disposed(by: disposeBag)
+        
+        idTextField.rx.text.orEmpty
+            .subscribe(onNext: {
+                if $0.isEmpty {
+                    self.idTextField.borderColor(UIColor(named: "gray-300")!)
+                } else {
+                    self.idTextField.borderColor(UIColor(named: "main-2")!)
+                }
+            }).disposed(by: disposeBag)
+        
+        passwordTextField.rx.text.orEmpty
+            .subscribe(onNext: {
+                if $0.isEmpty {
+                    self.passwordTextField.borderColor(UIColor(named: "gray-300")!)
+                } else {
+                    self.passwordTextField.borderColor(UIColor(named: "main-2")!)
+                }
+            }).disposed(by: disposeBag)
+        
         signupButton.rx.tap
             .subscribe(onNext: {
                 self.pushViewController(UserIdViewController())
@@ -163,41 +196,6 @@ extension LoginViewController {
             self.loginStackView.transform = .identity
         }
     }
-    
-    func textFieldDidChange() {
-        let textField = Observable.combineLatest(idTextField.rx.text.orEmpty, passwordTextField.rx.text.orEmpty)
-        textField
-            .map{ $0.count != 0 && $1.count != 0 }
-            .subscribe(onNext: { change in
-                self.loginButton.isEnabled = change
-                switch change {
-                    case true:
-                        self.loginButton.backgroundColor = UIColor(named: "main-2")
-                    case false:
-                        self.loginButton.backgroundColor = UIColor(named: "main-4")
-                        
-                }
-            }).disposed(by: disposeBag)
-        
-        idTextField.rx.text.orEmpty
-            .subscribe(onNext: {
-                if $0.isEmpty {
-                    self.idTextField.borderColor(UIColor(named: "gray-300")!)
-                } else {
-                    self.idTextField.borderColor(UIColor(named: "main-2")!)
-                }
-            }).disposed(by: disposeBag)
-        
-        passwordTextField.rx.text.orEmpty
-            .subscribe(onNext: {
-                if $0.isEmpty {
-                    self.passwordTextField.borderColor(UIColor(named: "gray-300")!)
-                } else {
-                    self.passwordTextField.borderColor(UIColor(named: "main-2")!)
-                }
-            }).disposed(by: disposeBag)
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == idTextField {
             passwordTextField.becomeFirstResponder()
