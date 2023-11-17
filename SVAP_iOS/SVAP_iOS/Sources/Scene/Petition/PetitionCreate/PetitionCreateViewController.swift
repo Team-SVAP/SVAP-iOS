@@ -4,10 +4,11 @@ import RxCocoa
 import RxGesture
 import Moya
 
-class EditPetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UITextViewDelegate {
+class PetitionCreateViewController: BaseVC, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     private let disposeBag = DisposeBag()
     
+    var petitonType = "SCHOOL"
     lazy var labelArray = [titleLabel, typeLabel, placeLabel, contentLabel]
     lazy var imageViewArray = [firstImageView, secondImageView, thirdImageView]
     let leftButton = UIButton(type: .system).then {
@@ -45,7 +46,6 @@ class EditPetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCont
         $0.layer.cornerRadius = 8
     }
     private let petitionTypeLabel = UILabel().then {
-        $0.text = nil
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
@@ -108,12 +108,6 @@ class EditPetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCont
         navigationBarSetting()
         self.navigationItem.hidesBackButton = false
         labelArray.forEach({ labelSetting($0) })
-        titleTextField.delegate = self
-        placeTextField.delegate = self
-        contentTextView.delegate = self
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     override func configureUI() {
         super.configureUI()
@@ -207,7 +201,12 @@ class EditPetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCont
                 self.popViewController()
             }).disposed(by: disposeBag)
         
+        rightButton.rx.tap
+            .subscribe(onNext: {
+                self.clickRightBarButton()
+            }).disposed(by: disposeBag)
         firstImageView.rx.tapGesture()
+        
             .when(.recognized)
             .subscribe(onNext: {_ in
                 self.clickImageView()
@@ -218,7 +217,7 @@ class EditPetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCont
                 self.clickMenuButton()
             }).disposed(by: disposeBag)
         
-        contentTextView.rx.didChange
+        contentTextView.rx.didBeginEditing
             .subscribe(onNext: { [self] in
                 if contentTextView.textColor == UIColor(named: "gray-400") {
                     contentTextView.text = nil
@@ -229,66 +228,74 @@ class EditPetitionViewController: BaseVC, UITextFieldDelegate, UIImagePickerCont
             }).disposed(by: disposeBag)
         contentTextView.rx.didEndEditing
             .subscribe(onNext: { [self] in
-                updateButtonState()
                 if contentTextView.text.isEmpty {
                     contentTextView.text = "내용을 입력하세요."
                     contentTextView.textColor = UIColor(named: "gray-400")
                     contentTextView.font = UIFont(name: "IBMPlexSansKR-Regular", size: 12)
                 }
-                contentTextView.layer.borderColor = UIColor(named: "gray-400")?.cgColor
+                contentTextView.layer.borderColor = UIColor(named: "main-1")?.cgColor
             }).disposed(by: disposeBag)
+        
+        titleTextField.rx.text.orEmpty
+            .subscribe(onNext: {
+                if $0.isEmpty {
+                    self.titleTextField.borderColor(UIColor(named: "gray-400")!)
+                } else {
+                    self.titleTextField.borderColor(UIColor(named: "main-1")!)
+                }
+            }).disposed(by: disposeBag)
+        
+        placeTextField.rx.text.orEmpty
+            .subscribe(onNext: {
+                if $0.isEmpty {
+                    self.placeTextField.borderColor(UIColor(named: "gray-400")!)
+                } else {
+                    self.placeTextField.borderColor(UIColor(named: "main-1")!)
+                }
+            }).disposed(by: disposeBag)
+        
+        let text = Observable.combineLatest(titleTextField.rx.text, contentTextView.rx.text, placeTextField.rx.text)
+        text.subscribe(onNext: {
+            if ($0!.count != 0 && $1!.count != 0 && $2!.count != 0) {
+                self.rightButton.isEnabled = true
+            } else {
+                self.rightButton.isEnabled = false
+            }
+        }).disposed(by: disposeBag)
+         
     }
     
-    func updateButtonState() {
-        let title = !(titleTextField.text!.isEmpty)
-        let type = ((petitionTypeLabel.text?.isEmpty) != nil)
-        let place = !(placeTextField.text!.isEmpty)
-        let content = !(contentTextView.text.isEmpty)
+    private func clickRightBarButton() {
         
-        if title && type && place && content {
-            navigationItem.rightBarButtonItem?.isEnabled = true
-            rightButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
-        } else {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-            rightButton.setTitleColor(UIColor(named: "gray-600"), for: .normal)
+        if petitionTypeLabel.text == "기숙사청원" {
+            petitonType = "DORMITORY"
+        }
+        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
+        
+        provider.request(.createPetition(title: titleTextField.text!, content: contentTextView.text!, types: petitonType, location: placeTextField.text!, image: nil)) { res in
+            switch res {
+                case .success(let result):
+                    switch result.statusCode {
+                        case 201:
+                            print("Success")
+                            self.popViewController()
+                        default:
+                            print("Fail: \(result.statusCode)")
+                    }
+                case .failure(let err):
+                    print("Request Error: \(err.localizedDescription)")
+            }
         }
     }
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = UIColor(named: "main-1")?.cgColor
-    }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        updateButtonState()
-        textField.layer.borderColor = UIColor(named: "gray-400")?.cgColor
-    }
     
-    @objc private func clickRightBarButton() {
-        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
-        let array = [titleTextField.text, petitionTypeLabel.text, placeTextField.text, contentTextView.text]
-        
-        //content에 array넣는 법 알아내기
-//        provider.request(.createPetition(content: <#[String?]#>, image: firstImageView.image?.jpegData(compressionQuality: 0.1) ?? Data())) { res in
-//            switch res {
-//                case .success(let result):
-//                    switch result.statusCode {
-//                        case 200:
-//                            print("Success")
-//                            self.navigationController?.popViewController(animated: true)
-//                        default:
-//                            print("Fail: \(result.statusCode)")
-//                    }
-//                case .failure(let err):
-//                    print("Request Error: \(err.localizedDescription)")
-//            }
-//        }
-    }
 }
 
-extension EditPetitionViewController {
+extension PetitionCreateViewController {
     
     private func clickMenuButton() {
         let petitionClosure = UINavigationController(rootViewController: CustomMenu(closure: { [weak self] petition in
             self?.petitionTypeLabel.text = petition
-            self?.updateButtonState()
+            self?.typeView.layer.borderColor = UIColor(named: "main-1")?.cgColor
         }))
         petitionClosure.modalPresentationStyle = .overFullScreen
         petitionClosure.modalTransitionStyle = .crossDissolve
@@ -323,14 +330,12 @@ extension EditPetitionViewController {
     func navigationBarSetting() {
         navigationItem.hidesBackButton = true
         let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
-        title.text = "수정하기"
+        title.text = "청원하기"
         title.textColor = UIColor(named: "gray-800")
         title.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
         title.textAlignment = .center
         navigationItem.titleView = title
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
-        
-        rightButton.addTarget(self, action: #selector(clickRightBarButton), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
