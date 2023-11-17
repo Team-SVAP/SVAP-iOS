@@ -20,7 +20,7 @@ class PetitionViewController: BaseVC {
     private let schoolWaitPetition = PublishRelay<Void>()
     private let dormWaitPetition = PublishRelay<Void>()
     
-    private let leftbutton = UIButton(type: .system).then {
+    private let backButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
     }
@@ -65,7 +65,6 @@ class PetitionViewController: BaseVC {
         super.viewDidLoad()
         navigationBarSetting()
         tableView.delegate = self
-        self.navigationItem.hidesBackButton = false
     }
     override func viewWillAppear(_ animated: Bool) {
         allRecentPetition.accept(())
@@ -208,7 +207,7 @@ class PetitionViewController: BaseVC {
                 self.buttonColor(all: UIColor(named: "gray-400"), school: UIColor(named: "gray-400"), dormitory: UIColor(named: "main-1"))
             }).disposed(by: disposeBag)
         
-        leftbutton.rx.tap
+        backButton.rx.tap
             .subscribe(onNext: {
                 self.popViewController()
             }).disposed(by: disposeBag)
@@ -231,8 +230,7 @@ class PetitionViewController: BaseVC {
         title.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
         title.textAlignment = .center
         navigationItem.titleView = title
-        navigationItem.hidesBackButton = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
     }
     
 }

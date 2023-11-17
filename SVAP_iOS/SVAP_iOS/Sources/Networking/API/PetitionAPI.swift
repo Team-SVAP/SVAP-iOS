@@ -4,7 +4,7 @@ import Moya
 enum PetitionAPI {
     case sendImage(image1: Data?, image2: Data?, image3: Data?)
     case createPetition(title: String, content: String, types: String, location: String, image: [String]?)
-    case modifyPetition(title: String, content: String, location: String, types: String, petitionId: Int)
+    case editPetition(title: String, content: String, location: String, types: String, petitionId: Int)
     case deletePetition(petitionId: Int)
     case loadDetailPetition(petitionId: Int)
     case searchPetition(title: String)
@@ -28,7 +28,7 @@ extension PetitionAPI: TargetType {
                 return "/petition/image"
             case .createPetition:
                 return "/petition"
-            case .modifyPetition(let petitionId):
+            case .editPetition(let petitionId):
                 return "/petition/\(petitionId)"
             case .deletePetition(let petitionId):
                 return "petition/\(petitionId)"
@@ -57,7 +57,7 @@ extension PetitionAPI: TargetType {
         switch self {
             case .sendImage, .createPetition, .searchPetition, .reportPetition:
                 return .post
-            case .modifyPetition:
+            case .editPetition:
                 return .patch
             case .deletePetition:
                 return .delete
@@ -90,7 +90,7 @@ extension PetitionAPI: TargetType {
                     parameters: [
                         "title": title
                     ], encoding: JSONEncoding.default)
-            case .modifyPetition(let title, let content, let location, let types, _):
+            case .editPetition(let title, let content, let location, let types, _):
                 return .requestParameters(
                     parameters: [
                         "title": title,
@@ -105,7 +105,7 @@ extension PetitionAPI: TargetType {
     
     var headers: [String : String]? {
         switch self {
-            case .sendImage, .createPetition, .modifyPetition, .deletePetition, .votePetition, .reportPetition:
+            case .sendImage, .createPetition, .editPetition, .deletePetition, .votePetition, .reportPetition:
                 return Header.accessToken.header()
             default:
                 return Header.tokenIsEmpty.header()

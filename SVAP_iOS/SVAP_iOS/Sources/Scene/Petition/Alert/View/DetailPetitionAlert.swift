@@ -24,7 +24,7 @@ class DetailPetitionAlert: BaseVC {
         $0.tintColor = UIColor(named: "gray-800")
     }
     private let deleteButton = PetitionDetailButton(type: .system, title: "삭제하기", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white)
-    private let modifyButton = PetitionDetailButton(type: .system, title: "수정하기", titleColor: UIColor(named: "gray-000")!, backgroundColor: UIColor(named: "main-2")!)
+    private let editButton = PetitionDetailButton(type: .system, title: "수정하기", titleColor: UIColor(named: "gray-000")!, backgroundColor: UIColor(named: "main-2")!)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,7 @@ class DetailPetitionAlert: BaseVC {
             moreViewLabel,
             closeButton,
             deleteButton,
-            modifyButton
+            editButton
         ].forEach({ backgroundView.addSubview($0) })
     }
     override func setupConstraints() {
@@ -62,7 +62,7 @@ class DetailPetitionAlert: BaseVC {
             $0.width.equalTo(140)
             $0.height.equalTo(50)
         }
-        modifyButton.snp.makeConstraints {
+        editButton.snp.makeConstraints {
             $0.right.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().inset(24)
             $0.width.equalTo(140)
@@ -94,9 +94,9 @@ class DetailPetitionAlert: BaseVC {
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
-        modifyButton.rx.tap
+        editButton.rx.tap
             .subscribe(onNext: {
-                self.pushViewController(ModifyPetitionViewController())
+                self.pushViewController(EditPetitionViewController())
             }).disposed(by: disposeBag)
         
     }
