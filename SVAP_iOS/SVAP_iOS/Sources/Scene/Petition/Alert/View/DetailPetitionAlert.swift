@@ -96,7 +96,7 @@ class DetailPetitionAlert: BaseVC {
         
         editButton.rx.tap
             .subscribe(onNext: {
-                self.pushViewController(EditPetitionViewController())
+                self.pushViewController(PetitionEditViewController())
             }).disposed(by: disposeBag)
         
     }

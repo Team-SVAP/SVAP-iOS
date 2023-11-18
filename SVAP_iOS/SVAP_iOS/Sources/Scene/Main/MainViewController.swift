@@ -13,6 +13,7 @@ class MainViewController: BaseVC {
     let sideMenu = SideMenuNavigationController(rootViewController: SideMenuViewController())
     var isClick = false
     var data = [MainCell.self, ApprovedCell.self]
+    
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
     private let menuButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "mainMenu"), for: .normal)
@@ -182,7 +183,7 @@ class MainViewController: BaseVC {
         
         createPetitionButton.rx.tap
             .subscribe(onNext: {
-                self.pushViewController(CreatePetitionViewController())
+                self.pushViewController(PetitionCreateViewController())
             }).disposed(by: disposeBag)
     }
     

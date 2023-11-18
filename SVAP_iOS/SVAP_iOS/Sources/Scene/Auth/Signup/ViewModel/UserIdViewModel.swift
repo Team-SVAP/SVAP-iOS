@@ -23,7 +23,7 @@ class UserIdViewModel: ViewModelType {
         input.doneTap.asObservable()
             .withLatestFrom(input.id)
             .flatMap{ id in
-                api.idDuplication(id)
+                api.idCheck(id)
             }.subscribe(onNext: { res in
                 switch res {
                     case .ok:
