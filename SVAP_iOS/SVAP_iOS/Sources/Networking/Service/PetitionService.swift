@@ -8,16 +8,34 @@ final class PetitionService {
     
     let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
     
-    func sendImage(_ image1: Data?, _ image2: Data?, _ image3: Data?) {
-        
+    func sendImage(_ image1: Data?, _ image2: Data?, _ image3: Data?) -> Single<networkingResult> {
+        return provider.rx.request(.sendImage(image1: image1, image2: image2, image3: image3))
+            .filterSuccessfulStatusCodes()
+            .map{ _ -> networkingResult in
+                print("Success")
+                return .createOk
+            }
+            .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
-    func createPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ image: [Data?]) {
-        
+    func createPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ image: [String]?) -> Single<networkingResult> {
+        return provider.rx.request(.createPetition(title: title, content: contnet, types: types, location: location, image: image))
+            .filterSuccessfulStatusCodes()
+            .map{ _ -> networkingResult in
+                print("Success")
+                return .createOk
+            }
+            .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
-    func editPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ petitionId: Int) {
-        
+    func editPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ petitionId: Int) -> Single<networkingResult> {
+        return provider.rx.request(.editPetition(title: title, content: contnet, location: location, types: types, petitionId: petitionId))
+            .filterSuccessfulStatusCodes()
+            .map{ _ -> networkingResult in
+                print("Success")
+                return .ok
+            }
+            .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
     func deletePetition(_ petitionId: Int) -> Single<networkingResult> {
