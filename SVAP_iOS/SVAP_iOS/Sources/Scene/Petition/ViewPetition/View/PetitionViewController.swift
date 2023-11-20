@@ -67,6 +67,7 @@ class PetitionViewController: BaseVC {
         tableView.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
         allRecentPetition.accept(())
     }
     override func configureUI() {
