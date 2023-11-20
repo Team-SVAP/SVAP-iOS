@@ -9,18 +9,21 @@ class DetailPetitionViewModel: ViewModelType {
     struct Input {
         let id: Int
         let viewAppear: Signal<Void>
+        let voteButtonTap: Signal<Void>
     }
     
     struct Output {
         let detailPetition: PublishRelay<DetailPetitionModel>
+        let voteResult: PublishRelay<Bool>
     }
     
     func transform(_ input: Input) -> Output {
         let api = PetitionService()
         let detailPetition = PublishRelay<DetailPetitionModel>()
+        let voteResult = PublishRelay<Bool>()
         
         input.viewAppear.asObservable()
-            .flatMap { id in
+            .flatMap {
                 api.loadDetailPetition(input.id)
             }.subscribe(onNext: { data, res in
                 switch res {
@@ -30,7 +33,20 @@ class DetailPetitionViewModel: ViewModelType {
                         return
                 }
             }).disposed(by: disposeBag)
-        return Output(detailPetition: detailPetition)
+        
+        input.voteButtonTap.asObservable()
+            .flatMap {
+                api.votePetition(input.id)
+            }.subscribe(onNext: { res in
+                switch res {
+                    case .ok:
+                        voteResult.accept(true)
+                    default:
+                        voteResult.accept(false)
+                }
+            }).disposed(by: disposeBag)
+        
+        return Output(detailPetition: detailPetition, voteResult: voteResult)
     }
     
 }
