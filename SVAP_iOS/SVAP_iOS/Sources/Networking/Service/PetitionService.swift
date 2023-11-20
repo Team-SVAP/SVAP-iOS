@@ -8,14 +8,14 @@ final class PetitionService {
     
     let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
     
-    func sendImage(_ image1: Data?, _ image2: Data?, _ image3: Data?) -> Single<networkingResult> {
-        return provider.rx.request(.sendImage(image1: image1, image2: image2, image3: image3))
-            .filterSuccessfulStatusCodes()
-            .map{ _ -> networkingResult in
-                print("Success")
-                return .createOk
+    func sendImage(_ image: [Data]) -> Single<(ImageModel?, networkingResult)> {
+        return provider.rx.request(.sendImage(image: image))
+            .map(ImageModel.self)
+            .map{ return ($0, .createOk) }
+            .catch{ error in
+                print(error)
+                return .just((nil, .fault))
             }
-            .catch{[unowned self] in return .just(setNetworkError($0))}
     }
     
     func createPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ image: [String]?) -> Single<networkingResult> {
