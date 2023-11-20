@@ -7,10 +7,13 @@ import Moya
 class PetitionCreateViewController: BaseVC, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     
     private let disposeBag = DisposeBag()
+    private let viewModel = PetitionCreateViewModel()
+    private let successSignal = PublishRelay<Void>()
     
-    var petitonType = "SCHOOL"
+    var image: [String] = []
     lazy var labelArray = [titleLabel, typeLabel, placeLabel, contentLabel]
     lazy var imageViewArray = [firstImageView, secondImageView, thirdImageView]
+    lazy var imageArr = [firstImageView.image!.jpegData(compressionQuality: 0.1)]
     let leftButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
@@ -69,7 +72,10 @@ class PetitionCreateViewController: BaseVC, UIImagePickerControllerDelegate & UI
         $0.textColor = UIColor(named: "gray-400")
         $0.font = UIFont(name: "IBMPlexSansKR-Regular", size: 12)
     }
-    
+    private let textCountLabel = UILabel().then {
+        $0.textColor = UIColor(named: "gray-700")
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 10)
+    }
     private let imageLabel = UILabel().then {
         $0.text = "사진"
         $0.textColor = UIColor(named: "gray-700")
@@ -125,6 +131,7 @@ class PetitionCreateViewController: BaseVC, UIImagePickerControllerDelegate & UI
             secondImageView
         ].forEach({ view.addSubview($0) })
         [petitionTypeLabel, menuButton].forEach({ typeView.addSubview($0) })
+        contentTextView.addSubview(textCountLabel)
         firstImageView.addSubview(cameraIcon)
     }
     override func setupConstraints() {
@@ -176,6 +183,10 @@ class PetitionCreateViewController: BaseVC, UIImagePickerControllerDelegate & UI
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(220)
         }
+        textCountLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(198)
+            $0.left.equalToSuperview().inset(12)
+        }
         imageLabel.snp.makeConstraints {
             $0.top.equalTo(contentTextView.snp.bottom).offset(24)
             $0.left.equalToSuperview().inset(20)
@@ -195,16 +206,43 @@ class PetitionCreateViewController: BaseVC, UIImagePickerControllerDelegate & UI
         }
     }
     
+    override func bind() {
+        super.bind()
+        //type을 보내는 것만 해결하면 됨 물론 이미지도
+        let input = PetitionCreateViewModel.Input(
+            title: titleTextField.rx.text.orEmpty.asDriver(),
+            types: "SCHOOL",
+            location: placeTextField.rx.text.orEmpty.asDriver(),
+            content: contentTextView.rx.text.orEmpty.asDriver(),
+            images: [firstImageView.image?.jpegData(compressionQuality: 0.1) ?? Data()],
+            imageURL: image,
+            doneTap: rightButton.rx.tap.asSignal(),
+            successSignal: successSignal.asSignal())
+        
+        let output = viewModel.transform(input)
+        
+        output.imageResult.asObservable()
+            .subscribe(onNext: { data in
+                self.image = data.imageUrl
+                self.successSignal.accept(())
+            }).disposed(by: disposeBag)
+        
+        output.petitionResult.asObservable()
+            .subscribe(onNext: { bool in
+                if bool {
+                    print("청원 성공")
+                } else {
+                    print("청원 실패")
+                }
+            }).disposed(by: disposeBag)
+        
+    }
     override func subscribe() {
         leftButton.rx.tap
             .subscribe(onNext: {
                 self.popViewController()
             }).disposed(by: disposeBag)
         
-        rightButton.rx.tap
-            .subscribe(onNext: {
-                self.clickRightBarButton()
-            }).disposed(by: disposeBag)
         firstImageView.rx.tapGesture()
         
             .when(.recognized)
@@ -235,6 +273,18 @@ class PetitionCreateViewController: BaseVC, UIImagePickerControllerDelegate & UI
                 }
                 contentTextView.layer.borderColor = UIColor(named: "main-1")?.cgColor
             }).disposed(by: disposeBag)
+
+        contentTextView.rx.didBeginEditing
+            .subscribe(onNext: {
+                self.contentTextView.rx.text.orEmpty
+                    .subscribe(onNext: { text in
+                        if self.contentTextView.textColor == UIColor(named: "gray-400") {
+                            self.textCountLabel.text = "0자"
+                        } else {
+                            self.textCountLabel.text = "\(text.count)자"
+                        }
+                    }).disposed(by: self.disposeBag)
+            }).disposed(by: disposeBag)
         
         titleTextField.rx.text.orEmpty
             .subscribe(onNext: {
@@ -262,30 +312,7 @@ class PetitionCreateViewController: BaseVC, UIImagePickerControllerDelegate & UI
                 self.rightButton.isEnabled = false
             }
         }).disposed(by: disposeBag)
-         
-    }
-    
-    private func clickRightBarButton() {
         
-        if petitionTypeLabel.text == "기숙사청원" {
-            petitonType = "DORMITORY"
-        }
-        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
-        
-        provider.request(.createPetition(title: titleTextField.text!, content: contentTextView.text!, types: petitonType, location: placeTextField.text!, image: nil)) { res in
-            switch res {
-                case .success(let result):
-                    switch result.statusCode {
-                        case 201:
-                            print("Success")
-                            self.popViewController()
-                        default:
-                            print("Fail: \(result.statusCode)")
-                    }
-                case .failure(let err):
-                    print("Request Error: \(err.localizedDescription)")
-            }
-        }
     }
     
 }
