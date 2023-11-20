@@ -13,4 +13,5 @@ struct DetailPetitionModel: Codable {
     let accountId: String
     let dateTime: String
     let imgUrl: [String]?
+    let voted: Bool
 }
