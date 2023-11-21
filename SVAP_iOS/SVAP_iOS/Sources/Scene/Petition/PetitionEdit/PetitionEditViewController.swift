@@ -4,15 +4,21 @@ import RxCocoa
 import RxGesture
 import Moya
 
-class PetitionEditViewController: BaseVC, UITextFieldDelegate, UIImagePickerControllerDelegate & UINavigationControllerDelegate, UITextViewDelegate {
+class PetitionEditViewController: BaseVC {
     
     private let disposeBag = DisposeBag()
+    private let viewModel = PetitionEditViewModel()
     
+    var petitionId = 0
     lazy var labelArray = [titleLabel, typeLabel, placeLabel, contentLabel]
-    lazy var imageViewArray = [firstImageView, secondImageView, thirdImageView]
     let leftButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
+    }
+    private let navigationTitleLabel = UILabel().then {
+        $0.text = "수정하기"
+        $0.textColor = UIColor(named: "gray-800")
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
     }
     private let rightButton = UIButton(type: .system).then {
         $0.setTitle("완료", for: .normal)
@@ -69,48 +75,16 @@ class PetitionEditViewController: BaseVC, UITextFieldDelegate, UIImagePickerCont
         $0.textColor = UIColor(named: "gray-400")
         $0.font = UIFont(name: "IBMPlexSansKR-Regular", size: 12)
     }
-    
-    private let imageLabel = UILabel().then {
-        $0.text = "사진"
+    private let textCountLabel = UILabel().then {
         $0.textColor = UIColor(named: "gray-700")
-        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 10)
     }
-    private let firstImageView = UIImageView().then {
-        $0.backgroundColor = .white
-        $0.layer.borderColor = UIColor(named: "gray-400")?.cgColor
-        $0.layer.borderWidth = 0.5
-        $0.layer.cornerRadius = 8
-        $0.contentMode = .scaleAspectFill
-        $0.clipsToBounds = true
-    }
-    private let secondImageView = UIImageView().then {
-        $0.backgroundColor = .white
-        $0.layer.borderColor = UIColor(named: "gray-400")?.cgColor
-        $0.layer.borderWidth = 0.5
-        $0.layer.cornerRadius = 8
-        $0.contentMode = .scaleAspectFill
-        $0.clipsToBounds = true
-        $0.isHidden = false
-    }
-    private let thirdImageView = UIImageView().then {
-        $0.backgroundColor = .white
-        $0.layer.borderColor = UIColor(named: "gray-400")?.cgColor
-        $0.layer.borderWidth = 0.5
-        $0.layer.cornerRadius = 8
-        $0.contentMode = .scaleAspectFill
-        $0.clipsToBounds = true
-        $0.isHidden =  false
-    }
-    private let cameraIcon = UIImageView(image: UIImage(named: "camera"))
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarSetting()
         self.navigationItem.hidesBackButton = false
         labelArray.forEach({ labelSetting($0) })
-        titleTextField.delegate = self
-        placeTextField.delegate = self
-        contentTextView.delegate = self
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -126,12 +100,10 @@ class PetitionEditViewController: BaseVC, UITextFieldDelegate, UIImagePickerCont
             placeTextField,
             contentLabel,
             contentTextView,
-            imageLabel,
-            firstImageView,
-            secondImageView
         ].forEach({ view.addSubview($0) })
         [petitionTypeLabel, menuButton].forEach({ typeView.addSubview($0) })
-        firstImageView.addSubview(cameraIcon)
+        contentTextView.addSubview(textCountLabel)
+        
     }
     override func setupConstraints() {
         super.setupConstraints()
@@ -182,35 +154,40 @@ class PetitionEditViewController: BaseVC, UITextFieldDelegate, UIImagePickerCont
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(220)
         }
-        imageLabel.snp.makeConstraints {
-            $0.top.equalTo(contentTextView.snp.bottom).offset(24)
-            $0.left.equalToSuperview().inset(20)
+        textCountLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(198)
+            $0.left.equalToSuperview().inset(12)
         }
-        firstImageView.snp.makeConstraints {
-            $0.top.equalTo(imageLabel.snp.bottom).offset(8)
-            $0.left.equalToSuperview().inset(20)
-            $0.width.height.equalTo(70)
-        }
-        secondImageView.snp.makeConstraints {
-            $0.top.equalTo(imageLabel.snp.bottom).offset(8)
-            $0.left.equalTo(firstImageView.snp.right).offset(20)
-            $0.width.height.equalTo(70)
-        }
-        cameraIcon.snp.makeConstraints {
-            $0.center.equalToSuperview()
-        }
+        
     }
-    
+    override func bind() {
+        super.bind()
+        //type부분 고치기
+        let input = PetitionEditViewModel.Input(
+            petitionId: petitionId,
+            title: titleTextField.rx.text.orEmpty.asDriver(),
+            types: "SCHOOL",
+            location: placeTextField.rx.text.orEmpty.asDriver(),
+            content: contentTextView.rx.text.orEmpty.asDriver(),
+            doneTap: rightButton.rx.tap.asSignal())
+        
+        let output = viewModel.transform(input)
+        
+        output.result.asObservable()
+            .subscribe(onNext: { bool in
+                if bool {
+                    print("청원 성공")
+                    self.navigationController?.popToViewController(PetitionViewController(), animated: true)
+                } else {
+                    print("청원 실패")
+                }
+            }).disposed(by: disposeBag)
+        
+    }
     override func subscribe() {
         leftButton.rx.tap
             .subscribe(onNext: {
                 self.popViewController()
-            }).disposed(by: disposeBag)
-        
-        firstImageView.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: {_ in
-                self.clickImageView()
             }).disposed(by: disposeBag)
         
         menuButton.rx.tap
@@ -218,7 +195,7 @@ class PetitionEditViewController: BaseVC, UITextFieldDelegate, UIImagePickerCont
                 self.clickMenuButton()
             }).disposed(by: disposeBag)
         
-        contentTextView.rx.didChange
+        contentTextView.rx.didBeginEditing
             .subscribe(onNext: { [self] in
                 if contentTextView.textColor == UIColor(named: "gray-400") {
                     contentTextView.text = nil
@@ -229,58 +206,57 @@ class PetitionEditViewController: BaseVC, UITextFieldDelegate, UIImagePickerCont
             }).disposed(by: disposeBag)
         contentTextView.rx.didEndEditing
             .subscribe(onNext: { [self] in
-                updateButtonState()
                 if contentTextView.text.isEmpty {
                     contentTextView.text = "내용을 입력하세요."
                     contentTextView.textColor = UIColor(named: "gray-400")
                     contentTextView.font = UIFont(name: "IBMPlexSansKR-Regular", size: 12)
                 }
-                contentTextView.layer.borderColor = UIColor(named: "gray-400")?.cgColor
+                contentTextView.layer.borderColor = UIColor(named: "main-1")?.cgColor
             }).disposed(by: disposeBag)
+        
+        contentTextView.rx.didBeginEditing
+            .subscribe(onNext: {
+                self.contentTextView.rx.text.orEmpty
+                    .subscribe(onNext: { text in
+                        if self.contentTextView.textColor == UIColor(named: "gray-400") {
+                            self.textCountLabel.text = "0자"
+                        } else {
+                            self.textCountLabel.text = "\(text.count)자"
+                        }
+                    }).disposed(by: self.disposeBag)
+            }).disposed(by: disposeBag)
+        
+        titleTextField.rx.text.orEmpty
+            .subscribe(onNext: {
+                if $0.isEmpty {
+                    self.titleTextField.borderColor(UIColor(named: "gray-400")!)
+                } else {
+                    self.titleTextField.borderColor(UIColor(named: "main-1")!)
+                }
+            }).disposed(by: disposeBag)
+        
+        placeTextField.rx.text.orEmpty
+            .subscribe(onNext: {
+                if $0.isEmpty {
+                    self.placeTextField.borderColor(UIColor(named: "gray-400")!)
+                } else {
+                    self.placeTextField.borderColor(UIColor(named: "main-1")!)
+                }
+            }).disposed(by: disposeBag)
+        
+        let text = Observable.combineLatest(titleTextField.rx.text, placeTextField.rx.text, contentTextView.rx.text)
+        text.subscribe(onNext: {
+            if ($0!.count != 0 && $1!.count != 0 && $2 != "내용을 입력하세요.") {
+                self.navigationItem.rightBarButtonItem?.isEnabled = true
+                self.rightButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
+            } else {
+                self.navigationItem.rightBarButtonItem?.isEnabled = false
+                self.rightButton.setTitleColor(UIColor(named: "gray-600"), for: .normal)
+            }
+        }).disposed(by: disposeBag)
+        
     }
     
-    func updateButtonState() {
-        let title = !(titleTextField.text!.isEmpty)
-        let type = ((petitionTypeLabel.text?.isEmpty) != nil)
-        let place = !(placeTextField.text!.isEmpty)
-        let content = !(contentTextView.text.isEmpty)
-        
-        if title && type && place && content {
-            navigationItem.rightBarButtonItem?.isEnabled = true
-            rightButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
-        } else {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-            rightButton.setTitleColor(UIColor(named: "gray-600"), for: .normal)
-        }
-    }
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderColor = UIColor(named: "main-1")?.cgColor
-    }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        updateButtonState()
-        textField.layer.borderColor = UIColor(named: "gray-400")?.cgColor
-    }
-    
-    @objc private func clickRightBarButton() {
-        let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
-        let array = [titleTextField.text, petitionTypeLabel.text, placeTextField.text, contentTextView.text]
-        
-        //content에 array넣는 법 알아내기
-//        provider.request(.createPetition(content: <#[String?]#>, image: firstImageView.image?.jpegData(compressionQuality: 0.1) ?? Data())) { res in
-//            switch res {
-//                case .success(let result):
-//                    switch result.statusCode {
-//                        case 200:
-//                            print("Success")
-//                            self.navigationController?.popViewController(animated: true)
-//                        default:
-//                            print("Fail: \(result.statusCode)")
-//                    }
-//                case .failure(let err):
-//                    print("Request Error: \(err.localizedDescription)")
-//            }
-//        }
-    }
 }
 
 extension PetitionEditViewController {
@@ -288,49 +264,17 @@ extension PetitionEditViewController {
     private func clickMenuButton() {
         let petitionClosure = UINavigationController(rootViewController: CustomMenu(closure: { [weak self] petition in
             self?.petitionTypeLabel.text = petition
-            self?.updateButtonState()
+            self?.typeView.layer.borderColor = UIColor(named: "main-1")?.cgColor
         }))
         petitionClosure.modalPresentationStyle = .overFullScreen
         petitionClosure.modalTransitionStyle = .crossDissolve
         self.present(petitionClosure, animated: true)
     }
     
-    func clickImageView() {
-        let picker = UIImagePickerController()
-        picker.allowsEditing = true
-        picker.delegate = self
-        
-        let sheet = UIAlertController(title: "'SVAP'이(가) 사용자의 카메라 및 앨범에 접근하려고 합니다", message: "", preferredStyle: .alert)
-        
-        let camera = UIAlertAction(title: "카메라", style: .default, handler: {_ in
-            picker.sourceType = .camera
-            self.present(picker, animated: true)
-        })
-        sheet.addAction(camera)
-        
-        let album = UIAlertAction(title: "앨범", style: .default, handler: {_ in
-            picker.sourceType = .photoLibrary
-            self.present(picker, animated: true)
-        })
-        sheet.addAction(album)
-        
-        let cancel = UIAlertAction(title: "허용 안 함", style: .cancel)
-        sheet.addAction(cancel)
-        
-        self.present(sheet, animated: true)
-    }
-    
     func navigationBarSetting() {
         navigationItem.hidesBackButton = true
-        let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
-        title.text = "수정하기"
-        title.textColor = UIColor(named: "gray-800")
-        title.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
-        title.textAlignment = .center
-        navigationItem.titleView = title
+        navigationItem.titleView = navigationTitleLabel
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftButton)
-        
-        rightButton.addTarget(self, action: #selector(clickRightBarButton), for: .touchUpInside)
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
         navigationItem.rightBarButtonItem?.isEnabled = false
     }
@@ -341,17 +285,6 @@ extension PetitionEditViewController {
         attributedString.addAttribute(.font, value: UIFont(name: "IBMPlexSansKR-Regular", size: 14)!, range: (label.text! as NSString).range(of: "*"))
         attributedString.addAttribute(.foregroundColor, value: UIColor.red, range: (label.text! as NSString).range(of:"*"))
         label.attributedText = attributedString
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true) {}
-    }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true) {
-            let img = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
-            self.firstImageView.image = img
-            self.cameraIcon.isHidden = true
-        }
     }
     
 }
