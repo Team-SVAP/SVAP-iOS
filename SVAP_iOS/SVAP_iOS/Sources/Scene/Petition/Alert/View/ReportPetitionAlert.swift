@@ -94,10 +94,16 @@ class ReportPetitionAlert: UIViewController {
     }
     func subscribe() {
         
+        view.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
         backgroundView.rx.tapGesture()
             .when(.recognized)
-            .subscribe(onNext: { [weak self] _ in
-                self?.view.endEditing(true)
+            .subscribe(onNext: { _ in
+                self.view.endEditing(true)
             }).disposed(by: disposeBag)
         
         reportButton.rx.tap
