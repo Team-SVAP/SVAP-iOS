@@ -15,8 +15,8 @@
 		880D923C2AC9B2500053D5A6 /* AuthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D923B2AC9B2500053D5A6 /* AuthModel.swift */; };
 		880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 880D92402AC9B3B40053D5A6 /* PetitionAPI.swift */; };
 		88152F682AE8EA85002CB48D /* PetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F672AE8EA85002CB48D /* PetitionViewModel.swift */; };
-		88152F6C2AEA98B8002CB48D /* ModifyPetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F6B2AEA98B8002CB48D /* ModifyPetitionViewModel.swift */; };
-		88152F6E2AEA98C1002CB48D /* CreatePetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F6D2AEA98C1002CB48D /* CreatePetitionViewModel.swift */; };
+		88152F6C2AEA98B8002CB48D /* PetitionEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F6B2AEA98B8002CB48D /* PetitionEditViewModel.swift */; };
+		88152F6E2AEA98C1002CB48D /* PetitionCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F6D2AEA98C1002CB48D /* PetitionCreateViewModel.swift */; };
 		88152F842AED3903002CB48D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88152F832AED3903002CB48D /* MainViewModel.swift */; };
 		882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63142AB5FA2700BFE332 /* AppDelegate.swift */; };
 		882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63162AB5FA2700BFE332 /* SceneDelegate.swift */; };
@@ -43,6 +43,7 @@
 		882E63772AB736F200BFE332 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63762AB736F200BFE332 /* MainCell.swift */; };
 		882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */; };
 		882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637C2AB8565600BFE332 /* PetitionButton.swift */; };
+		8849D97A2B0C6F8C00708256 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849D9792B0C6F8C00708256 /* ImageCell.swift */; };
 		884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */; };
 		884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91372ACFE5B300AE1E14 /* CustomTextView.swift */; };
 		884A913F2AD1548300AE1E14 /* SideMenuContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */; };
@@ -80,14 +81,15 @@
 		8867D3EB2ADF7E090048B205 /* DetailPetitionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EA2ADF7E090048B205 /* DetailPetitionAlert.swift */; };
 		8867D3ED2ADF80830048B205 /* PetitionDetailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EC2ADF80830048B205 /* PetitionDetailButton.swift */; };
 		8867D3F02ADF9D400048B205 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EF2ADF9D400048B205 /* SideMenuViewModel.swift */; };
-		8867D3F42ADFAA640048B205 /* ModifyPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3F32ADFAA640048B205 /* ModifyPetitionViewController.swift */; };
 		8867D3F72AE0BACA0048B205 /* UserPetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */; };
-		888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
+		888CC4C62AFC65DA00C50A99 /* UserPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888CC4C52AFC65DA00C50A99 /* UserPasswordViewModel.swift */; };
 		88A293692AC3A723007B4469 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 88A293682AC3A723007B4469 /* SnapKit */; };
 		88A2936C2AC3A729007B4469 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 88A2936B2AC3A729007B4469 /* Then */; };
 		88A6CC892AC18A3600BF36C3 /* PetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */; };
 		88B7C64B2ADAECCC0082EA43 /* PetitionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */; };
+		88C3E3682B079BD7009B2A32 /* PetitionEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C3E3672B079BD7009B2A32 /* PetitionEditViewController.swift */; };
+		88C3E36A2B079C0F009B2A32 /* PetitionCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C3E3692B079C0F009B2A32 /* PetitionCreateViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -97,8 +99,8 @@
 		880D923B2AC9B2500053D5A6 /* AuthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthModel.swift; sourceTree = "<group>"; };
 		880D92402AC9B3B40053D5A6 /* PetitionAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionAPI.swift; sourceTree = "<group>"; };
 		88152F672AE8EA85002CB48D /* PetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionViewModel.swift; sourceTree = "<group>"; };
-		88152F6B2AEA98B8002CB48D /* ModifyPetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyPetitionViewModel.swift; sourceTree = "<group>"; };
-		88152F6D2AEA98C1002CB48D /* CreatePetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewModel.swift; sourceTree = "<group>"; };
+		88152F6B2AEA98B8002CB48D /* PetitionEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionEditViewModel.swift; sourceTree = "<group>"; };
+		88152F6D2AEA98C1002CB48D /* PetitionCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCreateViewModel.swift; sourceTree = "<group>"; };
 		88152F832AED3903002CB48D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		882E63112AB5FA2700BFE332 /* SVAP_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVAP_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882E63142AB5FA2700BFE332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 		882E63762AB736F200BFE332 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
 		882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovedCell.swift; sourceTree = "<group>"; };
 		882E637C2AB8565600BFE332 /* PetitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionButton.swift; sourceTree = "<group>"; };
+		8849D9792B0C6F8C00708256 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewController.swift; sourceTree = "<group>"; };
 		884A91372ACFE5B300AE1E14 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuContentViewController.swift; sourceTree = "<group>"; };
@@ -157,13 +160,14 @@
 		8867D3EA2ADF7E090048B205 /* DetailPetitionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionAlert.swift; sourceTree = "<group>"; };
 		8867D3EC2ADF80830048B205 /* PetitionDetailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionDetailButton.swift; sourceTree = "<group>"; };
 		8867D3EF2ADF9D400048B205 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
-		8867D3F32ADFAA640048B205 /* ModifyPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyPetitionViewController.swift; sourceTree = "<group>"; };
 		8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPetitionViewModel.swift; sourceTree = "<group>"; };
-		888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePetitionViewController.swift; sourceTree = "<group>"; };
 		888A18B02AC01A3800168377 /* CustomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenu.swift; sourceTree = "<group>"; };
+		888CC4C52AFC65DA00C50A99 /* UserPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPasswordViewModel.swift; sourceTree = "<group>"; };
 		88A293722AC3A857007B4469 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionViewController.swift; sourceTree = "<group>"; };
 		88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionMenu.swift; sourceTree = "<group>"; };
+		88C3E3672B079BD7009B2A32 /* PetitionEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionEditViewController.swift; sourceTree = "<group>"; };
+		88C3E3692B079C0F009B2A32 /* PetitionCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCreateViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -306,8 +310,8 @@
 			isa = PBXGroup;
 			children = (
 				88A293732AC47B29007B4469 /* Application */,
-				884A918B2AD9914F00AE1E14 /* Extension */,
 				882E633B2AB5FC1400BFE332 /* Base */,
+				884A918B2AD9914F00AE1E14 /* Extension */,
 				880D92292AC861590053D5A6 /* Networking */,
 				882E63452AB604DF00BFE332 /* Component */,
 				88152F692AEA982C002CB48D /* Model */,
@@ -405,6 +409,14 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
+		8849D9782B0C6F6000708256 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				8849D9792B0C6F8C00708256 /* ImageCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		884A91462AD2B07B00AE1E14 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,13 +436,13 @@
 			path = Plugin;
 			sourceTree = "<group>";
 		};
-		884A915D2AD661EF00AE1E14 /* CreatePetition */ = {
+		884A915D2AD661EF00AE1E14 /* PetitionCreate */ = {
 			isa = PBXGroup;
 			children = (
-				888A18842ABFE73A00168377 /* CreatePetitionViewController.swift */,
-				88152F6D2AEA98C1002CB48D /* CreatePetitionViewModel.swift */,
+				88C3E3692B079C0F009B2A32 /* PetitionCreateViewController.swift */,
+				88152F6D2AEA98C1002CB48D /* PetitionCreateViewModel.swift */,
 			);
-			path = CreatePetition;
+			path = PetitionCreate;
 			sourceTree = "<group>";
 		};
 		884A915E2AD6625700AE1E14 /* Petition */ = {
@@ -438,8 +450,8 @@
 			children = (
 				8855545F2AF643050025747E /* Alert */,
 				884A915F2AD664A500AE1E14 /* Cell */,
-				884A915D2AD661EF00AE1E14 /* CreatePetition */,
-				8867D3F52ADFAAAE0048B205 /* ModifyPetition */,
+				884A915D2AD661EF00AE1E14 /* PetitionCreate */,
+				8867D3F52ADFAAAE0048B205 /* PetitionEdit */,
 				888A18832ABFE72D00168377 /* ViewPetition */,
 			);
 			path = Petition;
@@ -494,6 +506,7 @@
 			isa = PBXGroup;
 			children = (
 				884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */,
+				888CC4C52AFC65DA00C50A99 /* UserPasswordViewModel.swift */,
 				884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */,
 			);
 			path = ViewModel;
@@ -535,13 +548,13 @@
 			path = SideMenu;
 			sourceTree = "<group>";
 		};
-		8867D3F52ADFAAAE0048B205 /* ModifyPetition */ = {
+		8867D3F52ADFAAAE0048B205 /* PetitionEdit */ = {
 			isa = PBXGroup;
 			children = (
-				8867D3F32ADFAA640048B205 /* ModifyPetitionViewController.swift */,
-				88152F6B2AEA98B8002CB48D /* ModifyPetitionViewModel.swift */,
+				88C3E3672B079BD7009B2A32 /* PetitionEditViewController.swift */,
+				88152F6B2AEA98B8002CB48D /* PetitionEditViewModel.swift */,
 			);
-			path = ModifyPetition;
+			path = PetitionEdit;
 			sourceTree = "<group>";
 		};
 		888A18822ABFE72500168377 /* Cell */ = {
@@ -556,6 +569,7 @@
 		888A18832ABFE72D00168377 /* ViewPetition */ = {
 			isa = PBXGroup;
 			children = (
+				8849D9782B0C6F6000708256 /* Cell */,
 				884A91642AD6654E00AE1E14 /* View */,
 				88152F662AE8EA3E002CB48D /* ViewModel */,
 			);
@@ -679,8 +693,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				888A18852ABFE73A00168377 /* CreatePetitionViewController.swift in Sources */,
-				88152F6E2AEA98C1002CB48D /* CreatePetitionViewModel.swift in Sources */,
+				88152F6E2AEA98C1002CB48D /* PetitionCreateViewModel.swift in Sources */,
 				8867D3F72AE0BACA0048B205 /* UserPetitionViewModel.swift in Sources */,
 				884A91632AD6652D00AE1E14 /* PetitionCell.swift in Sources */,
 				882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */,
@@ -689,12 +702,13 @@
 				8855542F2AF38D0B0025747E /* DetailPetitionViewModel.swift in Sources */,
 				884A918A2AD8B86300AE1E14 /* ServiceType.swift in Sources */,
 				882E63442AB6048F00BFE332 /* OnboardingViewController.swift in Sources */,
-				88152F6C2AEA98B8002CB48D /* ModifyPetitionViewModel.swift in Sources */,
+				88152F6C2AEA98B8002CB48D /* PetitionEditViewModel.swift in Sources */,
 				880D923C2AC9B2500053D5A6 /* AuthModel.swift in Sources */,
 				8867D3ED2ADF80830048B205 /* PetitionDetailButton.swift in Sources */,
 				88152F682AE8EA85002CB48D /* PetitionViewModel.swift in Sources */,
 				880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */,
 				882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */,
+				8849D97A2B0C6F8C00708256 /* ImageCell.swift in Sources */,
 				884A91452AD2745900AE1E14 /* SignupInfo.swift in Sources */,
 				885554662AF643560025747E /* ReportPetitionAlertViewModel.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
@@ -712,6 +726,7 @@
 				882E63662AB7081000BFE332 /* UserPasswordViewController.swift in Sources */,
 				882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */,
 				8867D3EB2ADF7E090048B205 /* DetailPetitionAlert.swift in Sources */,
+				88C3E3682B079BD7009B2A32 /* PetitionEditViewController.swift in Sources */,
 				884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */,
 				884A918D2AD9917000AE1E14 /* UIViewControllerExtension.swift in Sources */,
 				884A91982AD9B84400AE1E14 /* UserSignupViewModel.swift in Sources */,
@@ -720,16 +735,17 @@
 				88152F842AED3903002CB48D /* MainViewModel.swift in Sources */,
 				8802D4B42AF24812000E907E /* ImageModel.swift in Sources */,
 				884A917E2AD8330900AE1E14 /* AuthService.swift in Sources */,
+				88C3E36A2B079C0F009B2A32 /* PetitionCreateViewController.swift in Sources */,
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				8867D3F02ADF9D400048B205 /* SideMenuViewModel.swift in Sources */,
+				888CC4C62AFC65DA00C50A99 /* UserPasswordViewModel.swift in Sources */,
 				884A914D2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift in Sources */,
 				884A91812AD8332500AE1E14 /* PetitionService.swift in Sources */,
 				884A919A2ADAE1E700AE1E14 /* PetitionTypeButton.swift in Sources */,
 				884A91562AD5900100AE1E14 /* UserInfoModel.swift in Sources */,
 				884A91742AD82C7200AE1E14 /* LoginViewModel.swift in Sources */,
 				884A91872AD8387B00AE1E14 /* UserPetitionViewController.swift in Sources */,
-				8867D3F42ADFAA640048B205 /* ModifyPetitionViewController.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
 				88B7C64B2ADAECCC0082EA43 /* PetitionMenu.swift in Sources */,
 				8867D3E42ADD4E3C0048B205 /* ReportPetitionTextView.swift in Sources */,
