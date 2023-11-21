@@ -45,8 +45,8 @@ class PetitionViewModel: ViewModelType {
         //MARK: 청원 검색
         input.doneTap.asObservable()
             .withLatestFrom(input.petitonTitle)
-            .flatMap { data in
-                api.searchPetition(data)
+            .flatMap { title in
+                api.searchPetition(title)
             }
             .subscribe(onNext: { data, res in
                 switch res {
