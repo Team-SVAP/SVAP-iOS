@@ -13,13 +13,13 @@ class DetailPetitionViewModel: ViewModelType {
     }
     
     struct Output {
-        let detailPetition: PublishRelay<DetailPetitionModel>
+        let detailPetitionResult: PublishRelay<DetailPetitionModel>
         let voteResult: PublishRelay<Bool>
     }
     
     func transform(_ input: Input) -> Output {
         let api = PetitionService()
-        let detailPetition = PublishRelay<DetailPetitionModel>()
+        let detailPetitionResult = PublishRelay<DetailPetitionModel>()
         let voteResult = PublishRelay<Bool>()
         
         input.viewAppear.asObservable()
@@ -28,7 +28,7 @@ class DetailPetitionViewModel: ViewModelType {
             }.subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
-                        detailPetition.accept(data!)
+                        detailPetitionResult.accept(data!)
                     default:
                         return
                 }
@@ -46,7 +46,7 @@ class DetailPetitionViewModel: ViewModelType {
                 }
             }).disposed(by: disposeBag)
         
-        return Output(detailPetition: detailPetition, voteResult: voteResult)
+        return Output(detailPetitionResult: detailPetitionResult, voteResult: voteResult)
     }
     
 }
