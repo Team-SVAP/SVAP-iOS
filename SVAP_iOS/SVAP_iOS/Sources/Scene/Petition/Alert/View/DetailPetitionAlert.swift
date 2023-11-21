@@ -1,6 +1,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxGesture
 import Moya
 
 class DetailPetitionAlert: BaseVC {
@@ -89,6 +90,12 @@ class DetailPetitionAlert: BaseVC {
     override func subscribe() {
         super.subscribe()
         
+        view.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: { _ in
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
         closeButton.rx.tap
             .subscribe(onNext: {
                 self.dismiss(animated: true)
@@ -96,7 +103,9 @@ class DetailPetitionAlert: BaseVC {
         
         editButton.rx.tap
             .subscribe(onNext: {
-                self.pushViewController(PetitionEditViewController())
+                let vc = PetitionEditViewController()
+                self.pushViewController(vc)
+                vc.petitionId = self.petitionId
             }).disposed(by: disposeBag)
         
     }
