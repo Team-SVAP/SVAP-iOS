@@ -14,8 +14,8 @@ class ImageCell: UICollectionViewCell {
         $0.setImage(UIImage(named: "rightArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-100")
     }
-    let imageView = UIImageView().then {
-        $0.backgroundColor = .blue
+    let cellImageView = UIImageView().then {
+        $0.backgroundColor = .black
         $0.layer.cornerRadius = 8
     }
     
@@ -34,10 +34,10 @@ class ImageCell: UICollectionViewCell {
         [
             rightButton,
             leftButton,
-            imageView
+            cellImageView
         ].forEach({ contentView.addSubview($0) })
         
-        imageView.snp.makeConstraints {
+        cellImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         

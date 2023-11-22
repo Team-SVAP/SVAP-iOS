@@ -102,7 +102,7 @@
 		88152F6B2AEA98B8002CB48D /* PetitionEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionEditViewModel.swift; sourceTree = "<group>"; };
 		88152F6D2AEA98C1002CB48D /* PetitionCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCreateViewModel.swift; sourceTree = "<group>"; };
 		88152F832AED3903002CB48D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
-		882E63112AB5FA2700BFE332 /* SVAP_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVAP_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		882E63112AB5FA2700BFE332 /* SVAP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SVAP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		882E63142AB5FA2700BFE332 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		882E63162AB5FA2700BFE332 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		882E631D2AB5FA2800BFE332 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -272,7 +272,7 @@
 		882E63082AB5FA2700BFE332 = {
 			isa = PBXGroup;
 			children = (
-				882E63132AB5FA2700BFE332 /* SVAP_iOS */,
+				882E63132AB5FA2700BFE332 /* SVAP */,
 				882E63122AB5FA2700BFE332 /* Products */,
 				88A293712AC3A857007B4469 /* Frameworks */,
 			);
@@ -281,19 +281,19 @@
 		882E63122AB5FA2700BFE332 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				882E63112AB5FA2700BFE332 /* SVAP_iOS.app */,
+				882E63112AB5FA2700BFE332 /* SVAP.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		882E63132AB5FA2700BFE332 /* SVAP_iOS */ = {
+		882E63132AB5FA2700BFE332 /* SVAP */ = {
 			isa = PBXGroup;
 			children = (
 				882E63342AB5FB0800BFE332 /* Resources */,
 				882E63352AB5FB4300BFE332 /* Sources */,
 				882E63222AB5FA2800BFE332 /* Info.plist */,
 			);
-			path = SVAP_iOS;
+			path = SVAP;
 			sourceTree = "<group>";
 		};
 		882E63342AB5FB0800BFE332 /* Resources */ = {
@@ -596,9 +596,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		882E63102AB5FA2700BFE332 /* SVAP_iOS */ = {
+		882E63102AB5FA2700BFE332 /* SVAP */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 882E63252AB5FA2800BFE332 /* Build configuration list for PBXNativeTarget "SVAP_iOS" */;
+			buildConfigurationList = 882E63252AB5FA2800BFE332 /* Build configuration list for PBXNativeTarget "SVAP" */;
 			buildPhases = (
 				882E630D2AB5FA2700BFE332 /* Sources */,
 				882E630E2AB5FA2700BFE332 /* Frameworks */,
@@ -608,7 +608,7 @@
 			);
 			dependencies = (
 			);
-			name = SVAP_iOS;
+			name = SVAP;
 			packageProductDependencies = (
 				88A293682AC3A723007B4469 /* SnapKit */,
 				88A2936B2AC3A729007B4469 /* Then */,
@@ -623,7 +623,7 @@
 				8867D3E82ADE7A510048B205 /* RxGesture */,
 			);
 			productName = SVAP_iOS;
-			productReference = 882E63112AB5FA2700BFE332 /* SVAP_iOS.app */;
+			productReference = 882E63112AB5FA2700BFE332 /* SVAP.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -641,7 +641,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 882E630C2AB5FA2700BFE332 /* Build configuration list for PBXProject "SVAP_iOS" */;
+			buildConfigurationList = 882E630C2AB5FA2700BFE332 /* Build configuration list for PBXProject "SVAP" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -663,7 +663,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				882E63102AB5FA2700BFE332 /* SVAP_iOS */,
+				882E63102AB5FA2700BFE332 /* SVAP */,
 			);
 		};
 /* End PBXProject section */
@@ -897,7 +897,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8836BP5ACL;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SVAP_iOS/Info.plist;
+				INFOPLIST_FILE = SVAP/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -924,7 +924,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8836BP5ACL;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = SVAP_iOS/Info.plist;
+				INFOPLIST_FILE = SVAP/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -945,7 +945,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		882E630C2AB5FA2700BFE332 /* Build configuration list for PBXProject "SVAP_iOS" */ = {
+		882E630C2AB5FA2700BFE332 /* Build configuration list for PBXProject "SVAP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				882E63232AB5FA2800BFE332 /* Debug */,
@@ -954,7 +954,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		882E63252AB5FA2800BFE332 /* Build configuration list for PBXNativeTarget "SVAP_iOS" */ = {
+		882E63252AB5FA2800BFE332 /* Build configuration list for PBXNativeTarget "SVAP" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				882E63262AB5FA2800BFE332 /* Debug */,

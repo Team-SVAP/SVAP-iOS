@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "882E63102AB5FA2700BFE332"
-               BuildableName = "SVAP_iOS.app"
-               BlueprintName = "SVAP_iOS"
-               ReferencedContainer = "container:SVAP_iOS.xcodeproj">
+               BuildableName = "SVAP.app"
+               BlueprintName = "SVAP"
+               ReferencedContainer = "container:SVAP.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -44,9 +44,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "882E63102AB5FA2700BFE332"
-            BuildableName = "SVAP_iOS.app"
-            BlueprintName = "SVAP_iOS"
-            ReferencedContainer = "container:SVAP_iOS.xcodeproj">
+            BuildableName = "SVAP.app"
+            BlueprintName = "SVAP"
+            ReferencedContainer = "container:SVAP.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -61,9 +61,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "882E63102AB5FA2700BFE332"
-            BuildableName = "SVAP_iOS.app"
-            BlueprintName = "SVAP_iOS"
-            ReferencedContainer = "container:SVAP_iOS.xcodeproj">
+            BuildableName = "SVAP.app"
+            BlueprintName = "SVAP"
+            ReferencedContainer = "container:SVAP.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

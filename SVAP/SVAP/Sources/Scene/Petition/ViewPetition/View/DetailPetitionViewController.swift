@@ -14,11 +14,18 @@ class DetailPetitionViewController: BaseVC {
     var petitionId = 0
     var isClick = false
     var imageArray = BehaviorRelay<[String]>(value: [])
+    var image: [String] = []
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let mainView = UIView()
     
+    private let navigationBarTitle = UILabel().then {
+        $0.text = "상세보기"
+        $0.textColor = UIColor(named: "gray-800")
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
+    }
+
     private let leftbutton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
@@ -92,6 +99,7 @@ class DetailPetitionViewController: BaseVC {
         navigationBarSetting()
         viewAppear.accept(())
         collectionView.delegate = self
+//        collectionView.dataSource = self
     }
     override func configureUI() {
         super.configureUI()
@@ -207,7 +215,7 @@ class DetailPetitionViewController: BaseVC {
             if bool {
                 print("투표하였습니다")
             } else {
-                print("취소되었습니다.")
+                print("취소되었습니다.")//수정하기
             }
         }).disposed(by: disposeBag)
         
@@ -221,12 +229,16 @@ class DetailPetitionViewController: BaseVC {
                 if data.voted == true {
                     self.voteButton.backgroundColor = .systemBlue
                 }
-                self.imageArray = BehaviorRelay(value: data.imgUrl!)
+                self.imageArray = BehaviorRelay(value: data.imgUrl ?? [])
+                print(self.imageArray.value.count)
                 print(self.imageArray.value)
             }).disposed(by: disposeBag)
-        
+
+//        imageArray.bind(to: collectionView.rx.items(cellIdentifier: "ImageCellId", cellType: ImageCell.self)) { row, item, cell in
+//            cell.cellImageView.kf.setImage(with: URL(string: item))
+//        }.disposed(by: disposeBag)
         imageArray.bind(to: collectionView.rx.items(cellIdentifier: "ImageCellId", cellType: ImageCell.self)) { row, item, cell in
-            cell.imageView.kf.setImage(with: URL(string: item))
+            cell.cellImageView.kf.setImage(with: URL(string: item))
         }.disposed(by: disposeBag)
         
     }
@@ -268,19 +280,14 @@ class DetailPetitionViewController: BaseVC {
     }
     
     private func navigationBarSetting() {
-        let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
-        title.text = "상세보기"
-        title.textColor = UIColor(named: "gray-800")
-        title.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
-        title.textAlignment = .center
-        navigationItem.titleView = title
+        navigationItem.titleView = navigationBarTitle
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
     }
     
 }
 
-extension DetailPetitionViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+extension DetailPetitionViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)

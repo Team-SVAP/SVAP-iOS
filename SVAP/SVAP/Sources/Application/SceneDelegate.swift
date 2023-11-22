@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  SVAP_iOS
-//
-//  Created by 조영준 on 2023/09/16.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -15,8 +8,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let mainViewController = UINavigationController(rootViewController: StartViewController())
-        window?.rootViewController = mainViewController
+        let onboardingViewController = UINavigationController(rootViewController: PetitionViewController())
+        window?.rootViewController = onboardingViewController
         window?.makeKeyAndVisible()
     }
 
