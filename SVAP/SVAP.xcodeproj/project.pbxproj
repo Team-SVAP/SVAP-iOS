@@ -44,6 +44,7 @@
 		882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */; };
 		882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637C2AB8565600BFE332 /* PetitionButton.swift */; };
 		8849D97A2B0C6F8C00708256 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849D9792B0C6F8C00708256 /* ImageCell.swift */; };
+		8849D9DC2B0EDC2E00708256 /* PetitionReportButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849D9DB2B0EDC2E00708256 /* PetitionReportButton.swift */; };
 		884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */; };
 		884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91372ACFE5B300AE1E14 /* CustomTextView.swift */; };
 		884A913F2AD1548300AE1E14 /* SideMenuContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */; };
@@ -66,16 +67,15 @@
 		884A91872AD8387B00AE1E14 /* UserPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */; };
 		884A918A2AD8B86300AE1E14 /* ServiceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91892AD8B86300AE1E14 /* ServiceType.swift */; };
 		884A918D2AD9917000AE1E14 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A918C2AD9917000AE1E14 /* UIViewControllerExtension.swift */; };
-		884A918F2AD9A1D500AE1E14 /* UITextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A918E2AD9A1D500AE1E14 /* UITextFieldExtension.swift */; };
+		884A918F2AD9A1D500AE1E14 /* CALayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A918E2AD9A1D500AE1E14 /* CALayerExtension.swift */; };
 		884A91932AD9A7A300AE1E14 /* UserIdViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */; };
 		884A91982AD9B84400AE1E14 /* UserSignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */; };
 		884A919A2ADAE1E700AE1E14 /* PetitionTypeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */; };
 		8855542F2AF38D0B0025747E /* DetailPetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8855542E2AF38D0B0025747E /* DetailPetitionViewModel.swift */; };
 		885554632AF643490025747E /* DetailPetitionAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885554622AF643490025747E /* DetailPetitionAlertViewModel.swift */; };
-		885554662AF643560025747E /* ReportPetitionAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885554652AF643560025747E /* ReportPetitionAlertViewModel.swift */; };
+		885554662AF643560025747E /* PetitionReportAlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885554652AF643560025747E /* PetitionReportAlertViewModel.swift */; };
 		885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */; };
-		8867D3E22ADD438F0048B205 /* ReportPetitionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3E12ADD438F0048B205 /* ReportPetitionAlert.swift */; };
-		8867D3E42ADD4E3C0048B205 /* ReportPetitionTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3E32ADD4E3C0048B205 /* ReportPetitionTextView.swift */; };
+		8867D3E22ADD438F0048B205 /* PetitionReportAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3E12ADD438F0048B205 /* PetitionReportAlert.swift */; };
 		8867D3E62ADE4D550048B205 /* ScrollButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3E52ADE4D550048B205 /* ScrollButton.swift */; };
 		8867D3E92ADE7A510048B205 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 8867D3E82ADE7A510048B205 /* RxGesture */; };
 		8867D3EB2ADF7E090048B205 /* DetailPetitionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EA2ADF7E090048B205 /* DetailPetitionAlert.swift */; };
@@ -129,6 +129,7 @@
 		882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovedCell.swift; sourceTree = "<group>"; };
 		882E637C2AB8565600BFE332 /* PetitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionButton.swift; sourceTree = "<group>"; };
 		8849D9792B0C6F8C00708256 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		8849D9DB2B0EDC2E00708256 /* PetitionReportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionReportButton.swift; sourceTree = "<group>"; };
 		884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewController.swift; sourceTree = "<group>"; };
 		884A91372ACFE5B300AE1E14 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		884A913E2AD1548300AE1E14 /* SideMenuContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuContentViewController.swift; sourceTree = "<group>"; };
@@ -145,17 +146,16 @@
 		884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPetitionViewController.swift; sourceTree = "<group>"; };
 		884A91892AD8B86300AE1E14 /* ServiceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceType.swift; sourceTree = "<group>"; };
 		884A918C2AD9917000AE1E14 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
-		884A918E2AD9A1D500AE1E14 /* UITextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtension.swift; sourceTree = "<group>"; };
+		884A918E2AD9A1D500AE1E14 /* CALayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CALayerExtension.swift; sourceTree = "<group>"; };
 		884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdViewModel.swift; sourceTree = "<group>"; };
 		884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignupViewModel.swift; sourceTree = "<group>"; };
 		884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionTypeButton.swift; sourceTree = "<group>"; };
 		8855542E2AF38D0B0025747E /* DetailPetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewModel.swift; sourceTree = "<group>"; };
 		885554622AF643490025747E /* DetailPetitionAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionAlertViewModel.swift; sourceTree = "<group>"; };
-		885554652AF643560025747E /* ReportPetitionAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPetitionAlertViewModel.swift; sourceTree = "<group>"; };
+		885554652AF643560025747E /* PetitionReportAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionReportAlertViewModel.swift; sourceTree = "<group>"; };
 		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		885A74952AC2F6A200EC3F1A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		8867D3E12ADD438F0048B205 /* ReportPetitionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPetitionAlert.swift; sourceTree = "<group>"; };
-		8867D3E32ADD4E3C0048B205 /* ReportPetitionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportPetitionTextView.swift; sourceTree = "<group>"; };
+		8867D3E12ADD438F0048B205 /* PetitionReportAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionReportAlert.swift; sourceTree = "<group>"; };
 		8867D3E52ADE4D550048B205 /* ScrollButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollButton.swift; sourceTree = "<group>"; };
 		8867D3EA2ADF7E090048B205 /* DetailPetitionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionAlert.swift; sourceTree = "<group>"; };
 		8867D3EC2ADF80830048B205 /* PetitionDetailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionDetailButton.swift; sourceTree = "<group>"; };
@@ -376,9 +376,9 @@
 				884A91372ACFE5B300AE1E14 /* CustomTextView.swift */,
 				884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */,
 				88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */,
-				8867D3E32ADD4E3C0048B205 /* ReportPetitionTextView.swift */,
 				8867D3E52ADE4D550048B205 /* ScrollButton.swift */,
 				8867D3EC2ADF80830048B205 /* PetitionDetailButton.swift */,
+				8849D9DB2B0EDC2E00708256 /* PetitionReportButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -487,7 +487,7 @@
 			isa = PBXGroup;
 			children = (
 				884A918C2AD9917000AE1E14 /* UIViewControllerExtension.swift */,
-				884A918E2AD9A1D500AE1E14 /* UITextFieldExtension.swift */,
+				884A918E2AD9A1D500AE1E14 /* CALayerExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -525,7 +525,7 @@
 			isa = PBXGroup;
 			children = (
 				8867D3EA2ADF7E090048B205 /* DetailPetitionAlert.swift */,
-				8867D3E12ADD438F0048B205 /* ReportPetitionAlert.swift */,
+				8867D3E12ADD438F0048B205 /* PetitionReportAlert.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -534,7 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				885554622AF643490025747E /* DetailPetitionAlertViewModel.swift */,
-				885554652AF643560025747E /* ReportPetitionAlertViewModel.swift */,
+				885554652AF643560025747E /* PetitionReportAlertViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -710,11 +710,11 @@
 				882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */,
 				8849D97A2B0C6F8C00708256 /* ImageCell.swift in Sources */,
 				884A91452AD2745900AE1E14 /* SignupInfo.swift in Sources */,
-				885554662AF643560025747E /* ReportPetitionAlertViewModel.swift in Sources */,
+				885554662AF643560025747E /* PetitionReportAlertViewModel.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
 				882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */,
-				8867D3E22ADD438F0048B205 /* ReportPetitionAlert.swift in Sources */,
+				8867D3E22ADD438F0048B205 /* PetitionReportAlert.swift in Sources */,
 				884A91722AD82B7400AE1E14 /* ViewModelType.swift in Sources */,
 				884A91582AD6462400AE1E14 /* DetailPetitionModel.swift in Sources */,
 				884A913F2AD1548300AE1E14 /* SideMenuContentViewController.swift in Sources */,
@@ -730,7 +730,7 @@
 				884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */,
 				884A918D2AD9917000AE1E14 /* UIViewControllerExtension.swift in Sources */,
 				884A91982AD9B84400AE1E14 /* UserSignupViewModel.swift in Sources */,
-				884A918F2AD9A1D500AE1E14 /* UITextFieldExtension.swift in Sources */,
+				884A918F2AD9A1D500AE1E14 /* CALayerExtension.swift in Sources */,
 				884A91932AD9A7A300AE1E14 /* UserIdViewModel.swift in Sources */,
 				88152F842AED3903002CB48D /* MainViewModel.swift in Sources */,
 				8802D4B42AF24812000E907E /* ImageModel.swift in Sources */,
@@ -748,8 +748,8 @@
 				884A91872AD8387B00AE1E14 /* UserPetitionViewController.swift in Sources */,
 				882E635A2AB6169A00BFE332 /* UserIdViewController.swift in Sources */,
 				88B7C64B2ADAECCC0082EA43 /* PetitionMenu.swift in Sources */,
-				8867D3E42ADD4E3C0048B205 /* ReportPetitionTextView.swift in Sources */,
 				880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */,
+				8849D9DC2B0EDC2E00708256 /* PetitionReportButton.swift in Sources */,
 				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,
 				882E63752AB7109000BFE332 /* MainViewController.swift in Sources */,
 				885554632AF643490025747E /* DetailPetitionAlertViewModel.swift in Sources */,
