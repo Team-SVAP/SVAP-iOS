@@ -21,26 +21,15 @@ class PetitionReportAlert: UIViewController {
     private let reportPetitionLabel = UILabel().then {
         $0.text = "청원 신고하기"
         $0.textColor = UIColor(named: "gray-700")
-        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 16)
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 20)
     }
     private let explainLabel = UILabel().then {
         $0.text = "부적절한 신고는 불이익을 얻을 수 있습니다."
         $0.textColor = UIColor(named: "gray-600")
-        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 10)
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
-    private let questionLabel = UILabel().then {
-        $0.text = "이 청원을 신고하는 이유가 무엇인가요?"
-        $0.textColor = UIColor(named: "gray-700")
-        $0.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 14)
-    }
-    private let textView = PetitionReportTextView().then {
-        $0.text = "신고하려는 이유를 써주세요."
-    }
-    private let reportButton = CustomButton(type: .system, title: "신고하기", titleColor: .white, backgroundColor: UIColor(named: "main-2")!).then {
-        $0.layer.cornerRadius = 8
-        $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
-        $0.isEnabled = true
-    }
+    private let cancelButton = PetitionReportButton(type: .system, title: "취소", titleColor: UIColor(named: "gray-700"), backgroundColor: .white, borderColor: UIColor(named: "main-2")!, borderWidth: 1)
+    private let reportButton = PetitionReportButton(type: .system, title: "신고", titleColor: UIColor(named: "gray-000"), backgroundColor: UIColor(named: "main-2"), borderColor: .clear, borderWidth: 0)
     
     
     override func viewDidLoad() {
@@ -60,8 +49,7 @@ class PetitionReportAlert: UIViewController {
         [
             reportPetitionLabel,
             explainLabel,
-            questionLabel,
-            textView,
+            cancelButton,
             reportButton
         ].forEach({ backgroundView.addSubview($0) })
     }
@@ -70,31 +58,27 @@ class PetitionReportAlert: UIViewController {
         backgroundView.snp.makeConstraints {
             $0.center.equalToSuperview()
             $0.width.equalTo(350)
-            $0.height.equalTo(330)
+            $0.height.equalTo(165)
         }
         reportPetitionLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(24)
-            $0.left.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(25)
         }
         explainLabel.snp.makeConstraints {
-            $0.top.equalTo(reportPetitionLabel.snp.bottom).offset(8)
-            $0.left.equalToSuperview().inset(20)
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(reportPetitionLabel.snp.bottom).offset(7)
         }
-        questionLabel.snp.makeConstraints {
+        cancelButton.snp.makeConstraints {
             $0.top.equalTo(explainLabel.snp.bottom).offset(15)
             $0.left.equalToSuperview().inset(20)
-        }
-        textView.snp.makeConstraints {
-            $0.top.equalTo(questionLabel.snp.bottom).offset(8)
-            $0.left.equalToSuperview().inset(20)
-            $0.width.equalTo(310)
-            $0.height.equalTo(150)
+            $0.width.equalTo(140)
+            $0.height.equalTo(40)
         }
         reportButton.snp.makeConstraints {
-            $0.top.equalTo(textView.snp.bottom).offset(8)
+            $0.top.equalTo(explainLabel.snp.bottom).offset(15)
             $0.right.equalToSuperview().inset(20)
-            $0.width.equalTo(80)
-            $0.height.equalTo(30)
+            $0.width.equalTo(140)
+            $0.height.equalTo(40)
         }
         
     }
@@ -123,39 +107,11 @@ class PetitionReportAlert: UIViewController {
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
-        backgroundView.rx.tapGesture()
-            .when(.recognized)
-            .subscribe(onNext: { _ in
-                self.view.endEditing(true)
+        cancelButton.rx.tap
+            .subscribe(onNext: {
+                self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
-        textView.rx.text.orEmpty
-            .subscribe(onNext: {
-                if (self.textView.textColor == UIColor(named: "gray-500") || $0.count < 1) {
-                    self.reportButton.isEnabled = false
-                } else {
-                    self.reportButton.isEnabled = true
-                }
-            }).disposed(by: disposeBag)
-        
-        textView.rx.didBeginEditing
-            .subscribe(onNext: {
-                if self.textView.textColor == UIColor(named: "gray-500") {
-                    self.textView.text = nil
-                    self.textView.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
-                    self.textView.textColor = UIColor(named: "gray-700")
-                }
-            }).disposed(by: disposeBag)
-        
-        textView.rx.didEndEditing
-            .subscribe(onNext: {
-                if self.textView.text.isEmpty {
-                    self.textView.text = "신고하려는 이유를 써주세요."
-                    self.textView.textColor = UIColor(named: "gray-500")
-                    self.textView.font = UIFont(name: "IBMPlexSansKR-Regular", size: 8)
-                    self.reportButton.isEnabled = false
-                }
-            }).disposed(by: disposeBag)
     }
     
     
