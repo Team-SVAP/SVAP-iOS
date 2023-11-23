@@ -92,7 +92,7 @@ class DetailPetitionViewController: BaseVC {
         $0.setTitleColor(UIColor(named: "main-1"), for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 12)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = false
@@ -230,8 +230,8 @@ class DetailPetitionViewController: BaseVC {
                     self.voteButton.backgroundColor = .systemBlue
                 }
                 self.imageArray = BehaviorRelay(value: data.imgUrl ?? [])
-                print(self.imageArray.value.count)
-                print(self.imageArray.value)
+//                print(self.imageArray.value.count)
+//                print(self.imageArray.value)
             }).disposed(by: disposeBag)
 
 //        imageArray.bind(to: collectionView.rx.items(cellIdentifier: "ImageCellId", cellType: ImageCell.self)) { row, item, cell in
@@ -266,13 +266,11 @@ class DetailPetitionViewController: BaseVC {
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve
                 self.present(modal, animated: true)
-                let id = DetailPetitionAlert()
-                id.petitionId = self.petitionId
             }).disposed(by: disposeBag)
         
         reportPetitionButton.rx.tap
             .subscribe(onNext: {
-                let modal = UINavigationController(rootViewController: ReportPetitionAlert())
+                let modal = UINavigationController(rootViewController: PetitionReportAlert())
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve
                 self.present(modal, animated: true)

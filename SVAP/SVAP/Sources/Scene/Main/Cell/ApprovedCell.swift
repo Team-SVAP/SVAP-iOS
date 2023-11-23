@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 import Then
 import RxSwift
+import RxCocoa
 
 class ApprovedCell: UICollectionViewCell {
     
@@ -41,11 +42,4 @@ class ApprovedCell: UICollectionViewCell {
         }
     }
     
-//    func subscribe() {
-//        
-//        moveButton.rx.tap
-//            .subscribe(onNext: {
-//                self
-//            })
-//    }
 }
