@@ -34,6 +34,7 @@ class MainViewController: BaseVC {
     private let searchButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "searchIcon"), for: .normal)
         $0.tintColor = UIColor(named: "gray-600")
+        $0.isEnabled = false
     }
     private let viewPetitionButton = PetitionButton(type: .system, title: "청원보기", image: UIImage(named: "peopleIcon")!)
     private let createPetitionButton = PetitionButton(type: .system, title: "청원하기", image: UIImage(named: "editIcon")!)
@@ -162,6 +163,22 @@ class MainViewController: BaseVC {
                 self.present(self.sideMenu, animated: true)
             }).disposed(by: disposeBag)
         
+        searchButton.rx.tap
+            .subscribe(onNext: {
+                let vc = PetitionViewController()
+                vc.searchTextField.text = self.searchTextField.text
+                self.pushViewController(vc)
+            }).disposed(by: disposeBag)
+        
+        searchTextField.rx.text.orEmpty
+            .subscribe(onNext: {
+                if $0.isEmpty {
+                    self.searchButton.isEnabled = false
+                } else {
+                    self.searchButton.isEnabled = true
+                }
+            }).disposed(by: disposeBag)
+        
         viewPetitionButton.rx.tap
             .subscribe(onNext: {
                 self.pushViewController(PetitionViewController())
@@ -207,11 +224,13 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row % 2 == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: indexPath) as! MainCell
-            // "cell1"에 대한 데이터 설정
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ApprovedCell", for: indexPath) as! ApprovedCell
-            // "cell2"에 대한 데이터 설정
+            cell.moveButton.rx.tap
+                .subscribe(onNext: {
+                    self.pushViewController(PetitionViewController())
+                }).disposed(by: disposeBag)
             return cell
         }
     }

@@ -10,6 +10,7 @@ class PetitionViewModel: ViewModelType {
         
         //MARK: 청원 검색
         let petitonTitle: Driver<String>
+        let searchPetition: Signal<Void>
         let doneTap: Signal<Void>
         
         //MARK: 최신순으로 보기
@@ -43,6 +44,20 @@ class PetitionViewModel: ViewModelType {
         let petition = BehaviorRelay<[PetitionModel]>(value: [])
         
         //MARK: 청원 검색
+        input.searchPetition.asObservable()
+            .withLatestFrom(input.petitonTitle)
+            .flatMap { title in
+                api.searchPetition(title)
+            }
+            .subscribe(onNext: { data, res in
+                switch res {
+                    case .ok:
+                        petition.accept(data!)
+                    default:
+                        return
+                }
+            }).disposed(by: disposeBag)
+        
         input.doneTap.asObservable()
             .withLatestFrom(input.petitonTitle)
             .flatMap { title in

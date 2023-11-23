@@ -7,6 +7,7 @@ class PetitionViewController: BaseVC {
     
     let viewModel = PetitionViewModel()
     private let disposeBag = DisposeBag()
+    private let viewAppear = PublishRelay<Void>()
     private let allRecentPetition = PublishRelay<Void>()
     private let schoolRecentPetiton = PublishRelay<Void>()
     private let dormRecentPetition = PublishRelay<Void>()
@@ -24,12 +25,13 @@ class PetitionViewController: BaseVC {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
     }
-    private let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.").then {
+    let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.").then {
         $0.layer.cornerRadius = 8
     }
     private let searchButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "searchIcon"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
+        $0.isEnabled = false
     }
     private let menuButton = UIButton(type: .system).then {
         $0.setTitle("최신순으로 보기", for: .normal)
@@ -70,6 +72,10 @@ class PetitionViewController: BaseVC {
         tableView.reloadData()
         allRecentPetition.accept(())
     }
+    override func viewDidAppear(_ animated: Bool) {
+        viewAppear.accept(())
+
+    }
     override func configureUI() {
         super.configureUI()
         [
@@ -87,6 +93,7 @@ class PetitionViewController: BaseVC {
     }
     override func setupConstraints() {
         super.setupConstraints()
+        
         searchTextField.snp.makeConstraints {
             $0.top.equalToSuperview().inset(97)
             $0.left.right.equalToSuperview().inset(20)
@@ -126,6 +133,7 @@ class PetitionViewController: BaseVC {
         
         let input = PetitionViewModel.Input(
             petitonTitle: searchTextField.rx.text.orEmpty.asDriver(),
+            searchPetition: viewAppear.asSignal(),
             doneTap: searchButton.rx.tap.asSignal(),
             allRecentPetition: allRecentPetition.asSignal(),
             schoolRecentPetiton: schoolRecentPetiton.asSignal(),
@@ -152,8 +160,15 @@ class PetitionViewController: BaseVC {
         }.disposed(by: disposeBag)
     }
     override func subscribe() {
-        searchButton.rx.tap
+        super.subscribe()
+        
+        searchTextField.rx.text.orEmpty
             .subscribe(onNext: {
+                if $0.isEmpty {
+                    self.searchButton.isEnabled = false
+                } else {
+                    self.searchButton.isEnabled = true
+                }
             }).disposed(by: disposeBag)
         
         menuButton.rx.tap
