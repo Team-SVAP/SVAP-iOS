@@ -145,11 +145,11 @@ extension UserIdViewController {
         idTextField.rx.text
             .subscribe(onNext: { text in
                 if text!.isEmpty {
-                    self.idTextField.borderColor(UIColor(named: "gray-300")!)
+                    self.idTextField.layer.borderColor(UIColor(named: "gray-300")!)
                     self.nextButton.backgroundColor = UIColor(named: "main-4")
                     self.nextButton.isEnabled = false
                 } else {
-                    self.idTextField.borderColor(UIColor(named: "main-2")!)
+                    self.idTextField.layer.borderColor(UIColor(named: "main-2")!)
                     self.nextButton.backgroundColor = UIColor(named: "main-2")
                     self.nextButton.isEnabled = true
                     self.idDuplicationLabel.text = nil

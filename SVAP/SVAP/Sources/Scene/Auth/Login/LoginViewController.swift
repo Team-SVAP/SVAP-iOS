@@ -135,18 +135,18 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
         idTextField.rx.text.orEmpty
             .subscribe(onNext: {
                 if $0.isEmpty {
-                    self.idTextField.borderColor(UIColor(named: "gray-300")!)
+                    self.idTextField.layer.borderColor(UIColor(named: "gray-300")!)
                 } else {
-                    self.idTextField.borderColor(UIColor(named: "main-2")!)
+                    self.idTextField.layer.borderColor(UIColor(named: "main-2")!)
                 }
             }).disposed(by: disposeBag)
         
         passwordTextField.rx.text.orEmpty
             .subscribe(onNext: {
                 if $0.isEmpty {
-                    self.passwordTextField.borderColor(UIColor(named: "gray-300")!)
+                    self.passwordTextField.layer.borderColor(UIColor(named: "gray-300")!)
                 } else {
-                    self.passwordTextField.borderColor(UIColor(named: "main-2")!)
+                    self.passwordTextField.layer.borderColor(UIColor(named: "main-2")!)
                 }
             }).disposed(by: disposeBag)
         

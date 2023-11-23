@@ -229,18 +229,18 @@ class PetitionEditViewController: BaseVC {
         titleTextField.rx.text.orEmpty
             .subscribe(onNext: {
                 if $0.isEmpty {
-                    self.titleTextField.borderColor(UIColor(named: "gray-400")!)
+                    self.titleTextField.layer.borderColor(UIColor(named: "gray-400")!)
                 } else {
-                    self.titleTextField.borderColor(UIColor(named: "main-1")!)
+                    self.titleTextField.layer.borderColor(UIColor(named: "main-1")!)
                 }
             }).disposed(by: disposeBag)
         
         placeTextField.rx.text.orEmpty
             .subscribe(onNext: {
                 if $0.isEmpty {
-                    self.placeTextField.borderColor(UIColor(named: "gray-400")!)
+                    self.placeTextField.layer.borderColor(UIColor(named: "gray-400")!)
                 } else {
-                    self.placeTextField.borderColor(UIColor(named: "main-1")!)
+                    self.placeTextField.layer.borderColor(UIColor(named: "main-1")!)
                 }
             }).disposed(by: disposeBag)
         

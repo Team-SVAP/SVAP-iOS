@@ -126,12 +126,12 @@ class UserNameViewController: BaseVC {
         nameTextField.rx.text
             .subscribe(onNext: { text in
                 if text!.isEmpty {
-                    self.nameTextField.borderColor(UIColor(named: "gray-300")!)
+                    self.nameTextField.layer.borderColor(UIColor(named: "gray-300")!)
                     self.signupButton.backgroundColor = UIColor(named: "main-4")
                     self.signupButton.isEnabled = false
                 } else{
-                    SignupInfo.shared.userName.accept(self.nameTextField.text) // PublishRelay의 accept 메서드로 값을 설정
-                    self.nameTextField.borderColor(UIColor(named: "main-2")!)
+                    SignupInfo.shared.userName.accept(self.nameTextField.text)
+                    self.nameTextField.layer.borderColor(UIColor(named: "main-2")!)
                     self.signupButton.backgroundColor = UIColor(named: "main-2")
                     self.signupButton.isEnabled = true
                 }
