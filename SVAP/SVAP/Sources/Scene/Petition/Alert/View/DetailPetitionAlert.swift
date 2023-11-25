@@ -9,7 +9,6 @@ class DetailPetitionAlert: BaseVC {
     private let disposeBag = DisposeBag()
     private let viewModel = DetailPetitionAlertViewModel()
     
-    var petitionId = 0
     private let backgroundView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 8
@@ -74,14 +73,14 @@ class DetailPetitionAlert: BaseVC {
         super.bind()
         
         let input = DetailPetitionAlertViewModel.Input(
-            petitionId: petitionId,
+            petitionId: PetitionIdModel.shared.id,
             deleteTap: deleteButton.rx.tap.asSignal()
         )
         let output = viewModel.transform(input)
         
         output.deleteResult.subscribe(onNext: { bool in
             if bool {
-                self.dismiss(animated: true)
+                
             } else {
                 print("Fail")
             }
@@ -105,7 +104,6 @@ class DetailPetitionAlert: BaseVC {
             .subscribe(onNext: {
                 let vc = PetitionEditViewController()
                 self.pushViewController(vc)
-                vc.petitionId = self.petitionId
             }).disposed(by: disposeBag)
         
     }

@@ -9,7 +9,6 @@ class PetitionReportAlert: UIViewController {
     private let disposeBag = DisposeBag()
     private let viewModel = PetitionReportAlertViewModel()
     
-    var petitionId = 0
     
     private let backgroundView = UIView().then {
         $0.backgroundColor = UIColor(named: "gray-000")
@@ -37,7 +36,6 @@ class PetitionReportAlert: UIViewController {
         view.backgroundColor = .placeholderText
         bind()
         subscribe()
-        print(petitionId)
     }
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -85,7 +83,7 @@ class PetitionReportAlert: UIViewController {
     func bind() {
         
         let input = PetitionReportAlertViewModel.Input(
-            petitionId: petitionId,
+            petitionId: PetitionIdModel.shared.id,
             reportTap: reportButton.rx.tap.asSignal())
         
         let output = viewModel.transform(input)

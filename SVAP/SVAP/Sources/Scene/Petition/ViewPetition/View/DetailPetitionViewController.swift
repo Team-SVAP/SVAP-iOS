@@ -11,7 +11,6 @@ class DetailPetitionViewController: BaseVC {
     private let viewModel = DetailPetitionViewModel()
     private let viewAppear = PublishRelay<Void>()
     
-    var petitionId = 0
     var isClick = false
     var imageArray = BehaviorRelay<[String]>(value: [])
     var image: [String] = []
@@ -203,7 +202,7 @@ class DetailPetitionViewController: BaseVC {
     }
     override func bind() {
         let input = DetailPetitionViewModel.Input(
-            id: petitionId,
+            id: PetitionIdModel.shared.id,
             viewAppear: viewAppear.asSignal(onErrorJustReturn: ()),
             voteButtonTap: voteButton.rx.tap.asSignal()
         )

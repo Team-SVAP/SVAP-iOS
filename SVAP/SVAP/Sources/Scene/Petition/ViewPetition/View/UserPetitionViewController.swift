@@ -97,7 +97,7 @@ extension UserPetitionViewController: UITableViewDelegate {
         let vc = DetailPetitionViewController()
         
         cell.selectionStyle = .none
-        vc.petitionId = cell.id
+        PetitionIdModel.shared.id = cell.id
         self.pushViewController(vc)
     }
     
