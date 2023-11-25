@@ -13,6 +13,7 @@ class MainViewController: BaseVC {
     let sideMenu = SideMenuNavigationController(rootViewController: SideMenuViewController())
     var isClick = false
     var data = [MainCell.self, ApprovedCell.self]
+    var nowPage: Int = 0
     
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
     private let menuButton = UIButton(type: .system).then {
@@ -26,6 +27,7 @@ class MainViewController: BaseVC {
         collectionView.backgroundColor = UIColor(named: "main-8")
         collectionView.layer.cornerRadius = 12
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.isScrollEnabled = false
         collectionView.register(MainCell.self, forCellWithReuseIdentifier: "MainCell")
         collectionView.register(ApprovedCell.self, forCellWithReuseIdentifier: "ApprovedCell")
         return collectionView
@@ -51,7 +53,7 @@ class MainViewController: BaseVC {
     private let famousPetitionContentLabel = UILabel().then {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
-        $0.numberOfLines = 7
+        $0.numberOfLines = 3
         $0.textAlignment = .justified
     }
     private let viewContentButton = LabelButton(type: .system, title: "더보기", titleColor: UIColor(named: "gray-700")!)
@@ -62,6 +64,7 @@ class MainViewController: BaseVC {
         collectionView.dataSource = self
         navigationBarSetting()
         sideMenuSetting()
+        bannerTimer()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -141,7 +144,9 @@ class MainViewController: BaseVC {
     override func bind() {
         super.bind()
         
-        let input = MainViewModel.Input(viewAppear: viewAppear.asSignal(onErrorJustReturn: ()))
+        let input = MainViewModel.Input(
+            viewAppear: viewAppear.asSignal(onErrorJustReturn: ())
+        )
         let output = viewModel.transform(input)
         
         output.popularPetition.asObservable()
@@ -194,7 +199,7 @@ class MainViewController: BaseVC {
                 if self.isClick {
                     self.famousPetitionContentLabel.numberOfLines = 0
                 } else {
-                    self.famousPetitionContentLabel.numberOfLines = 7
+                    self.famousPetitionContentLabel.numberOfLines = 3
                 }
             }).disposed(by: disposeBag)
         
@@ -217,9 +222,9 @@ class MainViewController: BaseVC {
     
 }
 
-extension MainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return data.count
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.row % 2 == 0 {
@@ -236,6 +241,23 @@ extension MainViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+    }
+    func bannerTimer() {
+        let _: Timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (Timer) in
+            self.bannerMove()
+        }
+    }
+    func bannerMove() {
+        if nowPage == data.count-1 {
+            collectionView.scrollToItem(at: NSIndexPath(item: 0, section: 0) as IndexPath, at: .right, animated: true)
+            nowPage = 0
+            return
+        }
+        nowPage += 1
+        collectionView.scrollToItem(at: NSIndexPath(item: nowPage, section: 0) as IndexPath, at: .right, animated: true)
+    }
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        nowPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
     
 }
