@@ -8,8 +8,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        let onboardingViewController = UINavigationController(rootViewController: PetitionViewController())
-        window?.rootViewController = onboardingViewController
+        let onboardingViewController = UINavigationController(rootViewController: OnboardingViewController())
+        let loginViewController = UINavigationController(rootViewController: LoginViewController())
+        if Token.refreshToken?.isEmpty == false {
+            window?.rootViewController = loginViewController
+        } else {
+            window?.rootViewController = onboardingViewController
+        }
         window?.makeKeyAndVisible()
     }
 
