@@ -23,6 +23,7 @@ class UserPetitionViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = false
+        tableView.delegate = self
         navigationBarSetting()
     }
     override func viewWillAppear(_ animated: Bool) {
