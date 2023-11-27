@@ -3,6 +3,7 @@ import SnapKit
 import Then
 import RxSwift
 import RxCocoa
+import RxGesture
 
 class PetitionMenu: UIViewController {
     
@@ -82,6 +83,13 @@ class PetitionMenu: UIViewController {
         }
     }
     func subscribe() {
+        
+        view.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: {_ in 
+                self.dismiss(animated: true)
+            }).disposed(by: disposeBag)
+        
         slashButton.rx.tap
             .subscribe(onNext: {
                 self.dismiss(animated: true)
