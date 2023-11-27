@@ -262,10 +262,10 @@ class PetitionEditViewController: BaseVC {
 extension PetitionEditViewController {
     
     private func clickMenuButton() {
-        let petitionClosure = UINavigationController(rootViewController: CustomMenu(closure: { [weak self] petition in
+        let petitionClosure = CustomMenu(closure: { [weak self] petition in
             self?.petitionTypeLabel.text = petition
             self?.typeView.layer.borderColor = UIColor(named: "main-1")?.cgColor
-        }))
+        })
         petitionClosure.modalPresentationStyle = .overFullScreen
         petitionClosure.modalTransitionStyle = .crossDissolve
         self.present(petitionClosure, animated: true)

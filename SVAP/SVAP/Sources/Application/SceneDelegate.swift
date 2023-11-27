@@ -10,11 +10,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         let onboardingViewController = UINavigationController(rootViewController: OnboardingViewController())
         let loginViewController = UINavigationController(rootViewController: LoginViewController())
-        if Token.refreshToken?.isEmpty == false {
-            window?.rootViewController = loginViewController
-        } else {
-            window?.rootViewController = onboardingViewController
-        }
+        
+        
+        window?.rootViewController = UINavigationController(rootViewController: MainViewController())
+//        if Token.refreshToken?.isEmpty == false {
+//            window?.rootViewController = loginViewController
+//        } else {
+//            window?.rootViewController = onboardingViewController
+//        }
         window?.makeKeyAndVisible()
     }
 

@@ -213,8 +213,9 @@ class DetailPetitionViewController: BaseVC {
             .subscribe(onNext: { bool in
             if bool {
                 print("투표하였습니다")
+                
             } else {
-                print("취소되었습니다.")//수정하기
+                print("취소되었습니다")//수정하기
             }
         }).disposed(by: disposeBag)
         
@@ -247,7 +248,7 @@ class DetailPetitionViewController: BaseVC {
         voteButton.rx.tap
             .subscribe(onNext: {
                 self.isClick.toggle()
-                if self.isClick {
+                if self.isClick {//bind부분에 넣을 수 있는지 테스트 해보기
                     self.voteButton.backgroundColor = .systemBlue
                 } else {
                     self.voteButton.backgroundColor = UIColor(named: "main-2")
@@ -261,7 +262,9 @@ class DetailPetitionViewController: BaseVC {
         
         menuButton.rx.tap
             .subscribe(onNext: {
-                let modal = UINavigationController(rootViewController: DetailPetitionAlert())
+                let modal = DetailPetitionAlert(completion: {
+                    self.popViewController()
+                })
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve
                 self.present(modal, animated: true)
@@ -269,7 +272,7 @@ class DetailPetitionViewController: BaseVC {
         
         reportPetitionButton.rx.tap
             .subscribe(onNext: {
-                let modal = UINavigationController(rootViewController: PetitionReportAlert())
+                let modal = PetitionReportAlert()
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve
                 self.present(modal, animated: true)

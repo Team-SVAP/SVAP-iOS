@@ -107,7 +107,10 @@ class UserPasswordViewController: BaseVC {
     override func bind() {
         super.bind()
         
-        let input = UserPasswordViewModel.Input(password: passwordTextField.rx.text.orEmpty.asDriver(), doneTap: nextButton.rx.tap.asSignal())
+        let input = UserPasswordViewModel.Input(
+            password: passwordTextField.rx.text.orEmpty.asDriver(),
+            doneTap: nextButton.rx.tap.asSignal()
+        )
         let output = viewModel.transform(input)
         
         output.result.subscribe(onNext: { bool in

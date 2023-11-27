@@ -45,7 +45,6 @@ class UserIdViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupKeyboardObservers()
-        textFieldDidChange()
     }
     override func configureUI() {
         [
@@ -95,8 +94,10 @@ class UserIdViewController: BaseVC {
         
     }
     override func bind() {
-        let input = UserIdViewModel.Input(id: idTextField.rx.text.orEmpty.asDriver(),
-                                          doneTap: nextButton.rx.tap.asSignal())
+        let input = UserIdViewModel.Input(
+            id: idTextField.rx.text.orEmpty.asDriver(),
+            doneTap: nextButton.rx.tap.asSignal()
+        )
         let output = viewModel.transform(input)
         
         output.result.subscribe(onNext: { bool in
@@ -110,10 +111,26 @@ class UserIdViewController: BaseVC {
     }
     
     override func subscribe() {
+        
+        idTextField.rx.text
+            .subscribe(onNext: { text in
+                if text!.isEmpty {
+                    self.idTextField.layer.borderColor(UIColor(named: "gray-300")!)
+                    self.nextButton.backgroundColor = UIColor(named: "main-4")
+                    self.nextButton.isEnabled = false
+                } else {
+                    self.idTextField.layer.borderColor(UIColor(named: "main-2")!)
+                    self.nextButton.backgroundColor = UIColor(named: "main-2")
+                    self.nextButton.isEnabled = true
+                    self.idDuplicationLabel.text = nil
+                }
+            }).disposed(by: disposeBag)
+        
         loginButton.rx.tap
             .subscribe(onNext: {
                 self.pushViewController(LoginViewController())
             }).disposed(by: disposeBag)
+        
     }
     
 }
@@ -140,21 +157,6 @@ extension UserIdViewController {
         UIView.animate(withDuration: 0.3) {
             self.buttonStackView.transform = .identity
         }
-    }
-    func textFieldDidChange() {
-        idTextField.rx.text
-            .subscribe(onNext: { text in
-                if text!.isEmpty {
-                    self.idTextField.layer.borderColor(UIColor(named: "gray-300")!)
-                    self.nextButton.backgroundColor = UIColor(named: "main-4")
-                    self.nextButton.isEnabled = false
-                } else {
-                    self.idTextField.layer.borderColor(UIColor(named: "main-2")!)
-                    self.nextButton.backgroundColor = UIColor(named: "main-2")
-                    self.nextButton.isEnabled = true
-                    self.idDuplicationLabel.text = nil
-                }
-            }).disposed(by: disposeBag)
     }
     
 }

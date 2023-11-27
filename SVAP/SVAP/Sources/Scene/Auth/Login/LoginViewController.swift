@@ -101,9 +101,11 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
     }
     
     override func bind() {
-        let input = LoginViewModel.Input(id: idTextField.rx.text.orEmpty.asDriver(),
-                                         password: passwordTextField.rx.text.orEmpty.asDriver(),
-                                         doneTap: loginButton.rx.tap.asSignal())
+        let input = LoginViewModel.Input(
+            id: idTextField.rx.text.orEmpty.asDriver(),
+            password: passwordTextField.rx.text.orEmpty.asDriver(),
+            doneTap: loginButton.rx.tap.asSignal()
+        )
         let output = viewModel.transform(input)
         
         output.result.subscribe(onNext: { bool in

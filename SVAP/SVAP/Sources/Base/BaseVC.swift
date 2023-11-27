@@ -16,6 +16,7 @@ class BaseVC: UIViewController, UIGestureRecognizerDelegate {
         view.endEditing(true)
     }
     override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
         configureUI()
         setupConstraints()
     }
