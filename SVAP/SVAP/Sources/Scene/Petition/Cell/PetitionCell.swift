@@ -43,10 +43,7 @@ class PetitionCell: UITableViewCell {
     
     func contentViewSetting() {
         contentView.backgroundColor = .white
-        contentView.layer.borderColor = UIColor(named: "main-4")?.cgColor
-        contentView.layer.borderWidth = 1
-        contentView.layer.cornerRadius = 8
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 0, bottom: 12, right: 0))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 20, bottom: 12, right: 20))
     }
     func configureUI() {
         [

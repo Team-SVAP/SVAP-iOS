@@ -21,11 +21,15 @@ class PetitionViewController: BaseVC {
     private let schoolWaitPetition = PublishRelay<Void>()
     private let dormWaitPetition = PublishRelay<Void>()
     
-    private let backButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "leftArrow"), for: .normal)
-        $0.tintColor = UIColor(named: "gray-700")
+    private let topPaddingView = UIView().then {
+        $0.backgroundColor = .white
     }
-    let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.").then {
+    private let navigationTitleLabel = UILabel().then {
+        $0.text = "청원 보기"
+        $0.textColor = UIColor(named: "gray-800")
+        $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
+    }
+    private let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.").then {
         $0.layer.cornerRadius = 8
     }
     private let searchButton = UIButton(type: .system).then {
@@ -34,13 +38,13 @@ class PetitionViewController: BaseVC {
         $0.isEnabled = false
     }
     private let menuButton = UIButton(type: .system).then {
-        $0.setTitle("최신순으로 보기", for: .normal)
+        $0.setTitle("최신순", for: .normal)
         $0.setTitleColor(UIColor(named: "gray-800"), for: .normal)
-        $0.setImage(UIImage(named: "miniLeftArrow"), for: .normal)
-        $0.semanticContentAttribute = .forceRightToLeft
-        $0.imageEdgeInsets = .init(top: 0, left: 10, bottom: 0, right: 0)
+        $0.setImage(UIImage(named: "dropDownSlash"), for: .normal)
+        $0.semanticContentAttribute = .forceLeftToRight
+        $0.imageEdgeInsets = .init(top: 0, left: -10, bottom: 0, right: 0)
         $0.tintColor = UIColor(named: "gray-800")
-        $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
+        $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Regular", size: 12)
     }
     private let petitionButtonStackView = UIStackView().then {
         $0.axis = .horizontal
@@ -63,6 +67,9 @@ class PetitionViewController: BaseVC {
         $0.separatorStyle = .none
     }
     private let scrollButton = ScrollButton(type: .system)
+    private let bottomPaddingView = UIView().then {
+        $0.backgroundColor = .white
+    }
     
     public func setter(
         petitionTitle: String,
@@ -73,8 +80,8 @@ class PetitionViewController: BaseVC {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBarSetting()
         tableView.delegate = self
+        self.navigationController?.isNavigationBarHidden = true
     }
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
@@ -83,13 +90,16 @@ class PetitionViewController: BaseVC {
     override func configureUI() {
         super.configureUI()
         [
+            topPaddingView,
             searchTextField,
             menuButton,
             petitionButtonStackView,
             line,
             tableView,
-            scrollButton
+            scrollButton,
+            bottomPaddingView
         ].forEach({ view.addSubview($0) })
+        topPaddingView.addSubview(navigationTitleLabel)
         searchTextField.addSubview(searchButton)
         [ allPetitionButton, schoolPetitionButton, dormitoryPetitionButton].forEach({
             petitionButtonStackView.addArrangedSubview($0)
@@ -104,8 +114,8 @@ class PetitionViewController: BaseVC {
             $0.height.equalTo(40)
         }
         menuButton.snp.makeConstraints {
-            $0.top.equalTo(searchTextField.snp.bottom).offset(6)
-            $0.left.equalToSuperview().inset(20)
+            $0.top.equalTo(searchTextField.snp.bottom).offset(10)
+            $0.right.equalToSuperview().inset(20)
         }
         searchButton.snp.makeConstraints {
             $0.centerY.equalToSuperview()
@@ -114,7 +124,7 @@ class PetitionViewController: BaseVC {
         }
         petitionButtonStackView.snp.makeConstraints {
             $0.top.equalTo(searchTextField.snp.bottom).offset(12)
-            $0.right.equalToSuperview().inset(20)
+            $0.left.equalToSuperview().inset(20)
             $0.height.equalTo(14)
         }
         line.snp.makeConstraints {
@@ -124,13 +134,18 @@ class PetitionViewController: BaseVC {
         }
         tableView.snp.makeConstraints {
             $0.top.equalTo(line.snp.bottom).offset(24.25)
-            $0.bottom.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(20)
+            $0.left.right.bottom.equalToSuperview()
         }
         scrollButton.snp.makeConstraints {
             $0.bottom.right.equalToSuperview().inset(30)
             $0.width.height.equalTo(60)
         }
+        bottomPaddingView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(82)
+            $0.height.equalTo(90)
+        }
+        
     }
     override func bind() {
         super.bind()
@@ -233,11 +248,6 @@ class PetitionViewController: BaseVC {
                 self.buttonColor(all: UIColor(named: "gray-400"), school: UIColor(named: "gray-400"), dormitory: UIColor(named: "main-1"))
             }).disposed(by: disposeBag)
         
-        backButton.rx.tap
-            .subscribe(onNext: {
-                self.popViewController()
-            }).disposed(by: disposeBag)
-        
         scrollButton.rx.tap
             .subscribe(onNext: {
                 self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
@@ -249,22 +259,13 @@ class PetitionViewController: BaseVC {
         dormitoryPetitionButton.setTitleColor(dormitory, for: .normal)
     }
     
-    private func navigationBarSetting() {
-        let title = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 60))
-        title.text = "청원 보기"
-        title.textColor = UIColor(named: "gray-800")
-        title.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
-        title.textAlignment = .center
-        navigationItem.titleView = title
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
-    }
-    
 }
 
 extension PetitionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! PetitionCell
         let vc = DetailPetitionViewController()
+        vc.hidesBottomBarWhenPushed = true
         cell.selectionStyle = .none
         PetitionIdModel.shared.id = cell.id
         self.pushViewController(vc)
