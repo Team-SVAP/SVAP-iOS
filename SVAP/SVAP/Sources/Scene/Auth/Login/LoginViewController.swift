@@ -110,7 +110,7 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
         
         output.result.subscribe(onNext: { bool in
             if bool {
-                self.pushViewController(MainViewController())
+                self.pushViewController(TabBarVC())
             } else {
                 self.loginFailLabel.text = "아이디 또는 비밀번호를 확인하세요."
             }
