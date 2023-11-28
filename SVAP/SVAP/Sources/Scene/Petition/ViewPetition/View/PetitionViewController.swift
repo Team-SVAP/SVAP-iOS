@@ -7,7 +7,7 @@ class PetitionViewController: BaseVC {
     
     let viewModel = PetitionViewModel()
     private let disposeBag = DisposeBag()
-    private let viewAppear = PublishRelay<Void>()
+    private let searchPetition = PublishRelay<Void>()
     private let allRecentPetition = PublishRelay<Void>()
     private let schoolRecentPetiton = PublishRelay<Void>()
     private let dormRecentPetition = PublishRelay<Void>()
@@ -56,6 +56,7 @@ class PetitionViewController: BaseVC {
         $0.backgroundColor = UIColor(named: "gray-200")
     }
     private var tableView = UITableView().then {
+        $0.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
         $0.backgroundColor = .white
         $0.register(PetitionCell.self, forCellReuseIdentifier: "PetitionCell")
         $0.rowHeight = 92
@@ -63,6 +64,13 @@ class PetitionViewController: BaseVC {
     }
     private let scrollButton = ScrollButton(type: .system)
     
+    public func setter(
+        petitionTitle: String,
+        searchAccept: Void
+    ) {
+        searchTextField.text = petitionTitle
+        searchPetition.accept(searchAccept)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationBarSetting()
@@ -71,10 +79,6 @@ class PetitionViewController: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
         allRecentPetition.accept(())
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        viewAppear.accept(())
-
     }
     override func configureUI() {
         super.configureUI()
@@ -133,7 +137,7 @@ class PetitionViewController: BaseVC {
         
         let input = PetitionViewModel.Input(
             petitonTitle: searchTextField.rx.text.orEmpty.asDriver(),
-            searchPetition: viewAppear.asSignal(),
+            searchPetition: searchPetition.asSignal(),
             doneTap: searchButton.rx.tap.asSignal(),
             allRecentPetition: allRecentPetition.asSignal(),
             schoolRecentPetiton: schoolRecentPetiton.asSignal(),
@@ -162,6 +166,11 @@ class PetitionViewController: BaseVC {
     override func subscribe() {
         super.subscribe()
         
+        searchButton.rx.tap
+            .subscribe(onNext: {
+                self.searchPetition.accept(())
+            }).disposed(by: disposeBag)
+        
         searchTextField.rx.text.orEmpty
             .subscribe(onNext: {
                 if $0.isEmpty {
@@ -171,6 +180,7 @@ class PetitionViewController: BaseVC {
                 }
             }).disposed(by: disposeBag)
         
+        //MARK: 텍스트가 아닌 PublishRelay를 보내주는 방식으로 바꾸기?
         menuButton.rx.tap
             .subscribe(onNext: {
                 let petitionClosure = UINavigationController(rootViewController: PetitionMenu(closure: {
@@ -255,9 +265,8 @@ extension PetitionViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! PetitionCell
         let vc = DetailPetitionViewController()
-        
         cell.selectionStyle = .none
-        vc.petitionId = cell.id
+        PetitionIdModel.shared.id = cell.id
         self.pushViewController(vc)
     }
 

@@ -8,6 +8,7 @@ class DetailPetitionAlert: BaseVC {
     
     private let disposeBag = DisposeBag()
     private let viewModel = DetailPetitionAlertViewModel()
+    private var clickToPop: () -> Void = {}
     
     private let backgroundView = UIView().then {
         $0.backgroundColor = .white
@@ -25,7 +26,16 @@ class DetailPetitionAlert: BaseVC {
     }
     private let deleteButton = PetitionDetailButton(type: .system, title: "삭제하기", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white)
     private let editButton = PetitionDetailButton(type: .system, title: "수정하기", titleColor: UIColor(named: "gray-000")!, backgroundColor: UIColor(named: "main-2")!)
-    
+
+    init(completion: @escaping () -> Void = {}) {
+        self.clickToPop = completion
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .placeholderText
@@ -80,7 +90,10 @@ class DetailPetitionAlert: BaseVC {
         
         output.deleteResult.subscribe(onNext: { bool in
             if bool {
-                
+                self.dismiss(animated: true, completion: {
+                    self.clickToPop()
+                })
+                self.popViewController()
             } else {
                 print("Fail")
             }
