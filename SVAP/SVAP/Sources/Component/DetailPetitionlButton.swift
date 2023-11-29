@@ -4,7 +4,7 @@ class DetailPetitionlButton: UIButton {
     
     func setup(title: String, titleColor: UIColor, backgroundColor: UIColor) {
         self.setTitle(title, for: .normal)
-        self.titleLabel?.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 16)
+        self.titleLabel?.font = UIFont(name: "IBMPlexSansKR-SemiBold", size: 14)
         self.setTitleColor(titleColor, for: .normal)
         self.backgroundColor = backgroundColor
         self.layer.borderColor = UIColor(named: "main-2")?.cgColor

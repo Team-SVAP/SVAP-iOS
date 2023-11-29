@@ -27,8 +27,8 @@ class PetitionReportAlert: UIViewController {
         $0.textColor = UIColor(named: "gray-600")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
-    private let cancelButton = PetitionReportButton(type: .system, title: "취소", titleColor: UIColor(named: "gray-700"), backgroundColor: .white, borderColor: UIColor(named: "main-2")!, borderWidth: 1)
-    private let reportButton = PetitionReportButton(type: .system, title: "신고", titleColor: UIColor(named: "gray-000"), backgroundColor: UIColor(named: "main-2"), borderColor: .clear, borderWidth: 0)
+    private let cancelButton = DetailPetitionlButton(type: .system, title: "취소", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white)
+    private let reportButton = DetailPetitionlButton(type: .system, title: "신고", titleColor: .white, backgroundColor: UIColor(named: "main-2")!)
     
     
     override func viewDidLoad() {
