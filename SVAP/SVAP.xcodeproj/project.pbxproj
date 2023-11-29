@@ -48,6 +48,8 @@
 		8849D9E02B11F0C500708256 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849D9DF2B11F0C500708256 /* DataModel.swift */; };
 		8849D9E22B138E1B00708256 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849D9E12B138E1B00708256 /* TokenModel.swift */; };
 		8849DA0C2B15F1D600708256 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA0B2B15F1D600708256 /* TabBarVC.swift */; };
+		8849DA0E2B16216400708256 /* MyPageAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA0D2B16216400708256 /* MyPageAlert.swift */; };
+		8849DA102B16B10100708256 /* PetitionMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA0F2B16B10000708256 /* PetitionMenuViewController.swift */; };
 		884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */; };
 		884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91372ACFE5B300AE1E14 /* CustomTextView.swift */; };
 		884A913F2AD1548300AE1E14 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A913E2AD1548300AE1E14 /* MyPageViewController.swift */; };
@@ -82,7 +84,7 @@
 		8867D3E62ADE4D550048B205 /* ScrollButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3E52ADE4D550048B205 /* ScrollButton.swift */; };
 		8867D3E92ADE7A510048B205 /* RxGesture in Frameworks */ = {isa = PBXBuildFile; productRef = 8867D3E82ADE7A510048B205 /* RxGesture */; };
 		8867D3EB2ADF7E090048B205 /* DetailPetitionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EA2ADF7E090048B205 /* DetailPetitionAlert.swift */; };
-		8867D3ED2ADF80830048B205 /* PetitionDetailButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EC2ADF80830048B205 /* PetitionDetailButton.swift */; };
+		8867D3ED2ADF80830048B205 /* DetailPetitionlButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EC2ADF80830048B205 /* DetailPetitionlButton.swift */; };
 		8867D3F02ADF9D400048B205 /* MyPageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3EF2ADF9D400048B205 /* MyPageViewModel.swift */; };
 		8867D3F72AE0BACA0048B205 /* UserPetitionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */; };
 		888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 888A18B02AC01A3800168377 /* CustomMenu.swift */; };
@@ -136,6 +138,8 @@
 		8849D9DF2B11F0C500708256 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		8849D9E12B138E1B00708256 /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
 		8849DA0B2B15F1D600708256 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
+		8849DA0D2B16216400708256 /* MyPageAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAlert.swift; sourceTree = "<group>"; };
+		8849DA0F2B16B10000708256 /* PetitionMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionMenuViewController.swift; sourceTree = "<group>"; };
 		884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewController.swift; sourceTree = "<group>"; };
 		884A91372ACFE5B300AE1E14 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		884A913E2AD1548300AE1E14 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -164,7 +168,7 @@
 		8867D3E12ADD438F0048B205 /* PetitionReportAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionReportAlert.swift; sourceTree = "<group>"; };
 		8867D3E52ADE4D550048B205 /* ScrollButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollButton.swift; sourceTree = "<group>"; };
 		8867D3EA2ADF7E090048B205 /* DetailPetitionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionAlert.swift; sourceTree = "<group>"; };
-		8867D3EC2ADF80830048B205 /* PetitionDetailButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionDetailButton.swift; sourceTree = "<group>"; };
+		8867D3EC2ADF80830048B205 /* DetailPetitionlButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionlButton.swift; sourceTree = "<group>"; };
 		8867D3EF2ADF9D400048B205 /* MyPageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewModel.swift; sourceTree = "<group>"; };
 		8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPetitionViewModel.swift; sourceTree = "<group>"; };
 		888A18B02AC01A3800168377 /* CustomMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMenu.swift; sourceTree = "<group>"; };
@@ -385,8 +389,9 @@
 				884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */,
 				88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */,
 				8867D3E52ADE4D550048B205 /* ScrollButton.swift */,
-				8867D3EC2ADF80830048B205 /* PetitionDetailButton.swift */,
+				8867D3EC2ADF80830048B205 /* DetailPetitionlButton.swift */,
 				8849D9DB2B0EDC2E00708256 /* PetitionReportButton.swift */,
+				8849DA0D2B16216400708256 /* MyPageAlert.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -543,6 +548,7 @@
 			children = (
 				8867D3EA2ADF7E090048B205 /* DetailPetitionAlert.swift */,
 				8867D3E12ADD438F0048B205 /* PetitionReportAlert.swift */,
+				8849DA0F2B16B10000708256 /* PetitionMenuViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -721,13 +727,14 @@
 				882E63442AB6048F00BFE332 /* OnboardingViewController.swift in Sources */,
 				88152F6C2AEA98B8002CB48D /* PetitionEditViewModel.swift in Sources */,
 				880D923C2AC9B2500053D5A6 /* AuthModel.swift in Sources */,
-				8867D3ED2ADF80830048B205 /* PetitionDetailButton.swift in Sources */,
+				8867D3ED2ADF80830048B205 /* DetailPetitionlButton.swift in Sources */,
 				88152F682AE8EA85002CB48D /* PetitionViewModel.swift in Sources */,
 				880D92302AC861DA0053D5A6 /* AuthAPI.swift in Sources */,
 				882E63402AB5FF8000BFE332 /* LoginViewController.swift in Sources */,
 				8849D97A2B0C6F8C00708256 /* ImageCell.swift in Sources */,
 				884A91452AD2745900AE1E14 /* SignupInfo.swift in Sources */,
 				885554662AF643560025747E /* PetitionReportAlertViewModel.swift in Sources */,
+				8849DA0E2B16216400708256 /* MyPageAlert.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
 				882E637D2AB8565600BFE332 /* PetitionButton.swift in Sources */,
@@ -770,6 +777,7 @@
 				88B7C64B2ADAECCC0082EA43 /* PetitionMenu.swift in Sources */,
 				880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */,
 				8849D9DC2B0EDC2E00708256 /* PetitionReportButton.swift in Sources */,
+				8849DA102B16B10100708256 /* PetitionMenuViewController.swift in Sources */,
 				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,
 				882E63752AB7109000BFE332 /* MainViewController.swift in Sources */,
 				885554632AF643490025747E /* DetailPetitionAlertViewModel.swift in Sources */,
