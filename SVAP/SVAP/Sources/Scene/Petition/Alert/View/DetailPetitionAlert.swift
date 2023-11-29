@@ -24,8 +24,8 @@ class DetailPetitionAlert: BaseVC {
         $0.setImage(UIImage(named: "closeIcon"), for: .normal)
         $0.tintColor = UIColor(named: "gray-800")
     }
-    private let deleteButton = PetitionDetailButton(type: .system, title: "삭제하기", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white)
-    private let editButton = PetitionDetailButton(type: .system, title: "수정하기", titleColor: UIColor(named: "gray-000")!, backgroundColor: UIColor(named: "main-2")!)
+    private let deleteButton = DetailPetitionlButton(type: .system, title: "삭제하기", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white)
+    private let editButton = DetailPetitionlButton(type: .system, title: "수정하기", titleColor: UIColor(named: "gray-000")!, backgroundColor: UIColor(named: "main-2")!)
 
     init(completion: @escaping () -> Void = {}) {
         self.clickToPop = completion
