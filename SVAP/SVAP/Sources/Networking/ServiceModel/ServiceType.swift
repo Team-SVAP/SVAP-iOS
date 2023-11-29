@@ -6,6 +6,7 @@ enum networkingResult: Int {
     case createOk = 201
     case wrongRq = 400
     case tokenError = 401
+    case expiredToken = 403
     case notFound = 404
     case conflict = 409
     case fault = 0

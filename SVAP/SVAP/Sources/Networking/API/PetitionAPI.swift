@@ -2,8 +2,7 @@ import Foundation
 import Moya
 
 enum PetitionAPI {
-    case sendImage(image: [Data])
-    case createPetition(title: String, content: String, types: String, location: String, image: [String]?)
+    case createPetition(title: String, content: String, types: String, location: String, images: [String]?)
     case editPetition(title: String, content: String, location: String, types: String, petitionId: Int)
     case deletePetition(petitionId: Int)
     case loadDetailPetition(petitionId: Int)
@@ -24,8 +23,6 @@ extension PetitionAPI: TargetType {
     
     var path: String {
         switch self {
-            case .sendImage:
-                return "/petition/image"
             case .createPetition:
                 return "/petition"
             case .editPetition(let petitionId):
@@ -55,7 +52,7 @@ extension PetitionAPI: TargetType {
     
     var method: Moya.Method {
         switch self {
-            case .sendImage, .createPetition, .searchPetition, .reportPetition:
+            case .createPetition, .searchPetition, .reportPetition:
                 return .post
             case .editPetition:
                 return .patch
@@ -70,26 +67,19 @@ extension PetitionAPI: TargetType {
     
     var task: Moya.Task {
         switch self {
-            case .sendImage(let images):
-                var multiformData = [MultipartFormData]()
-                for image in images {
-                    multiformData.append(.init(
-                        provider: .data(image),
-                        name: "image",
-                        fileName: "image.jpg",
-                        mimeType: "image/jpg"
-                    ))
-                }
-                return .uploadMultipart(multiformData)
-            case .createPetition(let title, let content, let types, let location, let image):
-                return .requestParameters(
-                    parameters: [
-                        "title" : title,
-                        "content" : content,
-                        "types" : types,
-                        "location" : location,
-                        "imageUrlList": [image]
-                    ], encoding: JSONEncoding.default)
+            case .createPetition(let title, let content, let types, let location, let images):
+//                var imageArray: [String] = []
+//                for image in images! {
+////                    let imageString = image.base64EncodedString()
+//                    imageArray.append(image)
+//                }
+                return .requestParameters(parameters: [
+                    "title" : title,
+                    "content" : content,
+                    "types" : types,
+                    "location" : location,
+                    "imageUrlList": images!
+                ], encoding: JSONEncoding.default)
             case .searchPetition(let title):
                 return .requestParameters(
                     parameters: [
@@ -110,7 +100,7 @@ extension PetitionAPI: TargetType {
     
     var headers: [String : String]? {
         switch self {
-            case .sendImage, .createPetition, .editPetition, .deletePetition, .votePetition, .reportPetition:
+            case .createPetition, .editPetition, .deletePetition, .votePetition, .reportPetition:
                 return Header.accessToken.header()
             default:
                 return Header.tokenIsEmpty.header()
