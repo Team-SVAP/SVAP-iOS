@@ -80,6 +80,8 @@ extension AuthAPI: TargetType {
         switch self {
             case .loadUserPetition, .loadUserInfo:
                 return Header.accessToken.header()
+            case .refreshToken:
+                return Header.refreshToken.header()
             default:
                 return Header.tokenIsEmpty.header()
         }
