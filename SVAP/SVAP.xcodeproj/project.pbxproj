@@ -49,6 +49,8 @@
 		8849DA0C2B15F1D600708256 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA0B2B15F1D600708256 /* TabBarVC.swift */; };
 		8849DA0E2B16216400708256 /* MyPageAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA0D2B16216400708256 /* MyPageAlert.swift */; };
 		8849DA102B16B10100708256 /* PetitionMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA0F2B16B10000708256 /* PetitionMenuViewController.swift */; };
+		8849DA412B18991300708256 /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8849DA402B18991300708256 /* BSImagePicker */; };
+		8849DA452B189A9600708256 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA442B189A9600708256 /* CustomImageView.swift */; };
 		884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */; };
 		884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91372ACFE5B300AE1E14 /* CustomTextView.swift */; };
 		884A913F2AD1548300AE1E14 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A913E2AD1548300AE1E14 /* MyPageViewController.swift */; };
@@ -138,6 +140,7 @@
 		8849DA0B2B15F1D600708256 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		8849DA0D2B16216400708256 /* MyPageAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAlert.swift; sourceTree = "<group>"; };
 		8849DA0F2B16B10000708256 /* PetitionMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionMenuViewController.swift; sourceTree = "<group>"; };
+		8849DA442B189A9600708256 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewController.swift; sourceTree = "<group>"; };
 		884A91372ACFE5B300AE1E14 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
 		884A913E2AD1548300AE1E14 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +193,7 @@
 				88A2936C2AC3A729007B4469 /* Then in Frameworks */,
 				880D92342AC864530053D5A6 /* SwiftKeychainWrapper in Frameworks */,
 				884A91422AD19FF000AE1E14 /* SideMenu in Frameworks */,
+				8849DA412B18991300708256 /* BSImagePicker in Frameworks */,
 				880D92282AC860F70053D5A6 /* Moya in Frameworks */,
 				8867D3E92ADE7A510048B205 /* RxGesture in Frameworks */,
 				884A91702AD8294800AE1E14 /* RxCocoa in Frameworks */,
@@ -389,6 +393,7 @@
 				8867D3E52ADE4D550048B205 /* ScrollButton.swift */,
 				8867D3EC2ADF80830048B205 /* DetailPetitionlButton.swift */,
 				8849DA0D2B16216400708256 /* MyPageAlert.swift */,
+				8849DA442B189A9600708256 /* CustomImageView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -641,6 +646,7 @@
 				884A91822AD8349100AE1E14 /* Moya */,
 				884A91842AD8349100AE1E14 /* RxMoya */,
 				8867D3E82ADE7A510048B205 /* RxGesture */,
+				8849DA402B18991300708256 /* BSImagePicker */,
 			);
 			productName = SVAP_iOS;
 			productReference = 882E63112AB5FA2700BFE332 /* SVAP.app */;
@@ -678,6 +684,7 @@
 				884A91652AD6658700AE1E14 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				884A916C2AD8294800AE1E14 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				8867D3E72ADE7A510048B205 /* XCRemoteSwiftPackageReference "RxGesture" */,
+				8849DA3F2B18991300708256 /* XCRemoteSwiftPackageReference "BSImagePicker" */,
 			);
 			productRefGroup = 882E63122AB5FA2700BFE332 /* Products */;
 			projectDirPath = "";
@@ -760,6 +767,7 @@
 				884A917E2AD8330900AE1E14 /* AuthService.swift in Sources */,
 				88C3E36A2B079C0F009B2A32 /* PetitionCreateViewController.swift in Sources */,
 				880D92382AC864A10053D5A6 /* Header.swift in Sources */,
+				8849DA452B189A9600708256 /* CustomImageView.swift in Sources */,
 				882E63172AB5FA2700BFE332 /* SceneDelegate.swift in Sources */,
 				8849DA0C2B15F1D600708256 /* TabBarVC.swift in Sources */,
 				8867D3F02ADF9D400048B205 /* MyPageViewModel.swift in Sources */,
@@ -1008,6 +1016,14 @@
 				minimumVersion = 4.0.1;
 			};
 		};
+		8849DA3F2B18991300708256 /* XCRemoteSwiftPackageReference "BSImagePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mikaoj/BSImagePicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.3.1;
+			};
+		};
 		884A91402AD19FF000AE1E14 /* XCRemoteSwiftPackageReference "SideMenu" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jonkykong/SideMenu.git";
@@ -1068,6 +1084,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 880D92322AC864530053D5A6 /* XCRemoteSwiftPackageReference "SwiftKeychainWrapper" */;
 			productName = SwiftKeychainWrapper;
+		};
+		8849DA402B18991300708256 /* BSImagePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8849DA3F2B18991300708256 /* XCRemoteSwiftPackageReference "BSImagePicker" */;
+			productName = BSImagePicker;
 		};
 		884A91412AD19FF000AE1E14 /* SideMenu */ = {
 			isa = XCSwiftPackageProductDependency;
