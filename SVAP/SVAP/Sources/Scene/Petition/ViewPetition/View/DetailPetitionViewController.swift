@@ -19,12 +19,14 @@ class DetailPetitionViewController: BaseVC {
     private let contentView = UIView()
     private let mainView = UIView()
     
+    private let topPaddingView = UIView().then {
+        $0.backgroundColor = .white
+    }
     private let navigationBarTitle = UILabel().then {
         $0.text = "상세보기"
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
     }
-
     private let leftbutton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
@@ -94,15 +96,17 @@ class DetailPetitionViewController: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.hidesBackButton = false
-        navigationBarSetting()
         viewAppear.accept(())
         collectionView.delegate = self
 //        collectionView.dataSource = self
     }
     override func configureUI() {
         super.configureUI()
-        view.addSubview(scrollView)
+        
+        [
+            scrollView,
+            topPaddingView
+        ].forEach({ view.addSubview($0) })
         scrollView.addSubview(contentView)
         contentView.addSubview(mainView)
       
@@ -122,6 +126,11 @@ class DetailPetitionViewController: BaseVC {
             viewCountLabel,
             reportPetitionButton
         ].forEach({ mainView.addSubview($0) })
+        [
+            leftbutton,
+            navigationBarTitle
+        ].forEach({ topPaddingView.addSubview($0) })
+        
     }
     override func setupConstraints() {
         super.setupConstraints()
@@ -137,12 +146,24 @@ class DetailPetitionViewController: BaseVC {
             $0.top.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(view.frame.height + 30)
         }
+        topPaddingView.snp.makeConstraints {
+            $0.top.left.right.equalToSuperview()
+            $0.height.equalTo(100)
+        }
+        leftbutton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(60)
+            $0.left.equalToSuperview().inset(20)
+        }
+        navigationBarTitle.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(60)
+        }
         tagLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(14)
+            $0.top.equalToSuperview().inset(20)
             $0.left.equalToSuperview().inset(20)
         }
         menuButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(18)
+            $0.top.equalToSuperview().inset(20)
             $0.right.equalToSuperview().inset(20)
             $0.width.height.equalTo(24)
         }
@@ -213,7 +234,6 @@ class DetailPetitionViewController: BaseVC {
             .subscribe(onNext: { bool in
             if bool {
                 print("투표하였습니다")
-                
             } else {
                 print("취소되었습니다")//수정하기
             }
@@ -262,8 +282,13 @@ class DetailPetitionViewController: BaseVC {
         
         menuButton.rx.tap
             .subscribe(onNext: {
-                let modal = DetailPetitionAlert(completion: {
+//                let modal = DetailPetitionAlert(completion: {
+//                    self.popViewController()
+//                })
+                let modal = DetailPetitionAlert(popCompletion: {
                     self.popViewController()
+                }, editCompletion: {
+                    self.pushViewController(PetitionEditViewController())
                 })
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve
@@ -277,12 +302,6 @@ class DetailPetitionViewController: BaseVC {
                 modal.modalTransitionStyle = .crossDissolve
                 self.present(modal, animated: true)
             }).disposed(by: disposeBag)
-    }
-    
-    private func navigationBarSetting() {
-        navigationItem.titleView = navigationBarTitle
-        navigationItem.hidesBackButton = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
     }
     
 }

@@ -9,6 +9,7 @@ class DetailPetitionAlert: BaseVC {
     private let disposeBag = DisposeBag()
     private let viewModel = DetailPetitionAlertViewModel()
     private var clickToPop: () -> Void = {}
+    private var clickToEdit: () -> Void = {}
     
     private let backgroundView = UIView().then {
         $0.backgroundColor = .white
@@ -27,8 +28,9 @@ class DetailPetitionAlert: BaseVC {
     private let deleteButton = DetailPetitionlButton(type: .system, title: "삭제하기", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white)
     private let editButton = DetailPetitionlButton(type: .system, title: "수정하기", titleColor: UIColor(named: "gray-000")!, backgroundColor: UIColor(named: "main-2")!)
 
-    init(completion: @escaping () -> Void = {}) {
-        self.clickToPop = completion
+    init(popCompletion: @escaping () -> Void = {}, editCompletion: @escaping () -> Void = {}) {
+        self.clickToPop = popCompletion
+        self.clickToEdit = editCompletion
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -93,7 +95,6 @@ class DetailPetitionAlert: BaseVC {
                 self.dismiss(animated: true, completion: {
                     self.clickToPop()
                 })
-                self.popViewController()
             } else {
                 print("Fail")
             }
@@ -115,8 +116,9 @@ class DetailPetitionAlert: BaseVC {
         
         editButton.rx.tap
             .subscribe(onNext: {
-                let vc = PetitionEditViewController()
-                self.pushViewController(vc)
+                self.dismiss(animated: true, completion: {
+                    self.clickToEdit()
+                })
             }).disposed(by: disposeBag)
         
     }
