@@ -82,6 +82,15 @@ final class AuthService {
             }
     }
     
+    func userWithdrawal() -> Single<networkingResult> {
+        return provider.rx.request(.userWithdrawal)
+            .filterSuccessfulStatusCodes()
+            .map{ _ -> networkingResult in
+                return .ok
+            }
+            .catch{[unowned self] in return .just(setNetworkError($0))}
+    }
+    
     func setNetworkError(_ error: Error) -> networkingResult {
            print(error)
            print(error.localizedDescription)

@@ -11,6 +11,7 @@ enum AuthAPI {
     case loadUserPetition
     case idCheck(accountId: String)
     case passwordCheck(password: String)
+    case userWithdrawal
 }
 
 extension AuthAPI: TargetType {
@@ -34,6 +35,8 @@ extension AuthAPI: TargetType {
                 return "/user/ck-account-id"
             case .passwordCheck:
                 return "/user/ck-password"
+            case .userWithdrawal:
+                return"/user"
         }
     }
     
@@ -41,6 +44,8 @@ extension AuthAPI: TargetType {
         switch self {
             case .loadUserPetition, .loadUserInfo:
                 return .get
+            case .userWithdrawal:
+                return .delete
             default:
                 return .post
         }
@@ -78,7 +83,7 @@ extension AuthAPI: TargetType {
     
     var headers: [String : String]? {
         switch self {
-            case .loadUserPetition, .loadUserInfo:
+            case .loadUserPetition, .loadUserInfo, .userWithdrawal:
                 return Header.accessToken.header()
             case .refreshToken:
                 return Header.refreshToken.header()
