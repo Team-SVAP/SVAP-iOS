@@ -2,6 +2,7 @@ import Foundation
 import Moya
 
 enum PetitionAPI {
+    case sendImage(images: [Data?])
     case createPetition(title: String, content: String, types: String, location: String, images: [String]?)
     case editPetition(title: String, content: String, location: String, types: String, petitionId: Int)
     case deletePetition(petitionId: Int)
@@ -23,6 +24,8 @@ extension PetitionAPI: TargetType {
     
     var path: String {
         switch self {
+            case .sendImage:
+                return "/petition/image"
             case .createPetition:
                 return "/petition"
             case .editPetition(let petitionId):
@@ -52,7 +55,7 @@ extension PetitionAPI: TargetType {
     
     var method: Moya.Method {
         switch self {
-            case .createPetition, .searchPetition, .reportPetition:
+            case .sendImage, .createPetition, .searchPetition, .reportPetition:
                 return .post
             case .editPetition:
                 return .patch
@@ -67,6 +70,17 @@ extension PetitionAPI: TargetType {
     
     var task: Moya.Task {
         switch self {
+            case .sendImage(let images):
+                var multiformData = [MultipartFormData]()
+                for image in images {
+                    multiformData.append(.init(
+                        provider: .data(image!),
+                        name: "image",
+                        fileName: "image.jpg",
+                        mimeType: "image/jpg"
+                    ))
+                }
+                return .uploadMultipart(multiformData)
             case .createPetition(let title, let content, let types, let location, let images):
 //                var imageArray: [String] = []
 //                for image in images! {

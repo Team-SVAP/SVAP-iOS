@@ -8,6 +8,16 @@ final class PetitionService {
     
     let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
     
+    func sendImage(_ image: [Data]) -> Single<(ImageModel?, networkingResult)> {
+        return provider.rx.request(.sendImage(images: image))
+            .map(ImageModel.self)
+            .map{ return ($0, .createOk) }
+            .catch{ error in
+                print(error)
+                return .just((nil, .fault))
+            }
+    }
+    
     func createPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ image: [String]?) -> Single<networkingResult> {
         return provider.rx.request(.createPetition(title: title, content: contnet, types: types, location: location, images: image))
             .filterSuccessfulStatusCodes()
