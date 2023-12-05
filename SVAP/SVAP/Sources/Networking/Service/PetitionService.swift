@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import RxSwift
 import RxCocoa
 import RxMoya
@@ -8,7 +9,7 @@ final class PetitionService {
     
     let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
     
-    func sendImage(_ image: [Data]) -> Single<(ImageModel?, networkingResult)> {
+    func sendImage(_ image: [Data?]) -> Single<(ImageModel?, networkingResult)> {
         return provider.rx.request(.sendImage(images: image))
             .map(ImageModel.self)
             .map{ return ($0, .createOk) }
@@ -18,22 +19,12 @@ final class PetitionService {
             }
     }
     
-    func createPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ image: [String]?) -> Single<networkingResult> {
+    func createPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ image: [String?]) -> Single<networkingResult> {
         return provider.rx.request(.createPetition(title: title, content: contnet, types: types, location: location, images: image))
             .filterSuccessfulStatusCodes()
             .map{ _ -> networkingResult in
                 print("Success")
                 return .createOk
-            }
-            .catch{[unowned self] in return .just(setNetworkError($0))}
-    }
-    
-    func editPetition(_ title: String, _ contnet: String, _ location: String, _ types: String, _ petitionId: Int) -> Single<networkingResult> {
-        return provider.rx.request(.editPetition(title: title, content: contnet, location: location, types: types, petitionId: petitionId))
-            .filterSuccessfulStatusCodes()
-            .map{ _ -> networkingResult in
-                print("Success")
-                return .ok
             }
             .catch{[unowned self] in return .just(setNetworkError($0))}
     }

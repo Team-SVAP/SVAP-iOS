@@ -1,10 +1,10 @@
 import Foundation
+import UIKit
 import Moya
 
 enum PetitionAPI {
     case sendImage(images: [Data?])
-    case createPetition(title: String, content: String, types: String, location: String, images: [String]?)
-    case editPetition(title: String, content: String, location: String, types: String, petitionId: Int)
+    case createPetition(title: String, content: String, types: String, location: String, images: [String?])
     case deletePetition(petitionId: Int)
     case loadDetailPetition(petitionId: Int)
     case searchPetition(title: String)
@@ -28,8 +28,6 @@ extension PetitionAPI: TargetType {
                 return "/petition/image"
             case .createPetition:
                 return "/petition"
-            case .editPetition(let petitionId):
-                return "/petition/\(petitionId)"
             case .deletePetition(let petitionId):
                 return "petition/\(petitionId)"
             case .loadDetailPetition(let petitionId):
@@ -57,8 +55,6 @@ extension PetitionAPI: TargetType {
         switch self {
             case .sendImage, .createPetition, .searchPetition, .reportPetition:
                 return .post
-            case .editPetition:
-                return .patch
             case .deletePetition:
                 return .delete
             case .votePetition:
@@ -74,7 +70,7 @@ extension PetitionAPI: TargetType {
                 var multiformData = [MultipartFormData]()
                 for image in images {
                     multiformData.append(.init(
-                        provider: .data(image!),
+                        provider: .data(image ?? Data()),
                         name: "image",
                         fileName: "image.jpg",
                         mimeType: "image/jpg"
@@ -82,30 +78,17 @@ extension PetitionAPI: TargetType {
                 }
                 return .uploadMultipart(multiformData)
             case .createPetition(let title, let content, let types, let location, let images):
-//                var imageArray: [String] = []
-//                for image in images! {
-////                    let imageString = image.base64EncodedString()
-//                    imageArray.append(image)
-//                }
                 return .requestParameters(parameters: [
                     "title" : title,
                     "content" : content,
                     "types" : types,
                     "location" : location,
-                    "imageUrlList": images!
+                    "imageUrlList": images as Any
                 ], encoding: JSONEncoding.default)
             case .searchPetition(let title):
                 return .requestParameters(
                     parameters: [
                         "title": title
-                    ], encoding: JSONEncoding.default)
-            case .editPetition(let title, let content, let location, let types, _):
-                return .requestParameters(
-                    parameters: [
-                        "title": title,
-                        "content": content,
-                        "location": location,
-                        "types": types
                     ], encoding: JSONEncoding.default)
             default:
                 return .requestPlain
@@ -114,7 +97,7 @@ extension PetitionAPI: TargetType {
     
     var headers: [String : String]? {
         switch self {
-            case .createPetition, .editPetition, .deletePetition, .votePetition, .reportPetition:
+            case .sendImage, .createPetition, .deletePetition, .votePetition, .reportPetition:
                 return Header.accessToken.header()
             default:
                 return Header.tokenIsEmpty.header()
