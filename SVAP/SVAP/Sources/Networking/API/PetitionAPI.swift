@@ -3,7 +3,7 @@ import UIKit
 import Moya
 
 enum PetitionAPI {
-    case sendImage(images: [Data?])
+    case sendImage(images: [Data])
     case createPetition(title: String, content: String, types: String, location: String, images: [String?])
     case deletePetition(petitionId: Int)
     case loadDetailPetition(petitionId: Int)
@@ -19,7 +19,7 @@ enum PetitionAPI {
 
 extension PetitionAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "http://15.164.62.45:8080")!
+        return URL(string: "https://prod-server.xquare.app/svap")!
     }
     
     var path: String {
@@ -70,7 +70,7 @@ extension PetitionAPI: TargetType {
                 var multiformData = [MultipartFormData]()
                 for image in images {
                     multiformData.append(.init(
-                        provider: .data(image ?? Data()),
+                        provider: .data(image),
                         name: "image",
                         fileName: "image.jpg",
                         mimeType: "image/jpg"
@@ -97,7 +97,7 @@ extension PetitionAPI: TargetType {
     
     var headers: [String : String]? {
         switch self {
-            case .sendImage, .createPetition, .deletePetition, .votePetition, .reportPetition:
+            case .sendImage, .createPetition, .deletePetition, .votePetition, .reportPetition, .loadDetailPetition:
                 return Header.accessToken.header()
             default:
                 return Header.tokenIsEmpty.header()

@@ -16,7 +16,7 @@ enum AuthAPI {
 
 extension AuthAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "http://15.164.62.45:8080")!
+        return URL(string: "https://prod-server.xquare.app/svap")!
     }
     
     var path: String {
