@@ -130,7 +130,6 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
                         self.loginButton.backgroundColor = UIColor(named: "main-2")
                     case false:
                         self.loginButton.backgroundColor = UIColor(named: "main-4")
-                        
                 }
             }).disposed(by: disposeBag)
         

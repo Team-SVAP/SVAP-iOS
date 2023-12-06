@@ -12,7 +12,7 @@ class CustomImageView: UIImageView {
     }
     
     func setup() {
-        self.backgroundColor = UIColor(named: "gray-100")
+        self.layer.border(UIColor(named: "gray-400")!, 0.5)
         self.layer.cornerRadius = 8
         self.contentMode = .scaleAspectFill
         self.clipsToBounds = true
