@@ -12,8 +12,7 @@ class DetailPetitionViewController: BaseVC {
     private let viewAppear = PublishRelay<Void>()
     
     var isClick = false
-    var imageArray = BehaviorRelay<[String]>(value: [])
-    var image: [String] = []
+    var imageArray: [String] = []
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -63,9 +62,10 @@ class DetailPetitionViewController: BaseVC {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isPagingEnabled = true
         collectionView.layer.cornerRadius = 8
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: "ImageCellId")
+        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: "ImageCell")
         return collectionView
     }()
     private let voteLabel = UILabel().then {
@@ -98,7 +98,7 @@ class DetailPetitionViewController: BaseVC {
         super.viewDidLoad()
         viewAppear.accept(())
         collectionView.delegate = self
-//        collectionView.dataSource = self
+        collectionView.dataSource = self
     }
     override func configureUI() {
         super.configureUI()
@@ -248,19 +248,12 @@ class DetailPetitionViewController: BaseVC {
                 self.viewCountLabel.text = String(data.viewCounts)
                 if data.voted == true {
                     self.voteButton.backgroundColor = .systemBlue
+                    self.isClick = true
                 }
-                self.imageArray = BehaviorRelay(value: data.imgUrl ?? [])
-//                print(self.imageArray.value.count)
-//                print(self.imageArray.value)
+                self.imageArray = data.imgUrl ?? []
+                self.collectionView.reloadData()
             }).disposed(by: disposeBag)
 
-//        imageArray.bind(to: collectionView.rx.items(cellIdentifier: "ImageCellId", cellType: ImageCell.self)) { row, item, cell in
-//            cell.cellImageView.kf.setImage(with: URL(string: item))
-//        }.disposed(by: disposeBag)
-        imageArray.bind(to: collectionView.rx.items(cellIdentifier: "ImageCellId", cellType: ImageCell.self)) { row, item, cell in
-            cell.cellImageView.kf.setImage(with: URL(string: item))
-        }.disposed(by: disposeBag)
-        
     }
     override func subscribe() {
         super.subscribe()
@@ -282,13 +275,10 @@ class DetailPetitionViewController: BaseVC {
         
         menuButton.rx.tap
             .subscribe(onNext: {
-//                let modal = DetailPetitionAlert(completion: {
-//                    self.popViewController()
-//                })
                 let modal = DetailPetitionAlert(popCompletion: {
                     self.popViewController()
                 }, editCompletion: {
-                    self.pushViewController(PetitionEditViewController())
+                    self.pushViewController(PetitionViewController())
                 })
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve
@@ -304,9 +294,21 @@ class DetailPetitionViewController: BaseVC {
             }).disposed(by: disposeBag)
     }
     
+    
+    
 }
 
-extension DetailPetitionViewController: UICollectionViewDelegateFlowLayout {
+extension DetailPetitionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return imageArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
+        cell.cellImageView.kf.setImage(with: URL(string: imageArray[indexPath.row]))
+        return cell
+        
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
