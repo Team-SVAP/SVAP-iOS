@@ -3,21 +3,17 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
-
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         let onboardingViewController = UINavigationController(rootViewController: OnboardingViewController())
         let loginViewController = UINavigationController(rootViewController: LoginViewController())
-        
-        
-        window?.rootViewController = UINavigationController(rootViewController: MainViewController())
-//        if Token.refreshToken?.isEmpty == false {
-//            window?.rootViewController = loginViewController
-//        } else {
-//            window?.rootViewController = onboardingViewController
-//        }
+        if Storage.isFirstTime() {
+            window?.rootViewController = onboardingViewController
+        } else {
+            window?.rootViewController = loginViewController
+        }
         window?.makeKeyAndVisible()
     }
 
