@@ -248,7 +248,13 @@ class DetailPetitionViewController: BaseVC {
                 self.viewCountLabel.text = String(data.viewCounts)
                 if data.voted == true {
                     self.voteButton.backgroundColor = .systemBlue
+                    self.voteButton.setTitle("찬성 취소", for: .normal)
                     self.isClick = true
+                }
+                if data.accountId == UserIdData.shared.userId {
+                    self.menuButton.isHidden = false
+                } else {
+                    self.menuButton.isHidden = true
                 }
                 self.imageArray = data.imgUrl ?? []
                 self.collectionView.reloadData()
@@ -277,8 +283,6 @@ class DetailPetitionViewController: BaseVC {
             .subscribe(onNext: {
                 let modal = DetailPetitionAlert(popCompletion: {
                     self.popViewController()
-                }, editCompletion: {
-                    self.pushViewController(PetitionViewController())
                 })
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve

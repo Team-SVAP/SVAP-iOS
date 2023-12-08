@@ -9,7 +9,6 @@ class DetailPetitionAlert: BaseVC {
     private let disposeBag = DisposeBag()
     private let viewModel = DetailPetitionAlertViewModel()
     private var clickToPop: () -> Void = {}
-    private var clickToEdit: () -> Void = {}
     
     private let backgroundView = UIView().then {
         $0.backgroundColor = .white
@@ -26,11 +25,9 @@ class DetailPetitionAlert: BaseVC {
         $0.tintColor = UIColor(named: "gray-800")
     }
     private let deleteButton = DetailPetitionlButton(type: .system, title: "삭제하기", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white)
-    private let editButton = DetailPetitionlButton(type: .system, title: "수정하기", titleColor: UIColor(named: "gray-000")!, backgroundColor: UIColor(named: "main-2")!)
 
-    init(popCompletion: @escaping () -> Void = {}, editCompletion: @escaping () -> Void = {}) {
+    init(popCompletion: @escaping () -> Void = {}) {
         self.clickToPop = popCompletion
-        self.clickToEdit = editCompletion
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -49,8 +46,7 @@ class DetailPetitionAlert: BaseVC {
         [
             moreViewLabel,
             closeButton,
-            deleteButton,
-            editButton
+            deleteButton
         ].forEach({ backgroundView.addSubview($0) })
     }
     override func setupConstraints() {
@@ -69,13 +65,7 @@ class DetailPetitionAlert: BaseVC {
             $0.width.height.equalTo(24)
         }
         deleteButton.snp.makeConstraints {
-            $0.left.equalToSuperview().inset(20)
-            $0.bottom.equalToSuperview().inset(24)
-            $0.width.equalTo(140)
-            $0.height.equalTo(50)
-        }
-        editButton.snp.makeConstraints {
-            $0.right.equalToSuperview().inset(20)
+            $0.left.right.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().inset(24)
             $0.width.equalTo(140)
             $0.height.equalTo(50)
@@ -112,13 +102,6 @@ class DetailPetitionAlert: BaseVC {
         closeButton.rx.tap
             .subscribe(onNext: {
                 self.dismiss(animated: true)
-            }).disposed(by: disposeBag)
-        
-        editButton.rx.tap
-            .subscribe(onNext: {
-                self.dismiss(animated: true, completion: {
-                    self.clickToEdit()
-                })
             }).disposed(by: disposeBag)
         
     }
