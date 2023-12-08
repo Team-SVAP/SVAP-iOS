@@ -109,7 +109,7 @@ class UserNameViewController: BaseVC {
         
         output.signupResult.subscribe(onNext: { bool in
             if bool {
-                self.pushViewController(LoginViewController())
+                self.pushViewController(TabBarVC())
             } else {
                 print("Fail")
             }
