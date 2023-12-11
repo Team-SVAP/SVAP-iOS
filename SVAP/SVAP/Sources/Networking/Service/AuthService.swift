@@ -15,6 +15,7 @@ final class AuthService {
             .map{ response -> networkingResult in
                 Token.accessToken = response.accessToken
                 Token.refreshToken = response.refreshToken
+                UserIdData.shared.userId = id
                 return .ok
             }
             .catch{[unowned self] in return .just(setNetworkError($0))}
@@ -54,8 +55,12 @@ final class AuthService {
     func signup(_ signup: SignupInfo) -> Single<networkingResult> {
         return provider.rx.request(.signup(signup))
             .filterSuccessfulStatusCodes()
-            .map{ _ -> networkingResult in
-                return .createOk
+            .map(AuthModel.self)
+            .map{ response -> networkingResult in
+                Token.accessToken = response.accessToken
+                Token.refreshToken = response.refreshToken
+                UserIdData.shared.userId = signup.accountId.value
+                return .ok
             }
             .catch{[unowned self] in return .just(setNetworkError($0))}
     }

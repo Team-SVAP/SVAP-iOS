@@ -41,10 +41,7 @@ class MyPageViewController: BaseVC {
     }
     private let logoutButton = LabelButton(type: .system, title: "로그아웃", titleColor: UIColor(named: "gray-800")!)
     private let membershipCancelButton = LabelButton(type: .system, title: "회원 탈퇴", titleColor: UIColor(named: "gray-800")!)
-    private let bottomPaddingView = UIView().then {
-        $0.backgroundColor = .white
-    }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = true
@@ -52,7 +49,6 @@ class MyPageViewController: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         viewAppear.accept(())
     }
-    
     override func configureUI() {
         
         [
@@ -63,8 +59,7 @@ class MyPageViewController: BaseVC {
             line2,
             modifyUserInfo,
             line3,
-            buttonStackView,
-            bottomPaddingView
+            buttonStackView
         ].forEach({ view.addSubview($0) })
         [logoutButton, membershipCancelButton].forEach({ buttonStackView.addArrangedSubview($0) })
         topPaddingView.addSubview(navigationTitleLabel)
@@ -110,11 +105,6 @@ class MyPageViewController: BaseVC {
         buttonStackView.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(line3.snp.bottom).offset(20)
-        }
-        bottomPaddingView.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(82)
-            $0.height.equalTo(90)
         }
         
     }

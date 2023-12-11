@@ -9,8 +9,9 @@ final class PetitionService {
     
     let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])
     
-    func sendImage(_ image: [Data?]) -> Single<(ImageModel?, networkingResult)> {
+    func sendImage(_ image: [Data]) -> Single<(ImageModel?, networkingResult)> {
         return provider.rx.request(.sendImage(images: image))
+            .filterSuccessfulStatusCodes()
             .map(ImageModel.self)
             .map{ return ($0, .createOk) }
             .catch{ error in
@@ -81,39 +82,6 @@ final class PetitionService {
                 print(error)
                 return .just((nil, .fault))
             }
-    }
-    
-    func sortAllPetition(_ accessType: String) -> Single<([PetitionModel]?, networkingResult)>  {
-        return provider.rx.request(.sortAllPetition(accessType: accessType))
-            .filterSuccessfulStatusCodes()
-            .map([PetitionModel].self)
-            .map{ return ($0, .ok) }
-            .catch{ error in
-                print(error)
-                return .just((nil, .fault))
-            }
-    }
- 
-    func loadPetitionVote(_ type: String) -> Single<([PetitionModel]?, networkingResult)> {
-        return provider.rx.request(.loadPetitionVote(type: type))
-            .filterSuccessfulStatusCodes()
-            .map([PetitionModel].self)
-            .map{ return ($0, .ok) }
-            .catch{ error in
-                print(error)
-                return .just((nil, .fault))
-            }
-    }
-    
-    func loadAllPetitionVote() -> Single<([PetitionModel]?, networkingResult)> {
-        return provider.rx.request(.loadAllPetitionVote)
-        .filterSuccessfulStatusCodes()
-        .map([PetitionModel].self)
-        .map{ return ($0, .ok) }
-        .catch{ error in
-            print(error)
-            return .just((nil, .fault))
-        }
     }
     
     func votePetition(_ petitionId: Int) -> Single<networkingResult> {

@@ -4,20 +4,9 @@ import Then
 
 class ImageCell: UICollectionViewCell {
     
-    static let id = "ImageCellId"
+    static let id = "ImageCell"
     
-    let rightButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "leftArrow"), for: .normal)
-        $0.tintColor = UIColor(named: "gray-100")
-    }
-    let leftButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "rightArrow"), for: .normal)
-        $0.tintColor = UIColor(named: "gray-100")
-    }
-    let cellImageView = UIImageView().then {
-        $0.backgroundColor = .black
-        $0.layer.cornerRadius = 8
-    }
+    let cellImageView = CustomImageView(frame: .zero)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,8 +21,6 @@ class ImageCell: UICollectionViewCell {
     func setup() {
         
         [
-            rightButton,
-            leftButton,
             cellImageView
         ].forEach({ contentView.addSubview($0) })
         

@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import RxSwift
 import RxCocoa
 
@@ -12,7 +13,7 @@ class PetitionCreateViewModel: ViewModelType {
         let location: Driver<String>
         let content: Driver<String>
         let images: [Data]
-        let imageURL: [String]?
+        let imageURL: [String?]
         let doneTap: Signal<Void>
         let successSignal: Signal<Void>
     }

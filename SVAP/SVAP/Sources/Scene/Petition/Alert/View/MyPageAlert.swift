@@ -24,7 +24,11 @@ class MyPageAlert: BaseVC {
     private let cancelButton = DetailPetitionlButton(type: .system, title: "취소", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white)
     private let checkButton = DetailPetitionlButton(type: .system, title: "확인", titleColor: UIColor(named: "gray-000")!, backgroundColor: UIColor(named: "main-2")!)
     
-    init(questionLabelText: String, explainLabelText: String, completion: @escaping () -> Void = {}) {
+    init(
+        questionLabelText: String,
+        explainLabelText: String,
+        completion: @escaping () -> Void = {}
+    ) {
         super.init(nibName: nil, bundle: nil)
         questionLabel.text = questionLabelText
         explainLabel.text = explainLabelText
@@ -80,14 +84,13 @@ class MyPageAlert: BaseVC {
             $0.height.equalTo(40)
         }
         
-        
     }
     override func subscribe() {
         super.subscribe()
         
         view.rx.tapGesture()
             .when(.recognized)
-            .subscribe(onNext: {_ in 
+            .subscribe(onNext: {_ in
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         

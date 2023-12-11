@@ -74,7 +74,7 @@ class PetitionViewModel: ViewModelType {
         
         //MARK: 최신순으로 보기
         input.allRecentPetition.asObservable()
-            .flatMap{ api.sortAllPetition("NORMAL") }
+            .flatMap{ api.sortPetition("ALL", accessTypes: "NORMAL") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -108,7 +108,7 @@ class PetitionViewModel: ViewModelType {
         
         //MARK: 승인된 청원 보기
         input.allAccessPetition.asObservable()
-            .flatMap{ api.sortAllPetition("APPROVAL") }
+            .flatMap{ api.sortPetition("ALL", accessTypes: "APPROVAL") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -142,7 +142,7 @@ class PetitionViewModel: ViewModelType {
         
         //MARK: 투표순으로 보기
         input.allVotePetition.asObservable()
-            .flatMap{ api.loadAllPetitionVote() }
+            .flatMap{ api.sortPetition("ALL", accessTypes: "VOTE") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -152,7 +152,7 @@ class PetitionViewModel: ViewModelType {
                 }
             }).disposed(by: disposeBag)
         input.schoolVotePetition.asObservable()
-            .flatMap{ api.loadPetitionVote("SCHOOL") }
+            .flatMap{ api.sortPetition("SCHOOL", accessTypes: "VOTE") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -162,7 +162,7 @@ class PetitionViewModel: ViewModelType {
                 }
             }).disposed(by: disposeBag)
         input.dormVotePetition.asObservable()
-            .flatMap{ api.loadPetitionVote("DORMITORY") }
+            .flatMap{ api.sortPetition("DORMITORY", accessTypes: "VOTE") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -174,7 +174,7 @@ class PetitionViewModel: ViewModelType {
         
         //MARK: 검토중인 청원 보기
         input.allWaitPetition.asObservable()
-            .flatMap{ api.sortAllPetition("WAITING") }
+            .flatMap{ api.sortPetition("ALL", accessTypes: "WAITING") }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:

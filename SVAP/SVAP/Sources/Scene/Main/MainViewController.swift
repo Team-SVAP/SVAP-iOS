@@ -9,17 +9,13 @@ class MainViewController: BaseVC {
     private let disposeBag = DisposeBag()
     private let viewModel = MainViewModel()
     private let viewAppear = PublishRelay<Void>()
+    private let refreshToken = PublishRelay<Void>()
     
-    let sideMenu = SideMenuNavigationController(rootViewController: SideMenuViewController())
     var isClick = false
     var data = [MainCell.self, ApprovedCell.self]
     var nowPage: Int = 0
     
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
-    private let menuButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "mainMenu"), for: .normal)
-        $0.tintColor = UIColor(named: "gray-500")
-    }
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -38,8 +34,6 @@ class MainViewController: BaseVC {
         $0.tintColor = UIColor(named: "gray-600")
         $0.isEnabled = false
     }
-    private let viewPetitionButton = PetitionButton(type: .system, title: "청원보기", image: UIImage(named: "peopleIcon")!)
-    private let createPetitionButton = PetitionButton(type: .system, title: "청원하기", image: UIImage(named: "editIcon")!)
     private let famousPetitionLabel = UILabel().then {
         $0.text = "인기 청원"
         $0.textColor = UIColor(named: "gray-600")
@@ -53,7 +47,7 @@ class MainViewController: BaseVC {
     private let famousPetitionContentLabel = UILabel().then {
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
-        $0.numberOfLines = 3
+        $0.numberOfLines = 10
         $0.textAlignment = .justified
     }
     private let viewContentButton = LabelButton(type: .system, title: "더보기", titleColor: UIColor(named: "gray-700")!)
@@ -62,21 +56,18 @@ class MainViewController: BaseVC {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
-        navigationBarSetting()
-        sideMenuSetting()
         bannerTimer()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewAppear.accept(())
+        refreshToken.accept(())//403 뜰 때만 하고싶은데..
     }
     override func configureUI() {
         [
             logoImage,
             collectionView,
             searchTextField,
-            viewPetitionButton,
-            createPetitionButton,
             famousPetitionLabel,
             viewMoreButton,
             famousPetitionTitleLabel,
@@ -107,24 +98,12 @@ class MainViewController: BaseVC {
             $0.right.equalToSuperview().inset(20)
             $0.width.height.equalTo(20)
         }
-        viewPetitionButton.snp.makeConstraints {
-            $0.top.equalTo(searchTextField.snp.bottom).offset(20)
-            $0.left.equalToSuperview().inset(20)
-            $0.width.equalTo(170)
-            $0.height.equalTo(100)
-        }
-        createPetitionButton.snp.makeConstraints {
-            $0.top.equalTo(searchTextField.snp.bottom).offset(20)
-            $0.right.equalToSuperview().inset(20)
-            $0.width.equalTo(170)
-            $0.height.equalTo(100)
-        }
         famousPetitionLabel.snp.makeConstraints {
-            $0.top.equalTo(viewPetitionButton.snp.bottom).offset(32)
+            $0.top.equalTo(searchTextField.snp.bottom).offset(32)
             $0.left.equalToSuperview().inset(20)
         }
         viewMoreButton.snp.makeConstraints {
-            $0.top.equalTo(viewPetitionButton.snp.bottom).offset(32)
+            $0.top.equalTo(searchTextField.snp.bottom).offset(32)
             $0.right.equalToSuperview().inset(20)
         }
         famousPetitionTitleLabel.snp.makeConstraints {
@@ -139,13 +118,15 @@ class MainViewController: BaseVC {
             $0.top.equalTo(famousPetitionContentLabel.snp.bottom).offset(5)
             $0.left.equalToSuperview().inset(20)
         }
+        
     }
     
     override func bind() {
         super.bind()
         
         let input = MainViewModel.Input(
-            viewAppear: viewAppear.asSignal(onErrorJustReturn: ())
+            viewAppear: viewAppear.asSignal(onErrorJustReturn: ()),
+            refreshToken: viewAppear.asSignal()
         )
         let output = viewModel.transform(input)
         
@@ -162,36 +143,28 @@ class MainViewController: BaseVC {
     override func subscribe() {
         super.subscribe()
         
-        menuButton.rx.tap
-            .subscribe(onNext: {
-                self.sideMenuSetting()
-                self.present(self.sideMenu, animated: true)
-            }).disposed(by: disposeBag)
-        
         searchButton.rx.tap
             .subscribe(onNext: {
                 let vc = PetitionViewController()
-                vc.searchTextField.text = self.searchTextField.text
-                self.pushViewController(vc)
+                vc.setter(petitionTitle: self.searchTextField.text!)
+//                self.pushViewController(vc)
+//                self.tabBarController?.selectedIndex = 2
             }).disposed(by: disposeBag)
         
         searchTextField.rx.text.orEmpty
             .subscribe(onNext: {
                 if $0.isEmpty {
+                    self.searchTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
                     self.searchButton.isEnabled = false
                 } else {
+                    self.searchTextField.layer.borderColor = UIColor(named: "main-3")?.cgColor
                     self.searchButton.isEnabled = true
                 }
             }).disposed(by: disposeBag)
         
-        viewPetitionButton.rx.tap
-            .subscribe(onNext: {
-                self.pushViewController(PetitionViewController())
-            }).disposed(by: disposeBag)
-        
         viewMoreButton.rx.tap
             .subscribe(onNext: {
-                self.pushViewController(PetitionViewController())
+                self.tabBarController?.selectedIndex = 2
             }).disposed(by: disposeBag)
         viewContentButton.rx.tap
             .subscribe(onNext: {
@@ -203,21 +176,6 @@ class MainViewController: BaseVC {
                 }
             }).disposed(by: disposeBag)
         
-        createPetitionButton.rx.tap
-            .subscribe(onNext: {
-                self.pushViewController(PetitionCreateViewController())
-            }).disposed(by: disposeBag)
-    }
-    
-    private func navigationBarSetting() {
-        navigationItem.hidesBackButton = true
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: menuButton)
-    }
-    private func sideMenuSetting() {
-        sideMenu.leftSide = true
-        SideMenuManager.default.rightMenuNavigationController = sideMenu
-        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
-        sideMenu.presentationStyle = .menuSlideIn
     }
     
 }
@@ -234,7 +192,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ApprovedCell", for: indexPath) as! ApprovedCell
             cell.moveButton.rx.tap
                 .subscribe(onNext: {
-                    self.pushViewController(PetitionViewController())
+                    self.tabBarController?.selectedIndex = 2
                 }).disposed(by: disposeBag)
             return cell
         }

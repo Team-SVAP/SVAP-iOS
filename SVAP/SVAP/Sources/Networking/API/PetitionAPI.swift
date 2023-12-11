@@ -10,9 +10,6 @@ enum PetitionAPI {
     case searchPetition(title: String)
     case loadPopularPetition
     case sortPetition(type: String, accessTypes: String)
-    case sortAllPetition(accessType: String)
-    case loadPetitionVote(type: String)
-    case loadAllPetitionVote
     case votePetition(petitionId: Int)
     case reportPetition(petitionId: Int)
 }
@@ -38,12 +35,6 @@ extension PetitionAPI: TargetType {
                 return "/petition/popular"
             case .sortPetition(let type, let accessTypes):
                 return "/petition/sort/\(type)/\(accessTypes)"
-            case .sortAllPetition(accessType: let accessType):
-                return "/petition/sort-all/\(accessType)"
-            case .loadPetitionVote(let type):
-                return "/petition/vote/\(type)"
-            case .loadAllPetitionVote:
-                return "/petition/vote-all"
             case .votePetition(let petitionId):
                 return "/vote/\(petitionId)"
             case .reportPetition(let petitionId):

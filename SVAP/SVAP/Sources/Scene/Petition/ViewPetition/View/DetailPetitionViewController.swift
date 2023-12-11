@@ -99,13 +99,13 @@ class DetailPetitionViewController: BaseVC {
         viewAppear.accept(())
         collectionView.delegate = self
         collectionView.dataSource = self
+        navigationBarSetting()
     }
     override func configureUI() {
         super.configureUI()
         
         [
             scrollView,
-            topPaddingView
         ].forEach({ view.addSubview($0) })
         scrollView.addSubview(contentView)
         contentView.addSubview(mainView)
@@ -126,11 +126,6 @@ class DetailPetitionViewController: BaseVC {
             viewCountLabel,
             reportPetitionButton
         ].forEach({ mainView.addSubview($0) })
-        [
-            leftbutton,
-            navigationBarTitle
-        ].forEach({ topPaddingView.addSubview($0) })
-        
     }
     override func setupConstraints() {
         super.setupConstraints()
@@ -143,27 +138,15 @@ class DetailPetitionViewController: BaseVC {
             $0.leading.trailing.equalTo(self.view)
         }
         mainView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
-            $0.height.equalTo(view.frame.height + 30)
-        }
-        topPaddingView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(100)
-        }
-        leftbutton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(60)
-            $0.left.equalToSuperview().inset(20)
-        }
-        navigationBarTitle.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(60)
+            $0.edges.equalToSuperview()
+            $0.height.equalTo(view.frame.height)
         }
         tagLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20)
+            $0.top.equalToSuperview()
             $0.left.equalToSuperview().inset(20)
         }
         menuButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20)
+            $0.top.equalToSuperview()
             $0.right.equalToSuperview().inset(20)
             $0.width.height.equalTo(24)
         }
@@ -220,6 +203,7 @@ class DetailPetitionViewController: BaseVC {
             $0.top.equalTo(buttonBottomLineView.snp.bottom).offset(12)
             $0.right.equalToSuperview().inset(20)
         }
+        
     }
     override func bind() {
         let input = DetailPetitionViewModel.Input(
@@ -233,9 +217,9 @@ class DetailPetitionViewController: BaseVC {
         output.voteResult.asObservable()
             .subscribe(onNext: { bool in
             if bool {
-                print("투표하였습니다")
+                print("Success")
             } else {
-                print("취소되었습니다")//수정하기
+                print("Fail")
             }
         }).disposed(by: disposeBag)
         
@@ -267,10 +251,12 @@ class DetailPetitionViewController: BaseVC {
         voteButton.rx.tap
             .subscribe(onNext: {
                 self.isClick.toggle()
-                if self.isClick {//bind부분에 넣을 수 있는지 테스트 해보기
+                if self.isClick {
                     self.voteButton.backgroundColor = .systemBlue
+                    self.voteButton.setTitle("찬성 취소", for: .normal)
                 } else {
                     self.voteButton.backgroundColor = UIColor(named: "main-2")
+                    self.voteButton.setTitle("찬성", for: .normal)
                 }
             }).disposed(by: disposeBag)
         
@@ -298,7 +284,12 @@ class DetailPetitionViewController: BaseVC {
             }).disposed(by: disposeBag)
     }
     
-    
+    func navigationBarSetting() {
+//        let bounds = self.navigationController!.navigationBar.bounds
+//        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 60, width: bounds.width, height: bounds.height)
+        navigationItem.titleView = navigationBarTitle
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
+    }
     
 }
 

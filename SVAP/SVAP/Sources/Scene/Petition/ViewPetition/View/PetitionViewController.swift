@@ -60,54 +60,53 @@ class PetitionViewController: BaseVC {
         $0.backgroundColor = UIColor(named: "gray-200")
     }
     private var tableView = UITableView().then {
-        $0.scrollIndicatorInsets = .init(top: 0, left: 0, bottom: 0, right: 0)
         $0.backgroundColor = .white
         $0.register(PetitionCell.self, forCellReuseIdentifier: "PetitionCell")
         $0.rowHeight = 92
         $0.separatorStyle = .none
     }
     private let scrollButton = ScrollButton(type: .system)
-    private let bottomPaddingView = UIView().then {
-        $0.backgroundColor = .white
-    }
     
     public func setter(
-        petitionTitle: String,
-        searchAccept: Void
+        petitionTitle: String
     ) {
         searchTextField.text = petitionTitle
-        searchPetition.accept(searchAccept)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
-        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = false
     }
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        allRecentPetition.accept(())
+        if searchTextField.text?.isEmpty == true {
+            allRecentPetition.accept(())
+        }
     }
     override func configureUI() {
         super.configureUI()
         [
-            topPaddingView,
+            navigationTitleLabel,
             searchTextField,
             menuButton,
             petitionButtonStackView,
             line,
             tableView,
-            scrollButton,
-            bottomPaddingView
+            scrollButton
         ].forEach({ view.addSubview($0) })
-        topPaddingView.addSubview(navigationTitleLabel)
         searchTextField.addSubview(searchButton)
         [ allPetitionButton, schoolPetitionButton, dormitoryPetitionButton].forEach({
             petitionButtonStackView.addArrangedSubview($0)
         })
+        
     }
     override func setupConstraints() {
         super.setupConstraints()
         
+        navigationTitleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(59)
+        }
         searchTextField.snp.makeConstraints {
             $0.top.equalToSuperview().inset(97)
             $0.left.right.equalToSuperview().inset(20)
@@ -139,11 +138,6 @@ class PetitionViewController: BaseVC {
         scrollButton.snp.makeConstraints {
             $0.bottom.right.equalToSuperview().inset(30)
             $0.width.height.equalTo(60)
-        }
-        bottomPaddingView.snp.makeConstraints {
-            $0.left.right.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(82)
-            $0.height.equalTo(90)
         }
         
     }
@@ -189,8 +183,10 @@ class PetitionViewController: BaseVC {
         searchTextField.rx.text.orEmpty
             .subscribe(onNext: {
                 if $0.isEmpty {
+                    self.searchTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
                     self.searchButton.isEnabled = false
                 } else {
+                    self.searchTextField.layer.borderColor = UIColor(named: "main-3")?.cgColor
                     self.searchButton.isEnabled = true
                 }
             }).disposed(by: disposeBag)
@@ -198,13 +194,22 @@ class PetitionViewController: BaseVC {
         //MARK: 텍스트가 아닌 PublishRelay를 보내주는 방식으로 바꾸기?
         menuButton.rx.tap
             .subscribe(onNext: {
-                let petitionClosure = UINavigationController(rootViewController: PetitionMenu(closure: {
-                    self.menuButton.setTitle($0, for: .normal)
-                }))
-                petitionClosure.modalPresentationStyle = .overFullScreen
-                petitionClosure.modalTransitionStyle = .crossDissolve
-                self.present(petitionClosure, animated: true)
+                let vc = PetitionMenuViewController()
+                if let sheet = vc.sheetPresentationController {
+                    sheet.detents = [.medium(), .large()]
+                    sheet.prefersGrabberVisible = true
+                }
+                self.present(vc, animated: true)
             }).disposed(by: disposeBag)
+//        menuButton.rx.tap
+//            .subscribe(onNext: {
+//                let petitionClosure = UINavigationController(rootViewController: PetitionMenu(closure: {
+//                    self.menuButton.setTitle($0, for: .normal)
+//                }))
+//                petitionClosure.modalPresentationStyle = .overFullScreen
+//                petitionClosure.modalTransitionStyle = .crossDissolve
+//                self.present(petitionClosure, animated: true)
+//            }).disposed(by: disposeBag)
         
         allPetitionButton.rx.tap
             .subscribe(onNext: {
@@ -262,11 +267,13 @@ class PetitionViewController: BaseVC {
 }
 
 extension PetitionViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! PetitionCell
         let vc = DetailPetitionViewController()
         vc.hidesBottomBarWhenPushed = true
         cell.selectionStyle = .none
+        cell.selectedBackgroundView = .none
         PetitionIdModel.shared.id = cell.id
         self.pushViewController(vc)
     }

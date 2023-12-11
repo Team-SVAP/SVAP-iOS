@@ -8,18 +8,22 @@ class MainViewModel: ViewModelType {
     
     struct Input {
         let viewAppear: Signal<Void>
+        let refreshToken: Signal<Void>
     }
     
     struct Output {
         let popularPetition: PublishRelay<PetitionModel>
+        let result: PublishRelay<Bool>
     }
     
     func transform(_ input: Input) -> Output {
-        let api = PetitionService()
+        let petitionAPI = PetitionService()
+        let authAPI = AuthService()
         let popularPetition = PublishRelay<PetitionModel>()
+        let result = PublishRelay<Bool>()
         
         input.viewAppear.asObservable()
-            .flatMap{ api.loadPopularPetition() }
+            .flatMap{ petitionAPI.loadPopularPetition() }
             .subscribe(onNext: { data, res in
                 switch res {
                     case .ok:
@@ -28,6 +32,18 @@ class MainViewModel: ViewModelType {
                         return
                 }
             }).disposed(by: disposeBag)
-        return Output(popularPetition: popularPetition)
+        
+        input.refreshToken.asObservable()
+            .flatMap {
+                authAPI.refreshToken()
+            }.subscribe(onNext: { res in
+                switch res {
+                    case .ok:
+                        result.accept(true)
+                    default:
+                        result.accept(false)
+                }
+            }).disposed(by: disposeBag)
+        return Output(popularPetition: popularPetition, result: result)
     }
 }
