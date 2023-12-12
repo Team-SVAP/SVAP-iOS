@@ -424,6 +424,10 @@ extension PetitionCreateViewController {
             
             self.convertAssetToImages()
             
+            for i in self.image {
+                self.dataImage.append(i.jpegData(compressionQuality: 0.1)!)
+            }
+            
         })
     }
 
@@ -472,9 +476,20 @@ extension PetitionCreateViewController:  UICollectionViewDelegate, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
-            cell.cellImageView.image = image[indexPath.row]
-        dataImage.append(image[indexPath.row].jpegData(compressionQuality: 0.1)!)
-        print(dataImage)
+        cell.cellImageView.image = image[indexPath.row]
+        cell.imageDeleteButton.rx.tap
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [unowned self] in
+                guard let indexPath = collectionView.indexPath(for: cell) else {
+                    return
+                }
+                guard indexPath.row < self.image.count else {
+                    return
+                }
+                self.image.remove(at: indexPath.row)
+                self.dataImage.remove(at: indexPath.row)
+                collectionView.reloadData()
+            }).disposed(by: disposeBag)
         return cell
     }
     

@@ -4,6 +4,7 @@ class PetitionTypeButton: UIButton {
     private func setup(title: String) {
         self.setTitle(title, for: .normal)
         self.setTitleColor(UIColor(named: "gray-400"), for: .normal)
+        self.setTitleColor(UIColor(named: "main-1"), for: .selected)
         self.backgroundColor = .clear
         self.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
     }
