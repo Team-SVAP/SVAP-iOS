@@ -73,7 +73,7 @@ class MyPageViewController: BaseVC {
         }
         navigationTitleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(67)
+            $0.top.equalToSuperview().inset(59)
         }
         userNameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(115)

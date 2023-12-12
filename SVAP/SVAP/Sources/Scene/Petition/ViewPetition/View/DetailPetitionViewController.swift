@@ -301,6 +301,7 @@ extension DetailPetitionViewController: UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         cell.cellImageView.kf.setImage(with: URL(string: imageArray[indexPath.row]))
+        cell.imageDeleteButton.isHidden = true
         return cell
         
     }
