@@ -45,14 +45,12 @@
 		8849D9E02B11F0C500708256 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849D9DF2B11F0C500708256 /* DataModel.swift */; };
 		8849D9E22B138E1B00708256 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849D9E12B138E1B00708256 /* TokenModel.swift */; };
 		8849DA0C2B15F1D600708256 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA0B2B15F1D600708256 /* TabBarVC.swift */; };
-		8849DA0E2B16216400708256 /* MyPageAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA0D2B16216400708256 /* MyPageAlert.swift */; };
 		8849DA412B18991300708256 /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8849DA402B18991300708256 /* BSImagePicker */; };
 		8849DA452B189A9600708256 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA442B189A9600708256 /* CustomImageView.swift */; };
 		8849DAD02B2153BD00708256 /* UserIdData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DACF2B2153BD00708256 /* UserIdData.swift */; };
 		8849DAD22B238B0600708256 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DAD12B238B0600708256 /* Storage.swift */; };
 		884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */; };
 		884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91372ACFE5B300AE1E14 /* CustomTextView.swift */; };
-		884A913F2AD1548300AE1E14 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A913E2AD1548300AE1E14 /* MyPageViewController.swift */; };
 		884A91422AD19FF000AE1E14 /* SideMenu in Frameworks */ = {isa = PBXBuildFile; productRef = 884A91412AD19FF000AE1E14 /* SideMenu */; };
 		884A91452AD2745900AE1E14 /* SignupInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91442AD2745900AE1E14 /* SignupInfo.swift */; };
 		884A914D2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A914C2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift */; };
@@ -94,6 +92,8 @@
 		88A6CC892AC18A3600BF36C3 /* PetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */; };
 		88B7C64B2ADAECCC0082EA43 /* PetitionMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */; };
 		88C3E36A2B079C0F009B2A32 /* PetitionCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C3E3692B079C0F009B2A32 /* PetitionCreateViewController.swift */; };
+		88C8FA532B287B0F00C039A2 /* MyPageAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8FA522B287B0F00C039A2 /* MyPageAlert.swift */; };
+		88C8FA572B288B3800C039A2 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8FA562B288B3800C039A2 /* MyPageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -134,13 +134,11 @@
 		8849D9DF2B11F0C500708256 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		8849D9E12B138E1B00708256 /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
 		8849DA0B2B15F1D600708256 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
-		8849DA0D2B16216400708256 /* MyPageAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAlert.swift; sourceTree = "<group>"; };
 		8849DA442B189A9600708256 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		8849DACF2B2153BD00708256 /* UserIdData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdData.swift; sourceTree = "<group>"; };
 		8849DAD12B238B0600708256 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewController.swift; sourceTree = "<group>"; };
 		884A91372ACFE5B300AE1E14 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
-		884A913E2AD1548300AE1E14 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageViewController.swift; sourceTree = "<group>"; };
 		884A91442AD2745900AE1E14 /* SignupInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupInfo.swift; sourceTree = "<group>"; };
 		884A914C2AD2FE3600AE1E14 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		884A91522AD58F3800AE1E14 /* PetitionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionModel.swift; sourceTree = "<group>"; };
@@ -175,6 +173,8 @@
 		88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionViewController.swift; sourceTree = "<group>"; };
 		88B7C64A2ADAECCC0082EA43 /* PetitionMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionMenu.swift; sourceTree = "<group>"; };
 		88C3E3692B079C0F009B2A32 /* PetitionCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCreateViewController.swift; sourceTree = "<group>"; };
+		88C8FA522B287B0F00C039A2 /* MyPageAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAlert.swift; sourceTree = "<group>"; };
+		88C8FA562B288B3800C039A2 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageViewController.swift; path = SVAP/Sources/Scene/MyPage/View/MyPageViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -554,9 +554,9 @@
 		8867D3F12ADFA5870048B205 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				884A913E2AD1548300AE1E14 /* MyPageViewController.swift */,
-				8867D3EF2ADF9D400048B205 /* MyPageViewModel.swift */,
-				88C8FA492B27F4D200C039A2 /* Alert */,
+				88C8FA582B288B5100C039A2 /* View */,
+				88C8FA512B287B0700C039A2 /* Alert */,
+				88C8FA4C2B287A3E00C039A2 /* ViewModel */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -596,13 +596,28 @@
 			path = Application;
 			sourceTree = "<group>";
 		};
-		88C8FA492B27F4D200C039A2 /* Alert */ = {
+		88C8FA4C2B287A3E00C039A2 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				8849DA0D2B16216400708256 /* MyPageAlert.swift */,
+				8867D3EF2ADF9D400048B205 /* MyPageViewModel.swift */,
 			);
-			name = Alert;
-			path = "믿ㄱㅅ";
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		88C8FA512B287B0700C039A2 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				88C8FA522B287B0F00C039A2 /* MyPageAlert.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		88C8FA582B288B5100C039A2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				88C8FA562B288B3800C039A2 /* MyPageViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -724,15 +739,14 @@
 				8849D97A2B0C6F8C00708256 /* ImageCell.swift in Sources */,
 				884A91452AD2745900AE1E14 /* SignupInfo.swift in Sources */,
 				885554662AF643560025747E /* PetitionReportAlertViewModel.swift in Sources */,
-				8849DA0E2B16216400708256 /* MyPageAlert.swift in Sources */,
 				8849DAD02B2153BD00708256 /* UserIdData.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
+				88C8FA572B288B3800C039A2 /* MyPageViewController.swift in Sources */,
 				8867D3E22ADD438F0048B205 /* PetitionReportAlert.swift in Sources */,
 				884A91722AD82B7400AE1E14 /* ViewModelType.swift in Sources */,
 				8849DAD22B238B0600708256 /* Storage.swift in Sources */,
 				884A91582AD6462400AE1E14 /* DetailPetitionModel.swift in Sources */,
-				884A913F2AD1548300AE1E14 /* MyPageViewController.swift in Sources */,
 				8867D3E62ADE4D550048B205 /* ScrollButton.swift in Sources */,
 				885A74942AC2ED4A00EC3F1A /* SearchTextField.swift in Sources */,
 				882E635C2AB6172800BFE332 /* CustomTextField.swift in Sources */,
@@ -740,6 +754,7 @@
 				8849D9E22B138E1B00708256 /* TokenModel.swift in Sources */,
 				882E63772AB736F200BFE332 /* MainCell.swift in Sources */,
 				882E63662AB7081000BFE332 /* UserPasswordViewController.swift in Sources */,
+				88C8FA532B287B0F00C039A2 /* MyPageAlert.swift in Sources */,
 				882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */,
 				8867D3EB2ADF7E090048B205 /* DetailPetitionAlert.swift in Sources */,
 				884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */,

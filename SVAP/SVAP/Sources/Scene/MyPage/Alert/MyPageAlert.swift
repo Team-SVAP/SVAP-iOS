@@ -18,7 +18,7 @@ class MyPageAlert: BaseVC {
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 18)
     }
     private let explainLabel = UILabel().then {
-        $0.textColor = UIColor(named: "gray-600")
+        $0.textColor = .systemRed
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 10)
     }
     private let cancelButton = DetailPetitionlButton(type: .system, title: "취소", titleColor: UIColor(named: "gray-700")!, backgroundColor: .white)
