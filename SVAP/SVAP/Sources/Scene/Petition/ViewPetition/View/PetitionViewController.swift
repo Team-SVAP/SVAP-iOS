@@ -5,7 +5,7 @@ import Moya
 
 class PetitionViewController: BaseVC {
     
-    let viewModel = PetitionViewModel()
+    private let viewModel = PetitionViewModel()
     private let disposeBag = DisposeBag()
     private let searchPetition = PublishRelay<Void>()
     private let allRecentPetition = PublishRelay<Void>()
@@ -20,6 +20,7 @@ class PetitionViewController: BaseVC {
     private let allWaitPetition = PublishRelay<Void>()
     private let schoolWaitPetition = PublishRelay<Void>()
     private let dormWaitPetition = PublishRelay<Void>()
+    private let selectedButtonSubject = PublishSubject<UIButton>()
     
     private let topPaddingView = UIView().then {
         $0.backgroundColor = .white
@@ -51,11 +52,12 @@ class PetitionViewController: BaseVC {
         $0.spacing = 8
         $0.backgroundColor = .clear
     }
-    private let allPetitionButton = PetitionTypeButton(type: .system, title: "전체 청원").then {
-        $0.setTitleColor(UIColor(named: "main-1"), for: .normal)
+    private let allPetitionButton = PetitionTypeButton(type: .custom, title: "전체 청원").then {
+        $0.backgroundColor = .white
+        $0.isSelected = true
     }
-    private let schoolPetitionButton = PetitionTypeButton(type: .system, title: "학교 청원")
-    private let dormitoryPetitionButton = PetitionTypeButton(type: .system, title: "기숙사 청원")
+    private let schoolPetitionButton = PetitionTypeButton(type: .custom, title: "학교 청원")
+    private let dormitoryPetitionButton = PetitionTypeButton(type: .custom, title: "기숙사 청원")
     private let line = UIView().then {
         $0.backgroundColor = UIColor(named: "gray-200")
     }
@@ -66,6 +68,11 @@ class PetitionViewController: BaseVC {
         $0.separatorStyle = .none
     }
     private let scrollButton = ScrollButton(type: .system)
+    private let bottomPaddingView = UIView().then {
+        $0.backgroundColor = .white
+    }
+    
+    private lazy var buttonArray = [allPetitionButton, schoolPetitionButton, dormitoryPetitionButton]
     
     public func setter(
         petitionTitle: String
@@ -75,7 +82,7 @@ class PetitionViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
-        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = true
     }
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
@@ -92,7 +99,8 @@ class PetitionViewController: BaseVC {
             petitionButtonStackView,
             line,
             tableView,
-            scrollButton
+            scrollButton,
+            bottomPaddingView
         ].forEach({ view.addSubview($0) })
         searchTextField.addSubview(searchButton)
         [ allPetitionButton, schoolPetitionButton, dormitoryPetitionButton].forEach({
@@ -139,6 +147,11 @@ class PetitionViewController: BaseVC {
             $0.bottom.right.equalToSuperview().inset(30)
             $0.width.height.equalTo(60)
         }
+        bottomPaddingView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(82)
+            $0.height.equalTo(90)
+        }
         
     }
     override func bind() {
@@ -163,7 +176,7 @@ class PetitionViewController: BaseVC {
         )
         
         let output = viewModel.transform(input)
-
+        
         output.petition.bind(to: tableView.rx.items(cellIdentifier: "PetitionCell", cellType: PetitionCell.self)) { _, item, cell in
             cell.id = item.id
             cell.titleLabel.text = item.title
@@ -191,77 +204,120 @@ class PetitionViewController: BaseVC {
                 }
             }).disposed(by: disposeBag)
         
-        //MARK: 텍스트가 아닌 PublishRelay를 보내주는 방식으로 바꾸기?
-        menuButton.rx.tap
-            .subscribe(onNext: {
-                let vc = PetitionMenuViewController()
-                if let sheet = vc.sheetPresentationController {
-                    sheet.detents = [.medium(), .large()]
-                    sheet.prefersGrabberVisible = true
+        for button in buttonArray {
+            button.rx.tap
+                .map { button }
+                .bind(to: selectedButtonSubject)
+                .disposed(by: disposeBag)
+        }
+        
+        selectedButtonSubject
+            .subscribe(onNext: { selectedButton in
+                for button in self.buttonArray {
+                    button.isSelected = (button == selectedButton)
                 }
-                self.present(vc, animated: true)
-            }).disposed(by: disposeBag)
-//        menuButton.rx.tap
-//            .subscribe(onNext: {
-//                let petitionClosure = UINavigationController(rootViewController: PetitionMenu(closure: {
-//                    self.menuButton.setTitle($0, for: .normal)
-//                }))
-//                petitionClosure.modalPresentationStyle = .overFullScreen
-//                petitionClosure.modalTransitionStyle = .crossDissolve
-//                self.present(petitionClosure, animated: true)
-//            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
         
         allPetitionButton.rx.tap
-            .subscribe(onNext: {
-                if self.menuButton.titleLabel?.text == "투표순으로 보기" {
-                    self.allVotePetition.accept(())
-                } else if self.menuButton.titleLabel?.text == "승원된 청원 보기" {
-                    self.allAccessPetition.accept(())
-                } else if self.menuButton.titleLabel?.text == "검토중인 청원 보기" {
-                    self.allWaitPetition.accept(())
-                } else {
-                    self.allRecentPetition.accept(())
-                }
-                self.buttonColor(all: UIColor(named: "main-1"), school: UIColor(named: "gray-400"), dormitory: UIColor(named: "gray-400"))
+            .subscribe(onNext: { [self] in
+                selectedMenu(recent: allRecentPetition,
+                             vote: allVotePetition,
+                             access: allAccessPetition,
+                             wait: allWaitPetition)
             }).disposed(by: disposeBag)
         
         schoolPetitionButton.rx.tap
-            .subscribe(onNext: {
-                if self.menuButton.titleLabel?.text == "투표순으로 보기" {
-                    self.schoolVotePetition.accept(())
-                } else if self.menuButton.titleLabel?.text == "승원된 청원 보기" {
-                    self.schoolAccessPetition.accept(())
-                } else if self.menuButton.titleLabel?.text == "검토중인 청원 보기" {
-                    self.schoolWaitPetition.accept(())
-                } else {
-                    self.schoolRecentPetiton.accept(())
-                }
-                self.buttonColor(all: UIColor(named: "gray-400"), school: UIColor(named: "main-1"), dormitory: UIColor(named: "gray-400"))
+            .subscribe(onNext: { [self] in
+                selectedMenu(recent: schoolRecentPetiton,
+                             vote: schoolVotePetition,
+                             access: schoolAccessPetition,
+                             wait: schoolWaitPetition)
             }).disposed(by: disposeBag)
         
         dormitoryPetitionButton.rx.tap
-            .subscribe(onNext: {
-                if self.menuButton.titleLabel?.text == "투표순으로 보기" {
-                    self.dormVotePetition.accept(())
-                } else if self.menuButton.titleLabel?.text == "승원된 청원 보기" {
-                    self.dormAccessPetition.accept(())
-                } else if self.menuButton.titleLabel?.text == "검토중인 청원 보기" {
-                    self.dormWaitPetition.accept(())
-                } else {
-                    self.dormRecentPetition.accept(())
-                }
-                self.buttonColor(all: UIColor(named: "gray-400"), school: UIColor(named: "gray-400"), dormitory: UIColor(named: "main-1"))
+            .subscribe(onNext: { [self] in
+                selectedMenu(recent: dormRecentPetition,
+                             vote: dormVotePetition,
+                             access: dormAccessPetition,
+                             wait: dormWaitPetition)
             }).disposed(by: disposeBag)
         
         scrollButton.rx.tap
             .subscribe(onNext: {
                 self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
             }).disposed(by: disposeBag)
+        
+        let menu = UIMenu(title: "청원 정렬",
+                          children: items)
+        
+        menuButton.menu = menu
+        menuButton.showsMenuAsPrimaryAction = true
     }
-    func buttonColor(all: UIColor!, school: UIColor!, dormitory: UIColor!) {
-        allPetitionButton.setTitleColor(all, for: .normal)
-        schoolPetitionButton.setTitleColor(school, for: .normal)
-        dormitoryPetitionButton.setTitleColor(dormitory, for: .normal)
+    
+    var items: [UIAction] {
+        
+        let recent = UIAction(
+            title: "최신순",
+            handler: { [unowned self] _ in
+                selectedButton(all: allRecentPetition, school: schoolRecentPetiton, dorm: dormRecentPetition)
+                self.menuButton.setTitle("최신순", for: .normal)
+            })
+        
+        let vote = UIAction(
+            title: "투표순",
+            handler: { [unowned self] _ in
+                selectedButton(all: allVotePetition, school: schoolVotePetition, dorm: dormVotePetition)
+                self.menuButton.setTitle("투표순", for: .normal)
+            })
+        
+        let access = UIAction(
+            title: "승인된 청원",
+            handler: { [unowned self] _ in
+                selectedButton(all: allAccessPetition, school: schoolAccessPetition, dorm: dormAccessPetition)
+                self.menuButton.setTitle("승인된 청원", for: .normal)
+            })
+        
+        let wait = UIAction(
+            title: "검토중인 청원",
+            handler: { [unowned self] _ in
+                selectedButton(all: allWaitPetition, school: schoolWaitPetition, dorm: dormWaitPetition)
+                self.menuButton.setTitle("검토중인 청원", for: .normal)
+            })
+        
+        let Items = [recent, vote, access, wait]
+        
+        return Items
+    }
+    
+    func selectedMenu(
+        recent: PublishRelay<Void>,
+        vote: PublishRelay<Void>,
+        access: PublishRelay<Void>,
+        wait: PublishRelay<Void>
+    ) {
+        if menuButton.title(for: .normal) == "최신순" {
+            recent.accept(())
+        } else if menuButton.title(for: .normal) == "투표순" {
+            vote.accept(())
+        } else if menuButton.title(for: .normal) == "승인된 청원" {
+            access.accept(())
+        } else {
+            wait.accept(())
+        }
+    }
+    func selectedButton(
+        all: PublishRelay<Void>,
+        school: PublishRelay<Void>,
+        dorm: PublishRelay<Void>
+    ) {
+        if allPetitionButton.isSelected == true {
+            all.accept(())
+        } else if schoolPetitionButton.isSelected == true {
+            school.accept(())
+        } else {
+            dorm.accept(())
+        }
     }
     
 }
@@ -277,5 +333,5 @@ extension PetitionViewController: UITableViewDelegate {
         PetitionIdModel.shared.id = cell.id
         self.pushViewController(vc)
     }
-
+    
 }
