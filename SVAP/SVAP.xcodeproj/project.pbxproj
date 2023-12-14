@@ -42,7 +42,6 @@
 		882E63772AB736F200BFE332 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E63762AB736F200BFE332 /* MainCell.swift */; };
 		882E637B2AB7FC0600BFE332 /* ApprovedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */; };
 		8849D97A2B0C6F8C00708256 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849D9792B0C6F8C00708256 /* ImageCell.swift */; };
-		8849D9E02B11F0C500708256 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849D9DF2B11F0C500708256 /* DataModel.swift */; };
 		8849D9E22B138E1B00708256 /* TokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849D9E12B138E1B00708256 /* TokenModel.swift */; };
 		8849DA0C2B15F1D600708256 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA0B2B15F1D600708256 /* TabBarVC.swift */; };
 		8849DA412B18991300708256 /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8849DA402B18991300708256 /* BSImagePicker */; };
@@ -96,6 +95,7 @@
 		88C8FA572B288B3800C039A2 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8FA562B288B3800C039A2 /* MyPageViewController.swift */; };
 		88C8FA5A2B288E2600C039A2 /* UserInfoModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8FA592B288E2600C039A2 /* UserInfoModifyViewController.swift */; };
 		88C8FA5C2B2891F200C039A2 /* PasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8FA5B2B2891F200C039A2 /* PasswordChangeViewController.swift */; };
+		88C8FA662B2B16D200C039A2 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8FA652B2B16D200C039A2 /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -133,7 +133,6 @@
 		882E63762AB736F200BFE332 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
 		882E637A2AB7FC0600BFE332 /* ApprovedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApprovedCell.swift; sourceTree = "<group>"; };
 		8849D9792B0C6F8C00708256 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
-		8849D9DF2B11F0C500708256 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		8849D9E12B138E1B00708256 /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
 		8849DA0B2B15F1D600708256 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		8849DA442B189A9600708256 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
@@ -179,6 +178,7 @@
 		88C8FA562B288B3800C039A2 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageViewController.swift; path = SVAP/Sources/Scene/MyPage/View/MyPageViewController.swift; sourceTree = SOURCE_ROOT; };
 		88C8FA592B288E2600C039A2 /* UserInfoModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModifyViewController.swift; sourceTree = "<group>"; };
 		88C8FA5B2B2891F200C039A2 /* PasswordChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeViewController.swift; sourceTree = "<group>"; };
+		88C8FA652B2B16D200C039A2 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,7 +426,7 @@
 		8849D9DE2B11F0B500708256 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				8849D9DF2B11F0C500708256 /* DataModel.swift */,
+				88C8FA652B2B16D200C039A2 /* DataModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -748,6 +748,7 @@
 				8849DAD02B2153BD00708256 /* UserIdData.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
+				88C8FA662B2B16D200C039A2 /* DataModel.swift in Sources */,
 				88C8FA572B288B3800C039A2 /* MyPageViewController.swift in Sources */,
 				8867D3E22ADD438F0048B205 /* PetitionReportAlert.swift in Sources */,
 				884A91722AD82B7400AE1E14 /* ViewModelType.swift in Sources */,
@@ -764,7 +765,6 @@
 				882E63642AB69D2300BFE332 /* LabelButton.swift in Sources */,
 				8867D3EB2ADF7E090048B205 /* DetailPetitionAlert.swift in Sources */,
 				884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */,
-				8849D9E02B11F0C500708256 /* DataModel.swift in Sources */,
 				884A918D2AD9917000AE1E14 /* UIViewControllerExtension.swift in Sources */,
 				884A91982AD9B84400AE1E14 /* UserSignupViewModel.swift in Sources */,
 				884A918F2AD9A1D500AE1E14 /* CALayerExtension.swift in Sources */,

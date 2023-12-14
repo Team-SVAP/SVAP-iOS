@@ -105,7 +105,7 @@ class UserIdViewController: BaseVC {
                 SignupInfo.shared.accountId.accept(self.idTextField.text)
                 self.pushViewController(UserPasswordViewController())
             } else {
-                self.idDuplicationLabel.text = "아이디를 확인해주세요"//멘트 바꿀까
+                self.idDuplicationLabel.text = "아이디를 확인해주세요"
             }
         }).disposed(by: disposeBag)
     }

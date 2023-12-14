@@ -18,7 +18,7 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
     private let idTextField = CustomTextField(placeholder: "아이디", isSecure: false).then {
         $0.textContentType = .password
     }
-    private let passwordTextField = CustomTextField(placeholder: "비밀번호", isSecure: false)//서버통신 성공하고 true로 바꾸기
+    private let passwordTextField = CustomTextField(placeholder: "비밀번호", isSecure: true)
     private let loginFailLabel = UILabel().then {
         $0.textColor = .systemRed
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)

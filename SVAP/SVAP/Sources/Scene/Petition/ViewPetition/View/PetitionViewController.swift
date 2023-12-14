@@ -4,7 +4,7 @@ import RxCocoa
 import Moya
 
 class PetitionViewController: BaseVC {
-    
+
     private let viewModel = PetitionViewModel()
     private let disposeBag = DisposeBag()
     private let searchPetition = PublishRelay<Void>()
@@ -74,14 +74,10 @@ class PetitionViewController: BaseVC {
     
     private lazy var buttonArray = [allPetitionButton, schoolPetitionButton, dormitoryPetitionButton]
     
-    public func setter(
-        petitionTitle: String
-    ) {
-        searchTextField.text = petitionTitle
-    }
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
+        searchTextField.becomeFirstResponder()
     }
     static let sharedText = BehaviorRelay<String>(value: "")
     override func viewWillAppear(_ animated: Bool) {
