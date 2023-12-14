@@ -16,12 +16,9 @@ class TabBarVC: UITabBarController {
         tabBar.barTintColor = .white
         tabBar.unselectedItemTintColor = UIColor(named: "gray-600")
         tabBar.backgroundColor = .white
-        tabBar.isTranslucent = false
-        tabBar.clipsToBounds = true
 
         let mainViewController = MainViewController()
         let createPetitionViewController = PetitionCreateViewController()
-//        let createPetitionViewController = UINavigationController(rootViewController: PetitionCreateViewController())
         let petitionViewController = PetitionViewController()
         let myPageViewController = MyPageViewController()
 

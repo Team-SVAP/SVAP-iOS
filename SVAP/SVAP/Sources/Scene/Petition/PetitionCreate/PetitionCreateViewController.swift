@@ -120,8 +120,8 @@ class PetitionCreateViewController: BaseVC {
         super.configureUI()
         
         [
-//            navigationTitleLabel,
-//            rightButton,
+            navigationTitleLabel,
+            rightButton,
             titleLabel,
             titleTextField,
             typeLabel,
@@ -144,14 +144,14 @@ class PetitionCreateViewController: BaseVC {
     override func setupConstraints() {
         super.setupConstraints()
         
-//        navigationTitleLabel.snp.makeConstraints {
-//            $0.centerX.equalToSuperview()
-//            $0.top.equalToSuperview().inset(59)
-//        }
-//        rightButton.snp.makeConstraints {
-//            $0.top.equalToSuperview().inset(59)
-//            $0.right.equalToSuperview().inset(20)
-//        }
+        navigationTitleLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().inset(80)
+        }
+        rightButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(80)
+            $0.right.equalToSuperview().inset(20)
+        }
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(104)
             $0.left.equalToSuperview().inset(20)
@@ -264,6 +264,7 @@ class PetitionCreateViewController: BaseVC {
                     self.image.removeAll()
                     self.dataImage.accept([])
                     self.imageArray.accept([])
+                    self.collectionView.reloadData()
                 } else {
                     print("청원 실패")
                 }
@@ -344,9 +345,10 @@ class PetitionCreateViewController: BaseVC {
         text.subscribe(onNext: {
             if ($0!.count != 0 && $1!.count != 0 && $2!.count != 0) {
                 self.rightButton.isEnabled = true
+                self.rightButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
             } else {
-//                self.rightButton.isEnabled = false
-                self.rightButton.isEnabled = true
+                self.rightButton.isEnabled = false
+                self.rightButton.setTitleColor(UIColor(named: "gray-600"), for: .normal)
             }
         }).disposed(by: disposeBag)
         
@@ -447,7 +449,7 @@ extension PetitionCreateViewController {
     }
     
     private func navigationBarSetting() {
-        self.navigationController?.isNavigationBarHidden = false
+        self.navigationController?.isNavigationBarHidden = true
         navigationItem.titleView = navigationTitleLabel
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
     }

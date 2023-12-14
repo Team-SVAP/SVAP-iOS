@@ -9,11 +9,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         let onboardingViewController = UINavigationController(rootViewController: OnboardingViewController())
         let loginViewController = UINavigationController(rootViewController: LoginViewController())
-        if Storage.isFirstTime() {
+//        if Storage.isFirstTime() {
             window?.rootViewController = onboardingViewController
-        } else {
-            window?.rootViewController = loginViewController
-        }
+//        } else {
+//            window?.rootViewController = loginViewController
+//        }
         window?.makeKeyAndVisible()
     }
 

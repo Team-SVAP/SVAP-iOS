@@ -228,7 +228,7 @@ class PetitionViewController: BaseVC {
                              access: allAccessPetition,
                              wait: allWaitPetition)
             }).disposed(by: disposeBag)
-        
+
         schoolPetitionButton.rx.tap
             .subscribe(onNext: { [self] in
                 selectedMenu(recent: schoolRecentPetiton,
