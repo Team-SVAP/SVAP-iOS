@@ -20,11 +20,9 @@ class PetitionCreateViewController: BaseVC {
     var imageArray =  BehaviorRelay<[String?]>(value: [])
     
     lazy var labelArray = [titleLabel, typeLabel, placeLabel, contentLabel]
+
+    var types: String = "SCHOOL"
     
-    private let dummyButton = UIButton(type: .system).then {
-        $0.setTitle("임시 완료 버튼", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 50)
-    }
     private let navigationTitleLabel = UILabel().then {
         $0.text = "청원작성"
         $0.textColor = UIColor(named: "gray-800")
@@ -230,7 +228,7 @@ class PetitionCreateViewController: BaseVC {
         //type을 보내는 것만 해결하면 됨 물론 이미지도
         let input = PetitionCreateViewModel.Input(
             title: titleTextField.rx.text.orEmpty.asDriver(),
-            types: "SCHOOL",
+            types: types,
             location: placeTextField.rx.text.orEmpty.asDriver(),
             content: contentTextView.rx.text.orEmpty.asDriver(),
             images: dataImage.asDriver(),
@@ -284,6 +282,11 @@ class PetitionCreateViewController: BaseVC {
         menuButton.rx.tap
             .subscribe(onNext: {
                 self.clickMenuButton()
+                if self.petitionTypeLabel.text == "기숙사 청원" {
+                    self.types = "DORMITORY"
+                } else {
+                    self.types = "SCHOOL"
+                }
             }).disposed(by: disposeBag)
         
         titleTextField.rx.text.orEmpty
@@ -445,7 +448,7 @@ extension PetitionCreateViewController {
     
     private func navigationBarSetting() {
         self.navigationController?.isNavigationBarHidden = false
-//        navigationItem.titleView = navigationTitleLabel
+        navigationItem.titleView = navigationTitleLabel
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
     }
     
