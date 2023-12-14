@@ -94,6 +94,8 @@
 		88C3E36A2B079C0F009B2A32 /* PetitionCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C3E3692B079C0F009B2A32 /* PetitionCreateViewController.swift */; };
 		88C8FA532B287B0F00C039A2 /* MyPageAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8FA522B287B0F00C039A2 /* MyPageAlert.swift */; };
 		88C8FA572B288B3800C039A2 /* MyPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8FA562B288B3800C039A2 /* MyPageViewController.swift */; };
+		88C8FA5A2B288E2600C039A2 /* UserInfoModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8FA592B288E2600C039A2 /* UserInfoModifyViewController.swift */; };
+		88C8FA5C2B2891F200C039A2 /* PasswordChangeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88C8FA5B2B2891F200C039A2 /* PasswordChangeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -175,6 +177,8 @@
 		88C3E3692B079C0F009B2A32 /* PetitionCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionCreateViewController.swift; sourceTree = "<group>"; };
 		88C8FA522B287B0F00C039A2 /* MyPageAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAlert.swift; sourceTree = "<group>"; };
 		88C8FA562B288B3800C039A2 /* MyPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MyPageViewController.swift; path = SVAP/Sources/Scene/MyPage/View/MyPageViewController.swift; sourceTree = SOURCE_ROOT; };
+		88C8FA592B288E2600C039A2 /* UserInfoModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModifyViewController.swift; sourceTree = "<group>"; };
+		88C8FA5B2B2891F200C039A2 /* PasswordChangeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordChangeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -554,8 +558,8 @@
 		8867D3F12ADFA5870048B205 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				88C8FA582B288B5100C039A2 /* View */,
 				88C8FA512B287B0700C039A2 /* Alert */,
+				88C8FA582B288B5100C039A2 /* View */,
 				88C8FA4C2B287A3E00C039A2 /* ViewModel */,
 			);
 			path = MyPage;
@@ -616,6 +620,8 @@
 			isa = PBXGroup;
 			children = (
 				88C8FA562B288B3800C039A2 /* MyPageViewController.swift */,
+				88C8FA592B288E2600C039A2 /* UserInfoModifyViewController.swift */,
+				88C8FA5B2B2891F200C039A2 /* PasswordChangeViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -783,6 +789,8 @@
 				88B7C64B2ADAECCC0082EA43 /* PetitionMenu.swift in Sources */,
 				880D92412AC9B3B40053D5A6 /* PetitionAPI.swift in Sources */,
 				888A18B12AC01A3800168377 /* CustomMenu.swift in Sources */,
+				88C8FA5A2B288E2600C039A2 /* UserInfoModifyViewController.swift in Sources */,
+				88C8FA5C2B2891F200C039A2 /* PasswordChangeViewController.swift in Sources */,
 				882E63752AB7109000BFE332 /* MainViewController.swift in Sources */,
 				885554632AF643490025747E /* DetailPetitionAlertViewModel.swift in Sources */,
 				88A6CC892AC18A3600BF36C3 /* PetitionViewController.swift in Sources */,

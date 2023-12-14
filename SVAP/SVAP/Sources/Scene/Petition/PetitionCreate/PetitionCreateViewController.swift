@@ -4,42 +4,38 @@ import RxCocoa
 import RxGesture
 import BSImagePicker
 import Photos
-import Moya
 
 class PetitionCreateViewController: BaseVC {
-    private let provider = MoyaProvider<PetitionAPI>(plugins: [MoyaLoggerPlugin()])//나중에 지우기
+    
     private let disposeBag = DisposeBag()
     private let viewModel = PetitionCreateViewModel()
-    private let successSignal = PublishRelay<Void>()
+    private let imageSendSignal = PublishRelay<Void>()
+    private let petitionCreateSignal = PublishRelay<Void>()
     
     var selectedAssets: [PHAsset] = []
+    
     var image: [UIImage] = []
-    lazy var dataImage: [Data] = []
-    var imageArray: [String?] = []
+    
+    var dataImage = BehaviorRelay<[Data]>(value: [])
+    var imageArray =  BehaviorRelay<[String?]>(value: [])
+    
     lazy var labelArray = [titleLabel, typeLabel, placeLabel, contentLabel]
     
     private let dummyButton = UIButton(type: .system).then {
         $0.setTitle("임시 완료 버튼", for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 50)
     }
-    private let topPaddingView = UIView().then {
-        $0.backgroundColor = .white
-    }
     private let navigationTitleLabel = UILabel().then {
         $0.text = "청원작성"
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
-    }
-    private let leftButton = UIButton(type: .system).then {
-        $0.setImage(UIImage(named: "leftArrow"), for: .normal)
-        $0.tintColor = UIColor(named: "gray-700")
     }
     private let rightButton = UIButton(type: .system).then {
         $0.setTitle("완료", for: .normal)
         $0.setTitleColor(UIColor(named: "gray-600"), for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 16)
     }
-    let titleLabel = UILabel().then {
+    private let titleLabel = UILabel().then {
         $0.text = "*제목"
         $0.textColor = UIColor(named: "gray-700")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
@@ -116,46 +112,18 @@ class PetitionCreateViewController: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.hidesBackButton = false
         labelArray.forEach({ labelSetting($0) })
         collectionView.delegate = self
         collectionView.dataSource = self
-        dummyButton.rx.tap
-            .subscribe(onNext: {
-                self.sendImage()
-            }).disposed(by: disposeBag)
+        navigationBarSetting()
     }
-    func sendImage() {
-        provider.request(.sendImage(images: dataImage)) { result in
-            switch result {
-                case .success(let res):
-                    print(res.statusCode)
-                    if let data = try? JSONDecoder().decode(ImageModel.self, from: res.data) {
-                        self.imageArray = data.imageUrl
-                        self.createPetition()
-                    }
-                case .failure(let err):
-                    print(err.localizedDescription)
-            }
-        }
-    }
-    func createPetition() {
-        provider.request(.createPetition(title: titleTextField.text!, content: contentTextView.text, types: "SCHOOL", location: placeTextField.text!, images: imageArray)) { result in
-            switch result {
-                case .success(let res):
-                    print(res.statusCode)
-                    print("Success")
-                case .failure(let err):
-                    print(err.localizedDescription)
-            }
-        }
-    }
+    
     override func configureUI() {
         super.configureUI()
         
         [
-            dummyButton,//나중에 삭제
-            topPaddingView,
+//            navigationTitleLabel,
+//            rightButton,
             titleLabel,
             titleTextField,
             typeLabel,
@@ -168,26 +136,24 @@ class PetitionCreateViewController: BaseVC {
             mainImageView,
             collectionView
         ].forEach({ view.addSubview($0) })
-        topPaddingView.addSubview(navigationTitleLabel)
+        
         [petitionTypeLabel, menuButton].forEach({ typeView.addSubview($0) })
+        
         contentTextView.addSubview(textCountLabel)
+        
         mainImageView.addSubview(cameraIcon)
     }
     override func setupConstraints() {
         super.setupConstraints()
         
-        dummyButton.snp.makeConstraints {//나중에 삭제
-            $0.bottom.equalToSuperview().inset(50)
-            $0.right.equalToSuperview().inset(50)
-        }
-        topPaddingView.snp.makeConstraints {
-            $0.top.left.right.equalToSuperview()
-            $0.height.equalTo(100)
-        }
-        navigationTitleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(59)
-        }
+//        navigationTitleLabel.snp.makeConstraints {
+//            $0.centerX.equalToSuperview()
+//            $0.top.equalToSuperview().inset(59)
+//        }
+//        rightButton.snp.makeConstraints {
+//            $0.top.equalToSuperview().inset(59)
+//            $0.right.equalToSuperview().inset(20)
+//        }
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(104)
             $0.left.equalToSuperview().inset(20)
@@ -267,40 +233,47 @@ class PetitionCreateViewController: BaseVC {
             types: "SCHOOL",
             location: placeTextField.rx.text.orEmpty.asDriver(),
             content: contentTextView.rx.text.orEmpty.asDriver(),
-            images: dataImage,
-            imageURL: imageArray,
-            doneTap: dummyButton.rx.tap.asSignal(onErrorJustReturn: ()),
-            successSignal: successSignal.asSignal()
+            images: dataImage.asDriver(),
+            imageURL: imageArray.asDriver(),
+            imageSendSignal: imageSendSignal.asSignal(),
+            petitionCreateSignal: petitionCreateSignal.asSignal()
         )
         
         let output = viewModel.transform(input)
         
-//        if dataImage.isEmpty == false {
-//            output.imageResult.asObservable()
-//                .subscribe(onNext: { data in
-//                    print("fdjs;k")
-//                    self.imageArray = data.imageUrl
-//                    self.successSignal.accept(())
-//                }).disposed(by: disposeBag)
-//        } else {
-//            output.petitionResult.asObservable()
-//                .subscribe(onNext: { bool in
-//                    if bool {
-//                        print("청원 성공")
-//                    } else {
-//                        print("청원 실패")
-//                    }
-//                }).disposed(by: disposeBag)
-//        }
+        rightButton.rx.tap
+            .subscribe(onNext: {
+                if self.image.isEmpty == true {
+                    self.petitionCreateSignal.accept(())
+                } else {
+                    self.imageSendSignal.accept(())
+                }
+            }).disposed(by: disposeBag)
+        
+        output.imageResult.asObservable()
+            .subscribe(onNext: { data in
+                self.imageArray.accept(data.imageUrl)
+                self.petitionCreateSignal.accept(())
+            }).disposed(by: self.disposeBag)
+        
+        output.petitionResult.asObservable()
+            .subscribe(onNext: { bool in
+                if bool {
+                    print("청원 성공")
+                    self.titleTextField.text = nil
+                    self.placeTextField.text = nil
+                    self.contentTextView.text = nil
+                    self.image.removeAll()
+                    self.dataImage.accept([])
+                    self.imageArray.accept([])
+                } else {
+                    print("청원 실패")
+                }
+            }).disposed(by: disposeBag)
         
     }
     override func subscribe() {
         super.subscribe()
-        
-        leftButton.rx.tap
-            .subscribe(onNext: {
-                self.popViewController()
-            }).disposed(by: disposeBag)
         
         mainImageView.rx.tapGesture()
             .when(.recognized)
@@ -369,7 +342,8 @@ class PetitionCreateViewController: BaseVC {
             if ($0!.count != 0 && $1!.count != 0 && $2!.count != 0) {
                 self.rightButton.isEnabled = true
             } else {
-                self.rightButton.isEnabled = false
+//                self.rightButton.isEnabled = false
+                self.rightButton.isEnabled = true
             }
         }).disposed(by: disposeBag)
         
@@ -392,7 +366,7 @@ extension PetitionCreateViewController {
     func clickImageView() {
         let imagePicker = ImagePickerController()
         imagePicker.modalPresentationStyle = .fullScreen
-        imagePicker.settings.selection.max = 3
+        imagePicker.settings.selection.max = 2
         imagePicker.settings.theme.selectionStyle = .numbered
         imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
         imagePicker.settings.theme.selectionFillColor = .systemBlue
@@ -415,8 +389,7 @@ extension PetitionCreateViewController {
             
             self.selectedAssets.removeAll()
             self.image.removeAll()
-            self.dataImage.removeAll()
-            self.imageArray.removeAll()
+            self.dataImage.accept([])
             
             for i in assets {
                 self.selectedAssets.append(i)
@@ -424,17 +397,15 @@ extension PetitionCreateViewController {
             
             self.convertAssetToImages()
             
-            for i in self.image {
-                self.dataImage.append(i.jpegData(compressionQuality: 0.1)!)
-            }
-            
         })
     }
-
-
+    
+    
     func convertAssetToImages() {
         
         if selectedAssets.count != 0 {
+            
+            var imageArr: [Data] = []
             
             for i in 0..<selectedAssets.count {
                 
@@ -442,7 +413,7 @@ extension PetitionCreateViewController {
                 let option = PHImageRequestOptions()
                 option.isSynchronous = true
                 var thumbnail = UIImage()
-
+                
                 imageManager.requestImage(for: selectedAssets[i],
                                           targetSize: CGSize(width: 200, height: 200),
                                           contentMode: .aspectFit,
@@ -450,12 +421,17 @@ extension PetitionCreateViewController {
                     thumbnail = result!
                 }
                 
+                
                 let data = thumbnail.jpegData(compressionQuality: 0.7)
                 let newImage = UIImage(data: data!)
+                
+                imageArr.append(data ?? Data())
                 
                 self.image.append(newImage! as UIImage)
                 collectionView.reloadData()
             }
+            
+            dataImage.accept(imageArr)
         }
     }
     
@@ -465,6 +441,12 @@ extension PetitionCreateViewController {
         attributedString.addAttribute(.font, value: UIFont(name: "IBMPlexSansKR-Regular", size: 14)!, range: (label.text! as NSString).range(of: "*"))
         attributedString.addAttribute(.foregroundColor, value: UIColor.red, range: (label.text! as NSString).range(of:"*"))
         label.attributedText = attributedString
+    }
+    
+    private func navigationBarSetting() {
+        self.navigationController?.isNavigationBarHidden = false
+//        navigationItem.titleView = navigationTitleLabel
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
     }
     
 }
@@ -477,6 +459,7 @@ extension PetitionCreateViewController:  UICollectionViewDelegate, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
         cell.cellImageView.image = image[indexPath.row]
+        
         cell.imageDeleteButton.rx.tap
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] in
@@ -486,15 +469,20 @@ extension PetitionCreateViewController:  UICollectionViewDelegate, UICollectionV
                 guard indexPath.row < self.image.count else {
                     return
                 }
+                
                 self.image.remove(at: indexPath.row)
-                self.dataImage.remove(at: indexPath.row)
+                
+                var currentImages = dataImage.value
+                currentImages.remove(at: indexPath.row)
+                dataImage.accept(currentImages)
+                
                 collectionView.reloadData()
             }).disposed(by: disposeBag)
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 70, height: collectionView.frame.height)
     }
-    
 }

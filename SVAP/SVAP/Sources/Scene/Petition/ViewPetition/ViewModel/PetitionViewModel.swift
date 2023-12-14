@@ -11,7 +11,6 @@ class PetitionViewModel: ViewModelType {
         //MARK: 청원 검색
         let petitonTitle: Driver<String>
         let searchPetition: Signal<Void>
-        let doneTap: Signal<Void>
         
         //MARK: 최신순으로 보기
         let allRecentPetition: Signal<Void>
@@ -34,7 +33,7 @@ class PetitionViewModel: ViewModelType {
         let dormWaitPetition: Signal<Void>
         
     }
-    
+
     struct Output {
         let petition: BehaviorRelay<[PetitionModel]>
     }
@@ -57,21 +56,7 @@ class PetitionViewModel: ViewModelType {
                         return
                 }
             }).disposed(by: disposeBag)
-        
-        input.doneTap.asObservable()
-            .withLatestFrom(input.petitonTitle)
-            .flatMap { title in
-                api.searchPetition(title)
-            }
-            .subscribe(onNext: { data, res in
-                switch res {
-                    case .ok:
-                        petition.accept(data!)
-                    default:
-                        return
-                }
-            }).disposed(by: disposeBag)
-        
+
         //MARK: 최신순으로 보기
         input.allRecentPetition.asObservable()
             .flatMap{ api.sortPetition("ALL", accessTypes: "NORMAL") }

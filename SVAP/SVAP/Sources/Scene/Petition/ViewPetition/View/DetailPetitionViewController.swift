@@ -105,7 +105,7 @@ class DetailPetitionViewController: BaseVC {
         super.configureUI()
         
         [
-            scrollView,
+            scrollView
         ].forEach({ view.addSubview($0) })
         scrollView.addSubview(contentView)
         contentView.addSubview(mainView)
@@ -285,10 +285,9 @@ class DetailPetitionViewController: BaseVC {
     }
     
     func navigationBarSetting() {
-//        let bounds = self.navigationController!.navigationBar.bounds
-//        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 60, width: bounds.width, height: bounds.height)
         navigationItem.titleView = navigationBarTitle
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
+        navigationController?.isNavigationBarHidden = false
     }
     
 }
@@ -303,7 +302,6 @@ extension DetailPetitionViewController: UICollectionViewDelegate, UICollectionVi
         cell.cellImageView.kf.setImage(with: URL(string: imageArray[indexPath.row]))
         cell.imageDeleteButton.isHidden = true
         return cell
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

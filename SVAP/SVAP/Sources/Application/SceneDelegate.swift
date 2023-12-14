@@ -9,11 +9,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: scene)
         let onboardingViewController = UINavigationController(rootViewController: OnboardingViewController())
         let loginViewController = UINavigationController(rootViewController: LoginViewController())
-        if Storage.isFirstTime() {
-            window?.rootViewController = onboardingViewController
-        } else {
-            window?.rootViewController = loginViewController
-        }
+//        if Storage.isFirstTime() {
+//            window?.rootViewController = onboardingViewController
+//        } else {
+//            window?.rootViewController = loginViewController
+//        }
+        window?.rootViewController = UINavigationController(rootViewController: TabBarVC())
+//        window?.rootViewController = loginViewController
         window?.makeKeyAndVisible()
     }
 

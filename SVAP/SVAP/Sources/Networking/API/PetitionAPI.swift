@@ -55,10 +55,12 @@ extension PetitionAPI: TargetType {
         }
     }
     
+    
     var task: Moya.Task {
         switch self {
             case .sendImage(let images):
                 var multiformData = [MultipartFormData]()
+                
                 for image in images {
                     multiformData.append(.init(
                         provider: .data(image),
@@ -67,6 +69,7 @@ extension PetitionAPI: TargetType {
                         mimeType: "image/jpg"
                     ))
                 }
+
                 return .uploadMultipart(multiformData)
             case .createPetition(let title, let content, let types, let location, let images):
                 return .requestParameters(parameters: [
@@ -74,7 +77,7 @@ extension PetitionAPI: TargetType {
                     "content" : content,
                     "types" : types,
                     "location" : location,
-                    "imageUrlList": images as Any
+                    "imageUrl": images as Any
                 ], encoding: JSONEncoding.default)
             case .searchPetition(let title):
                 return .requestParameters(

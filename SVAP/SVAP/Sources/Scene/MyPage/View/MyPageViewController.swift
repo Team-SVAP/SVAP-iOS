@@ -30,7 +30,7 @@ class MyPageViewController: BaseVC {
     private let line2 = UIView().then {
         $0.backgroundColor = UIColor(named: "gray-200")
     }
-    private let modifyUserInfo = LabelButton(type: .system, title: "내 정보 수정", titleColor: UIColor(named: "gray-800")!)
+    private let userInfoModifyButton = LabelButton(type: .system, title: "내 정보 수정", titleColor: UIColor(named: "gray-800")!)
     private let line3 = UIView().then {
         $0.backgroundColor = UIColor(named: "gray-200")
     }
@@ -57,7 +57,7 @@ class MyPageViewController: BaseVC {
             line1,
             viewUserPetitionButton,
             line2,
-            modifyUserInfo,
+            userInfoModifyButton,
             line3,
             buttonStackView
         ].forEach({ view.addSubview($0) })
@@ -93,12 +93,12 @@ class MyPageViewController: BaseVC {
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(1)
         }
-        modifyUserInfo.snp.makeConstraints {
+        userInfoModifyButton.snp.makeConstraints {
             $0.top.equalTo(line2.snp.bottom).offset(20)
             $0.left.equalToSuperview().inset(20)
         }
         line3.snp.makeConstraints {
-            $0.top.equalTo(modifyUserInfo.snp.bottom).offset(20)
+            $0.top.equalTo(userInfoModifyButton.snp.bottom).offset(20)
             $0.left.right.equalToSuperview().inset(20)
             $0.height.equalTo(1)
         }
@@ -142,6 +142,13 @@ class MyPageViewController: BaseVC {
                 self.pushViewController(vc)
             }).disposed(by: disposeBag)
         
+        userInfoModifyButton.rx.tap
+            .subscribe(onNext: {
+                let vc = UserInfoModifyViewController()
+                vc.hidesBottomBarWhenPushed = true
+                self.pushViewController(vc)
+            }).disposed(by: disposeBag)
+        
         logoutButton.rx.tap
             .subscribe(onNext: {
                 let modal = MyPageAlert(
@@ -157,6 +164,7 @@ class MyPageViewController: BaseVC {
                 modal.modalTransitionStyle = .crossDissolve
                 self.present(modal, animated: true)
             }).disposed(by: disposeBag)
+        
         membershipCancelButton.rx.tap
             .subscribe(onNext: {
                 let modal = MyPageAlert(

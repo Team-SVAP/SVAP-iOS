@@ -8,7 +8,7 @@ class TabBarVC: UITabBarController {
         super.viewDidLoad()
         setup()
         self.navigationItem.hidesBackButton = true
-        self.selectedIndex = 2
+        self.selectedIndex = 0
     }
     
     func setup() {
@@ -18,12 +18,39 @@ class TabBarVC: UITabBarController {
         tabBar.backgroundColor = .white
         tabBar.isTranslucent = false
         tabBar.clipsToBounds = true
-        
-        let mainViewController = createNavigationController(title: "홈", image: UIImage(named: "mainMenu")!, viewController: MainViewController())
-        let createPetitionViewController = createNavigationController(title: "청원 작성", image: UIImage(named: "editIcon")!, viewController: PetitionCreateViewController())
-        let petitionViewController = createNavigationController(title: "청원 보기", image: UIImage(named: "peopleIcon")!, viewController: PetitionViewController())
-        let myPageViewController = createNavigationController(title: "마이페이지", image: UIImage(named: "peopleIcon")!, viewController: MyPageViewController())
-        
+
+        let mainViewController = MainViewController()
+        let createPetitionViewController = PetitionCreateViewController()
+//        let createPetitionViewController = UINavigationController(rootViewController: PetitionCreateViewController())
+        let petitionViewController = PetitionViewController()
+        let myPageViewController = MyPageViewController()
+
+        let tabItem1 = UITabBarItem(
+            title: "홈",
+            image: UIImage(named: "mainMenu")!,
+            selectedImage: nil
+        )
+        let tabItem2 = UITabBarItem(
+            title: "청원 작성",
+            image: UIImage(named: "editIcon")!,
+            selectedImage: nil
+        )
+        let tabItem3 = UITabBarItem(
+            title: "청원 보기",
+            image: UIImage(named: "peopleIcon")!,
+            selectedImage: nil
+        )
+        let tabItem4 = UITabBarItem(
+            title: "마이페이지",
+            image: UIImage(named: "personIcon")!,
+            selectedImage: nil
+        )
+
+        mainViewController.tabBarItem = tabItem1
+        createPetitionViewController.tabBarItem = tabItem2
+        petitionViewController.tabBarItem = tabItem3
+        myPageViewController.tabBarItem = tabItem4
+
         func insets(viewcontrollers: [UIViewController]) {
             viewcontrollers.forEach({ $0.tabBarItem.imageInsets = UIEdgeInsets(top: -17, left: 0, bottom: 0, right: 0) })
         }
@@ -42,13 +69,6 @@ class TabBarVC: UITabBarController {
             myPageViewController
         ], animated: true)
         
-    }
-    
-    func createNavigationController(title: String, image: UIImage, viewController: UIViewController) -> UINavigationController {
-        let navigationController = UINavigationController(rootViewController: viewController)
-        navigationController.tabBarItem.title = title
-        navigationController.tabBarItem.image = image
-        return navigationController
     }
     
 }

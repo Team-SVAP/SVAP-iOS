@@ -81,7 +81,7 @@ class MainViewController: BaseVC {
             $0.top.equalToSuperview().inset(69)
             $0.left.equalToSuperview().inset(20)
             $0.width.equalTo(62)
-            $0.height.equalTo(25)
+            $0.height.equalTo(26)
         }
         collectionView.snp.makeConstraints {
             $0.top.equalTo(logoImage.snp.bottom).offset(25)
@@ -118,9 +118,9 @@ class MainViewController: BaseVC {
             $0.top.equalTo(famousPetitionContentLabel.snp.bottom).offset(5)
             $0.left.equalToSuperview().inset(20)
         }
-        
+
     }
-    
+
     override func bind() {
         super.bind()
         
@@ -140,17 +140,27 @@ class MainViewController: BaseVC {
                 }
             }).disposed(by: disposeBag)
     }
+    let textSubject = PublishSubject<String>()
+
     override func subscribe() {
         super.subscribe()
         
+        searchTextField.rx.text
+                 .orEmpty
+                 .bind(to: textSubject)
+                 .disposed(by: disposeBag)
+
         searchButton.rx.tap
-            .subscribe(onNext: {
-                let vc = PetitionViewController()
-                vc.setter(petitionTitle: self.searchTextField.text!)
-//                self.pushViewController(vc)
-//                self.tabBarController?.selectedIndex = 2
-            }).disposed(by: disposeBag)
+                    .withLatestFrom(textSubject)
+                    .bind(to: PetitionViewController.sharedText)
+                    .disposed(by: disposeBag)
         
+        searchButton.rx.tap
+              .subscribe(onNext: { [weak self] in
+                  self?.tabBarController?.selectedIndex = 2
+              })
+              .disposed(by: disposeBag)
+
         searchTextField.rx.text.orEmpty
             .subscribe(onNext: {
                 if $0.isEmpty {

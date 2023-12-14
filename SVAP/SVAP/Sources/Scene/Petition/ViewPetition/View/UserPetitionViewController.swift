@@ -62,6 +62,7 @@ class UserPetitionViewController: BaseVC {
             cell.dateLabel.text = data.dateTime
             cell.placeLabel.text = "#\(data.types)_\(data.location)"
             cell.contentLabel.text = data.content
+            cell.selectionStyle = .none
         }.disposed(by: disposeBag)
         
     }

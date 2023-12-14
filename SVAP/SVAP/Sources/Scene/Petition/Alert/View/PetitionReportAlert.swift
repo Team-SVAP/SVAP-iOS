@@ -9,7 +9,6 @@ class PetitionReportAlert: UIViewController {
     private let disposeBag = DisposeBag()
     private let viewModel = PetitionReportAlertViewModel()
     
-    
     private let backgroundView = UIView().then {
         $0.backgroundColor = UIColor(named: "gray-000")
         $0.layer.cornerRadius = 8
@@ -98,7 +97,7 @@ class PetitionReportAlert: UIViewController {
         
     }
     func subscribe() {
-        
+
         view.rx.tapGesture()
             .when(.recognized)
             .subscribe(onNext: { _ in

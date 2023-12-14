@@ -82,12 +82,17 @@ class PetitionViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
-        self.navigationController?.isNavigationBarHidden = true
     }
+    static let sharedText = BehaviorRelay<String>(value: "")
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
-        if searchTextField.text?.isEmpty == true {
-            allRecentPetition.accept(())
+        PetitionViewController.sharedText
+            .bind(to: searchTextField.rx.text)
+            .disposed(by: disposeBag)
+        if searchTextField.text!.isEmpty == true {
+            self.allRecentPetition.accept(())
+        } else {
+            self.searchPetition.accept(())
         }
     }
     override func configureUI() {
@@ -106,11 +111,11 @@ class PetitionViewController: BaseVC {
         [ allPetitionButton, schoolPetitionButton, dormitoryPetitionButton].forEach({
             petitionButtonStackView.addArrangedSubview($0)
         })
-        
+
     }
     override func setupConstraints() {
         super.setupConstraints()
-        
+
         navigationTitleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().inset(59)
@@ -152,7 +157,7 @@ class PetitionViewController: BaseVC {
             $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(82)
             $0.height.equalTo(90)
         }
-        
+
     }
     override func bind() {
         super.bind()
@@ -160,7 +165,6 @@ class PetitionViewController: BaseVC {
         let input = PetitionViewModel.Input(
             petitonTitle: searchTextField.rx.text.orEmpty.asDriver(),
             searchPetition: searchPetition.asSignal(),
-            doneTap: searchButton.rx.tap.asSignal(),
             allRecentPetition: allRecentPetition.asSignal(),
             schoolRecentPetiton: schoolRecentPetiton.asSignal(),
             dormRecentPetition: dormRecentPetition.asSignal(),
@@ -183,7 +187,9 @@ class PetitionViewController: BaseVC {
             cell.dateLabel.text = item.dateTime
             cell.placeLabel.text = "#\(item.types)_\(item.location)"
             cell.contentLabel.text = item.content
+            cell.selectionStyle = .none
         }.disposed(by: disposeBag)
+
     }
     override func subscribe() {
         super.subscribe()
@@ -203,7 +209,7 @@ class PetitionViewController: BaseVC {
                     self.searchButton.isEnabled = true
                 }
             }).disposed(by: disposeBag)
-        
+
         for button in buttonArray {
             button.rx.tap
                 .map { button }
@@ -218,7 +224,7 @@ class PetitionViewController: BaseVC {
                 }
             })
             .disposed(by: disposeBag)
-        
+
         allPetitionButton.rx.tap
             .subscribe(onNext: { [self] in
                 selectedMenu(recent: allRecentPetition,
@@ -234,7 +240,7 @@ class PetitionViewController: BaseVC {
                              access: schoolAccessPetition,
                              wait: schoolWaitPetition)
             }).disposed(by: disposeBag)
-        
+
         dormitoryPetitionButton.rx.tap
             .subscribe(onNext: { [self] in
                 selectedMenu(recent: dormRecentPetition,
@@ -242,7 +248,7 @@ class PetitionViewController: BaseVC {
                              access: dormAccessPetition,
                              wait: dormWaitPetition)
             }).disposed(by: disposeBag)
-        
+
         scrollButton.rx.tap
             .subscribe(onNext: {
                 self.tableView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
@@ -254,7 +260,7 @@ class PetitionViewController: BaseVC {
         menuButton.menu = menu
         menuButton.showsMenuAsPrimaryAction = true
     }
-    
+
     var items: [UIAction] {
         
         let recent = UIAction(
@@ -328,8 +334,6 @@ extension PetitionViewController: UITableViewDelegate {
         let cell = tableView.cellForRow(at: indexPath) as! PetitionCell
         let vc = DetailPetitionViewController()
         vc.hidesBottomBarWhenPushed = true
-        cell.selectionStyle = .none
-        cell.selectedBackgroundView = .none
         PetitionIdModel.shared.id = cell.id
         self.pushViewController(vc)
     }
