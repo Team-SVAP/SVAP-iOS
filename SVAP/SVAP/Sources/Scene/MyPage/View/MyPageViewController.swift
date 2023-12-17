@@ -121,7 +121,7 @@ class MyPageViewController: BaseVC {
                 self.userNameLabel.text = "\(data.userName ?? "User not found")님,\n안녕하세요!"
             })
             .disposed(by: disposeBag)
-        
+
         output.deleteResult.asObservable()
             .subscribe(onNext: { bool in
                 if bool {

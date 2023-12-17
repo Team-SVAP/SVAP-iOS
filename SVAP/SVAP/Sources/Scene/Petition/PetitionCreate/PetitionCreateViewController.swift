@@ -21,8 +21,8 @@ class PetitionCreateViewController: BaseVC {
     
     lazy var labelArray = [titleLabel, typeLabel, placeLabel, contentLabel]
 
-    var types: String = "SCHOOL"
-    
+    var types = BehaviorRelay<String>(value: "")
+
     private let navigationTitleLabel = UILabel().then {
         $0.text = "청원작성"
         $0.textColor = UIColor(named: "gray-800")
@@ -99,6 +99,7 @@ class PetitionCreateViewController: BaseVC {
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.itemSize = .init(width: 70, height: 70)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 8
@@ -111,17 +112,16 @@ class PetitionCreateViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         labelArray.forEach({ labelSetting($0) })
-        collectionView.delegate = self
-        collectionView.dataSource = self
         navigationBarSetting()
+        alertSetting()
     }
     
     override func configureUI() {
         super.configureUI()
         
         [
-            navigationTitleLabel,
-            rightButton,
+//            navigationTitleLabel,
+//            rightButton,
             titleLabel,
             titleTextField,
             typeLabel,
@@ -144,14 +144,14 @@ class PetitionCreateViewController: BaseVC {
     override func setupConstraints() {
         super.setupConstraints()
         
-        navigationTitleLabel.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(80)
-        }
-        rightButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(80)
-            $0.right.equalToSuperview().inset(20)
-        }
+//        navigationTitleLabel.snp.makeConstraints {
+//            $0.centerX.equalToSuperview()
+//            $0.top.equalToSuperview().inset(80)
+//        }
+//        rightButton.snp.makeConstraints {
+//            $0.top.equalToSuperview().inset(80)
+//            $0.right.equalToSuperview().inset(20)
+//        }
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(104)
             $0.left.equalToSuperview().inset(20)
@@ -224,11 +224,10 @@ class PetitionCreateViewController: BaseVC {
     }
     override func bind() {
         super.bind()
-        
-        //type을 보내는 것만 해결하면 됨 물론 이미지도
+
         let input = PetitionCreateViewModel.Input(
             title: titleTextField.rx.text.orEmpty.asDriver(),
-            types: types,
+            types: types.asDriver(),
             location: placeTextField.rx.text.orEmpty.asDriver(),
             content: contentTextView.rx.text.orEmpty.asDriver(),
             images: dataImage.asDriver(),
@@ -238,7 +237,31 @@ class PetitionCreateViewController: BaseVC {
         )
         
         let output = viewModel.transform(input)
-        
+
+        dataImage.bind(to: collectionView.rx.items(cellIdentifier: "ImageCell", cellType: ImageCell.self)) { row, item, cell in
+            cell.cellImageView.image = self.image[row]
+
+            cell.imageDeleteButton.rx.tap
+                .observe(on: MainScheduler.instance)
+                .subscribe(onNext: { [unowned self] in
+                    guard let indexPath = collectionView.indexPath(for: cell) else {
+                        return
+                    }
+                    guard indexPath.row < self.image.count else {
+                        return
+                    }
+                    
+                    self.image.remove(at: indexPath.row)
+                    
+                    var currentImages = dataImage.value
+                    currentImages.remove(at: indexPath.row)
+                    dataImage.accept(currentImages)
+                    
+                    collectionView.reloadData()
+                }).disposed(by: self.disposeBag)
+            
+        }.disposed(by: disposeBag)
+
         rightButton.rx.tap
             .subscribe(onNext: {
                 if self.image.isEmpty == true {
@@ -261,10 +284,13 @@ class PetitionCreateViewController: BaseVC {
                     self.titleTextField.text = nil
                     self.placeTextField.text = nil
                     self.contentTextView.text = nil
+                    self.petitionTypeLabel.text = nil
                     self.image.removeAll()
                     self.dataImage.accept([])
                     self.imageArray.accept([])
                     self.collectionView.reloadData()
+                    
+                    self.present(self.petitionSuccessAlert, animated: true)
                 } else {
                     print("청원 실패")
                 }
@@ -283,11 +309,6 @@ class PetitionCreateViewController: BaseVC {
         menuButton.rx.tap
             .subscribe(onNext: {
                 self.clickMenuButton()
-                if self.petitionTypeLabel.text == "기숙사 청원" {
-                    self.types = "DORMITORY"
-                } else {
-                    self.types = "SCHOOL"
-                }
             }).disposed(by: disposeBag)
         
         titleTextField.rx.text.orEmpty
@@ -354,6 +375,17 @@ class PetitionCreateViewController: BaseVC {
         
     }
     
+    private let petitionSuccessAlert = UIAlertController(title: "청원이 생성되었습니다.", message: "", preferredStyle: .alert)
+    private func alertSetting() {
+        self.petitionSuccessAlert.addAction(
+            UIAlertAction(
+                title: "확인",
+                style: .default,
+                handler: {_ in
+            self.tabBarController?.selectedIndex = 2
+        }))
+    }
+    
 }
 
 extension PetitionCreateViewController {
@@ -362,6 +394,8 @@ extension PetitionCreateViewController {
         let petitionClosure = CustomMenu(closure: { [weak self] petition in
             self?.petitionTypeLabel.text = petition
             self?.typeView.layer.borderColor = UIColor(named: "main-1")?.cgColor
+        }, petitionType: { [weak self] petitionType in
+            self?.types.accept(petitionType)
         })
         petitionClosure.modalPresentationStyle = .overFullScreen
         petitionClosure.modalTransitionStyle = .crossDissolve
@@ -449,45 +483,10 @@ extension PetitionCreateViewController {
     }
     
     private func navigationBarSetting() {
-        self.navigationController?.isNavigationBarHidden = true
-        navigationItem.titleView = navigationTitleLabel
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
+        self.navigationController?.isNavigationBarHidden = false
+        self.navigationItem.titleView = navigationTitleLabel
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: rightButton)
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
     }
-    
-}
 
-extension PetitionCreateViewController:  UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return image.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
-        cell.cellImageView.image = image[indexPath.row]
-        
-        cell.imageDeleteButton.rx.tap
-            .observe(on: MainScheduler.instance)
-            .subscribe(onNext: { [unowned self] in
-                guard let indexPath = collectionView.indexPath(for: cell) else {
-                    return
-                }
-                guard indexPath.row < self.image.count else {
-                    return
-                }
-                
-                self.image.remove(at: indexPath.row)
-                
-                var currentImages = dataImage.value
-                currentImages.remove(at: indexPath.row)
-                dataImage.accept(currentImages)
-                
-                collectionView.reloadData()
-            }).disposed(by: disposeBag)
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 70, height: collectionView.frame.height)
-    }
 }

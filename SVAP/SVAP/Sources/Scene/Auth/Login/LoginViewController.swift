@@ -174,8 +174,7 @@ extension LoginViewController {
         self.passwordTextField.rightView = eyeButton
         self.passwordTextField.rightViewMode = .always
     }
-    //리팩하기
-    
+
     private func setupKeyboardObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)

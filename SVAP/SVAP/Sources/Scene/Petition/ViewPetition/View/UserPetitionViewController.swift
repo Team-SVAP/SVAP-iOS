@@ -41,9 +41,8 @@ class UserPetitionViewController: BaseVC {
         super.setupConstraints()
         
         tableView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaInsets.bottom)
-            $0.bottom.equalToSuperview()
-            $0.left.right.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(100)
+            $0.left.right.bottom.equalToSuperview()
         }
         scrollButton.snp.makeConstraints {
             $0.bottom.right.equalToSuperview().inset(30)
