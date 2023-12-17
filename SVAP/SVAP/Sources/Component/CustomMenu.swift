@@ -8,6 +8,7 @@ class CustomMenu: UIViewController {
     
     private let disposeBag = DisposeBag()
     var closure: (String) -> Void
+    var petitionType: (String) -> Void
     
     let menuView = UIView().then {
         $0.backgroundColor = .white
@@ -30,8 +31,9 @@ class CustomMenu: UIViewController {
         $0.setTitleColor(UIColor(named: "gray-700"), for: .normal)
         $0.titleLabel?.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
     }
-    init(closure: @escaping (String) -> Void) {
+    init(closure: @escaping (String) -> Void, petitionType: @escaping (String) -> Void) {
         self.closure = closure
+        self.petitionType = petitionType
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -80,12 +82,14 @@ class CustomMenu: UIViewController {
         schoolPetitionButton.rx.tap
             .subscribe(onNext: {
                 self.closure("학교 청원")
+                self.petitionType("SCHOOL")
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         dormitoryPetitionButton.rx.tap
             .subscribe(onNext: {
                 self.closure("기숙사 청원")
+                self.petitionType("DORMITORY")
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
