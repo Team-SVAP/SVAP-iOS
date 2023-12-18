@@ -24,8 +24,8 @@ class MainViewController: BaseVC {
         collectionView.layer.cornerRadius = 12
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.isScrollEnabled = false
-        collectionView.register(MainCell.self, forCellWithReuseIdentifier: "MainCell")
-        collectionView.register(ApprovedCell.self, forCellWithReuseIdentifier: "ApprovedCell")
+        collectionView.register(MainCell.self, forCellWithReuseIdentifier: MainCell.id)
+        collectionView.register(ApprovedCell.self, forCellWithReuseIdentifier: ApprovedCell.id)
         return collectionView
     }()
     private let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.")

@@ -14,7 +14,7 @@ class UserPetitionViewController: BaseVC {
     }
     private let tableView =  UITableView().then {
         $0.backgroundColor = .white
-        $0.register(PetitionCell.self, forCellReuseIdentifier: "PetitionCell")
+        $0.register(PetitionCell.self, forCellReuseIdentifier: PetitionCell.cellId)
         $0.rowHeight = 92
         $0.separatorStyle = .none
     }
@@ -55,7 +55,7 @@ class UserPetitionViewController: BaseVC {
         let input = UserPetitionViewModel.Input(viewAppear: viewAppear.asSignal(onErrorJustReturn: ()))
         let output = viewModel.transform(input)
         
-        output.userPetition.bind(to: tableView.rx.items(cellIdentifier: "PetitionCell", cellType: PetitionCell.self)) { _, data, cell in
+        output.userPetition.bind(to: tableView.rx.items(cellIdentifier: PetitionCell.cellId, cellType: PetitionCell.self)) { _, data, cell in
             cell.id = data.id
             cell.titleLabel.text = data.title
             cell.dateLabel.text = data.dateTime

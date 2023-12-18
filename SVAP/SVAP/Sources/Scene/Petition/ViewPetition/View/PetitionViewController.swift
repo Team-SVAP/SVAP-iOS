@@ -63,7 +63,7 @@ class PetitionViewController: BaseVC {
     }
     private var tableView = UITableView().then {
         $0.backgroundColor = .white
-        $0.register(PetitionCell.self, forCellReuseIdentifier: "PetitionCell")
+        $0.register(PetitionCell.self, forCellReuseIdentifier: PetitionCell.cellId)
         $0.rowHeight = 92
         $0.separatorStyle = .none
     }
@@ -177,7 +177,7 @@ class PetitionViewController: BaseVC {
         
         let output = viewModel.transform(input)
         
-        output.petition.bind(to: tableView.rx.items(cellIdentifier: "PetitionCell", cellType: PetitionCell.self)) { _, item, cell in
+        output.petition.bind(to: tableView.rx.items(cellIdentifier: PetitionCell.cellId, cellType: PetitionCell.self)) { _, item, cell in
             cell.id = item.id
             cell.titleLabel.text = item.title
             cell.dateLabel.text = item.dateTime

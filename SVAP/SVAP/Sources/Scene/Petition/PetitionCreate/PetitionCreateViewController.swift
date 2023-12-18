@@ -104,7 +104,7 @@ class PetitionCreateViewController: BaseVC {
         collectionView.backgroundColor = .white
         collectionView.layer.cornerRadius = 8
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: "ImageCell")
+        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.id)
         return collectionView
     }()
     private let cameraIcon = UIImageView(image: UIImage(named: "camera"))
@@ -238,7 +238,7 @@ class PetitionCreateViewController: BaseVC {
         
         let output = viewModel.transform(input)
 
-        dataImage.bind(to: collectionView.rx.items(cellIdentifier: "ImageCell", cellType: ImageCell.self)) { row, item, cell in
+        dataImage.bind(to: collectionView.rx.items(cellIdentifier: ImageCell.id, cellType: ImageCell.self)) { row, item, cell in
             cell.cellImageView.image = self.image[row]
 
             cell.imageDeleteButton.rx.tap
