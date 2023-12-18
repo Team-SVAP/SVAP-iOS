@@ -23,7 +23,6 @@ class UserPetitionViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = false
-        tableView.delegate = self
         navigationBarSetting()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -64,6 +63,13 @@ class UserPetitionViewController: BaseVC {
             cell.selectionStyle = .none
         }.disposed(by: disposeBag)
         
+        tableView.rx.modelSelected(PetitionModel.self)
+            .subscribe(onNext: { data in
+                let vc = DetailPetitionViewController()
+                PetitionIdModel.shared.id = data.id
+                self.pushViewController(vc)
+            }).disposed(by: disposeBag)
+        
     }
     override func subscribe() {
         super.subscribe()
@@ -88,18 +94,6 @@ class UserPetitionViewController: BaseVC {
         navigationItem.titleView = title
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
-    }
-    
-}
-
-extension UserPetitionViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! PetitionCell
-        let vc = DetailPetitionViewController()
-        
-        cell.selectionStyle = .none
-        PetitionIdModel.shared.id = cell.id
-        self.pushViewController(vc)
     }
     
 }

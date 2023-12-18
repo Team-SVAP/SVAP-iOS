@@ -5,6 +5,8 @@ import Moya
 
 class PetitionViewController: BaseVC {
 
+    static let sharedText = BehaviorRelay<String>(value: "")
+
     private let viewModel = PetitionViewModel()
     private let disposeBag = DisposeBag()
     private let searchPetition = PublishRelay<Void>()
@@ -76,10 +78,8 @@ class PetitionViewController: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        searchTextField.becomeFirstResponder()
+
     }
-    static let sharedText = BehaviorRelay<String>(value: "")
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
         PetitionViewController.sharedText
@@ -186,6 +186,13 @@ class PetitionViewController: BaseVC {
             cell.selectionStyle = .none
         }.disposed(by: disposeBag)
 
+        tableView.rx.modelSelected(PetitionModel.self)
+            .subscribe(onNext: { data in
+                let vc = DetailPetitionViewController()
+                vc.hidesBottomBarWhenPushed = true
+                PetitionIdModel.shared.id = data.id
+                self.pushViewController(vc)
+            }).disposed(by: disposeBag)
     }
     override func subscribe() {
         super.subscribe()
@@ -320,18 +327,6 @@ class PetitionViewController: BaseVC {
         } else {
             dorm.accept(())
         }
-    }
-    
-}
-
-extension PetitionViewController: UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = tableView.cellForRow(at: indexPath) as! PetitionCell
-        let vc = DetailPetitionViewController()
-        vc.hidesBottomBarWhenPushed = true
-        PetitionIdModel.shared.id = cell.id
-        self.pushViewController(vc)
     }
     
 }
