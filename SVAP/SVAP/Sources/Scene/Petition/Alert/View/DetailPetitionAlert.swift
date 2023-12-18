@@ -98,12 +98,12 @@ class DetailPetitionAlert: BaseVC {
             .subscribe(onNext: { _ in
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
-        
+
         closeButton.rx.tap
             .subscribe(onNext: {
                 self.dismiss(animated: true)
             }).disposed(by: disposeBag)
-        
+
     }
     
 }

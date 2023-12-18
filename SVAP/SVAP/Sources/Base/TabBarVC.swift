@@ -8,7 +8,7 @@ class TabBarVC: UITabBarController {
         super.viewDidLoad()
         setup()
         self.navigationItem.hidesBackButton = true
-        self.selectedIndex = 0
+        self.selectedIndex = 1
     }
     
     func setup() {
@@ -18,7 +18,8 @@ class TabBarVC: UITabBarController {
         tabBar.backgroundColor = .white
 
         let mainViewController = MainViewController()
-        let createPetitionViewController = PetitionCreateViewController()
+        let createPetitionViewController = UINavigationController(rootViewController: PetitionCreateViewController())
+//        let createPetitionViewController = PetitionCreateViewController()
         let petitionViewController = PetitionViewController()
         let myPageViewController = MyPageViewController()
 

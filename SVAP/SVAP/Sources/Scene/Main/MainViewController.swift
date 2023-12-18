@@ -11,23 +11,26 @@ class MainViewController: BaseVC {
     private let viewAppear = PublishRelay<Void>()
     private let refreshToken = PublishRelay<Void>()
     
+    let textSubject = PublishSubject<String>()
+    
     var isClick = false
-    var data = [MainCell.self, ApprovedCell.self]
+    var cellArray = BehaviorRelay(value: [MainCell.self, ApprovedCell.self])
     var nowPage: Int = 0
     
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = UIColor(named: "main-8")
-        collectionView.layer.cornerRadius = 12
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.isScrollEnabled = false
-        collectionView.register(MainCell.self, forCellWithReuseIdentifier: MainCell.id)
-        collectionView.register(ApprovedCell.self, forCellWithReuseIdentifier: ApprovedCell.id)
-        return collectionView
-    }()
+    
+    private lazy var collctionViewLayout = UICollectionViewFlowLayout().then {
+        $0.scrollDirection = .horizontal
+        $0.itemSize = .init(width: view.frame.width - 40, height: 150)
+    }
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collctionViewLayout).then {
+        $0.backgroundColor = UIColor(named: "main-8")
+        $0.layer.cornerRadius = 12
+        $0.showsHorizontalScrollIndicator = false
+        $0.isScrollEnabled = false
+        $0.register(MainCell.self, forCellWithReuseIdentifier: MainCell.id)
+        $0.register(ApprovedCell.self, forCellWithReuseIdentifier: ApprovedCell.id)
+    }
     private let searchTextField = SearchTextField(placeholder: "청원을 검색해보세요.")
     private let searchButton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "searchIcon"), for: .normal)
@@ -54,8 +57,6 @@ class MainViewController: BaseVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.delegate = self
-        collectionView.dataSource = self
         bannerTimer()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -120,7 +121,7 @@ class MainViewController: BaseVC {
         }
 
     }
-
+    
     override func bind() {
         super.bind()
         
@@ -140,27 +141,42 @@ class MainViewController: BaseVC {
                 }
             }).disposed(by: disposeBag)
     }
-    let textSubject = PublishSubject<String>()
 
     override func subscribe() {
         super.subscribe()
         
+        cellArray.bind(to: collectionView.rx.items){ (cv, row, item) in
+            
+            if row == 0 {
+                let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: IndexPath.init(row: row, section: 0)) as! MainCell
+                return cell
+            } else {
+                let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "ApprovedCell", for: IndexPath.init(row: row, section: 0)) as! ApprovedCell
+                cell.moveButton.rx.tap
+                    .subscribe(onNext: {
+                        self.tabBarController?.selectedIndex = 2
+                    }).disposed(by: self.disposeBag)
+                return cell
+            }
+        }.disposed(by: disposeBag)
+       
+        
         searchTextField.rx.text
-                 .orEmpty
-                 .bind(to: textSubject)
-                 .disposed(by: disposeBag)
-
-        searchButton.rx.tap
-                    .withLatestFrom(textSubject)
-                    .bind(to: PetitionViewController.sharedText)
-                    .disposed(by: disposeBag)
+            .orEmpty
+            .bind(to: textSubject)
+            .disposed(by: disposeBag)
         
         searchButton.rx.tap
-              .subscribe(onNext: { [weak self] in
-                  self?.tabBarController?.selectedIndex = 2
-              })
-              .disposed(by: disposeBag)
-
+            .withLatestFrom(textSubject)
+            .bind(to: PetitionViewController.sharedText)
+            .disposed(by: disposeBag)
+        
+        searchButton.rx.tap
+            .subscribe(onNext: { [weak self] in
+                self?.tabBarController?.selectedIndex = 2
+            })
+            .disposed(by: disposeBag)
+        
         searchTextField.rx.text.orEmpty
             .subscribe(onNext: {
                 if $0.isEmpty {
@@ -190,33 +206,15 @@ class MainViewController: BaseVC {
     
 }
 
-extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data.count
-    }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.row % 2 == 0 {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: indexPath) as! MainCell
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ApprovedCell", for: indexPath) as! ApprovedCell
-            cell.moveButton.rx.tap
-                .subscribe(onNext: {
-                    self.tabBarController?.selectedIndex = 2
-                }).disposed(by: disposeBag)
-            return cell
-        }
-    }
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
-    }
+extension MainViewController {
+
     func bannerTimer() {
         let _: Timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: true) { (Timer) in
             self.bannerMove()
         }
     }
     func bannerMove() {
-        if nowPage == data.count-1 {
+        if nowPage == cellArray.value.count-1 {
             collectionView.scrollToItem(at: NSIndexPath(item: 0, section: 0) as IndexPath, at: .right, animated: true)
             nowPage = 0
             return
@@ -227,5 +225,5 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         nowPage = Int(scrollView.contentOffset.x) / Int(scrollView.frame.width)
     }
-    
+
 }

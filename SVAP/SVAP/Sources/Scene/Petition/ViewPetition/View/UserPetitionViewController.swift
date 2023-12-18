@@ -5,9 +5,10 @@ import RxCocoa
 class UserPetitionViewController: BaseVC {
     
     private let disposeBag = DisposeBag()
+
     private let viewModel = UserPetitionViewModel()
     private let viewAppear = PublishRelay<Void>()
-    
+
     private let leftbutton = UIButton(type: .system).then {
         $0.setImage(UIImage(named: "leftArrow"), for: .normal)
         $0.tintColor = UIColor(named: "gray-700")
@@ -19,7 +20,7 @@ class UserPetitionViewController: BaseVC {
         $0.separatorStyle = .none
     }
     private let scrollButton = ScrollButton(type: .system)
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.hidesBackButton = false

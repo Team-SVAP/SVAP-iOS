@@ -9,6 +9,7 @@ class ApprovedCell: UICollectionViewCell {
     private let disposeBag = DisposeBag()
     
     static let id = "ApprovedCell"
+    
     let cellImage = UIImageView(image: UIImage(named: "approvedCell"))
     let moveButton = UIButton(type: .system).then {
         $0.setTitle("바로가기", for: .normal)

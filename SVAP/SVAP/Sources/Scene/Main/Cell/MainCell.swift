@@ -5,6 +5,7 @@ import Then
 class MainCell: UICollectionViewCell {
     
     static let id = "MainCell"
+    
     let cellImage = UIImageView(image: UIImage(named: "mainCell"))
     override init(frame: CGRect) {
         super.init(frame: frame)
