@@ -157,7 +157,6 @@
 		884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdViewModel.swift; sourceTree = "<group>"; };
 		884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignupViewModel.swift; sourceTree = "<group>"; };
 		884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionTypeButton.swift; sourceTree = "<group>"; };
-		884C784A2B32AC140083CFE7 /* SVAP-DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "SVAP-DesignSystem"; path = "../../SVAP-DesignSystem"; sourceTree = "<group>"; };
 		8855542E2AF38D0B0025747E /* DetailPetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewModel.swift; sourceTree = "<group>"; };
 		885554622AF643490025747E /* DetailPetitionAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionAlertViewModel.swift; sourceTree = "<group>"; };
 		885554652AF643560025747E /* PetitionReportAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionReportAlertViewModel.swift; sourceTree = "<group>"; };
@@ -288,7 +287,6 @@
 		882E63082AB5FA2700BFE332 = {
 			isa = PBXGroup;
 			children = (
-				884C784A2B32AC140083CFE7 /* SVAP-DesignSystem */,
 				882E63132AB5FA2700BFE332 /* SVAP */,
 				882E63122AB5FA2700BFE332 /* Products */,
 				88A293712AC3A857007B4469 /* Frameworks */,
