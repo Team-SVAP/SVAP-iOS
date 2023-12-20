@@ -120,8 +120,6 @@ class PetitionCreateViewController: BaseVC {
         super.configureUI()
         
         [
-//            navigationTitleLabel,
-//            rightButton,
             titleLabel,
             titleTextField,
             typeLabel,
@@ -143,15 +141,7 @@ class PetitionCreateViewController: BaseVC {
     }
     override func setupConstraints() {
         super.setupConstraints()
-        
-//        navigationTitleLabel.snp.makeConstraints {
-//            $0.centerX.equalToSuperview()
-//            $0.top.equalToSuperview().inset(80)
-//        }
-//        rightButton.snp.makeConstraints {
-//            $0.top.equalToSuperview().inset(80)
-//            $0.right.equalToSuperview().inset(20)
-//        }
+
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(104)
             $0.left.equalToSuperview().inset(20)
@@ -461,7 +451,7 @@ extension PetitionCreateViewController {
                 }
                 
                 
-                let data = thumbnail.jpegData(compressionQuality: 0.7)
+                let data = thumbnail.jpegData(compressionQuality: 0.1)
                 let newImage = UIImage(data: data!)
                 
                 imageArr.append(data ?? Data())

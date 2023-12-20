@@ -81,23 +81,6 @@ class PasswordChangeViewController: BaseVC {
         }
         
     }
-    override func bind() {
-        super.bind()
-        
-        //        let input = PetitionCreateViewModel.Input(
-        //            title: titleTextField.rx.text.orEmpty.asDriver(),
-        //            types: "SCHOOL",
-        //            location: placeTextField.rx.text.orEmpty.asDriver(),
-        //            content: contentTextView.rx.text.orEmpty.asDriver(),
-        //            images: dataImage,
-        //            imageURL: imageArray,
-        //            doneTap: dummyButton.rx.tap.asSignal(onErrorJustReturn: ()),
-        //            successSignal: successSignal.asSignal()
-        //        )
-        //
-        //        let output = viewModel.transform(input)
-        
-    }
     override func subscribe() {
         super.subscribe()
         

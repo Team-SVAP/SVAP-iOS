@@ -183,12 +183,4 @@ class MyPageViewController: BaseVC {
         
     }
     
-    private func labelSetting(_ label: UILabel) {
-        let attributedString = NSMutableAttributedString(string: label.text!)
-        
-        attributedString.addAttribute(.font, value: UIFont(name: "IBMPlexSansKR-Regular", size: 14)!, range: (label.text! as NSString).range(of: "*"))
-        attributedString.addAttribute(.foregroundColor, value: UIColor.red, range: (label.text! as NSString).range(of:"*"))
-        label.attributedText = attributedString
-    }
-    
 }

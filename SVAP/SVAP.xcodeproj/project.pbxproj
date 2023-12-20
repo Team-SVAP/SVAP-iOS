@@ -157,11 +157,11 @@
 		884A91922AD9A7A300AE1E14 /* UserIdViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdViewModel.swift; sourceTree = "<group>"; };
 		884A91972AD9B84400AE1E14 /* UserSignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSignupViewModel.swift; sourceTree = "<group>"; };
 		884A91992ADAE1E700AE1E14 /* PetitionTypeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionTypeButton.swift; sourceTree = "<group>"; };
+		884C784B2B32AEFD0083CFE7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8855542E2AF38D0B0025747E /* DetailPetitionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewModel.swift; sourceTree = "<group>"; };
 		885554622AF643490025747E /* DetailPetitionAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionAlertViewModel.swift; sourceTree = "<group>"; };
 		885554652AF643560025747E /* PetitionReportAlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionReportAlertViewModel.swift; sourceTree = "<group>"; };
 		885A74932AC2ED4A00EC3F1A /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
-		885A74952AC2F6A200EC3F1A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8867D3E12ADD438F0048B205 /* PetitionReportAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetitionReportAlert.swift; sourceTree = "<group>"; };
 		8867D3E52ADE4D550048B205 /* ScrollButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollButton.swift; sourceTree = "<group>"; };
 		8867D3EA2ADF7E090048B205 /* DetailPetitionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionAlert.swift; sourceTree = "<group>"; };
@@ -248,7 +248,6 @@
 			children = (
 				88152F672AE8EA85002CB48D /* PetitionViewModel.swift */,
 				8855542E2AF38D0B0025747E /* DetailPetitionViewModel.swift */,
-				8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -486,7 +485,6 @@
 			children = (
 				88A6CC882AC18A3600BF36C3 /* PetitionViewController.swift */,
 				884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */,
-				884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -604,6 +602,7 @@
 			isa = PBXGroup;
 			children = (
 				8867D3EF2ADF9D400048B205 /* MyPageViewModel.swift */,
+				8867D3F62AE0BACA0048B205 /* UserPetitionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -620,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				88C8FA562B288B3800C039A2 /* MyPageViewController.swift */,
+				884A91862AD8387B00AE1E14 /* UserPetitionViewController.swift */,
 				88C8FA592B288E2600C039A2 /* UserInfoModifyViewController.swift */,
 				88C8FA5B2B2891F200C039A2 /* PasswordChangeViewController.swift */,
 			);
@@ -668,7 +668,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 1510;
 				TargetAttributes = {
 					882E63102AB5FA2700BFE332 = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -681,6 +681,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 882E63082AB5FA2700BFE332;
 			packageReferences = (
@@ -804,7 +805,7 @@
 		882E631F2AB5FA2800BFE332 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				885A74952AC2F6A200EC3F1A /* en */,
+				884C784B2B32AEFD0083CFE7 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

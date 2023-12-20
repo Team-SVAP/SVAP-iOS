@@ -1,6 +1,4 @@
 import UIKit
-import SnapKit
-import Then
 
 class CustomButton: UIButton {
     private func setup(title: String, titleColor: UIColor, backgroundColor: UIColor) {

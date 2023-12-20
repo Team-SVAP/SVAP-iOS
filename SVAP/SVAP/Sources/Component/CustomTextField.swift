@@ -1,6 +1,4 @@
 import UIKit
-import SnapKit
-import Then
 
 class CustomTextField: UITextField {
     
