@@ -235,7 +235,7 @@ class DetailPetitionViewController: BaseVC {
                     self.voteButton.setTitle("찬성 취소", for: .normal)
                     self.isClick = true
                 }
-                if data.accountId == UserIdData.shared.userId {
+                if data.accountId == UserDefaults.standard.string(forKey: "userID") {
                     self.menuButton.isHidden = false
                 } else {
                     self.menuButton.isHidden = true

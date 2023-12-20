@@ -46,7 +46,6 @@
 		8849DA0C2B15F1D600708256 /* TabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA0B2B15F1D600708256 /* TabBarVC.swift */; };
 		8849DA412B18991300708256 /* BSImagePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 8849DA402B18991300708256 /* BSImagePicker */; };
 		8849DA452B189A9600708256 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DA442B189A9600708256 /* CustomImageView.swift */; };
-		8849DAD02B2153BD00708256 /* UserIdData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DACF2B2153BD00708256 /* UserIdData.swift */; };
 		8849DAD22B238B0600708256 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8849DAD12B238B0600708256 /* Storage.swift */; };
 		884A91362ACF7C8E00AE1E14 /* DetailPetitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */; };
 		884A91382ACFE5B300AE1E14 /* CustomTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 884A91372ACFE5B300AE1E14 /* CustomTextView.swift */; };
@@ -136,7 +135,6 @@
 		8849D9E12B138E1B00708256 /* TokenModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenModel.swift; sourceTree = "<group>"; };
 		8849DA0B2B15F1D600708256 /* TabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarVC.swift; sourceTree = "<group>"; };
 		8849DA442B189A9600708256 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
-		8849DACF2B2153BD00708256 /* UserIdData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIdData.swift; sourceTree = "<group>"; };
 		8849DAD12B238B0600708256 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		884A91352ACF7C8E00AE1E14 /* DetailPetitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPetitionViewController.swift; sourceTree = "<group>"; };
 		884A91372ACFE5B300AE1E14 /* CustomTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextView.swift; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				884A91442AD2745900AE1E14 /* SignupInfo.swift */,
-				8849DACF2B2153BD00708256 /* UserIdData.swift */,
 				8849DAD12B238B0600708256 /* Storage.swift */,
 			);
 			path = Data;
@@ -746,7 +743,6 @@
 				8849D97A2B0C6F8C00708256 /* ImageCell.swift in Sources */,
 				884A91452AD2745900AE1E14 /* SignupInfo.swift in Sources */,
 				885554662AF643560025747E /* PetitionReportAlertViewModel.swift in Sources */,
-				8849DAD02B2153BD00708256 /* UserIdData.swift in Sources */,
 				882E63472AB6054700BFE332 /* CustomButton.swift in Sources */,
 				882E63152AB5FA2700BFE332 /* AppDelegate.swift in Sources */,
 				88C8FA662B2B16D200C039A2 /* DataModel.swift in Sources */,

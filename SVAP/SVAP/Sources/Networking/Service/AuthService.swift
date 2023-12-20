@@ -15,7 +15,7 @@ final class AuthService {
             .map{ response -> networkingResult in
                 Token.accessToken = response.accessToken
                 Token.refreshToken = response.refreshToken
-                UserIdData.shared.userId = id
+                UserDefaults.standard.setValue(id, forKey: "userID")
                 return .ok
             }
             .catch{[unowned self] in return .just(setNetworkError($0))}
@@ -39,7 +39,9 @@ final class AuthService {
                 print("Success")
                 return .ok
             }
-            .catch{[unowned self] in return .just(setNetworkError($0))}
+            .catch{ [unowned self] in
+                return .just(setNetworkError($0))
+            }
     }
     
     func passwordCheck(_ password: String) -> Single<networkingResult> {
