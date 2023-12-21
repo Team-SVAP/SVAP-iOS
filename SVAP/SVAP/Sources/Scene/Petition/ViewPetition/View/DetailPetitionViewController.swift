@@ -1,23 +1,23 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import Moya
 import Kingfisher
 
 class DetailPetitionViewController: BaseVC {
     
-    
     private let disposeBag = DisposeBag()
     private let viewModel = DetailPetitionViewModel()
     private let viewAppear = PublishRelay<Void>()
-    
+
     var isClick = false
+
     var imageArray: [String] = []
-    
+    var dataImageArray = BehaviorRelay<[String]>(value: [])
+
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let mainView = UIView()
-    
+
     private let topPaddingView = UIView().then {
         $0.backgroundColor = .white
     }
@@ -58,16 +58,17 @@ class DetailPetitionViewController: BaseVC {
     private let bottomLineView = UIView().then {
         $0.backgroundColor = UIColor(named: "gray-200")
     }
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.isPagingEnabled = true
-        collectionView.layer.cornerRadius = 8
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: "ImageCell")
-        return collectionView
-    }()
+    private lazy var collctionViewLayout = UICollectionViewFlowLayout().then {
+        $0.scrollDirection = .horizontal
+        $0.itemSize = .init(width: view.frame.width - 40, height: 250)
+    }
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collctionViewLayout).then {
+        $0.backgroundColor = .white
+        $0.isPagingEnabled = true
+        $0.layer.cornerRadius = 8
+        $0.showsHorizontalScrollIndicator = false
+        $0.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.id)
+    }
     private let voteLabel = UILabel().then {
         $0.text = "청원 투표하기"
         $0.textColor = UIColor(named: "gray-800")
@@ -97,8 +98,6 @@ class DetailPetitionViewController: BaseVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewAppear.accept(())
-        collectionView.delegate = self
-        collectionView.dataSource = self
         navigationBarSetting()
     }
     override func configureUI() {
@@ -241,13 +240,19 @@ class DetailPetitionViewController: BaseVC {
                     self.menuButton.isHidden = true
                 }
                 self.imageArray = data.imgUrl ?? []
+                self.dataImageArray.accept(self.imageArray)
                 self.collectionView.reloadData()
             }).disposed(by: disposeBag)
+        
+        dataImageArray.bind(to: collectionView.rx.items(cellIdentifier: ImageCell.id, cellType: ImageCell.self)) { row, item, cell in
+            cell.cellImageView.kf.setImage(with: URL(string: self.imageArray[row]))
+            cell.imageDeleteButton.isHidden = true
+        }.disposed(by: disposeBag)
 
     }
     override func subscribe() {
         super.subscribe()
-        
+
         voteButton.rx.tap
             .subscribe(onNext: {
                 self.isClick.toggle()
@@ -288,24 +293,6 @@ class DetailPetitionViewController: BaseVC {
         navigationItem.titleView = navigationBarTitle
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: leftbutton)
         navigationController?.isNavigationBarHidden = false
-    }
-    
-}
-
-extension DetailPetitionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ImageCell", for: indexPath) as! ImageCell
-        cell.cellImageView.kf.setImage(with: URL(string: imageArray[indexPath.row]))
-        cell.imageDeleteButton.isHidden = true
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
     
 }

@@ -96,17 +96,17 @@ class PetitionCreateViewController: BaseVC {
         $0.layer.borderWidth = 0
         $0.backgroundColor = UIColor(named: "gray-100")
     }
-    private let collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.itemSize = .init(width: 70, height: 70)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.backgroundColor = .white
-        collectionView.layer.cornerRadius = 8
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.id)
-        return collectionView
-    }()
+    private lazy var collctionViewLayout = UICollectionViewFlowLayout().then {
+        $0.scrollDirection = .horizontal
+        $0.itemSize = .init(width: 70, height: 70)
+    }
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: collctionViewLayout).then {
+        $0.backgroundColor = .white
+        $0.layer.cornerRadius = 8
+        $0.showsHorizontalScrollIndicator = false
+        $0.isScrollEnabled = false
+        $0.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.id)
+    }
     private let cameraIcon = UIImageView(image: UIImage(named: "camera"))
     
     override func viewDidLoad() {
