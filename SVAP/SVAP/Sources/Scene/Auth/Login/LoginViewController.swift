@@ -3,7 +3,7 @@ import RxSwift
 import RxCocoa
 import Moya
 
-class LoginViewController: BaseVC, UITextFieldDelegate {
+class LoginViewController: BaseVC {
     
     private let viewModel = LoginViewModel()
     private let disposeBag = DisposeBag()
@@ -110,7 +110,8 @@ class LoginViewController: BaseVC, UITextFieldDelegate {
         
         output.result.subscribe(onNext: { bool in
             if bool {
-                self.pushViewController(TabBarVC())
+                let vc = TabBarVC()
+                self.pushViewController(vc)
             } else {
                 self.loginFailLabel.text = "아이디 또는 비밀번호를 확인하세요."
             }

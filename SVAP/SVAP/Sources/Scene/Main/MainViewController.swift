@@ -18,7 +18,6 @@ class MainViewController: BaseVC {
     var nowPage: Int = 0
     
     private let logoImage = UIImageView(image: UIImage(named: "shadowLogo"))
-    
     private lazy var collctionViewLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
         $0.itemSize = .init(width: view.frame.width - 40, height: 150)

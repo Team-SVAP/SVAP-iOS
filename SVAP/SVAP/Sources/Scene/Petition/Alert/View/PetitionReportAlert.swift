@@ -84,9 +84,9 @@ class PetitionReportAlert: UIViewController {
         let input = PetitionReportAlertViewModel.Input(
             petitionId: PetitionIdModel.shared.id,
             reportTap: reportButton.rx.tap.asSignal())
-        
+
         let output = viewModel.transform(input)
-        
+
         output.result.subscribe(onNext: { bool in
             if bool {
                 self.dismiss(animated: true)

@@ -1,7 +1,7 @@
 import UIKit
 
 class CustomTextField: UITextField {
-    
+
     private var placeholderText: String = ""
 
     init(

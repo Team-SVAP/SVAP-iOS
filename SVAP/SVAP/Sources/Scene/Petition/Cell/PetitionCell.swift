@@ -5,7 +5,9 @@ import Then
 class PetitionCell: UITableViewCell {
     
     static let cellId = "PetitionCell"
+    
     var id: Int = 0
+    
     let titleLabel = UILabel().then {
         $0.textColor = UIColor(named: "gray-800")
         $0.font = UIFont(name: "IBMPlexSansKR-Medium", size: 14)
@@ -71,5 +73,7 @@ class PetitionCell: UITableViewCell {
             $0.top.equalTo(placeLabel.snp.bottom).offset(2)
             $0.left.right.equalToSuperview().inset(13)
         }
+
     }
+
 }

@@ -3,7 +3,6 @@ import RxSwift
 import RxCocoa
 
 class OnboardingViewController: BaseVC {
-    //userDefault를 이용해서 온보딩 페이지로 만들기 처음에만 or 토큰?이 없을 때 보여주는
     
     private let disposeBag = DisposeBag()
     
@@ -66,5 +65,5 @@ class OnboardingViewController: BaseVC {
                 self.pushViewController(UserIdViewController())
             }).disposed(by: disposeBag)
     }
-    
+
 }
