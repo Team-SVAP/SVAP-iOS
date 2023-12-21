@@ -61,7 +61,7 @@ final class AuthService {
             .map{ response -> networkingResult in
                 Token.accessToken = response.accessToken
                 Token.refreshToken = response.refreshToken
-                UserIdData.shared.userId = signup.accountId.value
+                UserDefaults.standard.setValue(signup.accountId.value, forKey: "userID")
                 return .createOk
             }
             .catch{[unowned self] in return .just(setNetworkError($0))}
