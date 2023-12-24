@@ -108,17 +108,17 @@ class PetitionCreateViewController: BaseVC {
         $0.register(ImageCell.self, forCellWithReuseIdentifier: ImageCell.id)
     }
     private let cameraIcon = UIImageView(image: UIImage(named: "camera"))
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         labelArray.forEach({ labelSetting($0) })
         navigationBarSetting()
         alertSetting()
     }
-    
+
     override func configureUI() {
         super.configureUI()
-        
+    
         [
             titleLabel,
             titleTextField,
