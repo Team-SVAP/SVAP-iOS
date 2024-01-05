@@ -80,22 +80,22 @@ class CustomMenu: UIViewController {
     }
     func subscribe() {
         schoolPetitionButton.rx.tap
-            .subscribe(onNext: {
-                self.closure("학교 청원")
-                self.petitionType("SCHOOL")
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.closure("학교 청원")
+                self?.petitionType("SCHOOL")
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         dormitoryPetitionButton.rx.tap
-            .subscribe(onNext: {
-                self.closure("기숙사 청원")
-                self.petitionType("DORMITORY")
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.closure("기숙사 청원")
+                self?.petitionType("DORMITORY")
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         slashButton.rx.tap
-            .subscribe(onNext: {
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
     }
     

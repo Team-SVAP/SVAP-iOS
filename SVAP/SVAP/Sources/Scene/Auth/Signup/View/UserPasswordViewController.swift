@@ -113,11 +113,11 @@ class UserPasswordViewController: BaseVC {
         )
         let output = viewModel.transform(input)
         
-        output.result.subscribe(onNext: { bool in
+        output.result.subscribe(onNext: { [weak self] bool in
             if bool {
-                self.pushViewController(UserNameViewController())
+                self?.pushViewController(UserNameViewController())
             } else {
-                self.passwordValidLabel.text = "비밀번호를 다시 확인해주세요"
+                self?.passwordValidLabel.text = "비밀번호를 다시 확인해주세요"
             }
         }).disposed(by: disposeBag)
     }
@@ -128,42 +128,42 @@ class UserPasswordViewController: BaseVC {
         let textfield = Observable.combineLatest(passwordTextField.rx.text.orEmpty.changed, passwordValidTextField.rx.text.orEmpty.changed)
         textfield
             .map{ $0.count != 0 && $1.count != 0 && $0 == $1 }
-            .subscribe(onNext: { change in
-                self.nextButton.isEnabled = change
+            .subscribe(onNext: { [weak self] change in
+                self?.nextButton.isEnabled = change
                 switch change {
                     case true:
-                        SignupInfo.shared.password.accept(self.passwordTextField.text)
-                        self.passwordValidLabel.text = ""
-                        self.nextButton.backgroundColor = UIColor(named: "main-2")
-                        self.nextButton.isEnabled = true
+                        SignupInfo.shared.password.accept(self?.passwordTextField.text)
+                        self?.passwordValidLabel.text = ""
+                        self?.nextButton.backgroundColor = UIColor(named: "main-2")
+                        self?.nextButton.isEnabled = true
                     case false:
-                        self.nextButton.backgroundColor = UIColor(named: "main-4")
-                        self.nextButton.isEnabled = false
-                        self.passwordValidLabel.text = "비밀번호를 다시 확인해주세요."
+                        self?.nextButton.backgroundColor = UIColor(named: "main-4")
+                        self?.nextButton.isEnabled = false
+                        self?.passwordValidLabel.text = "비밀번호를 다시 확인해주세요."
                 }
             }).disposed(by: disposeBag)
         
         passwordTextField.rx.text.orEmpty
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 if $0.isEmpty == true {
-                    self.passwordTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+                    self?.passwordTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
                 } else {
-                    self.passwordTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
+                    self?.passwordTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
                 }
             }).disposed(by: disposeBag)
         
         passwordValidTextField.rx.text.orEmpty
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 if $0.isEmpty == true {
-                    self.passwordValidTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+                    self?.passwordValidTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
                 } else {
-                    self.passwordValidTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
+                    self?.passwordValidTextField.layer.borderColor = UIColor(named: "main-2")?.cgColor
                 }
             }).disposed(by: disposeBag)
         
         loginButton.rx.tap
-            .subscribe(onNext: {
-                self.pushViewController(LoginViewController())
+            .subscribe(onNext: { [weak self] in
+                self?.pushViewController(LoginViewController())
             }).disposed(by: disposeBag)
     }
 }

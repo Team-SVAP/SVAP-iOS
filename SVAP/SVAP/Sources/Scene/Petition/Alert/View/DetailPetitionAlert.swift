@@ -80,10 +80,10 @@ class DetailPetitionAlert: BaseVC {
         )
         let output = viewModel.transform(input)
         
-        output.deleteResult.subscribe(onNext: { bool in
+        output.deleteResult.subscribe(onNext: { [weak self] bool in
             if bool {
-                self.dismiss(animated: true, completion: {
-                    self.clickToPop()
+                self?.dismiss(animated: true, completion: {
+                    self?.clickToPop()
                 })
             } else {
                 print("Fail")
@@ -100,8 +100,8 @@ class DetailPetitionAlert: BaseVC {
             }).disposed(by: disposeBag)
 
         closeButton.rx.tap
-            .subscribe(onNext: {
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
 
     }

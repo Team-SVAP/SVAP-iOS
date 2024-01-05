@@ -56,13 +56,13 @@ class OnboardingViewController: BaseVC {
         super.subscribe()
         
         loginButton.rx.tap
-            .subscribe(onNext: {
-                self.pushViewController(LoginViewController())
+            .subscribe(onNext: { [weak self] in
+                self?.pushViewController(LoginViewController())
             }).disposed(by: disposeBag)
         
         signupButton.rx.tap
-            .subscribe(onNext: {
-                self.pushViewController(UserIdViewController())
+            .subscribe(onNext: { [weak self] in
+                self?.pushViewController(UserIdViewController())
             }).disposed(by: disposeBag)
     }
 

@@ -91,41 +91,41 @@ class UserInfoModifyViewController: BaseVC {
         super.subscribe()
         
         leftButton.rx.tap
-            .subscribe(onNext: {
-                self.popViewController()
+            .subscribe(onNext: { [weak self] in
+                self?.popViewController()
             }).disposed(by: disposeBag)
         
         passwordChageButton.rx.tap
-            .subscribe(onNext: {
-                self.pushViewController(PasswordChangeViewController())
+            .subscribe(onNext: { [weak self] in
+                self?.pushViewController(PasswordChangeViewController())
             }).disposed(by: disposeBag)
         
         nameTextField.rx.text.orEmpty
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 if $0.isEmpty {
-                    self.nameTextField.layer.borderColor(UIColor(named: "gray-400")!)
+                    self?.nameTextField.layer.borderColor(UIColor(named: "gray-400")!)
                 } else {
-                    self.nameTextField.layer.borderColor(UIColor(named: "main-1")!)
+                    self?.nameTextField.layer.borderColor(UIColor(named: "main-1")!)
                 }
             }).disposed(by: disposeBag)
         
         idTextField.rx.text.orEmpty
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 if $0.isEmpty {
-                    self.idTextField.layer.borderColor(UIColor(named: "gray-400")!)
+                    self?.idTextField.layer.borderColor(UIColor(named: "gray-400")!)
                 } else {
-                    self.idTextField.layer.borderColor(UIColor(named: "main-1")!)
+                    self?.idTextField.layer.borderColor(UIColor(named: "main-1")!)
                 }
             }).disposed(by: disposeBag)
         
         let text = Observable.combineLatest(nameTextField.rx.text, idTextField.rx.text)
-        text.subscribe(onNext: {
+        text.subscribe(onNext: { [weak self] in
             if ($0!.count != 0 && $1!.count != 0) {
-                self.rightButton.isEnabled = true
-                self.rightButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
+                self?.rightButton.isEnabled = true
+                self?.rightButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
             } else {
-                self.rightButton.isEnabled = false
-                self.rightButton.setTitleColor(UIColor(named: "gray-600"), for: .normal)
+                self?.rightButton.isEnabled = false
+                self?.rightButton.setTitleColor(UIColor(named: "gray-600"), for: .normal)
             }
         }).disposed(by: disposeBag)
         

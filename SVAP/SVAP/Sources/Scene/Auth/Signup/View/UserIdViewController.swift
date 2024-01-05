@@ -100,12 +100,12 @@ class UserIdViewController: BaseVC {
         )
         let output = viewModel.transform(input)
         
-        output.result.subscribe(onNext: { bool in
+        output.result.subscribe(onNext: { [weak self] bool in
             if bool {
-                SignupInfo.shared.accountId.accept(self.idTextField.text)
-                self.pushViewController(UserPasswordViewController())
+                SignupInfo.shared.accountId.accept(self?.idTextField.text)
+                self?.pushViewController(UserPasswordViewController())
             } else {
-                self.idDuplicationLabel.text = "아이디를 확인해주세요"
+                self?.idDuplicationLabel.text = "아이디를 확인해주세요"
             }
         }).disposed(by: disposeBag)
     }
@@ -113,22 +113,22 @@ class UserIdViewController: BaseVC {
     override func subscribe() {
         
         idTextField.rx.text
-            .subscribe(onNext: { text in
+            .subscribe(onNext: { [weak self] text in
                 if text!.isEmpty {
-                    self.idTextField.layer.borderColor(UIColor(named: "gray-300")!)
-                    self.nextButton.backgroundColor = UIColor(named: "main-4")
-                    self.nextButton.isEnabled = false
+                    self?.idTextField.layer.borderColor(UIColor(named: "gray-300")!)
+                    self?.nextButton.backgroundColor = UIColor(named: "main-4")
+                    self?.nextButton.isEnabled = false
                 } else {
-                    self.idTextField.layer.borderColor(UIColor(named: "main-2")!)
-                    self.nextButton.backgroundColor = UIColor(named: "main-2")
-                    self.nextButton.isEnabled = true
-                    self.idDuplicationLabel.text = nil
+                    self?.idTextField.layer.borderColor(UIColor(named: "main-2")!)
+                    self?.nextButton.backgroundColor = UIColor(named: "main-2")
+                    self?.nextButton.isEnabled = true
+                    self?.idDuplicationLabel.text = nil
                 }
             }).disposed(by: disposeBag)
         
         loginButton.rx.tap
-            .subscribe(onNext: {
-                self.pushViewController(LoginViewController())
+            .subscribe(onNext: { [weak self] in
+                self?.pushViewController(LoginViewController())
             }).disposed(by: disposeBag)
         
     }

@@ -266,26 +266,26 @@ class DetailPetitionViewController: BaseVC {
             }).disposed(by: disposeBag)
         
         leftbutton.rx.tap
-            .subscribe(onNext: {
-                self.popViewController()
+            .subscribe(onNext: { [weak self] in
+                self?.popViewController()
             }).disposed(by: disposeBag)
         
         menuButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 let modal = DetailPetitionAlert(popCompletion: {
-                    self.popViewController()
+                    self?.popViewController()
                 })
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve
-                self.present(modal, animated: true)
+                self?.present(modal, animated: true)
             }).disposed(by: disposeBag)
         
         reportPetitionButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 let modal = PetitionReportAlert()
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve
-                self.present(modal, animated: true)
+                self?.present(modal, animated: true)
             }).disposed(by: disposeBag)
     }
     

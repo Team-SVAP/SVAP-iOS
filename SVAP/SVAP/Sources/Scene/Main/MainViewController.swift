@@ -61,7 +61,7 @@ class MainViewController: BaseVC {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewAppear.accept(())
-        refreshToken.accept(())//403 뜰 때만 하고싶은데..
+        refreshToken.accept(())
     }
     override func configureUI() {
         [
@@ -131,12 +131,12 @@ class MainViewController: BaseVC {
         let output = viewModel.transform(input)
         
         output.popularPetition.asObservable()
-            .subscribe(onNext: { data in
+            .subscribe(onNext: { [weak self] data in
                 if data.title != "" && data.content != ""  {
-                    self.famousPetitionTitleLabel.text = data.title
-                    self.famousPetitionContentLabel.text = data.content
+                    self?.famousPetitionTitleLabel.text = data.title
+                    self?.famousPetitionContentLabel.text = data.content
                 } else {
-                    self.famousPetitionTitleLabel.text = "Petition not found"
+                    self?.famousPetitionTitleLabel.text = "Petition not found"
                 }
             }).disposed(by: disposeBag)
     }
@@ -144,17 +144,17 @@ class MainViewController: BaseVC {
     override func subscribe() {
         super.subscribe()
         
-        cellArray.bind(to: collectionView.rx.items){ (cv, row, item) in
+        cellArray.bind(to: collectionView.rx.items){ [weak self] (cv, row, item) in
             
             if row == 0 {
-                let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: IndexPath.init(row: row, section: 0)) as! MainCell
+                let cell = self?.collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: IndexPath.init(row: row, section: 0)) as! MainCell
                 return cell
             } else {
-                let cell = self.collectionView.dequeueReusableCell(withReuseIdentifier: "ApprovedCell", for: IndexPath.init(row: row, section: 0)) as! ApprovedCell
+                let cell = self?.collectionView.dequeueReusableCell(withReuseIdentifier: "ApprovedCell", for: IndexPath.init(row: row, section: 0)) as! ApprovedCell
                 cell.moveButton.rx.tap
                     .subscribe(onNext: {
-                        self.tabBarController?.selectedIndex = 2
-                    }).disposed(by: self.disposeBag)
+                        self?.tabBarController?.selectedIndex = 2
+                    }).disposed(by: self!.disposeBag)//나중에 수정
                 return cell
             }
         }.disposed(by: disposeBag)
@@ -177,19 +177,19 @@ class MainViewController: BaseVC {
             .disposed(by: disposeBag)
         
         searchTextField.rx.text.orEmpty
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 if $0.isEmpty {
-                    self.searchTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
-                    self.searchButton.isEnabled = false
+                    self?.searchTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+                    self?.searchButton.isEnabled = false
                 } else {
-                    self.searchTextField.layer.borderColor = UIColor(named: "main-3")?.cgColor
-                    self.searchButton.isEnabled = true
+                    self?.searchTextField.layer.borderColor = UIColor(named: "main-3")?.cgColor
+                    self?.searchButton.isEnabled = true
                 }
             }).disposed(by: disposeBag)
         
         viewMoreButton.rx.tap
-            .subscribe(onNext: {
-                self.tabBarController?.selectedIndex = 2
+            .subscribe(onNext: { [weak self] in
+                self?.tabBarController?.selectedIndex = 2
             }).disposed(by: disposeBag)
         viewContentButton.rx.tap
             .subscribe(onNext: {

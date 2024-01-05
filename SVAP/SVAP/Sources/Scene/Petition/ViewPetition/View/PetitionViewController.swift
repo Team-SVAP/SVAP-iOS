@@ -198,18 +198,18 @@ class PetitionViewController: BaseVC {
         super.subscribe()
         
         searchButton.rx.tap
-            .subscribe(onNext: {
-                self.searchPetition.accept(())
+            .subscribe(onNext: { [weak self] in
+                self?.searchPetition.accept(())
             }).disposed(by: disposeBag)
         
         searchTextField.rx.text.orEmpty
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 if $0.isEmpty {
-                    self.searchTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
-                    self.searchButton.isEnabled = false
+                    self?.searchTextField.layer.borderColor = UIColor(named: "gray-300")?.cgColor
+                    self?.searchButton.isEnabled = false
                 } else {
-                    self.searchTextField.layer.borderColor = UIColor(named: "main-3")?.cgColor
-                    self.searchButton.isEnabled = true
+                    self?.searchTextField.layer.borderColor = UIColor(named: "main-3")?.cgColor
+                    self?.searchButton.isEnabled = true
                 }
             }).disposed(by: disposeBag)
 

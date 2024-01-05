@@ -95,14 +95,14 @@ class MyPageAlert: BaseVC {
             }).disposed(by: disposeBag)
         
         cancelButton.rx.tap
-            .subscribe(onNext: {
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         checkButton.rx.tap
-            .subscribe(onNext: {
-                self.clickToAction()
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.clickToAction()
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
     }

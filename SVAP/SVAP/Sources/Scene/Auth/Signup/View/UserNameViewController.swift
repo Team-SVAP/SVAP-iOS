@@ -107,10 +107,10 @@ class UserNameViewController: BaseVC {
         )
         let output = viewModel.transform(input)
         
-        output.signupResult.subscribe(onNext: { bool in
+        output.signupResult.subscribe(onNext: { [weak self] bool in
             if bool {
                 print("Success")
-                self.pushViewController(TabBarVC())
+                self?.pushViewController(TabBarVC())
             } else {
                 print("Fail")
             }
@@ -120,21 +120,21 @@ class UserNameViewController: BaseVC {
     
     override func subscribe() {
         loginButton.rx.tap
-            .subscribe(onNext: {
-                self.pushViewController(LoginViewController())
+            .subscribe(onNext: { [weak self] in
+                self?.pushViewController(LoginViewController())
             }).disposed(by: disposeBag)
         
         nameTextField.rx.text
-            .subscribe(onNext: { text in
+            .subscribe(onNext: { [weak self] text in
                 if text!.isEmpty {
-                    self.nameTextField.layer.borderColor(UIColor(named: "gray-300")!)
-                    self.signupButton.backgroundColor = UIColor(named: "main-4")
-                    self.signupButton.isEnabled = false
+                    self?.nameTextField.layer.borderColor(UIColor(named: "gray-300")!)
+                    self?.signupButton.backgroundColor = UIColor(named: "main-4")
+                    self?.signupButton.isEnabled = false
                 } else{
-                    SignupInfo.shared.userName.accept(self.nameTextField.text)
-                    self.nameTextField.layer.borderColor(UIColor(named: "main-2")!)
-                    self.signupButton.backgroundColor = UIColor(named: "main-2")
-                    self.signupButton.isEnabled = true
+                    SignupInfo.shared.userName.accept(self?.nameTextField.text)
+                    self?.nameTextField.layer.borderColor(UIColor(named: "main-2")!)
+                    self?.signupButton.backgroundColor = UIColor(named: "main-2")
+                    self?.signupButton.isEnabled = true
                 }
             }).disposed(by: disposeBag)
         

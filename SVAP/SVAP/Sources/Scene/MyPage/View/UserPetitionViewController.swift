@@ -70,10 +70,10 @@ class UserPetitionViewController: BaseVC {
         }.disposed(by: disposeBag)
         
         tableView.rx.modelSelected(PetitionModel.self)
-            .subscribe(onNext: { data in
+            .subscribe(onNext: { [weak self] data in
                 let vc = DetailPetitionViewController()
                 PetitionIdModel.shared.id = data.id
-                self.pushViewController(vc)
+                self?.pushViewController(vc)
             }).disposed(by: disposeBag)
         
     }
@@ -81,13 +81,13 @@ class UserPetitionViewController: BaseVC {
         super.subscribe()
         
         leftbutton.rx.tap
-            .subscribe(onNext: {
-                self.popViewController()
+            .subscribe(onNext: { [weak self] in
+                self?.popViewController()
             }).disposed(by: disposeBag)
         
         scrollButton.rx.tap
-            .subscribe(onNext: {
-                self.tableView.setContentOffset(CGPoint(x: 0, y: -65), animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.tableView.setContentOffset(CGPoint(x: 0, y: -65), animated: true)
             }).disposed(by: disposeBag)
     }
     

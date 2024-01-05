@@ -108,12 +108,12 @@ class LoginViewController: BaseVC {
         )
         let output = viewModel.transform(input)
         
-        output.result.subscribe(onNext: { bool in
+        output.result.subscribe(onNext: { [weak self] bool in
             if bool {
                 let vc = TabBarVC()
-                self.pushViewController(vc)
+                self?.pushViewController(vc)
             } else {
-                self.loginFailLabel.text = "아이디 또는 비밀번호를 확인하세요."
+                self?.loginFailLabel.text = "아이디 또는 비밀번호를 확인하세요."
             }
         }).disposed(by: disposeBag)
     }
@@ -124,37 +124,37 @@ class LoginViewController: BaseVC {
         let textField = Observable.combineLatest(idTextField.rx.text.orEmpty, passwordTextField.rx.text.orEmpty)
         textField
             .map{ $0.count != 0 && $1.count != 0 }
-            .subscribe(onNext: { change in
-                self.loginButton.isEnabled = change
+            .subscribe(onNext: { [weak self] change in
+                self?.loginButton.isEnabled = change
                 switch change {
                     case true:
-                        self.loginButton.backgroundColor = UIColor(named: "main-2")
+                        self?.loginButton.backgroundColor = UIColor(named: "main-2")
                     case false:
-                        self.loginButton.backgroundColor = UIColor(named: "main-4")
+                        self?.loginButton.backgroundColor = UIColor(named: "main-4")
                 }
             }).disposed(by: disposeBag)
         
         idTextField.rx.text.orEmpty
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 if $0.isEmpty {
-                    self.idTextField.layer.borderColor(UIColor(named: "gray-300")!)
+                    self?.idTextField.layer.borderColor(UIColor(named: "gray-300")!)
                 } else {
-                    self.idTextField.layer.borderColor(UIColor(named: "main-2")!)
+                    self?.idTextField.layer.borderColor(UIColor(named: "main-2")!)
                 }
             }).disposed(by: disposeBag)
         
         passwordTextField.rx.text.orEmpty
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 if $0.isEmpty {
-                    self.passwordTextField.layer.borderColor(UIColor(named: "gray-300")!)
+                    self?.passwordTextField.layer.borderColor(UIColor(named: "gray-300")!)
                 } else {
-                    self.passwordTextField.layer.borderColor(UIColor(named: "main-2")!)
+                    self?.passwordTextField.layer.borderColor(UIColor(named: "main-2")!)
                 }
             }).disposed(by: disposeBag)
         
         signupButton.rx.tap
-            .subscribe(onNext: {
-                self.pushViewController(UserIdViewController())
+            .subscribe(onNext: { [weak self] in
+                self?.pushViewController(UserIdViewController())
             }).disposed(by: disposeBag)
     }
 }

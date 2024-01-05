@@ -1,6 +1,4 @@
 import UIKit
-import SnapKit
-import Then
 
 class TabBarVC: UITabBarController {
 
@@ -18,8 +16,9 @@ class TabBarVC: UITabBarController {
         tabBar.backgroundColor = .white
 
         let mainViewController = MainViewController()
-        let createPetitionViewController = UINavigationController(rootViewController: PetitionCreateViewController())
-//        let createPetitionViewController = PetitionCreateViewController()
+        let createPetitionViewController = PetitionCreateViewController()
+//        let vc = PetitionCreateViewController()
+//        let createPetitionViewController = UINavigationController(rootViewController: vc)
         let petitionViewController = PetitionViewController()
         let myPageViewController = MyPageViewController()
 

@@ -91,32 +91,32 @@ class PetitionMenu: UIViewController {
             }).disposed(by: disposeBag)
         
         slashButton.rx.tap
-            .subscribe(onNext: {
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         viewRecentPetitonButton.rx.tap
-            .subscribe(onNext: {
-                self.closure("최신순으로 보기")
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.closure("최신순으로 보기")
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         viewAccessPetitionButton.rx.tap
-            .subscribe(onNext: {
-                self.closure("승인된 청원 보기")
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.closure("승인된 청원 보기")
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         viewVotePetitonButton.rx.tap
-            .subscribe(onNext: {
-                self.closure("투표순으로 보기")
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.closure("투표순으로 보기")
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
         viewWaitPetitionButton.rx.tap
-            .subscribe(onNext: {
-                self.closure("검토중인 청원 보기")
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.closure("검토중인 청원 보기")
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
     }
     

@@ -117,8 +117,8 @@ class MyPageViewController: BaseVC {
         let output = viewModel.transform(input)
         
         output.userName.asObservable()
-            .subscribe(onNext: { data in
-                self.userNameLabel.text = "\(data.userName ?? "User not found")님,\n안녕하세요!"
+            .subscribe(onNext: { [weak self] data in
+                self?.userNameLabel.text = "\(data.userName ?? "User not found")님,\n안녕하세요!"
             })
             .disposed(by: disposeBag)
 
@@ -136,21 +136,21 @@ class MyPageViewController: BaseVC {
         super.subscribe()
         
         viewUserPetitionButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 let vc = UserPetitionViewController()
                 vc.hidesBottomBarWhenPushed = true
-                self.pushViewController(vc)
+                self?.pushViewController(vc)
             }).disposed(by: disposeBag)
         
         userInfoModifyButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 let vc = UserInfoModifyViewController()
                 vc.hidesBottomBarWhenPushed = true
-                self.pushViewController(vc)
+                self?.pushViewController(vc)
             }).disposed(by: disposeBag)
         
         logoutButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 let modal = MyPageAlert(
                     questionLabelText: "로그아웃 하시겠습니까?",
                     explainLabelText: "다시 로그인 해야 합니다.",
@@ -158,27 +158,27 @@ class MyPageViewController: BaseVC {
                         Token.removeToken()
                         let vc = LoginViewController()
                         vc.hidesBottomBarWhenPushed = true
-                        self.pushViewController(vc)
+                        self?.pushViewController(vc)
                     })
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve
-                self.present(modal, animated: true)
+                self?.present(modal, animated: true)
             }).disposed(by: disposeBag)
         
         membershipCancelButton.rx.tap
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 let modal = MyPageAlert(
                     questionLabelText: "회원탈퇴 하시겠습니까?",
                     explainLabelText: "계정이 삭제됩니다.",
                     completion: {
-                        self.membershipCancelSiganl.accept(())
+                        self?.membershipCancelSiganl.accept(())
                         let vc = OnboardingViewController()
                         vc.hidesBottomBarWhenPushed = true
-                        self.pushViewController(vc)
+                        self?.pushViewController(vc)
                     })
                 modal.modalPresentationStyle = .overFullScreen
                 modal.modalTransitionStyle = .crossDissolve
-                self.present(modal, animated: true)
+                self?.present(modal, animated: true)
             }).disposed(by: disposeBag)
         
     }

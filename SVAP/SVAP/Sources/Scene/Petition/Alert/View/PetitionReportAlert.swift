@@ -87,9 +87,9 @@ class PetitionReportAlert: UIViewController {
 
         let output = viewModel.transform(input)
 
-        output.result.subscribe(onNext: { bool in
+        output.result.subscribe(onNext: { [weak self] bool in
             if bool {
-                self.dismiss(animated: true)
+                self?.dismiss(animated: true)
             } else {
                 print("Fail")
             }
@@ -105,8 +105,8 @@ class PetitionReportAlert: UIViewController {
             }).disposed(by: disposeBag)
         
         cancelButton.rx.tap
-            .subscribe(onNext: {
-                self.dismiss(animated: true)
+            .subscribe(onNext: { [weak self] in
+                self?.dismiss(animated: true)
             }).disposed(by: disposeBag)
         
     }

@@ -253,34 +253,34 @@ class PetitionCreateViewController: BaseVC {
         }.disposed(by: disposeBag)
 
         rightButton.rx.tap
-            .subscribe(onNext: {
-                if self.image.isEmpty == true {
-                    self.petitionCreateSignal.accept(())
+            .subscribe(onNext: { [weak self] in
+                if self?.image.isEmpty == true {
+                    self?.petitionCreateSignal.accept(())
                 } else {
-                    self.imageSendSignal.accept(())
+                    self?.imageSendSignal.accept(())
                 }
             }).disposed(by: disposeBag)
         
         output.imageResult.asObservable()
-            .subscribe(onNext: { data in
-                self.imageArray.accept(data.imageUrl)
-                self.petitionCreateSignal.accept(())
+            .subscribe(onNext: { [weak self] data in
+                self?.imageArray.accept(data.imageUrl)
+                self?.petitionCreateSignal.accept(())
             }).disposed(by: self.disposeBag)
         
         output.petitionResult.asObservable()
-            .subscribe(onNext: { bool in
+            .subscribe(onNext: { [weak self] bool in
                 if bool {
                     print("청원 성공")
-                    self.titleTextField.text = nil
-                    self.placeTextField.text = nil
-                    self.contentTextView.text = nil
-                    self.petitionTypeLabel.text = nil
-                    self.image.removeAll()
-                    self.dataImage.accept([])
-                    self.imageArray.accept([])
-                    self.collectionView.reloadData()
+                    self?.titleTextField.text = nil
+                    self?.placeTextField.text = nil
+                    self?.contentTextView.text = nil
+                    self?.petitionTypeLabel.text = nil
+                    self?.image.removeAll()
+                    self?.dataImage.accept([])
+                    self?.imageArray.accept([])
+                    self?.collectionView.reloadData()
                     
-                    self.present(self.petitionSuccessAlert, animated: true)
+                    self?.present(self!.petitionSuccessAlert, animated: true)
                 } else {
                     print("청원 실패")
                 }
@@ -297,69 +297,70 @@ class PetitionCreateViewController: BaseVC {
             }).disposed(by: disposeBag)
         
         menuButton.rx.tap
-            .subscribe(onNext: {
-                self.clickMenuButton()
+            .subscribe(onNext: { [weak self] in
+                self?.clickMenuButton()
             }).disposed(by: disposeBag)
         
         titleTextField.rx.text.orEmpty
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 if $0.isEmpty {
-                    self.titleTextField.layer.borderColor(UIColor(named: "gray-400")!)
+                    self?.titleTextField.layer.borderColor(UIColor(named: "gray-400")!)
                 } else {
-                    self.titleTextField.layer.borderColor(UIColor(named: "main-1")!)
+                    self?.titleTextField.layer.borderColor(UIColor(named: "main-1")!)
                 }
             }).disposed(by: disposeBag)
         
         placeTextField.rx.text.orEmpty
-            .subscribe(onNext: {
+            .subscribe(onNext: { [weak self] in
                 if $0.isEmpty {
-                    self.placeTextField.layer.borderColor(UIColor(named: "gray-400")!)
+                    self?.placeTextField.layer.borderColor(UIColor(named: "gray-400")!)
                 } else {
-                    self.placeTextField.layer.borderColor(UIColor(named: "main-1")!)
+                    self?.placeTextField.layer.borderColor(UIColor(named: "main-1")!)
                 }
             }).disposed(by: disposeBag)
         
         contentTextView.rx.didBeginEditing
-            .subscribe(onNext: { [self] in
-                if contentTextView.textColor == UIColor(named: "gray-400") {
-                    contentTextView.text = nil
-                    contentTextView.textColor = UIColor(named: "gray-800")
-                    contentTextView.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
+            .subscribe(onNext: { [weak self] in
+                if self?.contentTextView.textColor == UIColor(named: "gray-400") {
+                    self?.contentTextView.text = nil
+                    self?.contentTextView.textColor = UIColor(named: "gray-800")
+                    self?.contentTextView.font = UIFont(name: "IBMPlexSansKR-Medium", size: 12)
                 }
-                contentTextView.layer.borderColor = UIColor(named: "main-1")?.cgColor
+                self?.contentTextView.layer.borderColor = UIColor(named: "main-1")?.cgColor
                 
-                self.contentTextView.rx.text.orEmpty
-                    .subscribe(onNext: { text in
-                        if self.contentTextView.textColor == UIColor(named: "gray-400") {
-                            self.textCountLabel.text = "0자"
+                self?.contentTextView.rx.text.orEmpty
+                    .subscribe(onNext: { [weak self] text in
+                        if self?.contentTextView.textColor == UIColor(named: "gray-400") {
+                            self?.textCountLabel.text = "0자"
                         } else {
-                            self.textCountLabel.text = "\(text.count)자"
+                            self?.textCountLabel.text = "\(text.count)자"
                         }
-                    }).disposed(by: self.disposeBag)
+                    }).disposed(by: self!.disposeBag)
                 
             }).disposed(by: disposeBag)
+        
         contentTextView.rx.didEndEditing
-            .subscribe(onNext: { [self] in
-                if contentTextView.text.isEmpty {
-                    contentTextView.text = "내용을 입력하세요."
-                    contentTextView.textColor = UIColor(named: "gray-400")
-                    contentTextView.font = UIFont(name: "IBMPlexSansKR-Regular", size: 12)
+            .subscribe(onNext: { [weak self] in
+                if ((self?.contentTextView.text.isEmpty) != nil) {
+                    self?.contentTextView.text = "내용을 입력하세요."
+                    self?.contentTextView.textColor = UIColor(named: "gray-400")
+                    self?.contentTextView.font = UIFont(name: "IBMPlexSansKR-Regular", size: 12)
                 }
-                if contentTextView.textColor == UIColor(named: "gray-400") {
-                    contentTextView.layer.borderColor = UIColor(named: "gray-400")?.cgColor
+                if self?.contentTextView.textColor == UIColor(named: "gray-400") {
+                    self?.contentTextView.layer.borderColor = UIColor(named: "gray-400")?.cgColor
                 } else {
-                    contentTextView.layer.borderColor = UIColor(named: "main-1")?.cgColor
+                    self?.contentTextView.layer.borderColor = UIColor(named: "main-1")?.cgColor
                 }
             }).disposed(by: disposeBag)
         
         let text = Observable.combineLatest(titleTextField.rx.text, contentTextView.rx.text, placeTextField.rx.text)
-        text.subscribe(onNext: {
+        text.subscribe(onNext: { [weak self] in
             if ($0!.count != 0 && $1!.count != 0 && $2!.count != 0) {
-                self.rightButton.isEnabled = true
-                self.rightButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
+                self?.rightButton.isEnabled = true
+                self?.rightButton.setTitleColor(UIColor(named: "main-1"), for: .normal)
             } else {
-                self.rightButton.isEnabled = false
-                self.rightButton.setTitleColor(UIColor(named: "gray-600"), for: .normal)
+                self?.rightButton.isEnabled = false
+                self?.rightButton.setTitleColor(UIColor(named: "gray-600"), for: .normal)
             }
         }).disposed(by: disposeBag)
         
